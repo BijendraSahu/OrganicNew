@@ -271,8 +271,7 @@
                 <form action="{{url('login')}}" method="post" enctype="multipart/form-data"
                       class="form-horizontal" id="frmLogin">
                     <div class="deli_row">
-                        <input type="text" name="email_pass" autocomplete="off" maxlength="10" class="form-control numberOnly login_txt"
-                               placeholder="Mobile Number " id="login_mobile">
+                        <input type="text" name="email_pass" autocomplete="off" maxlength="10" class="form-control numberOnly login_txt" placeholder="Mobile Number" id="login_mobile">
                     </div>
                     <div class="deli_row">
                         <input type="password" name="login_password" autocomplete="off" class="form-control login_txt"
@@ -376,11 +375,12 @@
     </div>
 </div>
 <script type="text/javascript">
-    $('#frmLogin input').keydown(function (e) {
+    $('#frmLogin').keydown(function (e) {
         if (e.keyCode == 13) {
-            $('#form').submit();
+            $('#frmLogin').submit();
         }
     });
+
     function forgotpasswordsend() {
         var contact = $('#fcontact_no').val();
         var result = true;

@@ -265,7 +265,7 @@ class APIController extends Controller
             $rc = rand(10000000, 99999999);
             $otp = rand(100000, 999999);
             $data = new UserMaster();
-            $data->rc = "rc".$rc;
+            $data->rc = "rc" . $rc;
             $data->otp = $otp;
             $data->name = request('name');
             $data->email = request('email');
@@ -589,12 +589,25 @@ class APIController extends Controller
 
         $delivery_charge = DB::selectOne("select delivery_charge from delivery_charges where amount>$total and is_active= '1' and pin = '$address->zip'");
 
+        $selected_point = request('point_amt');
+        $selected_promo = request('promo_amt');
+        if ($selected_point > 0) {
+            $user_master = UserMaster::find($user_id);
+            $user_master->gain_amount -= $selected_point;
+            $user_master->save();
+        }
+
         $order = new OrderMaster();
         $order->order_no = rand(100000, 999999);
         $order->user_id = $user_id;
         $order->address_id = $address_id;
         $order->status = 'Ordered';
         $order->delivery_charge = isset($delivery_charge) ? $delivery_charge : '0';
+        $order->bill_amount = $total;
+        $order->point_pay = $selected_point == '' ? 0 : $selected_point;
+        $order->promo_pay = $selected_promo == '' ? 0 : $selected_promo;
+        $order->paid_amt = request('paid_amount');
+
         $order->save();
         $cart = json_decode(request('cart'));
         foreach ($cart as $row) {
@@ -603,9 +616,58 @@ class APIController extends Controller
             $order_des->item_master_id = $row->item_id;
             $order_des->qty = $row->qty;
             $order_des->unit_price = $row->unit_price;
-            $order_des->total = $row->total;
+            $order_des->total = $row->qty * $row->unit_price;
             $order_des->save();
         }
+
+        $pointAmt = $total * 0.2 / 100;
+
+        $queryResult = DB::select("call getParentId($user_id)");
+        if (count($queryResult) > 0) {
+            if (count($queryResult) >= 4) {
+                for ($i = 0; $i < 4; $i++) {
+                    $puser = UserMaster::find($queryResult[$i]->parent_id);
+                    $puser->gain_amount += $pointAmt;
+                    $puser->save();
+                }
+            } else {
+                foreach ($queryResult as $parent_id) {
+                    $puser = UserMaster::find($parent_id->parent_id);
+                    $puser->gain_amount += $pointAmt;
+                    $puser->save();
+                }
+            }
+        }
+
+        $name = str_replace(' ', '', $address->name);
+
+        file_get_contents("http://api.msg91.com/api/sendhttp.php?sender=CONONE&route=4&mobiles=$address->contact&authkey=213418AONRGdnQ5ae96f62&country=91&message=Dear%20$name,%20Your%20order has%20been%20placed%20your%20order%20no%20is%20OrganicDolchi$order->order_no");
+
+        /********0.2% Amount Distribution*********/
+
+        $allmails = [$address->email];
+
+        foreach ($allmails as $mail) {
+            $email[] = $mail;
+        }
+        if (count($email) > 0) {
+            $mail = new \App\Mail();
+            $mail->to = implode(",", $email);
+            $mail->subject = 'Organic Dolchi - Support Team';
+            $siteurl = 'http://www.organicdolchi.com/';
+            $username = $address->name;
+//                $salutation = ($user->gender == 'male') ? 'Mr.' : 'Mrs.';
+
+            $message = '<table width="650" cellpadding="0" cellspacing="0" align="center" style="background-color:#ececec;padding:40px;font-family:sans-serif;overflow:scroll"><tbody><tr><td><table cellpadding="0" cellspacing="0" align="center" width="100%"><tbody><tr><td><div style="line-height:50px;text-align:center;background-color:#fff;border-radius:5px;padding:20px"><a href="' . $siteurl . '" target="_blank" ><img src="' . $siteurl . 'images/organic_logo.png"></a></div></td></tr><tr><td><div><img src="' . $siteurl . 'images/acknowledgement.jpg" style="height:auto;width:100%;" tabindex="0"><div dir="ltr" style="opacity: 0.01; left: 775px; top: 343px;"><div><div class="aSK J-J5-Ji aYr"></div></div></div></div></td></tr><tr><td style="background-color:#fff;padding:20px;border-radius:0px 0px 5px 5px;font-size:14px"><div style="width:100%"><h1 style="color:#007cc2;text-align:center">Thank you ' /*. $salutation . ' '*/ . $username . '</h1><p style="font-size:14px;text-align:center;color:#333;padding:10px 20px 10px 20px">Thank you for shopping with organicdolchi. organicdolchi.com is a Quick and easy shopping: Online/ Telephonic Call-back facility. Free Home Delivery: The products are delivered in 2 working days or less and your doorsteps. Convenient Payment Options: Payment via net banking facility, Payumoney and Indian credit/debit cards. We also accept Cash on Delivery<br/></p></div></td></tr></tbody></table></td></tr><tr><td style="padding:20px;font-size:12px;color:#797979;text-align:center;line-height:20px;border-radius:5px 5px 0px 0px">DISCLAIMER - The information contained in this electronic message (including any accompanying documents) is solely intended for the information of the addressee(s) not be reproduced or redistributed or passed on directly or indirectly in any form to any other person.</td></tr></tbody></table>';
+            $mail->body = $message;
+            if ($mail->send_mail()) {
+                //return redirect('mail')->withErrors('Email sent...');
+            } else {
+                //return redirect('mail')->withInput()->withErrors('Something went wrong. Please contact admin');
+            }
+        }
+
+
         return $this->sendResponse($order, 'Order has been successful...');
     }
 

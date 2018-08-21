@@ -500,9 +500,6 @@
                 </div>
                 <div class="modal-body">
                     <div class="deli_row">
-                        <input type="text" name="ask_number" id="promo_code" autocomplete="off"
-                               class="form-control login_txt"
-                               placeholder="Enter Promo Code"/>
                     </div>
                 </div>
                 <div class="modal-footer text-center">
