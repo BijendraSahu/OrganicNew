@@ -45,6 +45,16 @@ class APIController extends Controller
 
     /**************Rest API Function**************/
 
+    public function searchCategory()
+    {
+        $s = request('search_name');
+        $categories = DB::select("SELECT id, name FROM category_master WHERE name LIKE '$s%' and is_active = 1");
+        if (count($categories) > 0) {
+            return $this->sendResponse($categories, 'Category List');
+        } else {
+            return $this->sendError('No Category available', '');
+        }
+    }
 
     public function getCategory()
     {
@@ -148,6 +158,36 @@ class APIController extends Controller
         }
     }
 
+    public
+    function verify_otp()
+    {
+        $otp = request('otp');
+        $user = UserMaster::where(['otp' => $otp])->first();
+        if (isset($user)) {
+            $user_master = UserMaster::find($user->id);
+            $user_master->is_confirmed = 1;
+            $user_master->save();
+            return $this->sendResponse($user_master, 'User Record');
+        } else {
+            return $this->sendError('Please enter correct otp', '');
+        }
+    }
+
+    public function resend_otp()
+    {
+        $otp = rand(100000, 999999);
+        $contact = request('contact');
+        $user = UserMaster::where(['contact' => $contact])->first();
+        if (isset($user)) {
+            $user->otp = $otp;
+            $user->save();
+            file_get_contents("http://api.msg91.com/api/sendhttp.php?sender=CONONE&route=4&mobiles=$user->contact&authkey=213418AONRGdnQ5ae96f62&country=91&message=Dear%20user,%20OTP%20to%20verify%20your%20connectingone%20account%20is%20$otp");
+            return $this->sendResponse($user, 'Otp has been send to your number');
+        } else {
+            return $this->sendError('Invalid Credentials', '');
+        }
+    }
+
     public function getlogin(Request $request)
     {
         $input = $request->all();
@@ -162,13 +202,45 @@ class APIController extends Controller
         }
         $mobile_email = request('mobile_email');
         $password = md5(request('password'));
-        $user = DB::selectone("SELECT * FROM `users` WHERE (is_active = 1 and contact = '$mobile_email' and password = '$password') or (is_active = 1 and email = '$mobile_email' and password = '$password')");
+        $otp = rand(100000, 999999);
+        $user = UserMaster::where(['contact' => $mobile_email, 'password' => $password])->first();
         if (isset($user)) {
-            return $this->sendResponse($user, 'User Record');
+            if ($user->is_active == 1) {
+                if ($user->is_confirmed == 1) {
+                    return $this->sendResponse($user, 'User Record');
+                } else {
+                    $user->otp = $otp;
+                    $user->save();
+//                    file_get_contents("http://api.msg91.com/api/sendhttp.php?sender=CONONE&route=4&mobiles=$user->contact&authkey=213418AONRGdnQ5ae96f62&country=91&message=Dear%20Organic%20Dolchi%20user,Your%20verification%20code%20is%20$user->otp");
+                    return $this->sendResponse($user, 'Your account in not verified, verification code has been sent to your registered mobile no');
+                }
+            } else {
+                return $this->sendError('Your account is deactivated by administrator, Please contact to organic dolchi administrator', '');
+            }
         } else {
-            return $this->sendError('Email/Mobile Number or Password is Invalid', '');
+            return $this->sendError('Mobile Number or Password is Invalid', '');
         }
     }
+
+    public
+    function forgot_password()
+    {
+        $otp = rand(100000, 999999);
+        $contact = request('contact');
+        $user = UserMaster::where(['contact' => $contact])->first();
+        if (isset($user)) {
+            $user_master = UserMaster::find($user->id);
+            $user_master->password = md5($otp);
+            $user_master->save();
+//            file_get_contents("http://63.142.255.148/api/sendmessage.php?usr=connectingone&apikey=A0F25813739CF5A748C8&sndr=CONONE&ph=$user->contact&message=Dear%20user,%20Password%20to%20login%20into%20connectingone%20is%20$otp");
+            file_get_contents("http://api.msg91.com/api/sendhttp.php?sender=CONONE&route=4&mobiles=$user_master->contact&authkey=213418AONRGdnQ5ae96f62&country=91&message=Dear%20user,%20Password%20to%20login%20into%20connectingone%20is%20$otp");
+            return $this->sendResponse($user_master, 'Password has been send to your no');
+        } else {
+            return $this->sendError('Please enter registered mobile no', '');
+
+        }
+    }
+
 
     public function getregister(Request $request)
     {
@@ -190,18 +262,62 @@ class APIController extends Controller
         } elseif (isset($usermob)) {
             return $this->sendError('Contact is already exist', '');
         } else {
-            $user = new UserMaster();
-            $user->rc = request('ref_code');
-            $user->name = request('name');
-            $user->email = request('email');
-            $user->contact = request('mobile');
-            $user->password = md5(request('password'));
-            $user->save();
+            $rc = rand(10000000, 99999999);
+            $otp = rand(100000, 999999);
+            $data = new UserMaster();
+            $data->rc = "rc".$rc;
+            $data->otp = $otp;
+            $data->name = request('name');
+            $data->email = request('email');
+            $data->contact = request('mobile');
+            $data->password = md5(request('password'));
+            $data->save();
+            if (request('ref_code') != '') {
+                $this->CreateRelation(request('ref_code'), $data->id); //ref_code = user contact no
+            }
+            $name = str_replace(' ', '', $data->name);
+            file_get_contents("http://api.msg91.com/api/sendhttp.php?sender=CONONE&route=4&mobiles=$data->contact&authkey=213418AONRGdnQ5ae96f62&country=91&message=Dear%20$name,%20OTP%20to%verify%20your%20account%20is%20$otp");
+
+            /***********Mail************/
+            $allmails = [request('email')];
+
+            foreach ($allmails as $mail) {
+                $email[] = $mail;
+            }
+            if (count($email) > 0) {
+                $mail = new \App\Mail();
+                $mail->to = implode(",", $email);
+                $mail->subject = 'Organic Dolchi - Support Team';
+                $siteurl = 'http://www.organicdolchi.com/';
+                $username = $data->name;
+
+                $message = '<table width="650" cellpadding="0" cellspacing="0" align="center" style="background-color:#ececec;padding:40px;font-family:sans-serif;overflow:scroll"><tbody><tr><td><table cellpadding="0" cellspacing="0" align="center" width="100%"><tbody><tr><td><div style="line-height:50px;text-align:center;background-color:#fff;border-radius:5px;padding:20px"><a href="' . $siteurl . '" target="_blank" ><img src="' . $siteurl . 'images/organic_logo.png"></a></div></td></tr><tr><td><div><img src="' . $siteurl . 'images/acknowledgement.jpg" style="height:auto;width:100%;" tabindex="0"><div dir="ltr" style="opacity: 0.01; left: 775px; top: 343px;"><div><div class="aSK J-J5-Ji aYr"></div></div></div></div></td></tr><tr><td style="background-color:#fff;padding:20px;border-radius:0px 0px 5px 5px;font-size:14px"><div style="width:100%"><h1 style="color:#007cc2;text-align:center">Thank you ' /*. $salutation . ' '*/ . $username . '</h1><p style="font-size:14px;text-align:center;color:#333;padding:10px 20px 10px 20px">Thank you for register with organicdolchi. organicdolchi.com is a Quick and easy shopping: Online/ Telephonic Call-back facility. Free Home Delivery: The products are delivered in 2 working days or less and your doorsteps. Convenient Payment Options: Payment via net banking facility, Payumoney and Indian credit/debit cards. We also accept Cash on Delivery<br/></p></div></td></tr></tbody></table></td></tr><tr><td style="padding:20px;font-size:12px;color:#797979;text-align:center;line-height:20px;border-radius:5px 5px 0px 0px">DISCLAIMER - The information contained in this electronic message (including any accompanying documents) is solely intended for the information of the addressee(s) not be reproduced or redistributed or passed on directly or indirectly in any form to any other person.</td></tr></tbody></table>';
+                $mail->body = $message;
+                if ($mail->send_mail()) {
+                    //return redirect('mail')->withErrors('Email sent...');
+                } else {
+                    //return redirect('mail')->withInput()->withErrors('Something went wrong. Please contact admin');
+                }
+
+            }
+            $user = UserMaster::find($data->id);
             return $this->sendResponse($user, 'Registration has been successful...');
         }
     }
 
-    public function edit_profile(Request $request)
+    public
+    function CreateRelation($rfrcd, $user_id)
+    {
+        if (empty($rfrcd))
+            $rfrcd = 0;
+        $rcuser = UserMaster::where(['contact' => $rfrcd])->first();
+        // parent_id is referal_id here, Usinf Id as referal_id
+        $add_rltns = array('parent_id' => $rfrcd, 'p_id' => $rcuser->id, 'child_id' => $user_id);
+        DB::table('relations')->insert($add_rltns);
+    }
+
+    public
+    function edit_profile(Request $request)
     {
         $input = $request->all();
 
@@ -244,7 +360,8 @@ class APIController extends Controller
     }
 
     /**************Address API**********************/
-    public function insert_user_address(Request $request)
+    public
+    function insert_user_address(Request $request)
     {
         $input = $request->all();
 
@@ -273,7 +390,8 @@ class APIController extends Controller
         return $this->sendResponse($client_address, 'Address has been saved');
     }
 
-    public function update_user_address(Request $request)
+    public
+    function update_user_address(Request $request)
     {
         $input = $request->all();
 
@@ -305,7 +423,8 @@ class APIController extends Controller
         }
     }
 
-    public function getaddress(Request $request)
+    public
+    function getaddress(Request $request)
     {
         $input = $request->all();
 
@@ -325,7 +444,8 @@ class APIController extends Controller
         }
     }
 
-    public function getaddressbyid(Request $request)
+    public
+    function getaddressbyid(Request $request)
     {
         $input = $request->all();
 
@@ -343,10 +463,12 @@ class APIController extends Controller
             return $this->sendError('No record available', '');
         }
     }
+
     /**************Address API**********************/
 
     /**************Reviews API**********************/
-    public function insert_review(Request $request)
+    public
+    function insert_review(Request $request)
     {
         $input = $request->all();
 
@@ -373,7 +495,8 @@ class APIController extends Controller
         return $this->sendResponse($review, 'Review has been saved');
     }
 
-    public function getreview(Request $request)
+    public
+    function getreview(Request $request)
     {
         $input = $request->all();
 
@@ -395,7 +518,8 @@ class APIController extends Controller
     /**************Reviews API**********************/
 
 
-    public function delivery_charge(Request $request)
+    public
+    function delivery_charge(Request $request)
     {
         $input = $request->all();
 
@@ -417,7 +541,8 @@ class APIController extends Controller
         }
     }
 
-    public function change_password(Request $request)
+    public
+    function change_password(Request $request)
     {
         $input = $request->all();
 
@@ -442,7 +567,8 @@ class APIController extends Controller
     }
 
     /**************************Checkout Confirm************************************/
-    public function confirm_checkout(Request $request)
+    public
+    function confirm_checkout(Request $request)
     {
         $input = $request->all();
 
@@ -486,7 +612,8 @@ class APIController extends Controller
     /**************************Checkout Confirm************************************/
 
 
-    public function check_promo(Request $request)
+    public
+    function check_promo(Request $request)
     {
         $input = $request->all();
 
@@ -508,7 +635,8 @@ class APIController extends Controller
 
     }
 
-    public function getOrders(Request $request)
+    public
+    function getOrders(Request $request)
     {
         $input = $request->all();
 

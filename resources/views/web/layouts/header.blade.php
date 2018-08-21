@@ -124,17 +124,17 @@
     </div>
 </nav>
 {{--<div class="page_loader" id="page_loader">--}}
-    {{--<div class="loaders">--}}
-        {{--<div class="dot dot-1"></div>--}}
-        {{--<div class="dot dot-2"></div>--}}
-        {{--<div class="dot dot-3"></div>--}}
-    {{--</div>--}}
+{{--<div class="loaders">--}}
+{{--<div class="dot dot-1"></div>--}}
+{{--<div class="dot dot-2"></div>--}}
+{{--<div class="dot dot-3"></div>--}}
+{{--</div>--}}
 {{--</div>--}}
 <div class="fixed_button fixed_top" id="top_scroll_btn" onclick="ScrollBottom();">
     <i class="mdi mdi-mdi mdi-arrow-expand-down"></i>
 </div>
 <div class="fixed_button fixed_bottom" id="bottom_scroll_btn" onclick="ScrollTop();">
-<i class="mdi mdi-mdi mdi-arrow-expand-up"></i>
+    <i class="mdi mdi-mdi mdi-arrow-expand-up"></i>
 </div>
 <div class="fixed_asked" data-toggle="tooltip" data-placement="left" title="Ask For Call" id="ask_call">
     <span class="" data-toggle="modal" data-target="#AskForCall">
@@ -271,8 +271,8 @@
                 <form action="{{url('login')}}" method="post" enctype="multipart/form-data"
                       class="form-horizontal" id="frmLogin">
                     <div class="deli_row">
-                        <input type="text" name="email_pass" autocomplete="off" class="form-control login_txt"
-                               placeholder="Email/Mobile Number " id="login_mobile">
+                        <input type="text" name="email_pass" autocomplete="off" maxlength="10" class="form-control numberOnly login_txt"
+                               placeholder="Mobile Number " id="login_mobile">
                     </div>
                     <div class="deli_row">
                         <input type="password" name="login_password" autocomplete="off" class="form-control login_txt"
@@ -301,11 +301,11 @@
             <div class="right_block forgot">
                 <div class="deli_row">
                     <input type="text" name="email_pass" autocomplete="off" class="form-control login_txt"
-                           placeholder="Enter Mobile Number ">
+                           placeholder="Enter Mobile Number " id="fcontact_no">
                 </div>
                 <hr>
                 <div class="deli_row">
-                    <button class="btn btn-success login_btn">
+                    <button class="btn btn-success login_btn" onclick="forgotpasswordsend()">
                         <i class="mdi mdi-account-check basic_icon_margin"></i>Submit
                     </button>
                 </div>
@@ -318,7 +318,7 @@
             </div>
             <div class="right_block verify">
                 <div class="deli_row">
-                    <input type="text" name="email_pass" autocomplete="off" class="form-control "
+                    <input type="text" name="email_pass" autocomplete="off" class="form-control login_txt"
                            placeholder="Enter verification code" id="txtotp2">
                 </div>
                 <hr>
@@ -376,13 +376,20 @@
     </div>
 </div>
 <script type="text/javascript">
+    $('#frmLogin input').keydown(function (e) {
+        if (e.keyCode == 13) {
+            $('#form').submit();
+        }
+    });
     function forgotpasswordsend() {
         var contact = $('#fcontact_no').val();
-        if (contact.trim() == '') {
-            swal("Oops....", "Please enter contact", "info");
-            return false;
+        var result = true;
+        if (!Boolean(Requiredtxt("#fcontact_no"))) {
+            result = false;
         }
-        else {
+        if (!result) {
+            return false;
+        } else {
             $.ajax({
                 type: "get",
                 contentType: "application/json; charset=utf-8",
@@ -651,12 +658,12 @@
         }
     }
 
-    $(document).onkeydown = function () {
-        // document.onkeydown = function () {
-        if (window.event.keyCode == '13') {
-            send_login();
-        }
-    }
+    //    $(document).onkeydown = function () {
+    //        // document.onkeydown = function () {
+    //        if (window.event.keyCode == '13') {
+    //            send_login();
+    //        }
+    //    }
 
     function submitChange() {
         $('#myModal_UpdatePassword').modal('show');
@@ -710,7 +717,7 @@
         $('[data-toggle="tooltip"]').tooltip();
     });
 
-    $(".txt_space").on({
+    $(".login_txt").on({
         keydown: function (e) {
             if (e.which === 32)
                 return false;
