@@ -745,6 +745,8 @@
                     $('#modal_body').html(xhr.responseText);
                 }
             });
+
+
         }
     </script>
 @stop
