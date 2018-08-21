@@ -1,206 +1,203 @@
 @media screen and (min-width:320px) and (max-width:479px) {
-    .logo_block
+    .top_menubox
     {
-        width: auto;
-        max-width: 100px;
+        padding-left: 150px;
     }
-    .logo_block img
+    .main_logo img
     {
-        max-width: 100px;
-        width: 100%;
+        max-width: 125px;
     }
-    .dash_menuicon {
-        margin-top: 12px;
-    }
-    .option-container
+    .login_with_baskit ul
     {
-        margin-top: 3px;
+        line-height: 20px;
     }
-    .menu_basic_block
+    .login_with_baskit ul li
     {
-        width: 43px;
+        padding: 0px 4px 0px 2px;
     }
-    .massage_popbox {
-        right: -165px;
+    .baskit_containner i
+    {
+        font-size: 24px;
     }
-    .notification_popbox {
-        right: -120px;
+    .baskit_counter
+    {
+        width: 15px;
+        height: 15px;
+        line-height: 15px;
+        font-size: 11px;
     }
-    .notification_popbox:before {
-        right: 132px;
+    .fixed_asked
+    {
+        width: 32px;
+        height: 32px;
+        line-height: 32px;
+        font-size: 18px;
+        bottom: 50px;
     }
-    .massage_popbox:before {
-        right: 175px;
+    .fixed_button
+    {
+        width: 32px;
+        height: 32px;
+        line-height: 32px;
+        font-size: 18px;
     }
-    .menu_basic_popup {
+    .animate_top
+    {
+        top:50px;
+    }
+    .animate_bottom
+    {
+        bottom: 10px;
+    }
+    .home_about
+    {
+        padding-top: 50px;
+    }
+    .main_head_txt
+    {
+        font-size: 24px;
+    }
+    .main_subhead
+    {
+        font-size: 14px;
+    }
+    .collection_about_brics
+    {
+        margin:20px 0px;
+    }
+    .about_basic_txt
+    {
+        font-size: 14px;
+    }
+    .login_right_txt
+    {
+        padding: 15px;
+        float: initial;
+    }
+    .menu_basic_popup
+    {
         width: 300px;
-    }
-    .login_form
-    {
-        width: 96%;
-        left: 2%;
-        max-width: 470px;
-    }
-}
-@media screen and (min-width:320px) and (max-width:373px) {
-    .pagination > li > a, .pagination > li > span {
-        padding: 6px 8px;
+        right: -10px;
+        top:40px;
     }
 }
 @media screen and (min-width:480px) and (max-width:767px) {
-
+    .main_head_txt
+    {
+        font-size: 34px;
+    }
+    .collection_about_brics
+    {
+        margin: 20px 0px;
+    }
 }
 @media screen and (min-width:768px) and (max-width:1023px) {
-    .action-btn {
-        padding: 5px 3px;
+    .top_menubox
+    {
+        padding-left: 175px;
     }
-}
-@media (max-width: 767px) and (min-width: 320px)
-{
-    .grid-table tbody tr td.tab-grid:first-child {
-        border-top: 1px solid #ddd;
+    .main_logo img {
+        max-width: 150px;
+        margin-top: 5px;
     }
-    .grid-table {
-        border: 0;
+    .main_heading
+    {
+        margin-bottom: 30px;
     }
-    .grid-table tbody tr {
-        margin-bottom: 15px;
-        float: left;
-        width: 100%;
-    }
-    .grid-table tbody tr td {
-        width: 100%;
-        padding-left: 40%;
-        display: inline-block;
-        text-align: left;
-        border-top: 0;
-        position: relative;
-        min-height: 35px;
-        line-height: 24px;
-    }
-    .grid-table tbody tr td:before {
-        position: absolute;
-        left: 8px;
-        top: 5px;
-        font-weight: 600;
-        color: #5a5c63;
-    }
-    .globe-header-tr
+    .tab_display_none
     {
         display: none;
     }
-    .checkbox
+}
+@media screen and (min-width: 320px) and (max-width: 767px)
+{
+    .login_popup_box
     {
-        text-align: left;
+        width: 96%;
+        margin-top: 50px;
+        height: auto;
     }
-    .col_select[data-line]:before
-    {
-        content: attr(data-line);
-    }
-    .col1[data-line]:before
-    {
-        content: attr(data-line);
-    }
-    .col2[data-line]:before
-    {
-        content: attr(data-line);
-    }
-    .col3[data-line]:before
-    {
-        content: attr(data-line);
-    }
-    .col4[data-line]:before
-    {
-        content: attr(data-line);
-    }
-    .col5[data-line]:before
-    {
-        content: attr(data-line);
-    }
-    .col6[data-line]:before
-    {
-        content: attr(data-line);
-    }
-    .col7[data-line]:before
-    {
-        content: attr(data-line);
-    }
-    .option_col[data-line]:before
-    {
-        content: attr(data-line);
-    }
-    .res_btn
-    {
-        padding: 5px !important;
-    }
-    .grid_search_box
+    .login_lefttxtbox
     {
         width: 100%;
+        height: auto;
+        padding: 0px 10px;
     }
-    .grid_btnbox {
-        position: absolute;
-        width: 180px;
-        top: -60px;
-        left: -10px;
+    .left_block img
+    {
+        display: none;
     }
-    .head_txt
+    .error_register
     {
         padding: 0px;
-        margin-bottom: 5px;
+    }
+    .login_right_txt
+    {
         width: 100%;
+        height: auto;
     }
-    .two_boxrow {
-        margin: 0px;
-    }
-    .box_inner
+    .close_login
     {
-        padding: 10px 5px;
+        top: -40px;
+        right: 0px;
     }
-    .form_txt
+    .testominial_box
     {
-        margin-bottom: 5px;
-        margin-top: 8px;
+        display: none;
     }
-    .form-row
+    .right_block hr
+    {
+        margin: 10px 0px;
+    }
+    .right_block form
     {
         margin-bottom: 0px;
     }
-    .left_blanksingle_row
+    footer .newsletter-row
     {
-        margin-top: 15px;
+        padding: 10px 0px;
+    }
+    .payment-accept
+    {
+        margin-bottom: 10px;
+        width: 100%;
+        text-align: center;
+    }
+    .sign_uptxt
+    {
+        display: none;
+    }
+    .newsletter-wrap
+    {
+        padding:0px 100px 0px 10px;
+    }
+    .newsletter-wrap button.subscribe
+    {
+        right: 10px;
+        font-weight: normal;
+        width: 90px;
+        padding: 7px 0px;
+    }
+    .newsletter-wrap button.subscribe span
+    {
+        font-weight: normal;
+    }
+    .co-info
+    {
+        padding: 10px;
     }
 }
 @media (max-width: 1023px) and (min-width: 320px) {
-    .option-container {
-        margin-right: 5px;
-    }
-    .dash_menuicon {
-        display: block;
-    }
-    .dash_sidemenu {
-        left: -250px;
-        top: 0;
-        height: 100vh;
-        overflow: auto;
-        z-index: 111;
-    }
-    .box_containner
-    {
-        margin: 80px 5px 15px 5px;
-    }
-    .dash_sidemenu_show
-    {
-        left: 0px;
-    }
+
 }
 @media screen and (min-width:1024px) and (max-width:1199px) {
-    .box_containner
+    .order_listbox
     {
-        margin: 80px 5px 0 205px;
+        padding: 5px 10px 15px 10px;
     }
-    .dash_sidemenu
+    .my_cartbtnbox
     {
-        width: 200px;
+        padding-right: 95px;
     }
 }
 @media screen and (min-width:1200px) and (max-width:1359px) {

@@ -10,5 +10,5 @@
 <script src="{{url('js/bootstrap.min.js')}}"></script>
 <script src="{{url('js/Global.js')}}"></script>
 <script src="{{url('js/sweetalert.min.js')}}"></script>
-<script src="{{url('js/my_validation.js')}}"></script>
+{{--<script src="{{url('js/login_validation.js')}}"></script>--}}
 <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet"/>

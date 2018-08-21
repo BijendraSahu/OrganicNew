@@ -1,10 +1,3 @@
-<style>
-    .error_register {
-        color: red;
-        font-weight: bold;
-        padding-top: 58px;
-    }
-</style>
 <nav class="main_menu fixed_menu" id="top_header_menu">
     <div class="container">
         <div class="row top_menubox">
@@ -131,17 +124,17 @@
     </div>
 </nav>
 {{--<div class="page_loader" id="page_loader">--}}
-{{--<div class="loaders">--}}
-{{--<div class="dot dot-1"></div>--}}
-{{--<div class="dot dot-2"></div>--}}
-{{--<div class="dot dot-3"></div>--}}
-{{--</div>--}}
+    {{--<div class="loaders">--}}
+        {{--<div class="dot dot-1"></div>--}}
+        {{--<div class="dot dot-2"></div>--}}
+        {{--<div class="dot dot-3"></div>--}}
+    {{--</div>--}}
 {{--</div>--}}
 <div class="fixed_button fixed_top" id="top_scroll_btn" onclick="ScrollBottom();">
     <i class="mdi mdi-mdi mdi-arrow-expand-down"></i>
 </div>
 <div class="fixed_button fixed_bottom" id="bottom_scroll_btn" onclick="ScrollTop();">
-    <i class="mdi mdi-mdi mdi-arrow-expand-up"></i>
+<i class="mdi mdi-mdi mdi-arrow-expand-up"></i>
 </div>
 <div class="fixed_asked" data-toggle="tooltip" data-placement="left" title="Ask For Call" id="ask_call">
     <span class="" data-toggle="modal" data-target="#AskForCall">
@@ -161,8 +154,8 @@
             </div>
             <div class="modal-body">
                 <div class="deli_row">
-                    <input type="number" name="ask_number" id="ask_number" autocomplete="off"
-                           class="form-control numberOnly login_txt"
+                    <input type="text" name="ask_number" id="ask_number" autocomplete="off"
+                           class="form-control numberOnly login_txt NumberOnly" maxlength="13"
                            placeholder="Enter Mobile Number"/>
                 </div>
             </div>
@@ -269,7 +262,7 @@
             </div>
             <div class="left_block forgot">
                 <h1>Forgot</h1>
-                <p>Enter mobile number associated with your Organic Dolchi account.</p>
+                <p>Enter mobile phone number associated with your Organic Dolchi account.</p>
                 <img src="{{url('images/forgot_image.png')}}"/>
             </div>
         </div>
@@ -294,11 +287,8 @@
                 </form>
                 <hr>
                 <div class="product_btn_box">
-                    <div class="btn btn-warning pull-left" onclick="ShowLoginSignup('forgot')">
+                    <div class="btn btn-warning" onclick="ShowLoginSignup('forgot')">
                         <i class="mdi mdi-account-alert basic_icon_margin"></i>Forgot
-                    </div>
-                    <div class="btn btn-success pull-center" onclick="ShowLoginSignup('verify')">
-                        <i class="mdi mdi-account-alert basic_icon_margin"></i>Verify Account
                     </div>
                     <div class="btn btn-primary pull-right" onclick="ShowLoginSignup('signup');">
                         <i class="mdi mdi-account-edit basic_icon_margin"></i>Sign Up
@@ -307,31 +297,12 @@
             </div>
             <div class="right_block forgot">
                 <div class="deli_row">
-                    <input type="text" name="email_pass" autocomplete="off" maxlength="10"
-                           class="form-control numberOnly login_txt"
+                    <input type="text" name="email_pass" autocomplete="off" class="form-control login_txt"
                            placeholder="Enter Mobile Number ">
                 </div>
                 <hr>
                 <div class="deli_row">
-                    <button class="btn btn-success login_btn" onclick="forgotpasswordsend();">
-                        <i class="mdi mdi-account-check basic_icon_margin"></i>Submit
-                    </button>
-                </div>
-                <hr>
-                <div class="product_btn_box">
-                    <div class="btn btn-primary login_btn" onclick="ShowLoginSignup('signin');">
-                        <i class="mdi mdi-account-edit basic_icon_margin"></i>Sign In
-                    </div>
-                </div>
-            </div>
-            <div class="right_block verify">
-                <div class="deli_row">
-                    <input type="text" name="email_pass" autocomplete="off" class="form-control "
-                           placeholder="Enter verification code" id="txtotp2">
-                </div>
-                <hr>
-                <div class="deli_row">
-                    <button class="btn btn-success login_btn" onclick="submitotpForm()">
+                    <button class="btn btn-success login_btn">
                         <i class="mdi mdi-account-check basic_icon_margin"></i>Submit
                     </button>
                 </div>
@@ -344,35 +315,31 @@
             </div>
             <div class="right_block registration">
                 <div class="deli_row">
-                    <input type="text" name="referal_code" autocomplete="off"
-                           class="form-control numberOnly txt_space login_txt"
-                           placeholder="Referral Code(Contact No)" maxlength="10" onpaste="return false;" id="ref_code">
+                    <input type="text" name="referal_code" autocomplete="off" class="form-control login_txt"
+                           placeholder="Referral Code" id="ref_code">
                 </div>
                 <div class="deli_row">
-                    <input type="text" name="reg_name" autocomplete="off" class="form-control txt_space login_txt"
+                    <input type="text" name="reg_name" autocomplete="off" class="form-control login_txt"
                            placeholder="Enter Name" id="name">
                 </div>
                 <div class="deli_row">
-                    <input type="email" name="reg_email" autocomplete="off" class="form-control txt_space login_txt"
-                           placeholder="Enter Email Id" id="email_id" maxlength="50" onpaste="return false;">
+                    <input type="text" name="reg_email" autocomplete="off" class="form-control login_txt"
+                           placeholder="Enter Email Id" id="email_id">
                 </div>
                 <div class="deli_row">
-                    <input type="text" name="reg_number" autocomplete="off" maxlength="10"
-                           class="form-control numberOnly txt_space login_txt"
-                           placeholder="Enter Mobile Number" id="mobile" onpaste="return false;">
+                    <input type="text" name="reg_number" autocomplete="off" class="form-control login_txt"
+                           placeholder="Enter Mobile Number" id="mobile">
                 </div>
                 <div class="deli_row">
-                    <input type="password" name="reg_password" autocomplete="off"
-                           class="form-control txt_space login_txt"
+                    <input type="password" name="reg_password" autocomplete="off" class="form-control login_txt"
                            placeholder="Enter Password" id="password">
                 </div>
                 <div class="deli_row">
-                    <input type="password" name="reg_password" autocomplete="off"
-                           class="form-control txt_space login_txt"
+                    <input type="password" name="reg_password" autocomplete="off" class="form-control login_txt"
                            placeholder="Confirmation Password" id="confirm_password">
                 </div>
                 <div class="deli_row">
-                    <button onclick="check();" data-validate="true" id="btnReg" class="btn btn-success login_btn">
+                    <button onclick="check();" class="btn btn-success login_btn">
                         <i class="mdi mdi-account basic_icon_margin"></i>Registered
                     </button>
                 </div>
@@ -387,201 +354,7 @@
         </div>
     </div>
 </div>
-
-{{--<div id="re_verify_otp_email" class="connect_LBbox modal fade in" role="dialog" aria-hidden="false">--}}
-{{--<div class="modal-dialog forgotpass_lb">--}}
-{{--<!-- Modal content-->--}}
-{{--<div class="modal-content">--}}
-{{--<div class="modal-header">--}}
-{{--<button type="button" class="close" data-dismiss="modal" onclick="closeForgotLbox();">×</button>--}}
-{{--<h4 class="modal-title">OTP VERIFICATION</h4>--}}
-{{--</div>--}}
-{{--<div class="modal-body">--}}
-{{--<div class="logindiv" style="border: none">--}}
-{{--<input type="text" class="form-control forgot_txt" placeholder="Please enter otp" id="txtotp2"--}}
-{{--autocomplete="off" data-validate="TT_btnforgotpass">--}}
-{{--<div class="forgot_icon mdi mdi-account-check"></div>--}}
-{{--</div>--}}
-{{--<!--  <div class="logindiv" style="border: none">--}}
-{{--<input type="text" class="form-control forgot_txt" placeholder="Please enter email id"  id="txtvarify_email" autocomplete="off" data-validate="TT_btnforgotpass">--}}
-{{--<div class="forgot_icon mdi mdi-email-open-outline"></div>--}}
-{{--</div>-->--}}
-{{--<p class="statusMsg"></p>--}}
-{{--</div>--}}
-{{--<div class="modal-footer text-center">--}}
-{{--<a href="#">--}}
-{{--<button type="button" class="btn btn-primary" onclick="submitotpForm()" id="varify_otp_email">--}}
-{{--Validate OTP--}}
-{{--</button>--}}
-{{--</a>--}}
-
-{{--</div>--}}
-{{--</div>--}}
-
-{{--</div>--}}
-{{--</div>--}}
-<!--<style type="text/css">
-
-</style>
 <script type="text/javascript">
-
-</script>-->
-<script type="text/javascript">
-    function forgotpasswordsend() {
-        var contact = $('#fcontact_no').val();
-        if (contact.trim() == '') {
-            swal("Oops....", "Please enter contact", "info");
-            return false;
-        }
-        else {
-            $.ajax({
-                type: "get",
-                contentType: "application/json; charset=utf-8",
-                url: "{{ url('forgot_password') }}",
-                data: {contact: contact},
-                success: function (data) {
-                    if (data == 'ok') {
-                        swal("Success....", "Password has been sent successfully", "success");
-                    } else if (data == 'Incorrect') {
-                        swal("Oops....", "Please enter registered mobile no", "info");
-                    }
-                },
-                error: function (xhr, status, error) {
-//                    alert('xhr.responseText');
-                    $('#err').html(xhr.responseText);
-                }
-            });
-        }
-    }
-    function submitotpForm() {
-        var txtotp = $('#txtotp2').val();
-        if (txtotp.trim() == '') {
-            swal("Oops....", "Please enter verification code", "info");
-            $('#txtotp').focus();
-            return false;
-        } else {
-            $.ajax({
-                type: "get",
-                contentType: "application/json; charset=utf-8",
-                url: "{{ url('verify_otp') }}",
-                data: {txtotp: txtotp},
-                success: function (data) {
-                    if (data == 'ok') {
-                        $('#txtotp').val('');
-                        swal("Success", "You have verified successfully...you will be redirected in 3 seconds", "success");
-                        setTimeout(function () {
-                            window.location.href = "{{url('product_list')}}";
-                        }, 3000);
-                    } else if (data == 'Incorrect') {
-                        $('#txtotp').val('');
-                        swal("Oops....", "Incorrect otp...Please enter correct otp", "info");
-                    }
-                },
-                error: function (xhr, status, error) {
-//                    alert('xhr.responseText');
-                    $('#err').html(xhr.responseText);
-                }
-            });
-        }
-    }
-
-    $(document).ready(function () {
-        $('#email_id').focusout(function () {
-            var re = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
-            if ($(this).val() != '') {
-                if (!re.test($(this).val())) {
-                    swal("Oops....", "Please enter correct email id", "info");
-                    this.value = "";
-                }
-                else {
-                    var domains = ["gmail.com", "hotmail.com", "msn.com", "yahoo.com", "yahoo.in", "yahoo.com", "aol.com", "hotmail.co.uk", "yahoo.co.in", "live.com", "rediffmail.com", "outlook.com", "hotmail.it", "googlemail.com", "mail.com"]; //update ur domains here
-                    var idx1 = this.value.indexOf("@");
-                    if (idx1 > -1) {
-                        var splitStr = this.value.split("@");
-                        var sub = splitStr[1].split(".");
-                        if ($.inArray(splitStr[1], domains) == -1) {
-                            swal("Oops....", "Email must have correct domain name Eg: @gmail.com", "info");
-                            this.value = "";
-                        }
-                    }
-                }
-            }
-
-
-        });
-
-        $('#mobile').focusout(function () {
-            var txt_val = $(this).val();
-            if (txt_val.trim() == '') {
-                $('#mobile').html('');
-            } else {
-                $.ajax({
-                    type: "get",
-                    contentType: "application/json; charset=utf-8",
-                    url: "{{ url('checkno') }}",
-                    data: {contact: txt_val},
-//                    data: '{"formData":"' + formData + '", "rc":"' + txt_val + '"}',
-                    success: function (data) {
-                        if (data == 'already') {
-                            swal("Oops....", "Contact no already exist please user different contact no", "info");
-                            $('#mobile').val('');
-                        }
-                    },
-                    error: function (xhr, status, error) {
-//                    alert('xhr.responseText');
-//                        $('#mobile').html(xhr.responseText);
-                    }
-                });
-            }
-        });
-
-        $('#ref_code').focusout(function () {
-            var txt_val = $(this).val();
-            if (txt_val.trim() == '') {
-                $('#ref_code').html('');
-            } else {
-                $.ajax({
-                    type: "get",
-                    contentType: "application/json; charset=utf-8",
-                    url: "{{ url('checkno') }}",
-                    data: {contact: txt_val},
-//                    data: '{"formData":"' + formData + '", "rc":"' + txt_val + '"}',
-                    success: function (data) {
-                        if (data != 'already') {
-                            swal("Oops....", "You have entered invalid Referral code", "info");
-                            $('#ref_code').val('');
-                        }
-                    },
-                    error: function (xhr, status, error) {
-//                    alert('xhr.responseText');
-                        $('#ref_code').html(xhr.responseText);
-                    }
-                });
-            }
-        });
-    });
-    function Requiredtxt(me) {
-        var text = $.trim($(me).val());
-        if (text == '') {
-            $(me).addClass("errorClass");
-            return false;
-        } else {
-            $(me).removeClass("errorClass");
-            return true;
-        }
-    }
-    {{--var EmailValidate = function (me) {--}}
-    {{--var pattern = /^[a-zA-Z0-9\-_]+(\.[a-zA-Z0-9\-_]+)*@[a-z0-9]+(\-[a-z0-9]+)*(\.[a-z0-9]+(\-[a-z0-9]+)*)*\.[a-z]{2,4}$/;--}}
-
-    {{--var emailText = $.trim($(me).val());--}}
-    {{--if (pattern.test(emailText)) {--}}
-    {{--$(me).removeClass("errorClass");--}}
-    {{--return true;--}}
-    {{--} else {--}}
-    {{--$(me).addClass("errorClass");--}}
-    {{--return false;--}}
-    {{--}--}}
-    {{--}--}}
     function check() {
         var email = $('#email_id').val();
         var mobile = $('#mobile').val();
@@ -589,17 +362,25 @@
         var confirm_password = $('#confirm_password').val();
         var phoneno = /^\d{10}$/;
         var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-        var result = true;
-        if (!Boolean(Requiredtxt("#name")) || !Boolean(Requiredtxt("#email_id")) || !Boolean(Requiredtxt("#password")) || !Boolean(Requiredtxt("#confirm_password"))) {
-            result = false;
-        }
-        if (!result) {
+        if (reg.test(email) == false) {
+            HidePopoupMsg();
+            ShowErrorPopupMsg('Please Enter valid Email Address');
             return false;
-        } else {
+        }
+        else if (phoneno.test(mobile) == false) {
+            HidePopoupMsg();
+            ShowErrorPopupMsg('Please Enter valid Mobile Number');
+            return false;
+        }
+        else if (password != confirm_password) {
+            HidePopoupMsg();
+            ShowErrorPopupMsg('Password MisMatch');
+            return false;
+        }
+        else {
             register_user();
         }
     }
-
 
     function register_user() {
         var ref_code = $('#ref_code').val();
@@ -613,7 +394,6 @@
             url: "{{url('register_user')}}",
             data: "ref_code= " + ref_code + "&user_name= " + user_name + "&email_id= " + email_id + "&mobile= " + mobile + "&password= " + password,
             success: function (data) {
-
                 if (data == 'Mobile Number Already Linked With Another Account!!!!!!') {
                     $('#error_register').html('Mobile Number Already Linked With Another Account!!!!!!');
                 }
@@ -629,7 +409,7 @@
                     $('#mobile').val('');
                     $('#password').val('');
                     $('#confirm_password').val('');
-                    swal("Success....", "User Registration Successfully...", "success");
+                    ShowSuccessPopupMsg('User Registration Successfully...');
                 }
             },
             error: function (data) {
@@ -638,7 +418,6 @@
             }
         });
     }
-
     function AskForCall() {
         var ask_number = $('#ask_number').val();
         if (ask_number == '') {
@@ -664,44 +443,29 @@
         }
     }
 
-
     function send_login() {
         var login_mobile = $('#login_mobile').val();
         var login_password = $('#login_password').val();
-        var result = true;
-        if (!Boolean(Requiredtxt("#login_mobile")) || !Boolean(Requiredtxt("#login_password"))) {
-            result = false;
-        }
-        if (!result) {
-            return false;
-        } else {
-            $.ajax({
-                type: "get",
-                url: "{{url('login_user')}}",
-                data: {login_mobile: login_mobile, login_password: login_password},
-                success: function (data) {
-                    if (data == "Login Success") {
-                        HidePopoupMsg();
-                        window.location.reload();
-                    } else if (data == "UserName/Password Invalid") {
-                        HidePopoupMsg();
-                        swal("Oops....", "UserName or Password is Invalid", "info");
-                    } else if (data == 'Not Verified') {
-                        swal("Oops....", "Your account in not verified, verification code has been sent to your registered mobile no", "info");
-                        ShowLoginSignup('verify');
-                    } else if (data == 'inactive') {
-                        swal("Oops....", "Your account is deactivated by admin, Please contact to organic dolchi admin", "info");
-                    } else {
-                        window.location.reload();
-                    }
-                },
-                error: function (data) {
-//                alert(data);
+        $.ajax({
+            type: "POST",
+            url: "{{url('login_user')}}",
+            data: "login_mobile= " + login_mobile + "&login_password= " + login_password,
+            success: function (data) {
+                if (data == "UserName/Password Invalid") {
+                    HidePopoupMsg();
+                    ShowErrorPopupMsg('UserName/Password Invalid');
                 }
-            });
-        }
+                else {
+                    HidePopoupMsg();
+                    // ShowSuccessPopupMsg('Login Success');
+                    window.location.reload();
+                }
+            },
+            error: function (data) {
+                alert(data);
+            }
+        });
     }
-
     $(document).onkeydown = function () {
         // document.onkeydown = function () {
         if (window.event.keyCode == '13') {
@@ -756,18 +520,7 @@
             });
         }
     }
-
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
-    });
-
-    $(".txt_space").on({
-        keydown: function (e) {
-            if (e.which === 32)
-                return false;
-        },
-        change: function () {
-            this.value = this.value.replace(/\s/g, "");
-        }
     });
 </script>

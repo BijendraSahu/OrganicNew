@@ -6,16 +6,15 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col">
                         <div class="payment-accept">
-                            <div><img src="{{url('images/payment-1.png')}}" alt="payment1"> <img
+                            <img src="{{url('images/payment-1.png')}}" alt="payment1"> <img
                                         src="{{url('images/payment-2.png')}}"
-                                        alt="payment2"> <img
-                                        src="{{url('images/payment-3.png')}}" alt="payment3"> <img
+                                        alt="payment2">  <img
                                         src="{{url('images/payment-4.png')}}"
-                                        alt="payment4"></div>
+                                        alt="payment4">
                         </div>
                     </div>
                     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 col1">
-                        <form action="#" method="post" id="newsletter-validate-detail1">
+                        <form action="#" method="post" class="footer_news_latter_form" id="newsletter-validate-detail1">
                             <div class="newsletter-wrap">
                                 <div class="sign_uptxt">Sign up for emails</div>
                                 <input type="text" name="email" id="newsletter1" title="Sign up for our newsletter"
@@ -41,7 +40,7 @@
                             <div><em class="mdi mdi-phone-classic"></em><span> + 0800 567 345</span></div>
                             <div><em class="mdi mdi-email-alert"></em><span>abc@example.com</span></div>
                         </address>
-                        <div class="social">
+                      {{--  <div class="social">
                             <ul class="link">
                                 <li class="fb pull-left"><a target="_blank" rel="nofollow" href="#"
                                                             title="Facebook"></a></li>
@@ -58,7 +57,7 @@
                                 <li class="youtube pull-left"><a target="_blank" rel="nofollow" href="#"
                                                                  title="Youtube"></a></li>
                             </ul>
-                        </div>
+                        </div>--}}
                     </div>
                 </div>
 
@@ -119,13 +118,13 @@
             </div>
         </div>
     </div>
-    <div class="footer-middle">
+   {{-- <div class="footer-middle">
         <div class="container">
             <div class="row">
                 <div class="row"></div>
             </div>
         </div>
-    </div>
+    </div>--}}
     <div class="footer-bottom">
         <div class="container">
             <div class="row">
