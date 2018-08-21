@@ -1,0 +1,13 @@
+ALTER TABLE `users` ADD `otp` VARCHAR(10) NULL DEFAULT NULL AFTER `id`;
+
+ALTER TABLE `order_master` ADD `bill_amount` FLOAT NULL DEFAULT NULL AFTER `address_id`;
+
+ALTER TABLE `order_master` ADD `point_pay` FLOAT NULL DEFAULT NULL AFTER `bill_amount`;
+
+ALTER TABLE `order_master` ADD `promo_pay` FLOAT NULL DEFAULT NULL AFTER `point_pay`, ADD `paid_amt` FLOAT NULL DEFAULT NULL AFTER `promo_pay`;
+
+ALTER TABLE `relations` CHANGE `parent_id` `parent_id` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
+
+ALTER TABLE `relations` CHANGE `child_id` `child_id` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
+
+ALTER TABLE `reviews` ADD `order_description_id` INT NULL DEFAULT NULL AFTER `item_master_id`;
