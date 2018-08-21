@@ -657,7 +657,7 @@
         function get_items(dis) {
             var category_id = $(dis).attr('id');
             var limit = Number($('#see_id').val());
-            alert(category_id);
+//            alert(category_id);
             $('#category_id').val(category_id);
 
             $.ajax({
@@ -692,20 +692,11 @@
 //        });
 
         $(window).scroll(function (event) {
-//            var chk_scroll = $(window).scrollTop();
-//            if (chk_scroll > 70) {
-//                $('.top_manubar').addClass('top_manubar_fixed');
-////                    $('.overall_containner').addClass('overall_margin');
-//                $('.profile_basic_menu_block').addClass('left_menu_fixed');
-//                $('.all_right_block').addClass('right_menu_fixed');
-//            }
             if ($(window).scrollTop() + $(window).height() == $(document).height()) {
                 if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
                     getmoreItems();
                 }
             }
-
-
         });
 
         function getmoreItems() {

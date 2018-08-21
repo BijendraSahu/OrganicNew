@@ -290,6 +290,9 @@
                     <div class="btn btn-warning" onclick="ShowLoginSignup('forgot')">
                         <i class="mdi mdi-account-alert basic_icon_margin"></i>Forgot
                     </div>
+                    <div class="btn btn-success pull-center" onclick="ShowLoginSignup('verify')">
+                        <i class="mdi mdi-account-alert basic_icon_margin"></i>Verify Account
+                    </div>
                     <div class="btn btn-primary pull-right" onclick="ShowLoginSignup('signup');">
                         <i class="mdi mdi-account-edit basic_icon_margin"></i>Sign Up
                     </div>
@@ -303,6 +306,24 @@
                 <hr>
                 <div class="deli_row">
                     <button class="btn btn-success login_btn">
+                        <i class="mdi mdi-account-check basic_icon_margin"></i>Submit
+                    </button>
+                </div>
+                <hr>
+                <div class="product_btn_box">
+                    <div class="btn btn-primary login_btn" onclick="ShowLoginSignup('signin');">
+                        <i class="mdi mdi-account-edit basic_icon_margin"></i>Sign In
+                    </div>
+                </div>
+            </div>
+            <div class="right_block verify">
+                <div class="deli_row">
+                    <input type="text" name="email_pass" autocomplete="off" class="form-control "
+                           placeholder="Enter verification code" id="txtotp2">
+                </div>
+                <hr>
+                <div class="deli_row">
+                    <button class="btn btn-success login_btn" onclick="submitotpForm()">
                         <i class="mdi mdi-account-check basic_icon_margin"></i>Submit
                     </button>
                 </div>
@@ -355,6 +376,161 @@
     </div>
 </div>
 <script type="text/javascript">
+    function forgotpasswordsend() {
+        var contact = $('#fcontact_no').val();
+        if (contact.trim() == '') {
+            swal("Oops....", "Please enter contact", "info");
+            return false;
+        }
+        else {
+            $.ajax({
+                type: "get",
+                contentType: "application/json; charset=utf-8",
+                url: "{{ url('forgot_password') }}",
+                data: {contact: contact},
+                success: function (data) {
+                    if (data == 'ok') {
+                        swal("Success....", "Password has been sent successfully", "success");
+                    } else if (data == 'Incorrect') {
+                        swal("Oops....", "Please enter registered mobile no", "info");
+                    }
+                },
+                error: function (xhr, status, error) {
+//                    alert('xhr.responseText');
+                    $('#err').html(xhr.responseText);
+                }
+            });
+        }
+    }
+    function submitotpForm() {
+        var txtotp = $('#txtotp2').val();
+        if (txtotp.trim() == '') {
+            swal("Oops....", "Please enter verification code", "info");
+            $('#txtotp').focus();
+            return false;
+        } else {
+            $.ajax({
+                type: "get",
+                contentType: "application/json; charset=utf-8",
+                url: "{{ url('verify_otp') }}",
+                data: {txtotp: txtotp},
+                success: function (data) {
+                    if (data == 'ok') {
+                        $('#txtotp').val('');
+                        swal("Success", "You have verified successfully...you will be redirected in 3 seconds", "success");
+                        setTimeout(function () {
+                            window.location.href = "{{url('product_list')}}";
+                        }, 3000);
+                    } else if (data == 'Incorrect') {
+                        $('#txtotp').val('');
+                        swal("Oops....", "Incorrect otp...Please enter correct otp", "info");
+                    }
+                },
+                error: function (xhr, status, error) {
+//                    alert('xhr.responseText');
+                    $('#err').html(xhr.responseText);
+                }
+            });
+        }
+    }
+
+    $(document).ready(function () {
+        $('#email_id').focusout(function () {
+            var re = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
+            if ($(this).val() != '') {
+                if (!re.test($(this).val())) {
+                    swal("Oops....", "Please enter correct email id", "info");
+                    this.value = "";
+                }
+                else {
+                    var domains = ["gmail.com", "hotmail.com", "msn.com", "yahoo.com", "yahoo.in", "yahoo.com", "aol.com", "hotmail.co.uk", "yahoo.co.in", "live.com", "rediffmail.com", "outlook.com", "hotmail.it", "googlemail.com", "mail.com"]; //update ur domains here
+                    var idx1 = this.value.indexOf("@");
+                    if (idx1 > -1) {
+                        var splitStr = this.value.split("@");
+                        var sub = splitStr[1].split(".");
+                        if ($.inArray(splitStr[1], domains) == -1) {
+                            swal("Oops....", "Email must have correct domain name Eg: @gmail.com", "info");
+                            this.value = "";
+                        }
+                    }
+                }
+            }
+
+
+        });
+
+        $('#mobile').focusout(function () {
+            var txt_val = $(this).val();
+            if (txt_val.trim() == '') {
+                $('#mobile').html('');
+            } else {
+                $.ajax({
+                    type: "get",
+                    contentType: "application/json; charset=utf-8",
+                    url: "{{ url('checkno') }}",
+                    data: {contact: txt_val},
+//                    data: '{"formData":"' + formData + '", "rc":"' + txt_val + '"}',
+                    success: function (data) {
+                        if (data == 'already') {
+                            swal("Oops....", "Contact no already exist please user different contact no", "info");
+                            $('#mobile').val('');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+//                    alert('xhr.responseText');
+//                        $('#mobile').html(xhr.responseText);
+                    }
+                });
+            }
+        });
+
+        $('#ref_code').focusout(function () {
+            var txt_val = $(this).val();
+            if (txt_val.trim() == '') {
+                $('#ref_code').html('');
+            } else {
+                $.ajax({
+                    type: "get",
+                    contentType: "application/json; charset=utf-8",
+                    url: "{{ url('checkno') }}",
+                    data: {contact: txt_val},
+//                    data: '{"formData":"' + formData + '", "rc":"' + txt_val + '"}',
+                    success: function (data) {
+                        if (data != 'already') {
+                            swal("Oops....", "You have entered invalid Referral code", "info");
+                            $('#ref_code').val('');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+//                    alert('xhr.responseText');
+                        $('#ref_code').html(xhr.responseText);
+                    }
+                });
+            }
+        });
+    });
+    function Requiredtxt(me) {
+        var text = $.trim($(me).val());
+        if (text == '') {
+            $(me).addClass("errorClass");
+            return false;
+        } else {
+            $(me).removeClass("errorClass");
+            return true;
+        }
+    }
+    {{--var EmailValidate = function (me) {--}}
+    {{--var pattern = /^[a-zA-Z0-9\-_]+(\.[a-zA-Z0-9\-_]+)*@[a-z0-9]+(\-[a-z0-9]+)*(\.[a-z0-9]+(\-[a-z0-9]+)*)*\.[a-z]{2,4}$/;--}}
+
+    {{--var emailText = $.trim($(me).val());--}}
+    {{--if (pattern.test(emailText)) {--}}
+    {{--$(me).removeClass("errorClass");--}}
+    {{--return true;--}}
+    {{--} else {--}}
+    {{--$(me).addClass("errorClass");--}}
+    {{--return false;--}}
+    {{--}--}}
+    {{--}--}}
     function check() {
         var email = $('#email_id').val();
         var mobile = $('#mobile').val();
@@ -362,25 +538,17 @@
         var confirm_password = $('#confirm_password').val();
         var phoneno = /^\d{10}$/;
         var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-        if (reg.test(email) == false) {
-            HidePopoupMsg();
-            ShowErrorPopupMsg('Please Enter valid Email Address');
-            return false;
+        var result = true;
+        if (!Boolean(Requiredtxt("#name")) || !Boolean(Requiredtxt("#email_id")) || !Boolean(Requiredtxt("#password")) || !Boolean(Requiredtxt("#confirm_password"))) {
+            result = false;
         }
-        else if (phoneno.test(mobile) == false) {
-            HidePopoupMsg();
-            ShowErrorPopupMsg('Please Enter valid Mobile Number');
+        if (!result) {
             return false;
-        }
-        else if (password != confirm_password) {
-            HidePopoupMsg();
-            ShowErrorPopupMsg('Password MisMatch');
-            return false;
-        }
-        else {
+        } else {
             register_user();
         }
     }
+
 
     function register_user() {
         var ref_code = $('#ref_code').val();
@@ -394,6 +562,7 @@
             url: "{{url('register_user')}}",
             data: "ref_code= " + ref_code + "&user_name= " + user_name + "&email_id= " + email_id + "&mobile= " + mobile + "&password= " + password,
             success: function (data) {
+
                 if (data == 'Mobile Number Already Linked With Another Account!!!!!!') {
                     $('#error_register').html('Mobile Number Already Linked With Another Account!!!!!!');
                 }
@@ -409,7 +578,7 @@
                     $('#mobile').val('');
                     $('#password').val('');
                     $('#confirm_password').val('');
-                    ShowSuccessPopupMsg('User Registration Successfully...');
+                    swal("Success....", "User Registration Successfully...", "success");
                 }
             },
             error: function (data) {
@@ -418,6 +587,7 @@
             }
         });
     }
+
     function AskForCall() {
         var ask_number = $('#ask_number').val();
         if (ask_number == '') {
@@ -443,29 +613,44 @@
         }
     }
 
+
     function send_login() {
         var login_mobile = $('#login_mobile').val();
         var login_password = $('#login_password').val();
-        $.ajax({
-            type: "POST",
-            url: "{{url('login_user')}}",
-            data: "login_mobile= " + login_mobile + "&login_password= " + login_password,
-            success: function (data) {
-                if (data == "UserName/Password Invalid") {
-                    HidePopoupMsg();
-                    ShowErrorPopupMsg('UserName/Password Invalid');
+        var result = true;
+        if (!Boolean(Requiredtxt("#login_mobile")) || !Boolean(Requiredtxt("#login_password"))) {
+            result = false;
+        }
+        if (!result) {
+            return false;
+        } else {
+            $.ajax({
+                type: "get",
+                url: "{{url('login_user')}}",
+                data: {login_mobile: login_mobile, login_password: login_password},
+                success: function (data) {
+                    if (data == "Login Success") {
+                        HidePopoupMsg();
+                        window.location.reload();
+                    } else if (data == "UserName/Password Invalid") {
+                        HidePopoupMsg();
+                        swal("Oops....", "UserName or Password is Invalid", "info");
+                    } else if (data == 'Not Verified') {
+                        swal("Oops....", "Your account in not verified, verification code has been sent to your registered mobile no", "info");
+                        ShowLoginSignup('verify');
+                    } else if (data == 'inactive') {
+                        swal("Oops....", "Your account is deactivated by admin, Please contact to organic dolchi admin", "info");
+                    } else {
+                        window.location.reload();
+                    }
+                },
+                error: function (data) {
+//                alert(data);
                 }
-                else {
-                    HidePopoupMsg();
-                    // ShowSuccessPopupMsg('Login Success');
-                    window.location.reload();
-                }
-            },
-            error: function (data) {
-                alert(data);
-            }
-        });
+            });
+        }
     }
+
     $(document).onkeydown = function () {
         // document.onkeydown = function () {
         if (window.event.keyCode == '13') {
@@ -520,7 +705,18 @@
             });
         }
     }
+
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
+    });
+
+    $(".txt_space").on({
+        keydown: function (e) {
+            if (e.which === 32)
+                return false;
+        },
+        change: function () {
+            this.value = this.value.replace(/\s/g, "");
+        }
     });
 </script>
