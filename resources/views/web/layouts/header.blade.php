@@ -409,6 +409,7 @@
             });
         }
     }
+
     function submitotpForm() {
         var txtotp = $('#txtotp2').val();
         if (txtotp.trim() == '') {
@@ -516,6 +517,7 @@
             }
         });
     });
+
     function Requiredtxt(me) {
         var text = $.trim($(me).val());
         if (text == '') {
@@ -526,18 +528,7 @@
             return true;
         }
     }
-    {{--var EmailValidate = function (me) {--}}
-    {{--var pattern = /^[a-zA-Z0-9\-_]+(\.[a-zA-Z0-9\-_]+)*@[a-z0-9]+(\-[a-z0-9]+)*(\.[a-z0-9]+(\-[a-z0-9]+)*)*\.[a-z]{2,4}$/;--}}
 
-    {{--var emailText = $.trim($(me).val());--}}
-    {{--if (pattern.test(emailText)) {--}}
-    {{--$(me).removeClass("errorClass");--}}
-    {{--return true;--}}
-    {{--} else {--}}
-    {{--$(me).addClass("errorClass");--}}
-    {{--return false;--}}
-    {{--}--}}
-    {{--}--}}
     function check() {
         var email = $('#email_id').val();
         var mobile = $('#mobile').val();
@@ -555,7 +546,6 @@
             register_user();
         }
     }
-
 
     function register_user() {
         var ref_code = $('#ref_code').val();
@@ -619,7 +609,6 @@
             });
         }
     }
-
 
     function send_login() {
         var login_mobile = $('#login_mobile').val();

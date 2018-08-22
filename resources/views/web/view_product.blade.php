@@ -11,15 +11,16 @@
                 @endif
             </div>
             <div class="images_thumbbox">
+                @php $image = \App\ItemImages::where(['item_master_id' => $item->id])->first(); @endphp
                 @if(count($item_images)>0)
                     @foreach($item_images as $img)
-                        @if(isset($image->image) && file_exists("p_img/$item->id/".$image->image))
+                        @if(file_exists("p_img/$item->id/".$image->image))
                             <img class="brics_images" src="{{url('p_img').'/'.$item->id.'/'.$img->image}}"
                                  onclick="appendimages(this);"/>
                         @endif
                     @endforeach
                 @else
-                    <img height="300px" id="view_images" width="300px" src="{{url('images/images/default.png')}}">
+                    <img class="brics_images" id="view_images" src="{{url('images/default.png')}}">
                 @endif
             </div>
         </div>
@@ -41,7 +42,7 @@
             </div>
             <div class="option_availability">
                 <div class="option_txt">Qty :</div>
-                <input type="number" min="1" max="10" id="qty_{{$item->id}}" class="form-control text-center"
+                <input type="number" min="1" max="10" id="qty_view_{{$item->id}}" class="form-control text-center"
                        value="1"/>
             </div>
             <div class="option_availability">
@@ -65,7 +66,7 @@
     function AddTOcartView(dis) {
         var itemid = $(dis).attr('id');
         var rateid = $('#price :selected').val();
-        var qty = $('#qty_' + itemid).val();
+        var qty = $('#qty_view_' + itemid).val();
         var carturl = "{{url('addtocart')}}";
         $.ajax({
             type: "get",

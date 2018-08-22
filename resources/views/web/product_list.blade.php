@@ -374,7 +374,67 @@
             });
 
         }
+        function AddTOcart_load(dis) {
+            var cart = $('#baskit_block');
+//            var cart_counter = $('#baskit_counter');
+//            var cart_value = Number($(cart_counter).text());
+//            cart_value++;
+            var imgtodrag = $(dis).parent().parent().find("img").eq(0);
+            if (imgtodrag) {
+                var imgclone = imgtodrag.clone()
+                    .offset({
+                        top: imgtodrag.offset().top,
+                        left: imgtodrag.offset().left
+                    })
+                    .css({
+                        'opacity': '0.5',
+                        'position': 'absolute',
+                        'height': '150px',
+                        'width': '150px',
+                        'z-index': '100'
+                    })
+                    .appendTo($('body'))
+                    .animate({
+                        'top': cart.offset().top + 10,
+                        'left': cart.offset().left + 10,
+                        'width': 50,
+                        'height': 50
+                    }, 1000, 'easeInOutExpo');
 
+                setTimeout(function () {
+                    cart.effect("shake", {
+                        times: 1
+                    }, 100);
+//                    cart_counter.text(cart_value);
+                }, 1500);
+
+                imgclone.animate({
+                    'width': 0,
+                    'height': 0
+                }, function () {
+                    $(this).detach()
+                });
+            }
+            var itemid = $(dis).attr('id');
+            var rateid = $(dis).attr('data-content');
+            var qty = $('#qty_load_' + itemid).val();
+            var carturl = "{{url('addtocart')}}";
+            $.ajax({
+                type: "get",
+                contentType: "application/json; charset=utf-8",
+                url: carturl,
+                data: {itemid: itemid, rateid: rateid, quantity: qty},
+                success: function (data) {
+                    $("#cartload").html(data);
+//                    ShowSuccessPopupMsg('Product has been added to cart');
+                },
+                error: function (xhr, status, error) {
+                    $("#cartload").html(xhr.responseText);
+//                    alert('Technical Error Occured!');
+                }
+            });
+
+        }
         function checkOffset() {
             if ($('#product_filter_container').offset().top + $('#product_filter_container').height()
                 >= $('#footer').offset().top - 30) {
@@ -506,7 +566,7 @@
                                                                 <div class="long_spinner_withbtn">
                                                                     <div class="input-group long_qty_box">
                                                             <span class="long_qty_txt" id="price_{{$item->id}}"
-                                                                  data-content="{{$price->id}}">{{$price->unit}}
+                                                                  data-content="{{$price->id}}">{{$price->unit.' '.$price->weight}}
                                                                 - {{$price->price}}</span>
                                                                         <input type="number"
                                                                                class="form-control text-center qty_edittxt"
@@ -553,7 +613,7 @@
                                                                     <div class="long_spinner_withbtn">
                                                                         <div class="input-group long_qty_box">
                                                             <span class="long_qty_txt" id="price_{{$item->id}}"
-                                                            >{{$price->unit}}
+                                                            >{{$price->unit .' '.$price->weight}}
                                                                 - {{$price->price}}</span>
                                                                             <input type="number"
                                                                                    class="form-control text-center qty_edittxt"
@@ -568,6 +628,13 @@
                                                                             <i class="mdi mdi-basket"></i> <span
                                                                                     class="button-group_text">Add</span>
                                                                         </button>
+                                                                    </div>
+                                                                @else
+                                                                    <div class="notify_block long_notifyblock">
+                                                                        <div class="out_of_stock">Out Of Stock</div>
+                                                                        <div class="notify_me_btn" data-toggle="modal"
+                                                                             data-target="#Modal_NotifyMe">Notify Me
+                                                                        </div>
                                                                     </div>
                                                                 @endif
                                                             @endforeach
@@ -681,15 +748,15 @@
             });
         }
 
-//        $(document).ready(function () {
-//            $(window).scroll(function (event) {
-//                if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-//                    if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
-//                        getmoreItems();
-//                    }
-//                }
-//            });
-//        });
+        //        $(document).ready(function () {
+        //            $(window).scroll(function (event) {
+        //                if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+        //                    if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
+        //                        getmoreItems();
+        //                    }
+        //                }
+        //            });
+        //        });
 
         $(window).scroll(function (event) {
             if ($(window).scrollTop() + $(window).height() == $(document).height()) {
@@ -739,7 +806,7 @@
                 }
             });
 
-        //hello world wwwwwwwwwww
+            //hello world wwwwwwwwwww
         }
     </script>
 @stop

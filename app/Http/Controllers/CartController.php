@@ -28,7 +28,7 @@ class CartController extends Controller
         $price = DB::table('item_price')->where('id', $item_price_id)->first();
 //        echo json_encode($price);
 
-        $quantity = request('qty');
+        $quantity = request('quantity');
         $product_name = $products->name;
 //        if ($price->price <= $price->special_price || $price->special_price == 0)
         $product_price = $price->price;
@@ -131,6 +131,7 @@ class CartController extends Controller
             $order->point_pay = $selected_point == '' ? 0 : $selected_point;
             $order->promo_pay = $selected_promo == '' ? 0 : $selected_promo;
             $order->paid_amt = request('amount');
+            $order->is_cod = 0;
             $order->save();
             if ($selected_point > 0) {
                 $user->gain_amount = 0;

@@ -142,6 +142,7 @@ Route::get('/active_order', 'OrderController@active_order');
 Route::get('/inactive_order', 'OrderController@inactive_order');
 Route::get('/more_order/{id}', 'OrderController@more_order');
 Route::get('/bill_order/{id}', 'OrderController@bill_order');
+Route::get('delete_item_pic', 'ItemmasterController@delete_item_pic');
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Route::get('/statelist', 'StateController@statelist');
 Route::get('/add_state', 'StateController@add_state');

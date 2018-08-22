@@ -593,7 +593,7 @@ class APIController extends Controller
         $selected_promo = request('promo_amt');
         if ($selected_point > 0) {
             $user_master = UserMaster::find($user_id);
-            $user_master->gain_amount -= $selected_point;
+            $user_master->gain_amount = 0;
             $user_master->save();
         }
 
@@ -607,6 +607,7 @@ class APIController extends Controller
         $order->point_pay = $selected_point == '' ? 0 : $selected_point;
         $order->promo_pay = $selected_promo == '' ? 0 : $selected_promo;
         $order->paid_amt = request('paid_amount');
+        $order->is_cod = request('is_cod');
 
         $order->save();
         $cart = json_decode(request('cart'));
@@ -710,7 +711,7 @@ class APIController extends Controller
             return $this->sendError('Validation Error.', $validator->errors());
         }
         $user_id = request('user_id');
-        $orders = DB::select("SELECT o.*,od.id as ods_id, od.*, (select i.name from item_master i where od.item_master_id = i.id) as item_name, (select i.description from item_master i where od.item_master_id = i.id) as description, (select im.image from item_images im where od.item_master_id = im.id) as item_image  FROM order_description od, order_master o WHERE o.user_id = $user_id and od.order_master_id = o.id");
+        $orders = DB::select("SELECT o.*,od.id as ods_id, od.*, (select i.name from item_master i where od.item_master_id = i.id) as item_name, (select i.description from item_master i where od.item_master_id = i.id) as description, (select im.image from item_images im where od.item_master_id = im.id) as item_image, (select ua.address from user_address ua where o.address_id = ua.id) as address, (select ua.zip from user_address ua where o.address_id = ua.id) as zip, (select ua.contact from user_address ua where o.address_id = ua.id) as user_contact, (select r.star_rating FROM reviews r where r.order_description_id = od.id and r.item_master_id = od.item_master_id and r.user_id = $user_id) as star_rating, (select r.review FROM reviews r where r.order_description_id = od.id and r.item_master_id = od.item_master_id and r.user_id = $user_id) as review_desc FROM order_description od, order_master o WHERE o.user_id = $user_id and od.order_master_id = o.id");
         if (count($orders) > 0) {
             return $this->sendResponse($orders, 'User Orders list amount');
         } else {

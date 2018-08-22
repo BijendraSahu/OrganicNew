@@ -130,7 +130,7 @@
                                         @endif
                                     @endforeach
                                 @else
-                                    <img class="small" id="view_images" src="{{url('images/default.png')}}">
+                                    <img class="product_brics_images" id="view_images" src="{{url('images/default.png')}}" />
                                 @endif
 
                                 {{--<img class="product_brics_images" src="images/grapsh.jpg" onclick="appendimages(this);">--}}
@@ -339,8 +339,9 @@
                                                         <div class="progress-bar progress-bar-success"
                                                              role="progressbar"
                                                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
-                                                             style="width: {{round($five *100 / count($reviews),2)}}%">
-                                                            <span class="sr-only">{{round($five *100 / count($reviews),2)}}%</span>
+                                                             style="width: {{count($reviews)>0 ? round($five *100 / count($reviews),2):'0'}}%">
+                                                            <span class="sr-only">{{count($reviews)>0 ? round($five *100 / count($reviews),2):'0'}}
+                                                                %</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -353,8 +354,9 @@
                                                         <div class="progress-bar progress-bar-success"
                                                              role="progressbar"
                                                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
-                                                             style="width: {{round($four *100 / count($reviews),2)}}%">
-                                                            <span class="sr-only">{{round($four *100 / count($reviews),2)}}%</span>
+                                                             style="width: {{count($reviews)>0 ? round($four *100 / count($reviews),2):'0'}}%">
+                                                            <span class="sr-only">{{count($reviews)>0 ? round($four *100 / count($reviews),2):'0'}}
+                                                                %</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -366,8 +368,9 @@
                                                     <div class="progress">
                                                         <div class="progress-bar progress-bar-info" role="progressbar"
                                                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
-                                                             style="width: {{round($three *100 / count($reviews),2)}}%">
-                                                            <span class="sr-only">{{round($three *100 / count($reviews),2)}}%</span>
+                                                             style="width: {{count($reviews)>0 ? round($three *100 / count($reviews),2):'0'}}%">
+                                                            <span class="sr-only">{{count($reviews)>0 ? round($three *100 / count($reviews),2):'0'}}
+                                                                %</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -380,8 +383,9 @@
                                                         <div class="progress-bar progress-bar-warning"
                                                              role="progressbar"
                                                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
-                                                             style="width: {{round($two *100 / count($reviews),2)}}%">
-                                                            <span class="sr-only">{{round($two *100 / count($reviews),2)}}%</span>
+                                                             style="width: {{count($reviews)>0 ? round($two *100 / count($reviews),2):'0'}}%">
+                                                            <span class="sr-only">{{count($reviews)>0 ? round($two *100 / count($reviews),2):'0'}}
+                                                                %</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -393,8 +397,9 @@
                                                     <div class="progress">
                                                         <div class="progress-bar progress-bar-danger" role="progressbar"
                                                              aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
-                                                             style="width:{{round($one *100 / count($reviews),2)}}%">
-                                                            <span class="sr-only">{{round($one *100 / count($reviews),2)}}%</span>
+                                                             style="width:{{count($reviews)>0 ?round($one *100 / count($reviews),2):'0'}}%">
+                                                            <span class="sr-only">{{count($reviews)>0 ?round($one *100 / count($reviews),2):'0'}}
+                                                                %</span>
                                                         </div>
                                                     </div>
                                                 </div>

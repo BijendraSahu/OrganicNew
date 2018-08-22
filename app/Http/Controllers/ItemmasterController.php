@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Categorymaster;
+use App\ItemCategory;
 use App\ItemCategorymaster;
 use App\ItemImages;
 use App\ItemMaster;
@@ -131,18 +132,21 @@ class ItemmasterController extends Controller
             }
         }
 
-        $count = count(request('unit')) / 6;
+        $count = count(request('unit')) / 7;
         $item_unit = request('unit');
         $u = 0;
         $k = 1;
-        $p = 2;
-        $s = 3;
-        $q = 4;
-        $pr = 5;
+        $cp = 2;
+        $p = 3;
+        $s = 4;
+        $q = 5;
+        $pr = 6;
         for ($i = 0; $i < $count; $i++) {
             $price = new ItemPrice();
             $price->item_master_id = $item->id;
-            $price->unit = $item_unit[$u].$item_unit[$k];
+            $price->unit = $item_unit[$u];
+            $price->weight = $item_unit[$k];
+            $price->cost_price = $item_unit[$cp];
             $price->price = $item_unit[$p];
             $price->spl_price = $item_unit[$s];
             $price->qty = $item_unit[$q];
@@ -150,10 +154,11 @@ class ItemmasterController extends Controller
             $price->save();
             $u = $pr+ 1;
             $k = $pr + 2;
-            $p = $pr + 3;
-            $s = $pr + 4;
-            $q = $pr + 5;
-            $pr = $pr + 6;
+            $cp = $pr + 3;
+            $p = $pr + 4;
+            $s = $pr + 5;
+            $q = $pr + 6;
+            $pr = $pr + 7;
         }
 
         return redirect('items')->with('message', 'Product has been added');
@@ -186,7 +191,7 @@ class ItemmasterController extends Controller
         $all_items_cat = ItemCategorymaster::where(['item_master_id' => $findthis])->get();
         $all_items_image = ItemImages::where(['item_master_id' => $findthis])->get();
         $all_items_meta = itemMetamodel::where(['item_master_id' => $findthis])->get();
-        return view('adminview.edit_item', ['all_items' => $all_items, 'all_items_price' => $all_items_price, 'all_items_cat' => $all_items_cat, 'all_items_image' => $all_items_image, 'allcat' => $allcat, 'all_items_meta' => $all_items_meta]);
+        return view('adminview.edit_item', ['all_items' => $all_items, 'all_items_price' => $all_items_price, 'all_items_cat' => $all_items_cat, 'all_items_image' => $all_items_image, 'allcat' => $allcat, 'all_items_meta' => $all_items_meta,'findthis'=>$findthis]);
 
     }
 
@@ -206,78 +211,106 @@ class ItemmasterController extends Controller
     {
 
 
-        $item_id = request('p_id');
-        $item = ItemMaster::find($item_id);
-        $item->name = request('p_name');
-        $item->description = request('p_des');
-        $item->usage = request('p_usage');
-        $item->specifcation = request('p_spec');
-        $item->ingredients = request('p_ingredent');
-        $item->nutrients = request('p_nutrients');
-        $item->delivery = request('p_delivery');
-        $item->meta_tag = request('meta_tag');
-        $item->meta_keyword = request('meta_key');
-        $item->meta_description = request('meta_des');
-        $item->save();
-        /******************Unit/Qty/Price/Special Price********************/
+        $update_this= request('i_id');
 
-        $item_unitoo = request('item_unit');
-        if ($item_unitoo[0] != null) {
-            ItemPrice::where('item_master_id', $item_id)->delete();
-            $count = count(request('item_unit')) / 4;
-            $item_unit = request('item_unit');
-            $u = 0;
-            $p = 1;
-            $s = 2;
-            $q = 3;
-            for ($i = 0; $i < $count; $i++) {
-                $price = new ItemPrice();
-                $price->item_master_id = $item->id;
-                $price->unit = $item_unit[$u];
-                $price->price = $item_unit[$p];
-                $price->spl_price = $item_unit[$s];
-                $price->qty = $item_unit[$q];
-                $price->save();
-                $u = $q + 1;
-                $p = $q + 2;
-                $s = $q + 3;
-                $q = $q + 4;
-            }
-        }
+        $data = array(
+            'name' => request('item_name'),
+            'description' => request('temp'),
+            'usage' => request('item_usage'),
+            'specifcation' => request('item_specification'),
+            'ingredients' => request('item_ingredients'),
+            'nutrients' => request('item_nutrients'),
+            'delivery' => request('item_delivery'),
+            'meta_tag' => request('item_metatag'),
+            'meta_keyword' => request('item_metakeyword'),
+            'meta_description' => request('item_metadescription'),
+        );
+        ItemMaster::where('id', request('i_id'))
+            ->update($data);
 
-        /******************Unit/Qty/Price/Special Price********************/
-
-        /******************Item Images********************/
-        $destinationPath = 'p_img/' . $item->id . '/';
-        if (request('images') != null) {
-            ItemImages::where('item_master_id', $item_id)->delete();
-            foreach (request('images') as $file) {
+        $destinationPath = 'p_img/' . $update_this . '/';
+        if (request('file') != null) {
+            foreach (request('file') as $file) {
                 $item_img = new ItemImages();
                 $temp = time() . '_' . $file->getClientOriginalName();
                 $file->move($destinationPath, $temp);
                 $item_img->image = $temp;
-                $item_img->item_master_id = $item->id;
+                $item_img->item_master_id = $update_this;
                 $item_img->save();
             }
         }
-        /******************Item Images********************/
 
 
-        /******************Category********************/
+
+        ItemCategory::where('item_master_id', $update_this)
+            ->delete();
+
         $finalcat = request('category');
         if (request('category') != null) {
-            ItemCategorymaster::where('item_master_id', $item_id)->delete();
             for ($i = 0; $i < sizeof($finalcat); $i++) {
                 $item_category = new ItemCategorymaster();
                 $item_category->category_id = $finalcat[$i];
-                $item_category->item_master_id = $item->id;
+                $item_category->item_master_id = $update_this;
                 $item_category->save();
             }
         }
 
+        ItemPrice::where('item_master_id', $update_this)
+            ->delete();
+        $count = count(request('unit')) / 6;
+        $item_unit = request('unit');
+        $u = 0;
+        $k = 1;
+        $cp = 2;
+        $p = 3;
+        $s = 4;
+        $q = 5;
+        $pr = 6;
+        for ($i = 0; $i < $count; $i++) {
+            if ($item_unit[$u] != "")
+            {
+                $price = new ItemPrice();
+            $price->item_master_id = $update_this;
+            $price->unit = $item_unit[$u];
+            $price->weight = $item_unit[$k];
+            $price->cost_price = $item_unit[$cp];
+            $price->price = $item_unit[$p];
+            $price->spl_price = $item_unit[$s];
+            $price->qty = $item_unit[$q];
+            $price->product_id = $item_unit[$pr];
+            $price->save();
+                $u = $pr+ 1;
+                $k = $pr + 2;
+                $cp = $pr + 3;
+                $p = $pr + 4;
+                $s = $pr + 5;
+                $q = $pr + 6;
+                $pr = $pr + 7;
+        }
+        }
 
-        /******************Category********************/
+        return redirect('items')->with('message', 'Product has been Updated');
 
-        return redirect('items')->with('message', 'Product has been updated');
+    }
+
+    public function delete_item_pic()
+    {
+        try{
+            $imagename = request('i_name');
+            $m_id = request('m_id');
+            $item_id = request('item_id');
+
+            ItemImages::where('id', $m_id)
+                ->delete();
+            $image_path = 'p_img/' . $item_id . '/' . $imagename;
+            if (File::exists($image_path)) {
+                File::delete($image_path);
+                return '1';
+            }
+        }catch(\Exception $ex)
+        {
+            return $ex->getMessage();
+        }
+
     }
 }

@@ -275,7 +275,7 @@ class FrontendController extends Controller
             $selected_promo = request('selected_promo');
             if ($selected_point > 0) {
                 $user_master = UserMaster::find($user->id);
-                $user_master->gain_amount -= $selected_point;
+                $user_master->gain_amount = 0;
                 $user_master->save();
             }
 
