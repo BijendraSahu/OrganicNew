@@ -10,6 +10,12 @@ session_start();
 
 class AdminController extends Controller
 {
+
+    public function  aditya()
+    {
+        echo "Aditya";
+    }
+
     public function admin()
     {
 
