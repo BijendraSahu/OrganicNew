@@ -277,7 +277,6 @@
             $('#view_large_bg').css('background-image', 'url("' + src_no + '")');
             Initialize_ProductDetails();
         }
-
         function Initialize_ProductDetails() {
             var native_width = 0;
             var native_height = 0;
@@ -311,7 +310,6 @@
                 }
             });
         }
-
         function AddTOcart(dis) {
             var cart = $('#baskit_block');
 //            var cart_counter = $('#baskit_counter');
@@ -444,7 +442,6 @@
                 $('#product_filter_container').removeClass('filter_removefixed');
             }
         }
-
         $(document).scroll(function () {
             checkOffset();
         });
@@ -468,16 +465,15 @@
                 $('#filter_data li').removeClass('selected');
                 $(this).addClass('selected');
                 var gettext = $(this).text();
-                if (gettext == "Products Category") {
-                    $('#product_category').show();
-                    $('#product_all').hide();
-                } else {
-                    $('#product_all').show();
-                    $('#product_category').hide();
-                }
+//                if (gettext == "Products Category") {
+//                    $('#product_category').show();
+//                    $('#product_all').hide();
+//                } else {
+//                    $('#product_all').show();
+//                    $('#product_category').hide();
+//                }
             });
         });
-
         function getBuyItem() {
             var input = document.getElementById("Search");
             var filter = input.value.toLowerCase();
@@ -491,7 +487,6 @@
                 }
             }
         }
-
     </script>
 @stop
 @section('content')
@@ -511,7 +506,7 @@
                     </div>
                     <div class="filter_category">
                         <ul class="product_list_ul style-scroll" id="filter_data">
-                            <li class="selected">Products Category</li>
+                            <li onclick="get_category(this);" class="selected">Products Category</li>
                             <li onclick="get_items(this);" id="0">All Products</li>
                             @foreach($categories as $category)
                                 <li onclick="get_items(this);" id="{{$category->id}}">{{$category->name}}</li>
@@ -519,7 +514,12 @@
                         </ul>
                     </div>
                 </div>
-                <div class="product_container" id="product_category">
+                {{--<div class="product_container" id="product_category">--}}
+                {{----}}
+                {{--</div>--}}
+
+
+                <div class="product_container" id="product_all">
                     <div class="slider_row">
                         @php
                             $categories = DB::select("select * from category_master ic where ic.id in (select DISTINCT category_id from item_category where is_active = 1)");
@@ -527,7 +527,7 @@
 
                         @foreach($categories as $category)
                             @php
-                                $items = DB::select("SELECT im.* FROM item_master im, item_category ic where im.id=ic.item_master_id and ic.category_id=$category->id");
+                                $items = DB::select("SELECT im.* FROM item_master im, item_category ic where im.is_active = 1 and im.id=ic.item_master_id and ic.category_id=$category->id");
                             @endphp
                             <div class="col-md-3 col-sm-6">
                                 <div class="product_carousal_box">
@@ -535,7 +535,7 @@
                                         <span class="filter_head_txt slider_headtxt">{{$category->name}}</span>
                                     </div>
 
-                                    <div id="myCarousel" class="carousel slide vertical">
+                                    <div id="myCarousel{{$category->id}}" class="carousel slide vertical">
                                         <div class="carousel-inner slide_up_carousel">
                                             <?php $counter = 0; ?>
                                             @foreach($items as $item)
@@ -567,7 +567,7 @@
                                                                     <div class="input-group long_qty_box">
                                                             <span class="long_qty_txt" id="price_{{$item->id}}"
                                                                   data-content="{{$price->id}}">{{$price->unit.' '.$price->weight}}
-                                                                - {{$price->price}}</span>
+                                                                - {{"Rs.".$price->price}}</span>
                                                                         <input type="number"
                                                                                class="form-control text-center qty_edittxt"
                                                                                min="0"
@@ -615,7 +615,7 @@
                                                                         <div class="input-group long_qty_box">
                                                             <span class="long_qty_txt" id="price_{{$item->id}}"
                                                             >{{$price->unit .' '.$price->weight}}
-                                                                - {{$price->price}}</span>
+                                                                - {{"Rs.".$price->price}}</span>
                                                                             <input type="number"
                                                                                    class="form-control text-center qty_edittxt"
                                                                                    min="0" max="{{$price->qty}}"
@@ -640,7 +640,6 @@
                                                                     </div>
                                                                 </div>
                                                             @endif
-                                                            @endif
                                                         </div>
                                                     </div>
                                                 @endif
@@ -648,9 +647,9 @@
                                             @endforeach
                                         </div>
                                         <div class="slider_nav ">
-                                            <a class="left glo_sliderarrow_btn" href="#myCarousel"
+                                            <a class="left glo_sliderarrow_btn" href="#myCarousel{{$category->id}}"
                                                data-slide="prev">‹</a>
-                                            <a class="right glo_sliderarrow_btn" href="#myCarousel"
+                                            <a class="right glo_sliderarrow_btn" href="#myCarousel{{$category->id}}"
                                                data-slide="next">›</a>
                                         </div>
                                     </div>
@@ -658,12 +657,6 @@
                             </div>
                         @endforeach
                     </div>
-                </div>
-
-
-                <div class="product_container" id="product_all" style="display: none">
-
-
                 </div>
             </div>
         </div>
@@ -714,35 +707,69 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                    <button type="button" class="btn btn-primary" onclick="notify_organic()" data-dismiss="modal">Submit</button>
                 </div>
             </div>
         </div>
     </div>
     <script>
+        function notify_organic() {
+            var
+        }
 
         var append_loading_img = '<div class="feed_loadimg_block" id="load_img">' + '<img height="50px" class="center-block" src="{{ url('images/loading.gif') }}"/></div>';
         var append_div = '<div class="product_block loading_block" id="load_item"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div>';
+
+        var no_record = '<div class="product_block">No Record Available</div>';
+
+        function get_category(dis) {
+            var category_id = $(dis).attr('id');
+            var limit = Number($('#see_id').val());
+//            alert(category_id);
+            $('#category_id').val(category_id);
+            $.ajax({
+                type: "get",
+                contentType: "application/json; charset=utf-8",
+                url: "{{ url('getallproducts') }}",
+                data: {currentpage: limit, category_id: category_id},
+                beforeSend: function () {
+                    $('#product_all').html('');
+                    $('#product_all').html(append_div);
+                },
+                success: function (data) {
+                    $("#load_item").remove();
+                    $("#product_all").html(data);
+                },
+                error: function (xhr, status, error) {
+                    $('#product_all').html(xhr.responseText);
+//                    ShowErrorPopupMsg('Error in uploading...');
+                }
+            });
+        }
+
 
         function get_items(dis) {
             var category_id = $(dis).attr('id');
             var limit = Number($('#see_id').val());
 //            alert(category_id);
             $('#category_id').val(category_id);
-
             $.ajax({
                 type: "get",
                 contentType: "application/json; charset=utf-8",
                 url: "{{ url('getmoreproducts') }}",
                 data: {currentpage: limit, category_id: category_id},
                 beforeSend: function () {
-                    $('#product_all').html('');
-                    $('#product_all').append(append_div);
+                    $('#product_all').html(append_div);
                 },
                 success: function (data) {
-                    $("#load_item").remove();
-
-                    $("#product_all").append(data);
+                    if (data.no_record == 'no_record') {
+                        $("#load_item").remove();
+                        $("#product_all").html(no_record);
+                    } else {
+                        $("#load_item").remove();
+//                        $('#product_all').html('');
+                        $("#product_all").html(data);
+                    }
                 },
                 error: function (xhr, status, error) {
                     $('#product_all').html(xhr.responseText);
@@ -783,8 +810,13 @@
                     $('#product_all').append(append_div);
                 },
                 success: function (data) {
-                    $("#load_item").remove();
-                    $("#product_all").append(data);
+                    if (data == 'no_record') {
+                        $("#load_item").remove();
+                        $("#product_all").html(no_record);
+                    } else {
+                        $("#load_item").remove();
+                        $("#product_all").append(data);
+                    }
                 },
                 error: function (xhr, status, error) {
                     $('#product_all').html(xhr.responseText);

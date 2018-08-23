@@ -224,14 +224,28 @@
             border-radius: 5px;
             width: 543px;
         }
-        .hh{
+
+        .hh {
             overflow-y: scroll;
-            overflow-x:hidden ;
+            overflow-x: hidden;
             height: 298px;
 
         }
+
         .hh::-webkit-scrollbar {
             display: none;
+        }
+
+        .mybtnh {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 19px;
+            height: 26px;
+        }
+
+        .mydivh {
+            position: relative;
         }
 
     </style>
@@ -248,6 +262,18 @@
                     o++;
                 }
             });
+
+            $('.item_chk').each(function () {
+                debugger;
+                @foreach($all_items_cat as $myobj)
+                if ($(this).val() == '{{$myobj->category_id}}') {
+                    $(this).attr('checked', 'checked');
+                }
+
+                @endforeach
+            });
+
+
         });
 
         function Requiredtxt(me) {
@@ -267,124 +293,29 @@
     <section class="box_containner" id="fullid">
         <div class="container-fluid">
             <div class="row">
-                <section id="item_part1">
-                    <section id="item_list">
-                        <div class="col-sm-12 col-md-12 col-xs-12">
-                            <div class="dash_boxcontainner white_boxlist">
-                                <div class="upper_basic_heading"><span class="white_dash_head_txt">
-                         All Items
-                         <button onclick="openAddform();" class="btn btn-default pull-right"><i
-                                     class="mdi mdi-plus"></i>Add</button>
-                      </span>
-                                    <p class="clearfix"></p>
-                                    <div class="col-md-6">
-                                        <select name="cat" onchange="mysearch();" id="Mycat" class="form-control">
-                                            <?php $catdata=\App\Categorymaster::where(['is_active'=>'1'])->get();?>
-                                            <option value="">All</option>
-                                                @foreach($catdata as $mydata)
-                                                    <option value="{{$mydata->id}}">{{$mydata->name}}</option>
-                                                    @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                    <input id='myInput' class="form-control" placeholder="search" onkeyup='mysearch()' type='text'>
-                                    </div>
 
-                                    <table id='myTable' class="table table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th>Product Name</th>
-                                            <th width="50%">Delivery</th>
-                                            <th>Status</th>
-                                            <th>option</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody id="newid">
-
-                                        </tbody>
-                                        <tbody class="activemy" id="old">
-                                        @foreach($all_items as $itemobj)
-
-                                            <tr  id="oldid">
-                                                <input type="hidden" value="{{$itemobj->id}}">
-                                                <td>{{$itemobj->name}}</td>
-                                                <td width="30%">{{$itemobj->delivery}}</td>
-                                                <td>@if($itemobj->is_active =='1')
-                                                        <div class="status pending">Active</div>
-                                                    @else
-
-                                                        <div class="status approved">Inactive</div>
-                                                    @endif
-                                                </td>
-
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <button type="button" class="btn btn-primary btn-sm action-btn"
-                                                                data-toggle="dropdown" aria-haspopup="true"
-                                                                aria-expanded="false">Options
-                                                        </button>
-                                                        <button type="button" class="btn btn-primary btn-sm action-btn"
-                                                                data-toggle="dropdown" aria-haspopup="true"
-                                                                aria-expanded="true"><span class="caret"></span><span
-                                                                    class="sr-only">Toggle Dropdown</span></button>
-                                                        <ul class="dropdown-menu dropdown-menu-right grid-dropdown">
-                                                            <li><a href="{{url('/edit_item_show').'/'.$itemobj->id}}"
-                                                                   data-toggle="modal"
-                                                                   data-target="#"><i
-                                                                            class="mdi mdi-lead-pencil optiondrop_icon"></i>Edit</a>
-                                                            </li>
-                                                            <li><a href="#"
-                                                                   onclick="deactivate_item({{$itemobj->id}});"><i
-                                                                            class="mdi mdi-delete optiondrop_icon"></i>Delete</a>
-                                                            </li>
-                                                            <li><a href="#"
-                                                                   onclick="openMymo({{$itemobj->id}});"
-                                                                   class="border_none" data-toggle="modal"
-                                                                   data-target=""><i
-                                                                            class="mdi mdi-more optiondrop_icon"></i>More</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        {{--<div id="newid">--}}
-
-
-                                        {{--</div>--}}
-
-
-                                        </tbody>
-                                    </table>
-                                    <div class="activemy" align="center">
-                                        {{$all_items->links()}}
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </section>
                 <section id="part2">
 
-                    <section id="item_form" class="hidealways">
+                    <section id="item_form">
                         <div class="col-sm-12 col-md-12 col-xs-12 hei">
                             <div class="dash_boxcontainner white_boxlist">
                                 <div class="upper_basic_heading heightset"><span class="white_dash_head_txt">
-                         Add Items
+                         Edit Items
                                         <button onclick="openlist();" class="btn btn-default pull-right"><i
                                                     class="mdi mdi-back"></i>List</button>
                       </span>
 
-                                    <form action="{{url('/mypost')}}" method="post" id="userpostForm"
+                                    <form action="{{url('/itemeditpost')}}" method="post" id="userpostForm"
                                           enctype="multipart/form-data">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <input type="text" id="namemy" name="item_name" class="form-control"
+                                                <input type="text" id="namemy" name="item_name"
+                                                       value="{{$all_items->name}}" class="form-control"
                                                        placeholder="Enter Item Name">
                                             </div>
                                         </div>
                                         <div class="col-sm-12 form-group">
+                                            <input type="hidden" name="i_id" value="{{$findthis}}">
 
                                             <div class="col-sm-6" onmouseleave="myfunctionis()">
                                                 <label>Description</label>
@@ -393,14 +324,11 @@
                                                 <script>
 
 
-
-                                                    function myfunctionis()
-                                                    {
+                                                    function myfunctionis() {
                                                         var htm = $("#txtEditor_myy").Editor("getText");
 
                                                         $('#temp').val(htm);
                                                     }
-
 
 
                                                 </script>
@@ -409,10 +337,11 @@
                                             <div class="col-sm-6 hh" style="">
                                                 <label>Select Categories</label>
                                                 <br>
+
                                                 @foreach($allcat as $object)
                                                     <div class="col-sm-3">
                                                         <label class="container">{{$object->name}}
-                                                            <input type="checkbox" name="category[]"
+                                                            <input type="checkbox" name="category[]" class="item_chk"
                                                                    value="{{$object->id}}" id="CheckboxHead">
                                                             <span class="checkmark"></span>
                                                         </label>
@@ -422,76 +351,138 @@
                                         </div>
                                         <br>
 
+                                        <input type="hidden" id="hidddes" value="{{$all_items->description}}">
+
                                         <div class="col-sm-6 form-group">
-                                            <input type="text" id="item_specification" name="item_specification"
+                                            <input type="text" id="item_specification"
+                                                   value="{{$all_items->specifcation}}" name="item_specification"
                                                    class="form-control"
                                                    placeholder="Enter Item Specification">
                                         </div>
                                         <div class="col-sm-6 form-group">
-                                            <input type="text" id="item_ingredients" name="item_ingredients"
+                                            <input type="text" id="item_ingredients" value="{{$all_items->ingredients}}"
+                                                   name="item_ingredients"
                                                    class="form-control"
                                                    placeholder="Enter Item Ingredients">
                                         </div>
                                         <div class="col-sm-6 form-group">
-                                            <input type="text" id="item_nutrients" name="item_nutrients"
+                                            <input type="text" value="{{$all_items->nutrients}}" id="item_nutrients"
+                                                   name="item_nutrients"
                                                    class="form-control"
                                                    placeholder="Enter Item Available Nutrients">
                                         </div>
 
                                         <div class="col-sm-6 form-group">
 
-                                            <input type="text" id="item_usage" name="item_usage"
+                                            <input type="text" value="{{$all_items->usage}}" id="item_usage"
+                                                   name="item_usage"
                                                    class="form-control"
                                                    placeholder="Enter Item Usage">
                                         </div>
 
 
-
                                         <div class="form-group field_wrapper">
-                                            <label class="form-label">Enter Price Details<span style="color: red;">*</span></label>
+                                            <label class="form-label">Enter Price Details<span
+                                                        style="color: red;">*</span></label>
                                             <br>
-                                            <div class="col-sm-1 form-group">
 
-                                                <input type="text" class="form-control" id="unitismine" name="unit[]" value=""
-                                                       placeholder="Unit" required/>
-                                            </div>
-                                            <div class="col-sm-1 form-group">
-                                                <select class="form-control" name="unit[]" id="weight">
-                                                    <option value="Kg">Kg</option>
-                                                    <option value="Gms">Gms</option>
-                                                    <option value="Lt">Lt</option>
-                                                    <option value="ml">ml</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-2 form-group">
-                                                <input type="text" class="form-control" name="unit[]" value=""
-                                                       placeholder="Cost price" required/>
-                                            </div>
-                                            <div class="col-sm-2 form-group">
-                                                <input type="text" class="form-control" name="unit[]" value=""
-                                                       placeholder="Price" required/>
-                                            </div>
-                                            <div class="col-sm-2 form-group">
-                                                <input type="text" class="form-control" name="unit[]" value=""
-                                                       placeholder="Special Price" required/>
-                                            </div>
-                                            <div class="col-sm-1 form-group">
-                                                <input type="text" class="form-control" name="unit[]" value=""
-                                                       placeholder="Qty" required/>
-                                            </div>
-                                            <div class="col-sm-2 form-group">
-                                                <input type="text" class="form-control" name="unit[]" value=""
-                                                       placeholder="Product Id" required/>
-                                            </div>
-                                            <div class="col-sm-1 form-group">
-                                                <a href="javascript:void(0);" class="addbtn add_button" name="price[]"
-                                                   title="Add field"><img src="{{url('assets/add-icon.png')}}"/></a>
-                                            </div>
-                                            <p class="clearfix"></p>
+                                            <?php $counter = 1; ?>
+                                            @foreach($all_items_price as $priceobj)
+
+                                                <div class="col-sm-1 form-group">
+
+                                                    <input type="text" class="form-control" id="unitismine"
+                                                           name="unit[]"
+                                                           value="{{$priceobj->unit}}"
+                                                           placeholder="Unit" {{$counter == 1 ?'required':''}} />
+                                                </div>
+                                                <div class="col-sm-1 form-group">
+                                                    <select class="form-control" name="unit[]" id="weight">
+                                                        <option value="{{$priceobj->weight}}">{{$priceobj->weight}}</option>
+                                                        <option value="">select</option>
+                                                        <option value="Kg">Kg</option>
+                                                        <option value="Gms">Gms</option>
+                                                        <option value="Lt">Lt</option>
+                                                        <option value="ml">ml</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-2 form-group">
+                                                    <input type="text" class="form-control" name="unit[]"
+                                                           value="{{$priceobj->cost_price}}"
+                                                                   placeholder="Cost price" required/>
+                                                </div>
+                                                <div class="col-sm-2 form-group">
+                                                    <input type="text" class="form-control" name="unit[]"
+                                                           value="{{$priceobj->price}}"
+                                                           placeholder="Price" {{$counter == 1 ?'required':''}}/>
+                                                </div>
+                                                <div class="col-sm-2 form-group">
+                                                    <input type="text" class="form-control" name="unit[]"
+                                                           value="{{$priceobj->spl_price}}"
+                                                           placeholder="Special Price" {{$counter == 1 ?'required':''}}/>
+                                                </div>
+                                                <div class="col-sm-1 form-group">
+                                                    <input type="text" class="form-control" name="unit[]"
+                                                           value="{{$priceobj->qty}}"
+                                                           placeholder="Qty" {{$counter == 1 ?'required':''}}/>
+                                                </div>
+                                                <div class="col-sm-2 form-group">
+                                                    <input type="text" class="form-control" name="unit[]"
+                                                           value="{{$priceobj->product_id}}"
+                                                           placeholder="Product Id" {{$counter == 1 ?'required':''}}/>
+                                                </div>
+                                                <p class="clearfix"></p>
+                                                {{--<div class="col-sm-1 form-group">
+                                                    <a href="javascript:void(0);" class="addbtn add_button" name="price[]"
+                                                       title="Add field"><img src="{{url('assets/add-icon.png')}}"/></a>
+                                                </div>--}}
+                                                <?php $counter++; ?>
+                                            @endforeach
+                                            <?php $pc = count($all_items_price);
+                                            $empty_price = 4 - $pc;
+                                            ?>
+                                            @for($i=0; $i<$empty_price; $i++)
+                                                <div class="col-sm-1 form-group">
+
+                                                    <input type="text" class="form-control" id="unitismine"
+                                                           name="unit[]" value=""
+                                                           placeholder="Unit"/>
+                                                </div>
+                                                <div class="col-sm-1 form-group">
+                                                    <select class="form-control" name="unit[]" id="weight">
+                                                        <option value="">select</option>
+                                                        <option value="Kg">Kg</option>
+                                                        <option value="Gms">Gms</option>
+                                                        <option value="Lt">Lt</option>
+                                                        <option value="ml">ml</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-2 form-group">
+                                                    <input type="text" class="form-control" name="unit[]" value=""
+                                                           placeholder="Cost Price"/>
+                                                </div>
+
+                                                <div class="col-sm-2 form-group">
+                                                    <input type="text" class="form-control" name="unit[]" value=""
+                                                           placeholder="Price"/>
+                                                </div>
+                                                <div class="col-sm-2 form-group">
+                                                    <input type="text" class="form-control" name="unit[]" value=""
+                                                           placeholder="Special Price"/>
+                                                </div>
+                                                <div class="col-sm-1 form-group">
+                                                    <input type="text" class="form-control" name="unit[]" value=""
+                                                           placeholder="Qty"/>
+                                                </div>
+                                                <div class="col-sm-2 form-group">
+                                                    <input type="text" class="form-control" name="unit[]" value=""
+                                                           placeholder="Product Id"/>
+                                                </div>
+                                                <p class="clearfix"></p>
+                                            @endfor
+
 
                                         </div>
-
-
 
 
                                         <p class="clearfix"></p>
@@ -506,23 +497,58 @@
                                         <div style="display: block;" id="files_block">
 
                                         </div>
+                                        <style>
+                                            .picclass {
+                                                height: 113px;
+                                                width: 107px;
+                                                padding: 6px;
+                                                background-color: #ccc;
+                                                overflow: hidden;
+                                                float: left;
+                                                margin-left: 8px;
+                                                margin-bottom: 8px;
+                                            }
+
+                                            .picclass_img {
+                                                height: 100%;
+                                                width: 100%;
+                                            }
+                                        </style>
+
+                                        <div class="col-md-12 divhye">
+                                            <?php $picdata = \App\ItemImages::where(['item_master_id' => $findthis])->get();?>
+                                            @foreach($picdata as $picobj)
+                                                <div class="picclass mydivh">
+                                                    <img class="picclass_img"
+                                                         src="{{url('p_img').'/'.$findthis.'/'.$picobj->image}}"/>
+                                                    <span onclick="deletepic('{{$picobj->image}}','{{$picobj->id}}',{{$picobj->item_master_id}});"
+                                                          class="btn btn-primary mybtnh"><i class="mdi mdi-delete"
+                                                                                            style="margin-left: -6px;"></i></span>
+
+                                                </div>
+                                            @endforeach
+                                        </div>
 
 
                                         <div class="col-sm-6 form-group">
 
-                                            <input type="text" name="item_delivery" class="form-control"
+                                            <input type="text" value="{{$all_items->delivery}}" name="item_delivery"
+                                                   class="form-control"
                                                    placeholder="Enter Delivery Information">
                                         </div>
                                         <div class="col-sm-6 form-group">
-                                            <input type="text" name="item_metatag" class="form-control"
+                                            <input type="text" value="{{$all_items->meta_tag}}" name="item_metatag"
+                                                   class="form-control"
                                                    placeholder="Enter Meta Tag">
                                         </div>
                                         <div class="col-sm-6 form-group">
-                                            <input type="text" name="item_metakeyword" class="form-control"
+                                            <input type="text" value="{{$all_items->meta_keyword}}"
+                                                   name="item_metakeyword" class="form-control"
                                                    placeholder="Enter Meta Keyword">
                                         </div>
                                         <div class="col-sm-6 form-group">
-                                            <input type="text" name="item_metadescription" class="form-control"
+                                            <input type="text" value="{{$all_items->meta_description}}"
+                                                   name="item_metadescription" class="form-control"
                                                    placeholder="Enter Meta Description">
                                         </div>
                                         <div class="col-sm-6 form-group">
@@ -552,10 +578,16 @@
     <script>
 
         $(document).ready(function () {
+            var sethtm = $('#hidddes').val();
+            $("#txtEditor_myy").Editor("setText", sethtm);
+        });
+
+
+        $(document).ready(function () {
             var maxField = 4; //Input fields increment limitation
             var addButton = $('.add_button'); //Add button selector
             var wrapper = $('.field_wrapper'); //Input field wrapper
-            var fieldHTML = '<div class="col-sm-1 form-group"><input type="text" class="form-control" id="unitismine" name="unit[]" value="" placeholder="Unit" required/></div><div class="col-sm-1 form-group"><select class="form-control" name="unit[]" id="weight"><option value="Kg">Kg</option><option value="Gms">Gms</option><option value="Lt">Lt</option><option value="ml">ml</option></select></div><div class="col-sm-2 form-group"><input type="text" class="form-control" name="unit[]" value="" placeholder="Cost price" required/></div><div class="col-sm-2 form-group"><input type="text" class="form-control" name="unit[]" value="" placeholder="Price" required/></div><div class="col-sm-2 form-group"><input type="text" class="form-control" name="unit[]" value="" placeholder="Special Price" required/></div><div class="col-sm-1 form-group"><input type="text" class="form-control" name="unit[]" value="" placeholder="Qty" required/></div><div class="col-sm-2 form-group"><input type="text" class="form-control" name="unit[]" value="" placeholder="Product Id" required/></div><a href="javascript:void(0);" class="remove_button" title="Remove field"><img src="{{url('assets/remove-icon.png')}}"/></a></div><p class="clearfix"></p>'; //New input field html
+            var fieldHTML = '<div class="col-sm-12"><div class="col-sm-2 form-group"><input type="text" class="form-control" name="unit[]" value="" placeholder="Unit" required/></div><div class="col-sm-1 form-group"><select class="form-control" name="unit[]" id="weight"><option value="Kg">Kg</option><option value="Gms">Gms</option><option value="Lt">Lt</option><option value="ml">ml</option></select></div><div class="col-sm-2 form-group"><input type="text" class="form-control" name="unit[]" value="" placeholder="Price" required/></div><div class="col-sm-2 form-group"><input type="text" class="form-control" name="unit[]" value="" placeholder="Special Price" required/></div><div class="col-sm-2 form-group"><input type="text" class="form-control" name="unit[]" value="" placeholder="Qty" required/></div><div class="col-sm-2 form-group"><input type="text" class="form-control" name="unit[]" value="" placeholder="Product Id" required/></div><a href="javascript:void(0);" class="remove_button" title="Remove field"><img src="{{url('assets/remove-icon.png')}}"/></a></div>'; //New input field html
             var x = 1; //Initial field counter is 1
             $(addButton).click(function () { //Once add button is clicked
                 if (x < maxField) { //Check maximum number of input fields
@@ -755,8 +787,6 @@
         }
 
 
-
-
         $(document).ready(function () {
 
             $('#open_modal').click(function () {
@@ -868,118 +898,89 @@
 
             });
         }
-    </script>
-    <script>
 
-        function mysearch()
-        {
-            var nameis= $('#myInput').val();
-            var catid= $('#Mycat').val();
-            if(nameis=="" && catid==''){
-                $('.activemy').show();
-                $('#newid').hide();
+        function deletepic(name, id, itemid) {
+            var i_name = name;
+            var m_id = id;
+            var item_id = itemid;
 
-            }
-            else
-            {
-                $.get('{{url('searchtable')}}', {nameis: nameis,catid:catid}, function (data) {
-                    $('#newid').html("");
-                    if(data=="")
-                    {
-                        $('#newid').append('<tr><td>No Record Found</td></tr>');
-
-                    }
-                    else {
-
-                        console.log(data);
-                        $('.activemy').hide();
-                        $('#newid').show();
-                        for (var i = 0; i < data.length; i++) {
-                            url = '{{url('/')}}' + '/' + 'edit_item_show/' + data[i].id;
-
-                            if (data[i].is_active == 1) {
-
-                                var sts = '<div class="status pending">Active</div>';
-                            }
-                            else {
-                                var sts = '<div class="status approved">Inactive</div>';
-                            }
-
-                            if(data[i].description==null)
-                            {
-                                var des="Not Given"
-                            }
-                            else
-                            {
-                                var des=data[i].description
-                            }
-
-                            $('#newid').append('<tr><td>' + data[i].name + '</td><td width="30%">'+des+'</td><td>' + sts + ' </td><td><div class="btn-group"><button type="button" class="btn btn-primary btn-sm action-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options </button><button type="button" class="btn btn-primary btn-sm action-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu dropdown-menu-right grid-dropdown"><li><a href="' + url + '" data-toggle="modal" data-target="#"><i class="mdi mdi-lead-pencil optiondrop_icon"></i>Edit</a></li><li><a href="#" onclick="deactivate_item(' + data[i].id + ');"><i class="mdi mdi-delete optiondrop_icon"></i>Delete</a></li><li><a href="#" onclick="openMymo(' + data[i].id + ');" class="border_none" data-toggle="modal" data-target=""><i class="mdi mdi-more optiondrop_icon"></i>More</a></li></ul></div></td></tr>');
-                        }
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this Image file!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.get('{{url('delete_item_pic')}}', {
+                            i_name: i_name,
+                            m_id: m_id,
+                            item_id: item_id
+                        }, function (data) {
+                            $(".divhye").load(location.href + " .divhye");
+                        });
+                        swal(" Your image file has been deleted!", {
+                            icon: "success",
+                        });
+                    } else {
+                        swal("Your image file is safe!");
                     }
                 });
-            }
+
+
         }
-
-
-
-        function searchTable() {
-            var input, filter, found, table, tr, td, i, j;
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("myTable");
-            tr = table.getElementsByTagName("tr");
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td");
-                for (j = 0; j < td.length; j++) {
-                    if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
-                        found = true;
-                    }
-                }
-                if (found) {
-                    tr[i].style.display = "";
-                    found = false;
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-
-
     </script>
-  {{--  <script>
-        function edit_item(id) {
-            $('#myheader').html('');
-            $('#mybody').html('');
-            $('#myfooter').html('');
-            $('#myheader').html('Product Edit View  <button type="button" class="close"  data-dismiss="modal">&times;</button>');
-            $('#myfooter').html('<button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>');
-            $('#myModal').modal();
+    {{--  <script>
+          function edit_item(id) {
+              $('#myheader').html('');
+              $('#mybody').html('');
+              $('#myfooter').html('');
+              $('#myheader').html('Product Edit View  <button type="button" class="close"  data-dismiss="modal">&times;</button>');
+              $('#myfooter').html('<button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>');
+              $('#myModal').modal();
 
-            /*alert(id);*/
-            /*var IDD= id;*/
-            var editurl1 = '{{ url('edit_item_show') }}' + '/' + id;
-            $.ajax({
-                type: "GET",
-                contentType: "application/json; charset=utf-8",
-                url: editurl1,
-                data: '{"data":"' + id + '"}',
-                success: function (data) {
-                    $('.modal-body').html(data);
+              /*alert(id);*/
+              /*var IDD= id;*/
+              var editurl1 = '{{ url('edit_item_show') }}' + '/' + id;
+              $.ajax({
+                  type: "GET",
+                  contentType: "application/json; charset=utf-8",
+                  url: editurl1,
+                  data: '{"data":"' + id + '"}',
+                  success: function (data) {
+                      $('.modal-body').html(data);
 
-                },
-                error: function (xhr, status, error) {
-                    $('.modal-body').html(xhr.responseText);
-                    //$('.modal-body').html("Technical Error Occured!");
-                }
-            });
-
-
-        }
+                  },
+                  error: function (xhr, status, error) {
+                      $('.modal-body').html(xhr.responseText);
+                      //$('.modal-body').html("Technical Error Occured!");
+                  }
+              });
 
 
-    </script>--}}
+          }
+
+
+      </script>--}}
     {{--///////////////////////////////////////////////////////////////////*****end Menu2*****//////////////////////////////////////////////////////////////////////////////////////////////////--}}
 @stop
 {{--$("#myroll").load(location.href + " #myroll");--}}
 {{--window.location.reload();--}}
+
+
+{{-- --}}
+{{--public function demo()
+{
+$imagename = request('imagem');
+$imageid = request('myid');
+
+userPicmodel::where('id', $imageid)
+->delete();
+$image_path = 'user_img/' . $_SESSION['user_master']['id'] . '/' . $imagename;
+if (File::exists($image_path)) {
+File::delete($image_path);
+return '1';
+}
+}--}}
+

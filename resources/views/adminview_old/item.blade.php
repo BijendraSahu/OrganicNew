@@ -224,15 +224,6 @@
             border-radius: 5px;
             width: 543px;
         }
-        .hh{
-            overflow-y: scroll;
-            overflow-x:hidden ;
-            height: 298px;
-
-        }
-        .hh::-webkit-scrollbar {
-            display: none;
-        }
 
     </style>
 
@@ -249,7 +240,6 @@
                 }
             });
         });
-
         function Requiredtxt(me) {
             var text = $.trim($(me).val());
             if (text == '') {
@@ -277,20 +267,7 @@
                                      class="mdi mdi-plus"></i>Add</button>
                       </span>
                                     <p class="clearfix"></p>
-                                    <div class="col-md-6">
-                                        <select name="cat" onchange="mysearch();" id="Mycat" class="form-control">
-                                            <?php $catdata=\App\Categorymaster::where(['is_active'=>'1'])->get();?>
-                                            <option value="">All</option>
-                                                @foreach($catdata as $mydata)
-                                                    <option value="{{$mydata->id}}">{{$mydata->name}}</option>
-                                                    @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                    <input id='myInput' class="form-control" placeholder="search" onkeyup='mysearch()' type='text'>
-                                    </div>
-
-                                    <table id='myTable' class="table table-striped">
+                                    <table class="table table-striped">
                                         <thead>
                                         <tr>
                                             <th>Product Name</th>
@@ -299,13 +276,10 @@
                                             <th>option</th>
                                         </tr>
                                         </thead>
-                                        <tbody id="newid">
-
-                                        </tbody>
-                                        <tbody class="activemy" id="old">
+                                        <tbody>
                                         @foreach($all_items as $itemobj)
 
-                                            <tr  id="oldid">
+                                            <tr>
                                                 <input type="hidden" value="{{$itemobj->id}}">
                                                 <td>{{$itemobj->name}}</td>
                                                 <td width="30%">{{$itemobj->delivery}}</td>
@@ -328,7 +302,7 @@
                                                                 aria-expanded="true"><span class="caret"></span><span
                                                                     class="sr-only">Toggle Dropdown</span></button>
                                                         <ul class="dropdown-menu dropdown-menu-right grid-dropdown">
-                                                            <li><a href="{{url('/edit_item_show').'/'.$itemobj->id}}"
+                                                            <li><a href="#" onclick="edit_item({{$itemobj->id}});"
                                                                    data-toggle="modal"
                                                                    data-target="#"><i
                                                                             class="mdi mdi-lead-pencil optiondrop_icon"></i>Edit</a>
@@ -348,15 +322,11 @@
                                                 </td>
                                             </tr>
                                         @endforeach
-                                        {{--<div id="newid">--}}
-
-
-                                        {{--</div>--}}
 
 
                                         </tbody>
                                     </table>
-                                    <div class="activemy" align="center">
+                                    <div align="center">
                                         {{$all_items->links()}}
                                     </div>
 
@@ -366,7 +336,6 @@
                     </section>
                 </section>
                 <section id="part2">
-
                     <section id="item_form" class="hidealways">
                         <div class="col-sm-12 col-md-12 col-xs-12 hei">
                             <div class="dash_boxcontainner white_boxlist">
@@ -375,40 +344,73 @@
                                         <button onclick="openlist();" class="btn btn-default pull-right"><i
                                                     class="mdi mdi-back"></i>List</button>
                       </span>
-
-                                    <form action="{{url('/mypost')}}" method="post" id="userpostForm"
+                                    <div class="col-sm-2">
+                                        <nav class="nav-sidebar">
+                                            <ul class="nav">
+                                                <li id="pehla"><a onclick="first();" href="#">General</a></li>
+                                                <li id="dusra"><a onclick="second();" href="#">Attributes</a></li>
+                                                <li><a onclick="third();" href="#">Price</a></li>
+                                                <li><a onclick="fourth();" href="#">Image</a></li>
+                                                <li><a onclick="fifth();" href="#">Delivery</a></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                    <form action="{{url('/itempost')}}" method="post" id="userpostForm"
                                           enctype="multipart/form-data">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <div class="col-sm-10 inner_box  " id="fir">
+                                            <div class="col-sm-3">
+                                                <p class="clearfix"></p>
+                                                <label>Name </label>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <p class="clearfix"></p>
+                                                <label>:</label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <p class="clearfix"></p>
                                                 <input type="text" id="namemy" name="item_name" class="form-control"
                                                        placeholder="Enter Item Name">
                                             </div>
-                                        </div>
-                                        <div class="col-sm-12 form-group">
 
-                                            <div class="col-sm-6" onmouseleave="myfunctionis()">
-                                                <label>Description</label>
+
+                                            <div class="col-sm-3">
+                                                <p class="clearfix"></p>
+                                                <label>Description </label>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <p class="clearfix"></p>
+                                                <label>:</label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <p class="clearfix"></p>
                                                 <div class="text_editor" id="txtEditor_myy"></div>
                                                 <input type="hidden" name="temp" id="temp" class="form-control">
+                                                {{--<button type="button" >play</button>--}}
                                                 <script>
 
-
-
-                                                    function myfunctionis()
-                                                    {
+                                                    $("#namemy").focusout(function () {
                                                         var htm = $("#txtEditor_myy").Editor("getText");
 
                                                         $('#temp').val(htm);
-                                                    }
-
+                                                    });
 
 
                                                 </script>
                                             </div>
 
-                                            <div class="col-sm-6 hh" style="">
+
+                                            <div class="col-sm-3">
+                                                <p class="clearfix"></p>
                                                 <label>Select Categories</label>
-                                                <br>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <p class="clearfix"></p>
+                                                <label>:</label>
+                                            </div>
+                                            <div class="col-sm-8 horiz">
+
+                                                <p class="clearfix"></p>
                                                 @foreach($allcat as $object)
                                                     <div class="col-sm-3">
                                                         <label class="container">{{$object->name}}
@@ -419,115 +421,226 @@
                                                     </div>
                                                 @endforeach
                                             </div>
-                                        </div>
-                                        <br>
-
-                                        <div class="col-sm-6 form-group">
-                                            <input type="text" id="item_specification" name="item_specification"
-                                                   class="form-control"
-                                                   placeholder="Enter Item Specification">
-                                        </div>
-                                        <div class="col-sm-6 form-group">
-                                            <input type="text" id="item_ingredients" name="item_ingredients"
-                                                   class="form-control"
-                                                   placeholder="Enter Item Ingredients">
-                                        </div>
-                                        <div class="col-sm-6 form-group">
-                                            <input type="text" id="item_nutrients" name="item_nutrients"
-                                                   class="form-control"
-                                                   placeholder="Enter Item Available Nutrients">
-                                        </div>
-
-                                        <div class="col-sm-6 form-group">
-
-                                            <input type="text" id="item_usage" name="item_usage"
-                                                   class="form-control"
-                                                   placeholder="Enter Item Usage">
-                                        </div>
 
 
-
-                                        <div class="form-group field_wrapper">
-                                            <label class="form-label">Enter Price Details<span style="color: red;">*</span></label>
-                                            <br>
-                                            <div class="col-sm-1 form-group">
-
-                                                <input type="text" class="form-control" id="unitismine" name="unit[]" value=""
-                                                       placeholder="Unit" required/>
+                                            <div align="right" class="btn_box">
+                                                <button onclick="second();" type="button"
+                                                        class="btn btn-success btn-next">Next
+                                                </button>
+                                                <br></br>
                                             </div>
-                                            <div class="col-sm-1 form-group">
-                                                <select class="form-control" name="unit[]" id="weight">
-                                                    <option value="Kg">Kg</option>
-                                                    <option value="Gms">Gms</option>
-                                                    <option value="Lt">Lt</option>
-                                                    <option value="ml">ml</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-2 form-group">
-                                                <input type="text" class="form-control" name="unit[]" value=""
-                                                       placeholder="Cost price" required/>
-                                            </div>
-                                            <div class="col-sm-2 form-group">
-                                                <input type="text" class="form-control" name="unit[]" value=""
-                                                       placeholder="Price" required/>
-                                            </div>
-                                            <div class="col-sm-2 form-group">
-                                                <input type="text" class="form-control" name="unit[]" value=""
-                                                       placeholder="Special Price" required/>
-                                            </div>
-                                            <div class="col-sm-1 form-group">
-                                                <input type="text" class="form-control" name="unit[]" value=""
-                                                       placeholder="Qty" required/>
-                                            </div>
-                                            <div class="col-sm-2 form-group">
-                                                <input type="text" class="form-control" name="unit[]" value=""
-                                                       placeholder="Product Id" required/>
-                                            </div>
-                                            <div class="col-sm-1 form-group">
-                                                <a href="javascript:void(0);" class="addbtn add_button" name="price[]"
-                                                   title="Add field"><img src="{{url('assets/add-icon.png')}}"/></a>
-                                            </div>
-                                            <p class="clearfix"></p>
 
                                         </div>
+                                        <div class="col-sm-10 inner_box hidealways " id="sec">
+                                            <div class="col-sm-3">
+                                                <p class="clearfix"></p>
+                                                <label>Specification </label>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <p class="clearfix"></p>
+                                                <label>:</label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <p class="clearfix"></p>
+                                                <input type="text" id="item_specification" name="item_specification"
+                                                       class="form-control"
+                                                       placeholder="Enter Item Specification">
+                                            </div>
 
 
+                                            <div class="col-sm-3">
+                                                <p class="clearfix"></p>
+                                                <label>Ingredients </label>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <p class="clearfix"></p>
+                                                <label>:</label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <p class="clearfix"></p>
+                                                <input type="text" id="item_ingredients" name="item_ingredients"
+                                                       class="form-control"
+                                                       placeholder="Enter Item Ingredients">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <p class="clearfix"></p>
+                                                <label>Available Nutrients </label>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <p class="clearfix"></p>
+                                                <label>:</label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <p class="clearfix"></p>
+                                                <input type="text" id="item_nutrients" name="item_nutrients"
+                                                       class="form-control"
+                                                       placeholder="Enter Item Available Nutrients">
+                                            </div>
 
+                                            <div class="col-sm-3">
+                                                <p class="clearfix"></p>
+                                                <label>Usage </label>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <p class="clearfix"></p>
+                                                <label>:</label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <p class="clearfix"></p>
+                                                <input type="text" id="item_usage" name="item_usage"
+                                                       class="form-control"
+                                                       placeholder="Enter Item Usage">
+                                                <p class="clearfix"></p>
+                                            </div>
+                                            <div align="right" class="btn_box">
+                                                <button onclick="first();" type="button" class="btn btn-primary">
+                                                    previous
+                                                </button>
+                                                <button onclick="third();" type="button" class="btn btn-success">Next
+                                                </button>
+                                                <br></br>
+                                            </div>
+                                        </div>
 
-                                        <p class="clearfix"></p>
-
-                                        <label>Upload Image</label> <input type="file" onchange="PreviewImage();"
-                                                                           multiple
-                                                                           id="upload_file_image" name="file[]">
-                                        <p class="clearfix"></p>
-                                        <div style="display: inline-block; width: 100%;" id="image_preview">
+                                        <div class="col-sm-10 inner_box hidealways " id="thre">
+                                            <div class="col-sm-3">
+                                                <p class="clearfix"></p>
+                                                <label>Unit :</label>
+                                                <input type="text" name="item_unit" class="form-control unit_id"
+                                                       placeholder="Enter Unit">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <p class="clearfix"></p>
+                                                <label>Quantity :</label>
+                                                <input type="text" name="item_qty" class="form-control qty_id"
+                                                       placeholder="Enter Quantity">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <p class="clearfix"></p>
+                                                <label>Price :</label>
+                                                <input type="text" name="item_price" class="form-control price_id"
+                                                       placeholder="Enter price">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <p class="clearfix"></p>
+                                                <label>Spc. Price :</label>
+                                                <input type="text" name="item_spclprice" class="form-control spc_id"
+                                                       placeholder="Enter Spcl price">
+                                            </div>
+                                            <div id="more_price">
+                                            </div>
+                                            <div align="center">
+                                                <p class="clearfix"></p>
+                                                <input type="button" onclick="add_more();" class="btn btn-default"
+                                                       value="Add More Price">
+                                            </div>
+                                            <div class="btn_box">
+                                                <button onclick="second();" type="button" class="btn btn-primary">
+                                                    previous
+                                                </button>
+                                                <button onclick="fourth();" type="button" class="btn btn-success">Next
+                                                </button>
+                                                <br></br>
+                                            </div>
 
                                         </div>
-                                        <div style="display: block;" id="files_block">
+                                        <div class="col-sm-10 hidealways inner_box" id="for">
+                                            <div class="col-sm-3">
+                                                <p class="clearfix"></p>
+                                                <label>Upload Image</label>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <p class="clearfix"></p>
+                                                <label>:</label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <p class="clearfix"></p>
+                                                <input type="file" onchange="PreviewImage();" multiple
+                                                       id="upload_file_image" name="file[]">
+                                                <p class="clearfix"></p>
+                                                <div style="display: inline-block; width: 100%;" id="image_preview">
 
+                                                </div>
+                                                <div style="display: block;" id="files_block">
+
+                                                </div>
+
+                                            </div>
+                                            <div class="btn_box">
+                                                <button onclick="third();" type="button" class="btn btn-primary">
+                                                    previous
+                                                </button>
+                                                <button onclick="fifth();" type="button" class="btn btn-success">Next
+                                                </button>
+                                            </div>
                                         </div>
 
+                                        <div class="col-sm-10  hidealways  " id="fiv">
+                                            <div class="col-sm-3">
+                                                <p class="clearfix"></p>
+                                                <label>Delivery</label>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <p class="clearfix"></p>
+                                                <label>:</label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <p class="clearfix"></p>
+                                                <input type="text" name="item_delivery" class="form-control"
+                                                       placeholder="Enter Delivery Information">
 
-                                        <div class="col-sm-6 form-group">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <p class="clearfix"></p>
+                                                <label>Meta Tag </label>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <p class="clearfix"></p>
+                                                <label>:</label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <p class="clearfix"></p>
+                                                <input type="text" name="item_metatag" class="form-control"
+                                                       placeholder="Enter Meta Tag">
+                                            </div>
 
-                                            <input type="text" name="item_delivery" class="form-control"
-                                                   placeholder="Enter Delivery Information">
-                                        </div>
-                                        <div class="col-sm-6 form-group">
-                                            <input type="text" name="item_metatag" class="form-control"
-                                                   placeholder="Enter Meta Tag">
-                                        </div>
-                                        <div class="col-sm-6 form-group">
-                                            <input type="text" name="item_metakeyword" class="form-control"
-                                                   placeholder="Enter Meta Keyword">
-                                        </div>
-                                        <div class="col-sm-6 form-group">
-                                            <input type="text" name="item_metadescription" class="form-control"
-                                                   placeholder="Enter Meta Description">
-                                        </div>
-                                        <div class="col-sm-6 form-group">
-                                            <input type="submit" value="Add"
-                                                   class="btn btn-success">
+                                            <div class="col-sm-3">
+                                                <p class="clearfix"></p>
+                                                <label>Meta Keyword </label>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <p class="clearfix"></p>
+                                                <label>:</label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <p class="clearfix"></p>
+                                                <input type="text" name="item_metakeyword" class="form-control"
+                                                       placeholder="Enter Meta Keyword">
+                                            </div>
+
+                                            <div class="col-sm-3">
+                                                <p class="clearfix"></p>
+                                                <label>Meta Description </label>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <p class="clearfix"></p>
+                                                <label>:</label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <p class="clearfix"></p>
+                                                <input type="text" name="item_metadescription" class="form-control"
+                                                       placeholder="Enter Meta Description">
+                                                <p class="clearfix"></p>
+                                            </div>
+
+
+                                            <div align="center" class="btn_box">
+                                                <button onclick="fourth();" type="button" class="btn btn-primary">
+                                                    Previous
+                                                </button>
+                                                <input type="submit" value="Add"
+                                                       class="btn btn-success"><br></br>
+                                            </div>
                                         </div>
 
                                     </form>
@@ -546,42 +659,23 @@
     </section>
 
 
+
+
+
     {{--////////////////////////////////////////////////*****Start Menu 3******//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--}}
 
 
     <script>
-
-        $(document).ready(function () {
-            var maxField = 4; //Input fields increment limitation
-            var addButton = $('.add_button'); //Add button selector
-            var wrapper = $('.field_wrapper'); //Input field wrapper
-            var fieldHTML = '<div class="col-sm-1 form-group"><input type="text" class="form-control" id="unitismine" name="unit[]" value="" placeholder="Unit" required/></div><div class="col-sm-1 form-group"><select class="form-control" name="unit[]" id="weight"><option value="Kg">Kg</option><option value="Gms">Gms</option><option value="Lt">Lt</option><option value="ml">ml</option></select></div><div class="col-sm-2 form-group"><input type="text" class="form-control" name="unit[]" value="" placeholder="Cost price" required/></div><div class="col-sm-2 form-group"><input type="text" class="form-control" name="unit[]" value="" placeholder="Price" required/></div><div class="col-sm-2 form-group"><input type="text" class="form-control" name="unit[]" value="" placeholder="Special Price" required/></div><div class="col-sm-1 form-group"><input type="text" class="form-control" name="unit[]" value="" placeholder="Qty" required/></div><div class="col-sm-2 form-group"><input type="text" class="form-control" name="unit[]" value="" placeholder="Product Id" required/></div><a href="javascript:void(0);" class="remove_button" title="Remove field"><img src="{{url('assets/remove-icon.png')}}"/></a></div><p class="clearfix"></p>'; //New input field html
-            var x = 1; //Initial field counter is 1
-            $(addButton).click(function () { //Once add button is clicked
-                if (x < maxField) { //Check maximum number of input fields
-                    x++; //Increment field counter
-                    $(wrapper).append(fieldHTML); // Add field html
-                }
-            });
-            $(wrapper).on('click', '.remove_button', function (e) { //Once remove button is clicked
-                e.preventDefault();
-                $(this).parent('div').remove(); //Remove field html
-                x--; //Decrement field counter
-            });
-        });
-
         function openAddform() {
             $('#item_form').show();
             $('#item_part1').hide();
 
         }
-
         function openlist() {
             $('#item_form').hide();
             $('#item_part1').show();
 
         }
-
         function openMymo(id) {
 
             $('#myheader').html('');
@@ -642,6 +736,7 @@
         }
 
         function third() {
+            debugger;
             var result = true;
             if (!Boolean(Requiredtxt("#item_specification") || !Boolean(Requiredtxt("#item_ingredients")) || !Boolean(Requiredtxt("#item_nutrients")) || !Boolean(Requiredtxt("#item_usage")))) {
                 result = false;
@@ -680,10 +775,9 @@
         }
 
         var limit = 1;
-
         function add_more() {
             if (limit < 4) {
-                $('#more_price').append('<div class="col-sm-3"><p class="clearfix"></p><input type="text" name="item_unit" class="form-control unit_id" placeholder="Enter Unit"> </div> <div class="col-sm-3"> <p class="clearfix"></p> <input type="text" name="item_qty" class="form-control qty_id" placeholder="Enter Quantity"> </div> <div class="col-sm-3"> <p class="clearfix"></p> <input type="text" name="item_price" class="form-control price_id" placeholder="Enter price"></div><div class="col-sm-3"><p class="clearfix"></p><input type="text" name="item_spclprice" class="form-control spc_id" placeholder="Enter Spcl price"> </div>');
+                $('#more_price').append('<div class="col-sm-3"><p class="clearfix"></p><input type="text" name="item_unit" class="form-control unit_id" placeholder="Enter Unit"> </div> <div class="col-sm-3"> <p class="clearfix"></p> <input type="text" name="item_qty" class="form-control qty_id" placeholder="Enter Quantity"> </div> <div class="col-sm-3">        <p class="clearfix"></p> <input type="text" name="item_price" class="form-control price_id" placeholder="Enter price"></div><div class="col-sm-3"><p class="clearfix"></p><input type="text" name="item_spclprice" class="form-control spc_id" placeholder="Enter Spcl price"> </div>');
                 limit++;
 
             }
@@ -749,12 +843,42 @@
                 location.reload();
 
 
+
             });
 
 
         }
 
+        //        function picdata() {
+        //            debugger;
+        $("#userpostForm").on('submit', function (e) {
+//                var textval = $('#post_text').text();
+//                $('#posttext').val(textval);
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: "{{ url('mypost') }}",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
 
+                success: function (data) {
+                    console.log(data);
+                    getmycheck();
+
+
+//
+                },
+                error: function (xhr, status, error) {
+//                    console.log('Error:', data);
+//                    ShowErrorPopupMsg('Error in uploading...');
+                    $('#err1').html(xhr.responseText);
+                }
+            });
+//                }
+        });
+        //}
 
 
         $(document).ready(function () {
@@ -786,14 +910,12 @@
             $('.update' + $id).show();
 
         }
-
         function abcdd($id) {
             $('.edittable' + $id).attr('contenteditable', 'false');
             $('.edit' + $id).show();
             $('.update' + $id).hide();
 
         }
-
         function abcddd($id) {
             $('.edittable' + $id).attr('contenteditable', 'false');
             $('.edit' + $id).show();
@@ -801,7 +923,6 @@
             $('.hiderow' + $id).hide();
 
         }
-
         function update(dis, id) {
             var ID = id;
             var name = $(dis).parent().parent("#" + id).children('.name').html();
@@ -828,7 +949,6 @@
 
 
         }
-
         function deletecat(id) {
             var ID = id;
             $.ajax({
@@ -870,84 +990,6 @@
         }
     </script>
     <script>
-
-        function mysearch()
-        {
-            var nameis= $('#myInput').val();
-            var catid= $('#Mycat').val();
-            if(nameis=="" && catid==''){
-                $('.activemy').show();
-                $('#newid').hide();
-
-            }
-            else
-            {
-                $.get('{{url('searchtable')}}', {nameis: nameis,catid:catid}, function (data) {
-                    $('#newid').html("");
-                    if(data=="")
-                    {
-                        $('#newid').append('<tr><td>No Record Found</td></tr>');
-
-                    }
-                    else {
-
-                        console.log(data);
-                        $('.activemy').hide();
-                        $('#newid').show();
-                        for (var i = 0; i < data.length; i++) {
-                            url = '{{url('/')}}' + '/' + 'edit_item_show/' + data[i].id;
-
-                            if (data[i].is_active == 1) {
-
-                                var sts = '<div class="status pending">Active</div>';
-                            }
-                            else {
-                                var sts = '<div class="status approved">Inactive</div>';
-                            }
-
-                            if(data[i].description==null)
-                            {
-                                var des="Not Given"
-                            }
-                            else
-                            {
-                                var des=data[i].description
-                            }
-
-                            $('#newid').append('<tr><td>' + data[i].name + '</td><td width="30%">'+des+'</td><td>' + sts + ' </td><td><div class="btn-group"><button type="button" class="btn btn-primary btn-sm action-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options </button><button type="button" class="btn btn-primary btn-sm action-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu dropdown-menu-right grid-dropdown"><li><a href="' + url + '" data-toggle="modal" data-target="#"><i class="mdi mdi-lead-pencil optiondrop_icon"></i>Edit</a></li><li><a href="#" onclick="deactivate_item(' + data[i].id + ');"><i class="mdi mdi-delete optiondrop_icon"></i>Delete</a></li><li><a href="#" onclick="openMymo(' + data[i].id + ');" class="border_none" data-toggle="modal" data-target=""><i class="mdi mdi-more optiondrop_icon"></i>More</a></li></ul></div></td></tr>');
-                        }
-                    }
-                });
-            }
-        }
-
-
-
-        function searchTable() {
-            var input, filter, found, table, tr, td, i, j;
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("myTable");
-            tr = table.getElementsByTagName("tr");
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td");
-                for (j = 0; j < td.length; j++) {
-                    if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
-                        found = true;
-                    }
-                }
-                if (found) {
-                    tr[i].style.display = "";
-                    found = false;
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-
-
-    </script>
-  {{--  <script>
         function edit_item(id) {
             $('#myheader').html('');
             $('#mybody').html('');
@@ -976,10 +1018,14 @@
 
 
         }
-
-
-    </script>--}}
+    </script>
     {{--///////////////////////////////////////////////////////////////////*****end Menu2*****//////////////////////////////////////////////////////////////////////////////////////////////////--}}
 @stop
 {{--$("#myroll").load(location.href + " #myroll");--}}
 {{--window.location.reload();--}}
+
+
+
+
+
+

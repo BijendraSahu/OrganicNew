@@ -10,22 +10,6 @@ session_start();
 
 class AdminController extends Controller
 {
-
-    public function  aditya()
-    {
-        echo "aditayyaaaaa";
-    }
-
-    public function  bijendra111()
-    {
-        echo "aditayyaaaaa";
-    }
-
-    public function  anand()
-    {
-        echo "aditayyaaaaa";
-    }
-
     public function admin()
     {
 
@@ -38,6 +22,7 @@ class AdminController extends Controller
         } else {
             return redirect('/adminlogin');
         }
+
     }
     public function category()
     {
@@ -78,12 +63,6 @@ class AdminController extends Controller
             return 'fail';
 
         }
-
-    }
-
-    public function bijendra()
-    {
-       echo "aditya chacha";
 
     }
 }

@@ -1,5 +1,4 @@
 <input type="hidden" id="products_count" value="{{$items_count}}"/>
-@if (count($items) > 0)
     @foreach ($items as $item)
         <div class="product_block">
             <div class="product_name"><a class="product_details_link"
@@ -27,7 +26,7 @@
                     <div class="long_spinner_withbtn">
                         <div class="input-group long_qty_box"><span class="long_qty_txt" id="price_{{$item->id}}"
                                                                   data-content="{{$price->id}}">{{$price->unit.' '.$price->weight}}
-                                                                - {{$price->price}}</span>
+                                                                - {{"Rs.".$price->price}}</span>
                             <input type="number"
                                    class="form-control text-center qty_edittxt"
                                    min="0"
@@ -53,7 +52,7 @@
             @endforeach
         </div>
     @endforeach
-@else
-    {{--<div class="alert-danger">No Items Available</div>--}}
-@endif
+{{--@else--}}
+    {{--<div class="product_block">No Items Available</div>--}}
+{{--@endif--}}
 

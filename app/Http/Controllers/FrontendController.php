@@ -161,6 +161,12 @@ class FrontendController extends Controller
         return view('web.product_list')->with(['categories' => $categories]);
     }
 
+    public function getallproducts()
+    {
+        $categories = DB::table('category_master')->where('is_active', '1')->get();
+        return view('web.all_product_category')->with(['categories' => $categories]);
+    }
+
     public function view_item()//modal
     {
         $item_id = request('item_id');
@@ -179,7 +185,7 @@ class FrontendController extends Controller
         $a = ($category_id == 0) ? $all : $by_id;
         $products_c = DB::select($a);
         $numrows = count($products_c);
-        $rowsperpage = 4;
+        $rowsperpage = 8;
         $totalpages = ceil($numrows / $rowsperpage);
         $limit = request('limit');
         if (request('currentpage') != '' && is_numeric(request('currentpage'))) {
@@ -198,7 +204,11 @@ class FrontendController extends Controller
         $s = ($category_id == 0) ? $all : $by_id;
 //        $s = "SELECT i.* FROM item_master i, item_category ic where ic.item_master_id = i.id and ic.category_id = $category_id ORDER BY i.id DESC LIMIT $offset,$rowsperpage";
         $items = DB::select($s);
-        return view('web.product_load')->with(['items' => $items, 'items_count' => $numrows]);
+        if ($numrows > 0) {
+            return view('web.product_load')->with(['items' => $items, 'items_count' => $numrows]);
+        }else{
+            return response()->json(array('no_record' => 'no_record'));
+        }
     }
     /**************************Items************************************/
 

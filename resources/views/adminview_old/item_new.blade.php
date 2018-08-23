@@ -277,20 +277,7 @@
                                      class="mdi mdi-plus"></i>Add</button>
                       </span>
                                     <p class="clearfix"></p>
-                                    <div class="col-md-6">
-                                        <select name="cat" onchange="mysearch();" id="Mycat" class="form-control">
-                                            <?php $catdata=\App\Categorymaster::where(['is_active'=>'1'])->get();?>
-                                            <option value="">All</option>
-                                                @foreach($catdata as $mydata)
-                                                    <option value="{{$mydata->id}}">{{$mydata->name}}</option>
-                                                    @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                    <input id='myInput' class="form-control" placeholder="search" onkeyup='mysearch()' type='text'>
-                                    </div>
-
-                                    <table id='myTable' class="table table-striped">
+                                    <table class="table table-striped">
                                         <thead>
                                         <tr>
                                             <th>Product Name</th>
@@ -299,13 +286,10 @@
                                             <th>option</th>
                                         </tr>
                                         </thead>
-                                        <tbody id="newid">
-
-                                        </tbody>
-                                        <tbody class="activemy" id="old">
+                                        <tbody>
                                         @foreach($all_items as $itemobj)
 
-                                            <tr  id="oldid">
+                                            <tr>
                                                 <input type="hidden" value="{{$itemobj->id}}">
                                                 <td>{{$itemobj->name}}</td>
                                                 <td width="30%">{{$itemobj->delivery}}</td>
@@ -348,15 +332,11 @@
                                                 </td>
                                             </tr>
                                         @endforeach
-                                        {{--<div id="newid">--}}
-
-
-                                        {{--</div>--}}
 
 
                                         </tbody>
                                     </table>
-                                    <div class="activemy" align="center">
+                                    <div align="center">
                                         {{$all_items->links()}}
                                     </div>
 
@@ -868,84 +848,6 @@
 
             });
         }
-    </script>
-    <script>
-
-        function mysearch()
-        {
-            var nameis= $('#myInput').val();
-            var catid= $('#Mycat').val();
-            if(nameis=="" && catid==''){
-                $('.activemy').show();
-                $('#newid').hide();
-
-            }
-            else
-            {
-                $.get('{{url('searchtable')}}', {nameis: nameis,catid:catid}, function (data) {
-                    $('#newid').html("");
-                    if(data=="")
-                    {
-                        $('#newid').append('<tr><td>No Record Found</td></tr>');
-
-                    }
-                    else {
-
-                        console.log(data);
-                        $('.activemy').hide();
-                        $('#newid').show();
-                        for (var i = 0; i < data.length; i++) {
-                            url = '{{url('/')}}' + '/' + 'edit_item_show/' + data[i].id;
-
-                            if (data[i].is_active == 1) {
-
-                                var sts = '<div class="status pending">Active</div>';
-                            }
-                            else {
-                                var sts = '<div class="status approved">Inactive</div>';
-                            }
-
-                            if(data[i].description==null)
-                            {
-                                var des="Not Given"
-                            }
-                            else
-                            {
-                                var des=data[i].description
-                            }
-
-                            $('#newid').append('<tr><td>' + data[i].name + '</td><td width="30%">'+des+'</td><td>' + sts + ' </td><td><div class="btn-group"><button type="button" class="btn btn-primary btn-sm action-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options </button><button type="button" class="btn btn-primary btn-sm action-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu dropdown-menu-right grid-dropdown"><li><a href="' + url + '" data-toggle="modal" data-target="#"><i class="mdi mdi-lead-pencil optiondrop_icon"></i>Edit</a></li><li><a href="#" onclick="deactivate_item(' + data[i].id + ');"><i class="mdi mdi-delete optiondrop_icon"></i>Delete</a></li><li><a href="#" onclick="openMymo(' + data[i].id + ');" class="border_none" data-toggle="modal" data-target=""><i class="mdi mdi-more optiondrop_icon"></i>More</a></li></ul></div></td></tr>');
-                        }
-                    }
-                });
-            }
-        }
-
-
-
-        function searchTable() {
-            var input, filter, found, table, tr, td, i, j;
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("myTable");
-            tr = table.getElementsByTagName("tr");
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td");
-                for (j = 0; j < td.length; j++) {
-                    if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
-                        found = true;
-                    }
-                }
-                if (found) {
-                    tr[i].style.display = "";
-                    found = false;
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-
-
     </script>
   {{--  <script>
         function edit_item(id) {

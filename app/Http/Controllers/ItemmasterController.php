@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Image;
 use File;
+use League\Flysystem\Exception;
 
 session_start();
 
@@ -311,6 +312,38 @@ class ItemmasterController extends Controller
         {
             return $ex->getMessage();
         }
+
+    }
+
+    public function searchtable(Request $request)
+    {
+//        return $request->input('catid');
+        try{
+            if(request('nameis')!="" && request('catid')=="")
+            {
+                $allrow=ItemMaster::where('name','like','%'.request('nameis').'%')->get();
+                return $allrow;
+            }
+            else if(request('nameis')=="" && request('catid')!="")
+            {
+                $cid=request('catid');
+                $allrow=DB::select("select im.* from item_category ic,item_master im where im.id=ic.item_master_id and ic.category_id=$cid");
+                return $allrow;
+            }
+            else if(request('nameis')!="" && request('catid')!="")
+            {
+                $cid=request('catid');
+                $search=request('nameis');
+                $allrow=DB::select("select im.* from item_category ic,item_master im where im.id=ic.item_master_id and ic.category_id=$cid and im.name like '%$search%'");
+                return $allrow;
+
+            }
+
+        }catch(\Exception $ex)
+        {
+            return $ex->getMessage();
+        }
+
 
     }
 }

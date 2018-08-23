@@ -64,6 +64,7 @@ Route::get('cart_delete/{id}', 'CartController@delete');
 
 Route::get('view_item', 'FrontendController@view_item');
 Route::get('getmoreproducts', 'FrontendController@getmoreproducts');
+Route::get('getallproducts', 'FrontendController@getallproducts');
 
 Route::get('/payment', 'CartController@payment');
 Route::post('success', 'CartController@payment_success');
@@ -120,6 +121,7 @@ Route::get('itemshow/{id}', 'ItemmasterController@itemshow');
 Route::get('edit_item_show/{id}', 'ItemmasterController@edit_item_show');
 Route::get('deactivate_item', 'ItemmasterController@deactivate_item');
 Route::post('itemeditpost', 'ItemmasterController@itemeditpost');
+Route::get('searchtable', 'ItemmasterController@searchtable');
 /////////////////////////////////////////api///////////////////////////////////////////////////////
 /*Route::get('firstapi', 'ItemmasterController@apishowall');*/
 ///////////////////////////////////////////////////////////////////////////////////////////
