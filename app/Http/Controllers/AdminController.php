@@ -13,7 +13,7 @@ class AdminController extends Controller
 
     public function  aditya()
     {
-        echo "Aditya";
+        echo "Bijendra";
     }
 
     public function admin()
@@ -28,7 +28,6 @@ class AdminController extends Controller
         } else {
             return redirect('/adminlogin');
         }
-
     }
     public function category()
     {
