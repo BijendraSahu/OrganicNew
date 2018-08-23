@@ -65,4 +65,10 @@ class AdminController extends Controller
         }
 
     }
+
+    public function bijendra()
+    {
+       echo "aditya chacha";
+
+    }
 }
