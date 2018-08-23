@@ -177,3 +177,4 @@ Route::post('/blogpic','BlogController@blogpic');
 //sdasaadsadsadad
 
 
+//Bijendra
