@@ -174,3 +174,4 @@ Route::get('/blogpost','BlogController@blogpost');
 Route::post('/blogpic','BlogController@blogpic');
 //////////////////////////////////////////////////////////////////////////////////////////////
 //cxzczxczxcxzczxcxzcxzcxczavdz
+//dsffdsfdsfsdfds
