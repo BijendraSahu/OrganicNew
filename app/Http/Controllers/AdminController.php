@@ -16,6 +16,11 @@ class AdminController extends Controller
         echo "aditayyaaaaa";
     }
 
+    public function  bijendra111()
+    {
+        echo "aditayyaaaaa";
+    }
+
     public function admin()
     {
 
