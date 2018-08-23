@@ -173,6 +173,4 @@ Route::get('/addblogcat','BlogController@addblogcat');
 Route::get('/blogpost','BlogController@blogpost');
 Route::post('/blogpic','BlogController@blogpic');
 //////////////////////////////////////////////////////////////////////////////////////////////
-//cxzczxczxcxzczxcxzcdsfafdsagadfxzcxczavdzdfasgfdasgdfa
-//dsffdsfdsfsdfds
-//fdsgdasf
+//public function
