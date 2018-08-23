@@ -608,8 +608,9 @@
                                                                 </div>
                                                             </div>
                                                             <?php $prices = \App\ItemPrice::where(['item_master_id' => $item->id])->get(); ?>
-                                                            @foreach($prices as $price)
-                                                                @if($price->qty > 0)
+                                                            @if(count($prices)>0)
+                                                                @foreach($prices as $price)
+                                                                    {{--                                                                @if($price->qty > 0)--}}
                                                                     <div class="long_spinner_withbtn">
                                                                         <div class="input-group long_qty_box">
                                                             <span class="long_qty_txt" id="price_{{$item->id}}"
@@ -629,15 +630,17 @@
                                                                                     class="button-group_text">Add</span>
                                                                         </button>
                                                                     </div>
-                                                                @else
-                                                                    <div class="notify_block long_notifyblock">
-                                                                        <div class="out_of_stock">Out Of Stock</div>
-                                                                        <div class="notify_me_btn" data-toggle="modal"
-                                                                             data-target="#Modal_NotifyMe">Notify Me
-                                                                        </div>
+
+                                                                @endforeach
+                                                            @else
+                                                                <div class="notify_block long_notifyblock">
+                                                                    <div class="out_of_stock">Out Of Stock</div>
+                                                                    <div class="notify_me_btn" data-toggle="modal"
+                                                                         data-target="#Modal_NotifyMe">Notify Me
                                                                     </div>
-                                                                @endif
-                                                            @endforeach
+                                                                </div>
+                                                            @endif
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 @endif
