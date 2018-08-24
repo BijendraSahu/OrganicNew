@@ -26,7 +26,7 @@
                     <div class="long_spinner_withbtn">
                         <div class="input-group long_qty_box"><span class="long_qty_txt" id="price_{{$item->id}}"
                                                                   data-content="{{$price->id}}">{{$price->unit.' '.$price->weight}}
-                                                                - {{"Rs.".$price->price}}</span>
+                                                                - {{$price->price}}</span>
                             <input type="number"
                                    class="form-control text-center qty_edittxt"
                                    min="0"

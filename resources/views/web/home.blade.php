@@ -11,7 +11,7 @@
         $(document).ready(function () {
             setTimeout(function () {
                 window.location.replace("{{url('product_list')}}");
-            }, 12000000);
+            }, 15000);
         });
     </script>
 @stop
@@ -67,7 +67,7 @@
             </div>
             <div class="col-sm-6 col-md-4 col-lg-6 tab_display_none">
                 <div class="center_about_img">
-                    <img src="{{url('images/center_food_collection.png')}}"/>
+                    <img src="{{url('images/center_food_collection.jpg')}}"/>
                 </div>
             </div>
             <div class="col-sm-6 col-lg-3 col-md-4">

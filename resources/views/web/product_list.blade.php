@@ -506,10 +506,10 @@
                     </div>
                     <div class="filter_category">
                         <ul class="product_list_ul style-scroll" id="filter_data">
-                            <li onclick="get_category(this);" class="selected">Products Category</li>
-                            <li onclick="get_items(this);" id="0">All Products</li>
+                            <li onclick="get_category(this)" class="selected">Products Category</li>
+                            <li onclick="get_items(this)" id="0">All Products</li>
                             @foreach($categories as $category)
-                                <li onclick="get_items(this);" id="{{$category->id}}">{{$category->name}}</li>
+                                <li onclick="get_items(this)" id="{{$category->id}}">{{$category->name}}</li>
                             @endforeach
                         </ul>
                     </div>
@@ -553,9 +553,7 @@
                                                                     <img src="{{url('images/default.png')}}">
                                                                 @endif
                                                                 <div class="hover_center_block" id="{{$item->id}}"
-                                                                     onclick="getItemDetails(this);"
-                                                                     data-toggle="modal"
-                                                                     data-target="#Modal_ViewProductDetails">
+                                                                     onclick="getItemDetails(this)" data-toggle="modal" data-target="#Modal_ViewProductDetails">
                                                                     <div class="product_hover_block">
                                                                         <div class="mdi mdi-magnify"></div>
                                                                     </div>
@@ -599,7 +597,7 @@
                                                                     <img src="{{url('images/default.png')}}">
                                                                 @endif
                                                                 <div class="hover_center_block" id="{{$item->id}}"
-                                                                     onclick="getItemDetails(this);"
+                                                                     onclick="getItemDetails(this)"
                                                                      data-toggle="modal"
                                                                      data-target="#Modal_ViewProductDetails">
                                                                     <div class="product_hover_block">
@@ -707,15 +705,12 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="notify_organic()" data-dismiss="modal">Submit</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
                 </div>
             </div>
         </div>
     </div>
     <script>
-        function notify_organic() {
-            var
-        }
 
         var append_loading_img = '<div class="feed_loadimg_block" id="load_img">' + '<img height="50px" class="center-block" src="{{ url('images/loading.gif') }}"/></div>';
         var append_div = '<div class="product_block loading_block" id="load_item"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div>';

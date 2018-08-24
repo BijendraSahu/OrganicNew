@@ -645,6 +645,7 @@
     overflow: hidden;
     text-align: center;
     margin-bottom: 10px;
+
 }
 .long_product_img img
 {
@@ -652,6 +653,7 @@
     transition: .5s all;
     width: 100%;
     max-width: 100%;
+    min-height: 200px;
 }
 .long_spinner_withbtn {
     position: relative;
