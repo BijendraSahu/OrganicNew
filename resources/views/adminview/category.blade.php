@@ -1,6 +1,6 @@
 @extends('adminlayout.adminmaster')
 
-@section('title','Item')
+@section('title','Categories')
 
 @section('content')
     <style>
@@ -225,23 +225,42 @@
 
         }
         function deletecat(id) {
-            var ID = id;
-            $.ajax({
-                type: "post",
-                url: "{{url('deletecat')}}",
-                data: "&ID= " + ID,
-                success: function (data) {
-                    abcddd(ID);
-                    $('#snackbar').html('')
-                    $('#snackbar').html('Successfully Deleted');
-                    myFunction();
-                    $("#item_form").load(location.href + " #item_form");
 
-                },
-                error: function (data) {
-                    alert("Error")
-                }
-            });
+
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this file!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        var ID = id;
+                        $.ajax({
+                            type: "post",
+                            url: "{{url('deletecat')}}",
+                            data: "&ID= " + ID,
+                            success: function (data) {
+                                abcddd(ID);
+                                $('#snackbar').html('')
+                                $('#snackbar').html('Successfully Deleted');
+                                myFunction();
+                                $("#item_form").load(location.href + " #item_form");
+
+                            },
+                            error: function (data) {
+                                alert("Error")
+                            }
+                        });
+
+                        swal("Your Entry has been deleted!", {
+                            icon: "success",
+                        });
+                    } else {
+                        swal("Your Entry is safe!");
+                    }
+                });
 
         }
 

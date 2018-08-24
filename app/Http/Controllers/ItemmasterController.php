@@ -207,6 +207,17 @@ class ItemmasterController extends Controller
         return 1;
 
     }
+    public function activatemy_item()
+    {
+        /*  $reqidd=request('IDD');*/
+        $data = array(
+            'is_active' => '1'
+        );
+        ItemMaster::where('id', request('IDD'))
+            ->update($data);
+        return 1;
+
+    }
 
     public function itemeditpost(Request $request)
     {

@@ -17,7 +17,7 @@ class CityController extends Controller
     public function add_city()
     {
         $data = new CityModel();
-        $data->city_name = request('city');
+        $data->city = request('city');
         $data->state_id = request('stateid');
         $data->save();
         return '1';

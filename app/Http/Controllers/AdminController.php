@@ -28,7 +28,7 @@ class AdminController extends Controller
     {
 
         if ($_SESSION['admin_master'] != null) {
-            $alldata = Categorymaster::where(['is_active' => 1])->paginate(10);
+            $alldata = Categorymaster::where(['is_active' => 1])->orderBy('id', 'desc')->paginate(10);
             $allcat = Categorymaster::where(['is_active' => 1])->get();
             $alldata1 = Categorymaster::where(['is_active' => 1])->get();
             return view('adminview.category', ['alldata' => $alldata , 'alldata1' => $alldata1 , 'allcat' => $allcat] )->with('no', 1);
