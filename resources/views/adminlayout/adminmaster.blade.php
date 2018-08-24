@@ -530,9 +530,49 @@
             z-index: 1000;
             left: 216px;
         }
+
+        .loader {
+            height: 4px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            background-color: #ddd;
+        }
+        .loader:before{
+            display: block;
+            position: absolute;
+            content: "";
+            left: -200px;
+            width: 200px;
+            z-index: 1000;
+            height: 4px;
+            background-color: #f10748;
+            -webkit-animation: loading 2s linear infinite;
+            animation: loading 2s linear infinite;
+        }
+
+        @-webkit-keyframes loading {
+            from {left: -200px; width: 30%;}
+            50% {width: 30%;}
+            70% {width: 70%;}
+            80% { left: 50%;}
+            95% {left: 120%;}
+            to {left: 100%;}
+        }
+
+        @keyframes loading {
+            from {left: -200px; width: 30%;}
+            50% {width: 30%;}
+            70% {width: 70%;}
+            80% { left: 50%;}
+            95% {left: 120%;}
+            to {left: 100%;}
+        }
     </style>
 </head>
+
 <body class="body_color" id="page_body">
+<div id="myloaderid" class="loader"></div>
 <nav class="top_navigationbar" id="fixed_nav">
     <div class="dash_menuicon" onclick="ResponsiveMenuClick();"><i class="mdi mdi-menu"></i>
     </div>
@@ -910,6 +950,11 @@
 <div class="overlay_res" onclick="HideTranparent();"></div>
 <div id="snackbar">New Categories added Successfully</div>
 <script>
+
+    $(document).ready(function () {
+       $('#myloaderid').hide();
+    });
+
     $('.fab').hover(function () {
         $(this).toggleClass('active');
     });
