@@ -21,7 +21,7 @@
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
-                                            <th scope="col">S.No.</th>
+
                                             <th scope="col">State Name</th>
                                             <th scope="col">City Name</th>
                                             <th scope="col">Action</th>
@@ -29,11 +29,10 @@
                                         </thead>
                                         <tbody>
                                         @foreach($citydata as $mydataown)
-                                            @if($mydataown->is_deleted=='0')
                                         <tr>
-                                            <td>1</td>
+
                                             <td id="state{{$mydataown->id}}">{{$mydataown->cityname->state_name}}</td>
-                                            <td id="city{{$mydataown->id}}">{{$mydataown->city_name}}</td>
+                                            <td id="city{{$mydataown->id}}">{{$mydataown->city}}</td>
 
                                             <input id="value{{$mydataown->id}}" type="hidden" value="{{$mydataown->state_id}}">
                                             <td>
@@ -41,7 +40,7 @@
                                                 <button type="button" onclick="deletecity({{$mydataown->id}});"  class="btn btn-info btn-xs">Delete</button>
                                             </td>
                                         </tr>
-                                        @endif
+
                                             @endforeach
                                         </tbody>
 

@@ -294,7 +294,7 @@
                                         <thead>
                                         <tr>
                                             <th>Product Name</th>
-                                            <th width="50%">Delivery</th>
+                                            <th width="50%">Description</th>
                                             <th>Status</th>
                                             <th>option</th>
                                         </tr>
@@ -308,7 +308,11 @@
                                             <tr  id="oldid">
                                                 <input type="hidden" value="{{$itemobj->id}}">
                                                 <td>{{$itemobj->name}}</td>
-                                                <td width="30%">{{$itemobj->delivery}}</td>
+                                                @if($itemobj->description=="")
+                                                    <td width="30%">Not Given</td>
+                                                @else
+                                                <td width="30%">{!!$itemobj->description!!}</td>
+                                                @endif
                                                 <td>@if($itemobj->is_active =='1')
                                                         <div class="status pending">Active</div>
                                                     @else
@@ -333,9 +337,16 @@
                                                                    data-target="#"><i
                                                                             class="mdi mdi-lead-pencil optiondrop_icon"></i>Edit</a>
                                                             </li>
+
+                                                            @if($itemobj->is_active =='1')
                                                             <li><a href="#"
                                                                    onclick="deactivate_item({{$itemobj->id}});"><i
-                                                                            class="mdi mdi-delete optiondrop_icon"></i>Delete</a>
+                                                                            class="mdi mdi-delete optiondrop_icon"></i>Inactive</a>
+                                                                @else
+                                                                <li><a href="#"
+                                                                       onclick="activatemy_item({{$itemobj->id}});"><i
+                                                                                class="mdi mdi-star optiondrop_icon"></i>Active</a>
+                                                                    @endif
                                                             </li>
                                                             <li><a href="#"
                                                                    onclick="openMymo({{$itemobj->id}});"
@@ -859,6 +870,24 @@
                 $('#myheader').html('');
                 $('#mybody').html('');
                 $('#mybody').html('Item Deactivate Successfully');
+
+                $('#myheader').html('Success  <button type="button" class="close"   data-dismiss="modal">&times;</button>');
+
+                $('#myModal').modal();
+                $("#item_part1").load(location.href + " #item_part1");
+
+
+            });
+        }
+
+
+        function activatemy_item(id)
+        {
+            var IDD = id;
+            $.get('{{url('activatemy_item')}}', {IDD: IDD}, function (data) {
+                $('#myheader').html('');
+                $('#mybody').html('');
+                $('#mybody').html('Item Activate Successfully');
 
                 $('#myheader').html('Success  <button type="button" class="close"   data-dismiss="modal">&times;</button>');
 

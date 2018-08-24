@@ -29,11 +29,7 @@
             font-size: 18px;
         }
 
-        a {
-            text-decoration: none;
-            font-size: 22px;
-            color: black;
-        }
+
 
         button:hover, a:hover {
             opacity: 0.7;
@@ -80,7 +76,7 @@
         <p class="title"><b>Email   : </b>{{$user_data->email}}</p>
         <p class="title"><b>Gender  : </b>{{$user_data->gender}}</p>
         <p class="title"><b>Contact : </b>{{$user_data->contact}}</p>
-        <p class="title"><b>City    : </b>{{$user_data->city_name->city}}</p>
+       {{-- <p class="title"><b>City    : </b>{{$user_data->city_name->city}}</p>--}}
         <p class="title"><b>Status  : </b>@if($user_data->is_active=='1')Active @else Inactive @endif</p>
 
     </div>

@@ -120,6 +120,7 @@ Route::post('mypost', 'ItemmasterController@itemsadd');
 Route::get('itemshow/{id}', 'ItemmasterController@itemshow');
 Route::get('edit_item_show/{id}', 'ItemmasterController@edit_item_show');
 Route::get('deactivate_item', 'ItemmasterController@deactivate_item');
+Route::get('activatemy_item', 'ItemmasterController@activatemy_item');
 Route::post('itemeditpost', 'ItemmasterController@itemeditpost');
 Route::get('searchtable', 'ItemmasterController@searchtable');
 /////////////////////////////////////////api///////////////////////////////////////////////////////

@@ -271,7 +271,7 @@
                                         <thead>
                                         <tr>
                                             <th>Product Name</th>
-                                            <th width="50%">Delivery</th>
+                                            <th width="50%">Delivezxczxczxcxzccxzcry</th>
                                             <th>Status</th>
                                             <th>option</th>
                                         </tr>

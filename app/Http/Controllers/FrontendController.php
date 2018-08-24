@@ -263,7 +263,7 @@ class FrontendController extends Controller
         if (isset($_SESSION['user_master'])) {
             $user_ses = $_SESSION['user_master'];
             $user = UserMaster::find($user_ses->id);
-            $states = DB::select("select * from cities order by state ASC");
+//            $states = DB::select("select * from cities order by state ASC");
             $cities = DB::select("select * from cities where city IS NOT NULL order by city ASC");
             return view('web.checkout')->with(['user' => $user, 'cities' => $cities]);
         } else {

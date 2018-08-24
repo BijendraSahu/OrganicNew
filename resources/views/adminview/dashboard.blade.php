@@ -35,18 +35,19 @@
             <div class="row">
                <section id="menu1">
                     <div class="home_brics_row">
+                        <?php $cdata= \App\ItemCategory::where(['is_active'=>1])->count();?>
                         <a href="/category"><div class="col-sm-3">
                             <div class="white_brics">
                                 <div class="white_icon_withtxt">
                                     <div class="white_icons_blk"><i class="mdi mdi-tag"></i></div>
                                     <div class="white_brics_txt">Category</div>
-                                    <div class="white_brics_count">150</div>
+                                    <div class="white_brics_count">{{$cdata}}</div>
                                 </div>
                                 <div class="brics_progress white_brics_border_clr1"></div>
                             </div>
                         </div>
                         </a>
-
+                            <?php $idata= \App\ItemMaster::where(['is_active'=>1])->count();?>
                         <a href="/items">
                         <div class="col-sm-3">
                             <div class="white_brics">
@@ -54,13 +55,14 @@
                                     <div class="white_icons_blk white_brics_clr2"><i
                                                 class="mdi mdi-content-duplicate"></i></div>
                                     <div class="white_brics_txt">Items</div>
-                                    <div class="white_brics_count">150</div>
+                                    <div class="white_brics_count">{{$idata}}</div>
                                 </div>
                                 <div class="brics_progress white_brics_border_clr2" style="
 "></div>
                             </div>
                         </div>
                         </a>
+                            <?php $udata= \App\UserMaster::where(['is_active'=>1])->count();?>
                          <a href="/userlist">
                         <div class="col-sm-3">
                             <div class="white_brics">
@@ -68,12 +70,13 @@
                                     <div class="white_icons_blk white_brics_clr3"><i
                                                 class="mdi mdi-account-multiple"></i></div>
                                     <div class="white_brics_txt">Users</div>
-                                    <div class="white_brics_count">150</div>
+                                    <div class="white_brics_count">{{$udata}}</div>
                                 </div>
                                 <div class="brics_progress white_brics_border_clr3"></div>
                             </div>
                         </div>
                          </a>
+                            <?php $odata= \App\OrderMaster::where(['is_active'=>1])->count();?>
                             <a href="/orderlist">
                         <div class="col-sm-3">
                             <div class="white_brics">
@@ -81,7 +84,7 @@
                                     <div class="white_icons_blk white_brics_clr4"><i
                                                 class="mdi mdi-clipboard-plus"></i></div>
                                     <div class="white_brics_txt">Orders</div>
-                                    <div class="white_brics_count">150</div>
+                                    <div class="white_brics_count">{{$odata}}</div>
                                 </div>
                                 <div class="brics_progress white_brics_border_clr4"></div>
                             </div>
@@ -236,7 +239,7 @@
             <div class="row">
                 <section id="menu1">
                     <div class="home_brics_row">
-
+                        <?php $ddata= \App\DeliveryModel::where(['is_active'=>1])->count();?>
                         <a href="/delivery">
                             <div class="col-sm-3">
                                 <div class="white_brics">
@@ -244,7 +247,7 @@
                                         <div class="white_icons_blk white_brics_clr4"><i
                                                     class="mdi mdi-gift"></i></div>
                                         <div class="white_brics_txt">Delivery</div>
-                                        <div class="white_brics_count">150</div>
+                                        <div class="white_brics_count">{{$ddata}}</div>
                                     </div>
                                     <div class="brics_progress white_brics_border_clr4"></div>
                                 </div>
@@ -253,13 +256,14 @@
 
 
                         <a href="/review">
+                            <?php $rdata= \App\Review::where(['is_active'=>1])->count();?>
                             <div class="col-sm-3">
                                 <div class="white_brics">
                                     <div class="white_icon_withtxt">
                                         <div class="white_icons_blk white_brics_clr3"><i
                                                     class="mdi mdi-forum"></i></div>
                                         <div class="white_brics_txt">Review</div>
-                                        <div class="white_brics_count">150</div>
+                                        <div class="white_brics_count">{{$rdata}}</div>
                                     </div>
                                     <div class="brics_progress white_brics_border_clr3"></div>
                                 </div>
@@ -269,26 +273,27 @@
 
 
                         <a href="/statelist">
+                            <?php $sdata= \App\StateModel::where(['is_deleted'=>0])->count();?>
                             <div class="col-sm-3">
                                 <div class="white_brics">
                                     <div class="white_icon_withtxt">
                                         <div class="white_icons_blk white_brics_clr2"><i
                                                     class="mdi mdi-earth"></i></div>
                                         <div class="white_brics_txt">State</div>
-                                        <div class="white_brics_count">150</div>
+                                        <div class="white_brics_count">{{$sdata}}</div>
                                     </div>
                                     <div class="brics_progress white_brics_border_clr2" style="
 "></div>
                                 </div>
                             </div>
                         </a>
-
+                            <?php $cidata= \App\Cities::count();?>
                         <a href="/citylist"><div class="col-sm-3">
                                 <div class="white_brics">
                                     <div class="white_icon_withtxt">
                                         <div class="white_icons_blk"><i class=" mdi mdi-map-marker"></i></div>
                                         <div class="white_brics_txt">City</div>
-                                        <div class="white_brics_count">150</div>
+                                        <div class="white_brics_count">{{$cidata}}</div>
                                     </div>
                                     <div class="brics_progress white_brics_border_clr1"></div>
                                 </div>
@@ -446,24 +451,27 @@
 
 
                         <a href="/ask"><div class="col-sm-3">
+                                <?php $Askdata= \App\AskModel::count();?>
+
                                 <div class="white_brics">
                                     <div class="white_icon_withtxt">
                                         <div class="white_icons_blk"><i class="mdi mdi-cellphone-android"></i></div>
                                         <div class="white_brics_txt">Ask Caller</div>
-                                        <div class="white_brics_count">150</div>
+                                        <div class="white_brics_count">{{$Askdata}}</div>
                                     </div>
                                     <div class="brics_progress white_brics_border_clr1"></div>
                                 </div>
                             </div>
                         </a>
                         <a href="/blog">
+                            <?php $blogdata= \App\Blogmodel::count();?>
                             <div class="col-sm-3">
                                 <div class="white_brics">
                                     <div class="white_icon_withtxt">
                                         <div class="white_icons_blk white_brics_clr2"><i
                                                     class="mdi mdi-message-image"></i></div>
                                         <div class="white_brics_txt">Blog</div>
-                                        <div class="white_brics_count">150</div>
+                                        <div class="white_brics_count">{{$blogdata}}</div>
                                     </div>
                                     <div class="brics_progress white_brics_border_clr2" style="
 "></div>
