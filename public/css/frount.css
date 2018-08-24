@@ -12,7 +12,6 @@
 }
 
 .bannerbg_video {
-    //
     display: inline-block;
     width: 100%;
 }
@@ -645,7 +644,6 @@
     overflow: hidden;
     text-align: center;
     margin-bottom: 10px;
-
 }
 .long_product_img img
 {
@@ -653,7 +651,6 @@
     transition: .5s all;
     width: 100%;
     max-width: 100%;
-    min-height: 200px;
 }
 .long_spinner_withbtn {
     position: relative;
@@ -860,7 +857,7 @@ footer .newsletter-row {
 }
 
 footer h4 {
-    padding: 0 0 18px;
+    padding: 0 0 15px;
     font-size: 16px;
     margin: 0;
     color: #88be4c;
@@ -873,7 +870,55 @@ footer h4 {
 footer .newsletter-row .col1 {
     text-align: right;
 }
+.facebook{
 
+    background-color: #3b5999;
+    font-size: 18px;
+    color: white;
+    text-align: center;
+
+
+}
+.btn-follow {
+    -webkit-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .18), 0 4px 15px 0 rgba(0, 0, 0, .15);
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .18), 0 4px 15px 0 rgba(0, 0, 0, .15);
+    width: 32px;
+    height: 32px;
+
+    vertical-align: middle;
+    display: inline-block;
+    overflow: hidden;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+
+    padding: 4px;
+    border: none;
+    cursor: pointer;
+    margin-right: 16px;
+}
+.gmail {
+
+    background-color: #D44638;
+    font-size: 18px;
+    color: white;
+    text-align: center;
+
+}
+
+.linkedin{
+    background-color: #1dcaff;
+    font-size: 18px;
+    color: white;
+    text-align: center;
+
+}
+.twitter{
+    background-color:#00aced;
+    font-size: 18px;
+    color: white;
+    text-align: center;
+}
 #container_form_news {
     position: relative;
     z-index: 0;
@@ -934,7 +979,7 @@ button.button span {
 
 .co-info {
     margin-right: 0px !important;
-    padding: 30px 0px;
+    padding: 20px 0px;
     text-align: left;
     margin-top: 0px;
 }
@@ -949,20 +994,18 @@ footer address {
     display: block;
     margin: auto;
     font-style: normal;
-    line-height: 1.5em;
     color: #b7bcc8;
-    margin-top: 20px;
     text-align: center;
-    margin-bottom: 10px;
     font-size: 14px;
     padding: 0px;
+    margin-top: 5px;
 }
 
 footer address div {
     display: block;
     text-align: left;
     overflow: hidden;
-    padding: 15px 0px;
+    padding: 10px 0px;
     border-bottom: 1px #b7bcc8 dotted;
 }
 
@@ -992,11 +1035,11 @@ footer address span {
 
 .footer-column {
     margin-left: 3.3%;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     min-height: 180px;
     width: 30%;
     float: left;
-    padding-top: 40px;
+    padding-top: 20px;
 }
 
 footer ul {
@@ -1804,6 +1847,7 @@ ol.progtrckr li.progtrckr-todo:before {
     display: inline-block;
     padding: 15px 0px;
     border-bottom: solid thin #e1e1e1;
+    min-height: 135px;
 }
 
 .productdetails_order_row {
@@ -2544,4 +2588,18 @@ ol.progtrckr li.progtrckr-todo:before {
 .order_details_box form
 {
     margin-bottom: 0px;
+}
+.res_arrow_show {
+   display: none;
+}
+.min_height_0 {
+    min-height: 0px;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
 }
