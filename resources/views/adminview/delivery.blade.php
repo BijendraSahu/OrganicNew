@@ -34,7 +34,7 @@
                                             @if($object->is_active=='1')
                                         <tr>
                                             <input type="hidden" id="cityid{{$object->id}}" value="{{$object->city_id}}">
-                                            <td id="cityname{{$object->id}}">{{$object->cityname->city_name}}</td>
+                                           {{-- <td id="cityname{{$object->id}}">{{$object->cityname->city_name}}</td>--}}
                                             <td id="area{{$object->id}}">{{$object->area}}</td>
                                             <td id="pin{{$object->id}}">{{$object->pin}}</td>
                                             <td id="amount{{$object->id}}">{{$object->amount}}</td>
