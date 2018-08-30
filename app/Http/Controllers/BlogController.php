@@ -68,5 +68,13 @@ class BlogController extends Controller
         }
 
         return 'success';
+
+    }
+    public function updateblog($id)
+    {
+        $blogdata=Blogmodel::where(['id'=>$id,'is_active'=>'1'])->first();
+        $data = BlogCategory::get();
+        return view('adminview.update_blog',['blogdata'=>$blogdata,'data'=>$data]);
     }
 }
+

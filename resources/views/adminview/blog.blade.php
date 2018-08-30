@@ -13,14 +13,14 @@
                         <div class="col-sm-12 col-md-12 col-xs-12">
                             <div class="dash_boxcontainner white_boxlist">
                                 <div class="upper_basic_heading"><span class="white_dash_head_txt">
-                         All City
+                         All Blog
                          <button onclick="openblogcat();" class="btn btn-default ali"><i
                                      class="mdi mdi-plus"></i>Add Category</button>
                                          <button onclick="openblogform();" class="btn btn-default pull-right"><i
                                                      class="mdi mdi-plus"></i>Add Blog</button>
                       </span>
                                     <p class="clearfix"></p>
-<?php $blogdata=\App\Blogmodel::where(['is_active'=>'1'])->orderBy('id','desc')->get();?>
+<?php $blogdata=\App\Blogmodel::where(['is_active'=>'1'])->orderBy('id','desc')->paginate(5);?>
                                     @foreach($blogdata as $myobject)
                                         <div class="row line">
                                             <div class="col-sm-4 one">
@@ -38,13 +38,14 @@
                                                         <span> {{$myobject->created_date}}</span>
                                                     </div>
                                                     <br>
-                                                    {{--<button class="button"><span>Read More</span></button>--}}
+                                                    <a href="{{url('updateblog').'/'.$myobject->id}}"><button class="button"><span>Edit</span></button></a>
 
                                                     <!--<button class="btn btn-primary">READ MORE</button>-->
                                                 </div>
                                             </div>
                                         </div>
                                         @endforeach
+                                    {{$blogdata->links()}}
 
 
                                 </div>
