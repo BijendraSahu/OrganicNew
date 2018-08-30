@@ -28,7 +28,7 @@
                 '                                            <i class="mdi mdi-close"></i>\n' +
                 '                                        </div>\n' +
                 '                                        </div>';
-            $('#instruction_container').prepend(append_moreinst);
+            $('#instruction_container').prepend(append_moreinst);//
         }
 
         function addmore_ingredient(dis) {
