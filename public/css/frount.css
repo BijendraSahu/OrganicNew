@@ -2196,7 +2196,7 @@ ol.progtrckr li.progtrckr-todo:before {
 }
 
 .margin_bottom0 {
-    margin-bottom: 0px;
+    margin-bottom: 0px !important;
 }
 
 .deli_row {
