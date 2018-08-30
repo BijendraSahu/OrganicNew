@@ -48,34 +48,27 @@
                         <h4  onclick="show_link(this);">Quick Links
                             <div class="res_arrow_show mdi mdi-chevron-right"></div></h4>
                         <ul class="links">
-                            <li class="first"><a title="How to buy" href="/blog/">
+                            <li class="first"><a  href="blog_view1.php">
                                     <i class="mdi mdi-arrow-right-bold"></i>Blog</a></li>
-                            <li><a title="FAQs" href="#">
+                            <li><a href="Faq.php">
                                     <i class="mdi mdi-arrow-right-bold"></i>FAQs</a></li>
-                            <li><a title="Payment" href="#">
+                            <li><a href="Payments.php">
                                     <i class="mdi mdi-arrow-right-bold"></i>Payment</a></li>
-                            <li><a title="Shipment" href="#">
+                            <li><a  href="return_policy.php">
                                     <i class="mdi mdi-arrow-right-bold"></i>Return Policy</a></li>
-                            <li class="last"><a title=" Additional Information" href="order_list.php">
-                                    <i class="mdi mdi-arrow-right-bold"></i>Order List</a>
-                            </li>
-
                         </ul>
                     </div>
                     <div class="footer-column">
                         <h4  onclick="show_link(this);">Account
                             <div class="res_arrow_show mdi mdi-chevron-right"></div></h4>
                         <ul class="links">
-                            <li class="first"><a title="Your Account" href="#">
-                                    <i class="mdi mdi-arrow-right-bold"></i>Track Order</a></li>
-                            <li><a title="Information" href="#">
+                            <li><a  href="about_us.html">
                                     <i class="mdi mdi-arrow-right-bold"></i>About Us</a></li>
-                            <li><a title="Addresses" href="#">
+                            <li><a  href="contact_us.php">
                                     <i class="mdi mdi-arrow-right-bold"></i>Contact Us</a></li>
-                            <li><a title="Addresses" href="#">
+                            <li><a  href="terms.php">
                                     <i class="mdi mdi-arrow-right-bold"></i>Terms & Condition</a></li>
-
-                            <li class="last"><a title=" Additional Information" href="#">
+                            <li class="last"><a  href="product_list.php">
                                     <i class="mdi mdi-arrow-right-bold"></i>Product List</a>
                             </li>
                         </ul>
