@@ -11,6 +11,7 @@ use App\OrderMaster;
 use App\Review;
 use App\UserAddress;
 use App\UserMaster;
+use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -231,6 +232,7 @@ class FrontendController extends Controller
             $address->address = request('add_address');
             $address->zip = request('add_pincode');
             $address->city_id = request('add_city');
+            $address->created_time = Carbon::now('Asia/Kolkata');
             $address->save();
             return 'success';
         } else {

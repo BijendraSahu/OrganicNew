@@ -135,7 +135,7 @@
         }
 
         .owl-carousel .animated {
-            animation-duration: 1000ms;
+            animation-duration: 2000ms;
             animation-fill-mode: both;
         }
 
@@ -506,7 +506,7 @@
         });
         $(document).ready(function () {
             $('.carousel').carousel({
-                interval: 3000
+                interval: 6000
             });
             var owl = $('.brics_5');
             owl.owlCarousel({
@@ -515,7 +515,7 @@
                 loop: true,
                 margin: 15,
                 autoplay: true,
-                autoplayTimeout: 3000,
+                autoplayTimeout: 6000,
                 autoplayHoverPause: true,
                 /*  slidey-up: 'bottom to top',*/
                 navigation: true

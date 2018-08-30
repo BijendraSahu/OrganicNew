@@ -72,6 +72,14 @@ Route::post('failed', 'CartController@payment_failed');
 Route::get('blogs', 'FrontendController@blog_list');
 Route::get('view_blog/{slug}', 'FrontendController@view_blog');
 
+Route::get('/blog','BlogController@blog');
+Route::get('/addblogcat','BlogController@addblogcat');
+Route::get('/blogpost','BlogController@blogpost');
+Route::post('/blogpic','BlogController@blogpic');
+Route::get('myrecipe','RecipeController@my_recipe_list');
+Route::post('recipe_store','RecipeController@recipe_store');
+Route::get('/recipelist','RecipeController@recipe_list');
+
 
 
 /*************API******************/
@@ -171,10 +179,5 @@ Route::get('/delete_del','DeliveryController@delete_del');
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Route::get('/ask','AskController@ask');
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Route::get('/blog','BlogController@blog');
-Route::get('/addblogcat','BlogController@addblogcat');
-Route::get('/blogpost','BlogController@blogpost');
-Route::post('/blogpic','BlogController@blogpic');
-Route::get('/myrecipe','RecipeController@my_recipe_list');
-Route::get('/recipelist','RecipeController@recipe_list');
+
 //////////////////////////////////////////////////////////////////////////////////////////////
