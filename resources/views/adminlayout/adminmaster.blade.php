@@ -877,6 +877,12 @@
             </a>
         </li>
         <li class="right_menu_li">
+            <a href="{{url('/testimonials')}}">
+                <i class="dash_arrow mdi mdi-format-size global_color"></i>
+                <span class="aside_menu_txt">Testimonials</span>
+            </a>
+        </li>
+        <li class="right_menu_li">
             <a href="{{url('/blog')}}">
                 <i class="dash_arrow mdi mdi-message-image global_color"></i>
                 <span class="aside_menu_txt">Blog</span>

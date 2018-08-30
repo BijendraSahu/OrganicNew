@@ -46,6 +46,8 @@
                                         </select>
                                         <p></p>
 
+                                        <input type="hidden" id="udid" value="{{$blogdata->id}}">
+
                                         <button type="button" class="btn btn-primary btn-block"  onclick="blogpost();">Post</button>
                                         <p></p>
 
@@ -202,16 +204,28 @@
 
         function blogpost()
         {
-            var title=$('#title').val();
-            var description = $("#txtEditor_blog").Editor("getText");
-            var mycatid=$('#mycatid').val();
-            var blog_meta_title=$('#blog_meta_title').val();
-            var blog_meta_keyword=$('#blog_meta_keyword').val();
-            var blog_meta_description=$('#blog_meta_description').val();
-            $.get('{{url('blogpost')}}', {title: title,description: description,mycatid: mycatid,blog_meta_title: blog_meta_title,blog_meta_keyword: blog_meta_keyword,blog_meta_description: blog_meta_description}, function (data) {
-                openpic();
-            });
-
+            try {
+                var title = $('#title').val();
+                var description = $("#txtEditor_blog").Editor("getText");
+                var mycatid = $('#mycatid').val();
+                var blog_meta_title = $('#blog_meta_title').val();
+                var blog_meta_keyword = $('#blog_meta_keyword').val();
+                var blog_meta_description = $('#blog_meta_description').val();
+                $.get('{{url('upblogpost')}}', {
+                    udid: udid,
+                    title: title,
+                    description: description,
+                    mycatid: mycatid,
+                    blog_meta_title: blog_meta_title,
+                    blog_meta_keyword: blog_meta_keyword,
+                    blog_meta_description: blog_meta_description
+                }, function (data) {
+                    console.log(data);
+                    openpic();
+                });
+            }catch (e) {
+              console.log(e);
+            }
 
         }
         function openpic()
