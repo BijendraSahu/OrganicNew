@@ -15,4 +15,36 @@ class RecipeController extends Controller
     {
         return view('web.recipelist');
     }
+    public function aboutus()
+    {
+        return view('web.otherpages.aboutus');
+    }
+    public function faq()
+    {
+        return view('web.otherpages.faq');
+    }
+    public function terms()
+    {
+        return view('web.otherpages.terms');
+    }
+    public function payments()
+    {
+        return view('web.otherpages.payments');
+    }
+    public function returnpolicy()
+    {
+        return view('web.otherpages.returnpolicy');
+    }
+    public function blog()
+    {
+        return view('web.otherpages.blog');
+    }
+    public function blogdetail()
+    {
+        return view('web.otherpages.blogdetail');
+    }
+    public function contactus()
+    {
+        return view('web.otherpages.contactus');
+    }
 }
