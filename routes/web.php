@@ -175,4 +175,6 @@ Route::get('/blog','BlogController@blog');
 Route::get('/addblogcat','BlogController@addblogcat');
 Route::get('/blogpost','BlogController@blogpost');
 Route::post('/blogpic','BlogController@blogpic');
+Route::get('/myrecipe','RecipeController@my_recipe_list');
+Route::get('/recipelist','RecipeController@recipe_list');
 //////////////////////////////////////////////////////////////////////////////////////////////

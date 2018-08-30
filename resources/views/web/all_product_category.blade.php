@@ -7,10 +7,10 @@
         @php
             $items = DB::select("SELECT im.* FROM item_master im, item_category ic where im.is_active = 1 and im.id=ic.item_master_id and ic.category_id=$category->id");
         @endphp
-        <div class="col-md-3 col-sm-6">
+        <div class="col-md-4 col-lg-3 col-sm-6">
             <div class="product_carousal_box">
                 <div class="carousal_head">
-                    <span class="filter_head_txt slider_headtxt">{{$category->name}}</span>
+                    <span class="filter_head_txt slider_headtxt" style="cursor: pointer" onclick="get_items(this)" id="{{$category->id}}">{{$category->name}}</span>
                 </div>
 
                 <div id="myCarousel{{$category->id}}" class="carousel slide vertical">

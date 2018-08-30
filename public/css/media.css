@@ -84,6 +84,51 @@
     {
         width: 180px;
     }
+    .res_pad0
+    {
+        padding: 0px;
+    }
+    ol.progtrckr[data-progtrckr-steps="5"] li {
+        width: 44%;
+        margin-right: 3%;
+    }
+    .feedback_block
+    {
+        padding: 50px 0px 0px 0px;
+    }
+    .product_viewblock
+    {
+        padding-top: 50px;
+    }
+    .product_block
+    {
+        width: 100%;
+    }
+    .long_product_img img
+    {
+        width: auto;
+        max-width: 100%;
+    }
+    .slide_up_carousel .product_block
+    {
+        height: auto;
+    }
+    .product_block
+    {
+        height: auto;
+    }
+    .new_addbox
+    {
+        padding: 10px 0px;
+    }
+    .add_name_box
+    {
+        font-size: 14px;
+    }
+    .radio
+    {
+        margin-bottom: 15px;
+    }
 }
 @media screen and (min-width:480px) and (max-width:767px) {
     .main_head_txt
@@ -93,6 +138,36 @@
     .collection_about_brics
     {
         margin: 20px 0px;
+    }
+    .feedback_block
+    {
+        padding: 60px 0px 0px 0px;
+    }
+    .product_viewblock
+    {
+        padding-top: 60px;
+    }
+    .product_block
+    {
+        width: 49%;
+        margin-right: 0px;
+    }
+    .product_container .product_block:nth-of-type(even)
+    {
+        margin-left: 2%;
+    }
+    .slide_up_carousel .product_block
+    {
+        width: 49%;
+        height: auto;
+    }
+    .long_product_img img
+    {
+        width: auto;
+    }
+    .filter_res
+    {
+        top: 48px;
     }
 }
 @media screen and (min-width:768px) and (max-width:1023px) {
@@ -112,9 +187,48 @@
     {
         display: none;
     }
+    .product_magnifyimages_box
+    {
+        padding-left: 0px;
+        max-width: 350px;
+    }
+    .product_block
+    {
+        width: 48%;
+    }
 }
 @media screen and (min-width: 320px) and (max-width: 767px)
 {
+    .more_other_details
+    {
+        margin-top: 20px;
+    }
+    .brics_images
+    {
+        height: auto;
+        width: 17%;
+        max-width: 50px;
+    }
+    .more_other_details:before
+    {
+        border: none;
+    }
+    .magnifyimages_box
+    {
+        min-height: auto;
+    }
+    .all_data_view
+    {
+        padding-top: 10px;
+    }
+    .product_details_model
+    {
+        width: auto;
+    }
+    .product_all_container
+    {
+        margin-top: 30px;
+    }
     .login_popup_box
     {
         width: 96%;
@@ -201,6 +315,8 @@
         position: relative;
         margin: 0px auto;
         margin-bottom: 10px;
+        width: auto;
+        max-width: 400px;
     }
     .product_section
     {
@@ -209,6 +325,7 @@
     .order_listbox
     {
         margin-bottom: 15px;
+        padding: 5px 10px 10px 10px;
     }
     .footer-column
     {
@@ -233,6 +350,95 @@
         margin-top: -5px;
         display: block;
     }
+    .deli_row .form-control:nth-of-type(odd) {
+        margin-bottom: 15px;
+    }
+    .deli_row
+    {
+        margin-bottom: 0px;
+    }
+    .radio_row
+    {
+        margin-bottom: 15px;
+    }
+    .order_header
+    {
+        padding: 8px 5px;
+    }
+    .order_no
+    {
+        padding: 5px;
+    }
+    .order_track
+    {
+        padding: 0px 0px 30px 0px;
+    }
+    .forgotpass_lb
+    {
+        width: auto;
+        max-width: initial !important;
+    }
+    .notifyme_model
+    {
+        width: auto;
+        max-width: initial !important;
+    }
+    .product_details_containner
+    {
+     padding-left: 0px;
+    }
+    .product_magnifyimages_box
+    {
+        position: relative;
+        max-width: initial;
+        padding-left: 0px;
+        top: 0px;
+        left: 0px !important;
+    }
+    .small {
+        width: auto !important;
+        height: auto !important;
+        max-height: 250px;
+        max-width: 100%;
+    }
+    .more_productother_details:before
+    {
+        display: none;
+    }
+    .product_filter_container
+    {
+        position: fixed;
+        top: 10px;
+        left: -300px;
+        z-index: 105;
+        transition: .5s all;
+        height: calc(100vh - 20px);
+    }
+    .product_list_ul
+    {
+        max-height: calc(100vh - 130px);
+    }
+    .product_filter_container_show
+    {
+        left: 25px;
+    }
+    .filter_res
+    {
+        display: block;
+    }
+    .long_qty_box
+    {
+        padding-left: 110px;
+    }
+    .product_all_container
+    {
+        padding-left: 0px;
+    }
+    .exis_addbox
+    {
+        width: 100%;
+        margin-left: 0px !important;
+    }
 }
 @media (max-width: 1023px) and (min-width: 320px) {
     .mycart_mainbox
@@ -245,6 +451,31 @@
         width: 100%;
         max-width: 100%;
     }
+    .profile_block
+    {
+        margin-bottom: 15px;
+    }
+
+    .small
+    {
+        width: 250px;
+        height: 250px;
+    }
+    .product_images_thumbbox
+    {
+        position: initial;
+        width: 100%;
+        margin-top: 10px;
+    }
+    .product_brics_images
+    {
+        width: 60px;
+        height: 60px;
+    }
+    .rating-desc
+    {
+        margin-top: 15px;
+    }
 }
 @media screen and (min-width:1024px) and (max-width:1199px) {
     .order_listbox
@@ -254,6 +485,22 @@
     .my_cartbtnbox
     {
         padding-right: 95px;
+    }
+    .product_magnifyimages_box
+    {
+        max-width: 450px;
+    }
+    .position_fixed_removed
+    {
+        padding-left: 100px;
+    }
+    .small
+    {
+        width: 250px;
+    }
+    .product_block
+    {
+        width: 31.3%;
     }
 }
 @media screen and (min-width:1200px) and (max-width:1359px) {

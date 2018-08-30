@@ -5,7 +5,7 @@
                 <div class="large" id="view_large_bg"></div>
                 @php $image = \App\ItemImages::where(['item_master_id' => $item->id])->first(); @endphp
                 @if(isset($image->image) && file_exists("p_img/$item->id/".$image->image))
-                    <img class="small" id="view_images" src="{{url('p_img').'/'.$item->id.'/'.$image->image}}"/>
+                    <img class="small lb_small" id="view_images" src="{{url('p_img').'/'.$item->id.'/'.$image->image}}"/>
                 @else
                     <img height="300px" id="view_images" width="300px" src="{{url('images/default.png')}}">
                 @endif
@@ -46,7 +46,7 @@
                        value="1"/>
             </div>
             <div class="option_availability">
-                <button class="more_addToCart btn-primary" type="button" id="{{$item->id}}"
+                <button class="more_addToCart btn-primary product_add_tocard" type="button" id="{{$item->id}}"
                         onclick="AddTOcartView(this);">
                     <i class="mdi mdi-cart"></i> <span id="{{$item->id}}" onclick="AddTOcartView(this);"
                                                        class="button-group__text">Add</span>
@@ -56,7 +56,7 @@
                 Description :
             </div>
             <div class="more_product_details">
-                {!! $item->description !!}
+                {!!isset($item->description)?$item->description:'-'!!}
             </div>
 
         </div>
