@@ -68,6 +68,8 @@ function empty_address() {
     $('#add_name').val('');
     $('#add_email').val('');
     $('#add_contact').val('');
+    $('#add_pincode').val('');
+    $('#add_city').val(0);
     $('#add_address').val('');
 }
 function RemoveProfileImage(changepicid, file_id) {
@@ -107,25 +109,29 @@ function ChangeSetImage(dis, changepicid) {
         }
     }
 }
-window.onscroll = function () {
-    scrollFunction()
-};
+window.onscroll = function() {scrollFunction()};
 function scrollFunction() {
     if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 20) {
-        $('#top_scroll_btn').css('top', '70px');
-        $('#bottom_scroll_btn').css('bottom', '20px');
+        $('#top_scroll_btn').addClass('animate_top');
+        $('#bottom_scroll_btn').addClass('animate_bottom');
+        /*   $('#top_scroll_btn').css('top', '70px');
+           $('#bottom_scroll_btn').css('bottom', '20px');*/
     } else {
-        $('#top_scroll_btn').css('top', '5px');
-        $('#bottom_scroll_btn').css('bottom', '-50px');
+        /*$('#top_scroll_btn').css('top', '5px');
+        $('#bottom_scroll_btn').css('bottom', '-50px');*/
+        $('#top_scroll_btn').removeClass('animate_top');
+        $('#bottom_scroll_btn').removeClass('animate_bottom');
     }
 }
 function ScrollTop() {
-    $("html, body").animate({scrollTop: 0}, 1000);
-    $('#bottom_scroll_btn').css('bottom', '-50px');
+    $("html, body").animate({ scrollTop: 0 }, 1000);
+    // $('#bottom_scroll_btn').css('bottom', '-50px');
+    $('#bottom_scroll_btn').removeClass('animate_bottom');
 }
 function ScrollBottom() {
-    $("html, body").animate({scrollTop: $(document).height()}, 1000);
-    $('#top_scroll_btn').css('top', '40px');
+    $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    //$('#top_scroll_btn').css('top', '40px');
+    $('#top_scroll_btn').removeClass('animate_top');
 }
 window.onload = function (e) {
     setTimeout(function () {
@@ -171,4 +177,11 @@ function ShowLoginSignup(txt) {
         $('#loginSignup_popup').find('.registration').slideDown();
     }
     $('#loginSignup_popup').addClass('show_popup');
+}
+function show_link(dis) {
+    var chk_width=$(window).width();
+    if(chk_width < 760)
+    {
+        $(dis).next().slideToggle();
+    }
 }

@@ -9,7 +9,7 @@
                 <div class="carousal_head">
                     <span class="filter_head_txt slider_headtxt">My Orders List</span>
                 </div>
-                <div class="order_list_container">
+                <div class="order_list_container margin_top15">
                     @foreach($orders as $order)
                         <div class="order_row">
                             <div class="order_header">
@@ -21,7 +21,7 @@
                                 $item = \App\ItemMaster::find($order->item_master_id);
                             @endphp
                             <div class="order_details_box">
-                                <div class="col-md-8 col-sm-12">
+                                <div class="col-sm-8">
                                     <div class="productdetails_order_row">
                                         <div class="order_product_imgbox">
                                             @php
@@ -37,7 +37,7 @@
                                             <a class="product_details_link"
                                                href="{{url('view_product').'/'.(encrypt($item->id))}}"> {{$item->name}}</a>
                                         </div>
-                                        <div class="option_availability">
+                                       {{-- <div class="option_availability">
                                             <div class="option_txt">Specification</div>
                                             <div class="product_right_txt">
                                                 {!! $item->specifcation!!}
@@ -48,6 +48,18 @@
                                             <div class="product_right_txt">
                                                 {{$order->qty}}
                                             </div>
+                                        </div>--}}
+                                        <div class="option_availability">
+                                            <div class="option_txt">Quantity :</div>
+                                            <div class="product_right_txt">
+                                                {{$order->qty}}
+                                            </div>
+                                        </div>
+                                        <div class="desc_cart">
+                                            <div class="des_txt">Specifications :</div>
+                                            <div class="des_details">
+                                                {!! $item->specifcation!!}
+                                            </div>
                                         </div>
                                         {{--<div class="option_availability">--}}
                                             {{--<div class="option_txt">Sales Package</div>--}}
@@ -57,7 +69,7 @@
                                         {{--</div>--}}
                                     </div>
                                 </div>
-                                <div class="col-md-4 col-sm-12">
+                                <div class="col-sm-4">
                                     <div class="track_del_address">
                                         @php
                                             $address = \App\UserAddress::find($order->address_id);

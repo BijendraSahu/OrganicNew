@@ -57,8 +57,8 @@
                 <div class="login_with_baskit">
                     <ul>
                         @if(!isset($_SESSION['user_master']))
-                            <li onclick="ShowLoginSignup('signin');">Sign In</li>
-                            <li onclick="ShowLoginSignup('signup');">Sign Up</li>
+                            <li onclick="ShowLoginSignup('signin');">Login</li>
+                            <li onclick="ShowLoginSignup('signup');">Register</li>
                         @else
                             <li>
                                 <div class="my_account_box glo_menuclick">My Account
@@ -265,6 +265,11 @@
                 <p>Enter mobile phone number associated with your Organic Dolchi account.</p>
                 <img src="{{url('images/forgot_image.png')}}"/>
             </div>
+            <div class="left_block verify">
+                <h1>Verify</h1>
+                <p>Hurray! You are just one step away from validating your account.</p>
+                <img src="{{url('images/verify_image.png')}}"/>
+            </div>
         </div>
         <div class="login_right_txt">
             <div class="right_block login">
@@ -289,8 +294,8 @@
                     <div class="btn btn-warning" onclick="ShowLoginSignup('forgot')">
                         <i class="mdi mdi-account-alert basic_icon_margin"></i>Forgot
                     </div>
-                    <div class="btn btn-success pull-center" onclick="ShowLoginSignup('verify')">
-                        <i class="mdi mdi-account-alert basic_icon_margin"></i>Verify Account
+                    <div class="btn btn-info pull-center" style="margin-left: 5px;" onclick="ShowLoginSignup('verify')">
+                        <i class="mdi mdi-account-check basic_icon_margin"></i>Verify Account
                     </div>
                     <div class="btn btn-primary pull-right" onclick="ShowLoginSignup('signup');">
                         <i class="mdi mdi-account-edit basic_icon_margin"></i>Sign Up

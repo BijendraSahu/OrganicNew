@@ -269,6 +269,11 @@
             box-shadow: none;
             border: solid thin #e1e1e1;
         }
+        @media (max-width: 767px) and (min-width: 320px) {
+            .animate_top {
+                top: 85px;
+            }
+        }
     </style>
     <script type="text/javascript">
         function appendimages(dis) {
@@ -277,6 +282,7 @@
             $('#view_large_bg').css('background-image', 'url("' + src_no + '")');
             Initialize_ProductDetails();
         }
+
         function Initialize_ProductDetails() {
             var native_width = 0;
             var native_height = 0;
@@ -310,6 +316,7 @@
                 }
             });
         }
+
         function AddTOcart(dis) {
             var cart = $('#baskit_block');
 //            var cart_counter = $('#baskit_counter');
@@ -327,7 +334,7 @@
                         'position': 'absolute',
                         'height': '150px',
                         'width': '150px',
-                        'z-index': '100'
+                        'z-index': '200'
                     })
                     .appendTo($('body'))
                     .animate({
@@ -372,6 +379,7 @@
             });
 
         }
+
         function AddTOcart_load(dis) {
             var cart = $('#baskit_block');
 //            var cart_counter = $('#baskit_counter');
@@ -389,7 +397,7 @@
                         'position': 'absolute',
                         'height': '150px',
                         'width': '150px',
-                        'z-index': '100'
+                        'z-index': '200'
                     })
                     .appendTo($('body'))
                     .animate({
@@ -433,15 +441,66 @@
             });
 
         }
+
         function checkOffset() {
             if ($('#product_filter_container').offset().top + $('#product_filter_container').height()
                 >= $('#footer').offset().top - 30) {
                 $('#product_filter_container').addClass('filter_removefixed');
             }
-            if ($(document).scrollTop() + window.innerHeight < $('#footer').offset().top) {
+           if ($(document).scrollTop() + window.innerHeight < $('#footer').offset().top) {
                 $('#product_filter_container').removeClass('filter_removefixed');
             }
+           //debugger;
+
         }
+        $(window).scroll(function () {
+            if ($(window).scrollTop() + $(window).innerHeight() == $(document).height()) {
+                if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
+                    getmoreItems();
+                }
+            }
+            /* if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+                 if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
+                     getmoreItems();
+                 }
+             }*/
+            /* if($(window).scrollTop() + $(window).height() == $(document).height()) {
+
+             }*/
+          /*  if($(document).scrollTop() == $(document).height() - $(document).height()) {
+                if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
+                    getmoreItems();
+                }
+            }*/
+            /*if($(window).scrollTop() + $(window).height() == $(document).height()){ //scrolled to bottom of the page
+                if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
+                    getmoreItems();
+                }
+            }*/
+            /*if($(window).scrollTop() + $(window).height() == $("#product_all_container").height()){
+               /!* if(($(window).scrollTop() == $(document).height() - $(window).height())) {*!/
+                if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
+                    getmoreItems();
+                }
+            }*/
+            /*if($(window).scrollTop() + $(window).height() >= $(document).height()){ //scrolled to bottom of the page
+                if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
+                    getmoreItems();
+                }
+            }*/
+            /*debugger;
+            var chk_footer=$('#footer').offset().top;
+            alert(chk_footer);
+            alert($(window).checkScrollbar());
+            if($(window).checkScrollbar() >= chk_footer)
+            {
+                if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
+                    getmoreItems();
+                }else {
+                    $("#product_all").html(no_record);
+                }
+            }*/
+        });
         $(document).scroll(function () {
             checkOffset();
         });
@@ -474,11 +533,11 @@
 //                }
             });
         });
+
         function getBuyItem() {
             var input = document.getElementById("Search");
             var filter = input.value.toLowerCase();
-            var nodes = document.getElementsByClassName('product_list_ul');
-
+            var nodes = document.getElementsByClassName('product_list_li');
             for (i = 0; i < nodes.length; i++) {
                 if (nodes[i].innerText.toLowerCase().includes(filter)) {
                     nodes[i].style.display = "block";
@@ -493,23 +552,27 @@
     <section class="product_section">
         <div class="container-fluid">
             <div class="product_all_container" id="product_all_container">
+                <div class="filter_res" onclick="ShowFilter();">
+                    <span class="res_filter_caption">Product Filter</span>
+                    <i class="mdi mdi-chevron-right"></i>
+                </div>
                 <div class="product_filter_container" id="product_filter_container">
                     <div class="product_filter_head">
-                        Product Category
+                        Product Filter
                     </div>
                     <div class="search_filter">
                         <input type="text" class="main_filter_search" id="Search" onkeyup="getBuyItem()"
-                               placeholder="search"/>
+                               placeholder="Search"/>
                         <div class="filter_search_icon">
                             <i class="mdi mdi-magnify"></i>
                         </div>
                     </div>
                     <div class="filter_category">
                         <ul class="product_list_ul style-scroll" id="filter_data">
-                            <li onclick="get_category(this)" class="selected">Products Category</li>
-                            <li onclick="get_items(this)" id="0">All Products</li>
+                            <li class="product_list_li selected" onclick="get_category(this)">Products Category</li>
+                            <li class="product_list_li" onclick="get_items(this)" id="0">All Products</li>
                             @foreach($categories as $category)
-                                <li onclick="get_items(this)" id="{{$category->id}}">{{$category->name}}</li>
+                                <li class="product_list_li" onclick="get_items(this)" id="{{$category->id}}">{{$category->name}}</li>
                             @endforeach
                         </ul>
                     </div>
@@ -517,8 +580,6 @@
                 {{--<div class="product_container" id="product_category">--}}
                 {{----}}
                 {{--</div>--}}
-
-
                 <div class="product_container" id="product_all">
                     <div class="slider_row">
                         @php
@@ -529,10 +590,10 @@
                             @php
                                 $items = DB::select("SELECT im.* FROM item_master im, item_category ic where im.is_active = 1 and im.id=ic.item_master_id and ic.category_id=$category->id");
                             @endphp
-                            <div class="col-md-3 col-sm-6">
+                            <div class="col-md-4 col-lg-3 col-sm-6">
                                 <div class="product_carousal_box">
                                     <div class="carousal_head">
-                                        <span class="filter_head_txt slider_headtxt">{{$category->name}}</span>
+                                        <span class="filter_head_txt slider_headtxt" style="cursor: pointer" onclick="get_items(this)" id="{{$category->id}}">{{$category->name}}</span>
                                     </div>
 
                                     <div id="myCarousel{{$category->id}}" class="carousel slide vertical">
@@ -553,34 +614,46 @@
                                                                     <img src="{{url('images/default.png')}}">
                                                                 @endif
                                                                 <div class="hover_center_block" id="{{$item->id}}"
-                                                                     onclick="getItemDetails(this)" data-toggle="modal" data-target="#Modal_ViewProductDetails">
+                                                                     onclick="getItemDetails(this)" data-toggle="modal"
+                                                                     data-target="#Modal_ViewProductDetails">
                                                                     <div class="product_hover_block">
                                                                         <div class="mdi mdi-magnify"></div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             @php $prices = \App\ItemPrice::where(['item_master_id' => $item->id])->get(); @endphp
-                                                            @foreach($prices as $price)
-                                                                <div class="long_spinner_withbtn">
-                                                                    <div class="input-group long_qty_box">
+                                                            @if(count($prices)>0)
+
+                                                                @foreach($prices as $price)
+                                                                    <div class="long_spinner_withbtn">
+                                                                        <div class="input-group long_qty_box">
                                                             <span class="long_qty_txt" id="price_{{$item->id}}"
                                                                   data-content="{{$price->id}}">{{$price->unit.' '.$price->weight}}
                                                                 - {{"Rs.".$price->price}}</span>
-                                                                        <input type="number"
-                                                                               class="form-control text-center qty_edittxt"
-                                                                               min="0"
-                                                                               max="{{$price->qty}}"
-                                                                               value="0" id="qty_{{$item->id}}">
+                                                                            <input type="number"
+                                                                                   class="form-control text-center qty_edittxt"
+                                                                                   min="0"
+                                                                                   max="{{$price->qty}}"
+                                                                                   value="0" id="qty_{{$item->id}}">
+                                                                        </div>
+                                                                        <button class="spinner_addcardbtn btn-primary"
+                                                                                id="{{$item->id}}"
+                                                                                type="button"
+                                                                                data-content="{{$price->id}}"
+                                                                                onclick="AddTOcart(this);">
+                                                                            <i class="mdi mdi-basket"></i> <span
+                                                                                    class="button-group_text">Add</span>
+                                                                        </button>
                                                                     </div>
-                                                                    <button class="spinner_addcardbtn btn-primary"
-                                                                            id="{{$item->id}}"
-                                                                            type="button" data-content="{{$price->id}}"
-                                                                            onclick="AddTOcart(this);">
-                                                                        <i class="mdi mdi-basket"></i> <span
-                                                                                class="button-group_text">Add</span>
-                                                                    </button>
+                                                                @endforeach
+                                                            @else
+                                                                <div class="notify_block long_notifyblock">
+                                                                    <div class="out_of_stock">Out Of Stock</div>
+                                                                    <div class="notify_me_btn" data-toggle="modal"
+                                                                         data-target="#Modal_NotifyMe">Notify Me
+                                                                    </div>
                                                                 </div>
-                                                            @endforeach
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 @else
@@ -659,9 +732,10 @@
             </div>
         </div>
     </section>
+    <div class="filter_overlay" id="overlay_div" onclick="hide_filter()"></div>
     <input type="hidden" id="see_id" value="1"/>
     <input type="hidden" id="category_id" value="">
-    @include('web.layouts.footer')
+    {{--@include('web.layouts.footer')--}}
 
     <div id="Modal_ViewProductDetails" class="modal fade-scale" tabindex="-1" aria-labelledby="myModalLabel"
          role="dialog">
@@ -671,7 +745,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 id="modal_title" class="modal-title">Product Details</h4>
                 </div>
-                <div id="modal_body" class="modal-body">
+                <div id="modal_body" class="modal-body res_pad0">
 
                 </div>
                 <div class="modal-footer">
@@ -710,12 +784,12 @@
             </div>
         </div>
     </div>
-    <script>
+    <script type="text/javascript">
 
         var append_loading_img = '<div class="feed_loadimg_block" id="load_img">' + '<img height="50px" class="center-block" src="{{ url('images/loading.gif') }}"/></div>';
         var append_div = '<div class="product_block loading_block" id="load_item"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div>';
-
-        var no_record = '<div class="product_block">No Record Available</div>';
+        /*var no_record = '<div class="product_block">No Record Available</div>';*/
+        var no_record = '<div class="no_found_row">No more items available !</div>';
 
         function get_category(dis) {
             var category_id = $(dis).attr('id');
@@ -740,12 +814,13 @@
 //                    ShowErrorPopupMsg('Error in uploading...');
                 }
             });
+            hide_filter();
         }
-
-
         function get_items(dis) {
             var category_id = $(dis).attr('id');
-            var limit = Number($('#see_id').val());
+           // $('#see_id').val('');
+            var limit = 1;
+            $('#see_id').val(1);
 //            alert(category_id);
             $('#category_id').val(category_id);
             $.ajax({
@@ -762,7 +837,7 @@
                         $("#product_all").html(no_record);
                     } else {
                         $("#load_item").remove();
-//                        $('#product_all').html('');
+                       $('#product_all').html('');
                         $("#product_all").html(data);
                     }
                 },
@@ -771,8 +846,8 @@
 //                    ShowErrorPopupMsg('Error in uploading...');
                 }
             });
+            hide_filter();
         }
-
         //        $(document).ready(function () {
         //            $(window).scroll(function (event) {
         //                if ($(window).scrollTop() + $(window).height() == $(document).height()) {
@@ -782,14 +857,6 @@
         //                }
         //            });
         //        });
-
-        $(window).scroll(function (event) {
-            if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-                if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
-                    getmoreItems();
-                }
-            }
-        });
 
         function getmoreItems() {
             cp = 1;
@@ -818,8 +885,6 @@
                 }
             });
         }
-
-
         function getItemDetails(dis) {
             $('#modal_body').html('<img height="50px" class="center-block" src="{{url('images/loading.gif')}}"/>');
             $.ajax({
@@ -835,8 +900,14 @@
                     $('#modal_body').html(xhr.responseText);
                 }
             });
-
-            //hello world wwwwwwwwwww
+        }
+        function ShowFilter() {
+            $('#overlay_div').show();
+            $('#product_filter_container').addClass('product_filter_container_show');
+        }
+        function hide_filter() {
+            $('#overlay_div').hide();
+            $('#product_filter_container').removeClass('product_filter_container_show');
         }
     </script>
 @stop
