@@ -129,6 +129,73 @@
     {
         margin-bottom: 15px;
     }
+    .ingredian_select_box
+    {
+        padding-bottom: 40px;
+        padding-right: 0px;
+    }
+    .ingre_qty_select
+    {
+        bottom: 0px;
+        top: initial;
+        width: 100%;
+    }
+    .order_details_box .col-sm-6
+    {
+        padding: 0px;
+    }
+    .order_details_box .col-sm-12
+    {
+        padding: 0px;
+    }
+    .instrutiondeli_row
+    {
+        padding: 0px 50px 15px 0px;
+    }
+    .my_recipe_imgbox
+    {
+        width: 100%;
+        margin-bottom: 10px;
+        position: relative;
+        height: auto;
+    }
+    .my_rec_img {
+        width: 100%;
+        max-width: 250px;
+    }
+    .my_recipe_row
+    {
+        padding-left: 0px;
+    }
+    .recipe_ul li
+    {
+        width: 100%;
+    }
+    .addmore
+    {
+        right: 0px;
+    }
+    .other_ingredientsbox
+    {
+        padding-bottom: 40px;
+        padding-right: 0px;
+    }
+    .ingre_qty
+    {
+        width: calc(100% - 40px);
+        left: 0px;
+        top: initial;
+        bottom: 0px;
+    }
+    .close_ingradian_otr
+    {
+        bottom: 5px;
+        top: initial;
+    }
+    .recipe_view_title
+    {
+        font-size: 16px;
+    }
 }
 @media screen and (min-width:480px) and (max-width:767px) {
     .main_head_txt
@@ -441,6 +508,10 @@
     }
 }
 @media (max-width: 1023px) and (min-width: 320px) {
+    .view_rec_img
+    {
+        width: 100%;
+    }
     .mycart_mainbox
     {
         padding:0px;

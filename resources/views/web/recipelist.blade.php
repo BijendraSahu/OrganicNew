@@ -7,9 +7,9 @@
 @stop
 @section('content')
     <section class="product_section">
-        <div class="container">
+        <div class="container res_pad0">
             <div class="view_recipe_mainbox">
-                <div class="col-sm-8">
+                <div class="col-md-8 col-sm-7">
                     <div class="recipe_view_container">
                         <div class="view_recipe_imgbox"><img class="view_rec_img" src="images/product_09.jpg"></div>
 
@@ -22,7 +22,7 @@
                                 I’ve been making variations of this salad for years. I recently learned how to massage the kale and it makes a huge difference. I had a friend ask for my recipe and I realized I don’t have one. This is my first attempt at writing a recipe, so please let me know how it works out! I like to change up the ingredients: sometimes a pear instead of an apple, cranberries instead of currants, Parmesan instead of feta, etc. Great as a side dish or by itself the next day for lunch!
                             </div>
                             <div class="row view_row">
-                                <div class="col-sm-5">
+                                <div class="col-md-5 col-sm-12">
                                     <div class="carousal_head">
                                         <span class="filter_head_txt slider_headtxt"><i class="mdi mdi-view-list basic_icon_margin"></i>Ingredients</span>
                                     </div>
@@ -35,7 +35,7 @@
                                         <li><span class="ingre_name">Oil</span><span class="ingre_weight">500 Ml</span></li>
                                     </ul>
                                 </div>
-                                <div class="col-sm-7">
+                                <div class="col-md-7 col-sm-12">
                                     <div class="carousal_head">
                                         <span class="filter_head_txt slider_headtxt"><i class="mdi mdi-sort-ascending basic_icon_margin"></i>Steps</span>
                                     </div>
@@ -66,8 +66,9 @@
 
 
                         </div>
-                    </div></div>
-                <div class="col-sm-4">
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-5">
                     <div class="order_listbox">
                         <div class="my_profile_picshow">
                             <img src="http://localhost:8000/u_img/16/JkithH_prihul_mainlogo.png" id="_UserProfile" alt="UserProfile">
