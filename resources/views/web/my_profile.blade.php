@@ -4,92 +4,12 @@
 
 @section('head')
     <style type="text/css">
-        .profile_block {
-            width: 100%;
-            background-color: #f7f7f7;
-            border: 1px solid #ececec;
-            position: relative;
-            padding: 20px;
-        }
 
-        .profile-picture {
-            width: 120px;
-            height: 120px;
-            overflow: hidden;
-            margin: 10px auto;
-            position: relative;
-            border: 5px solid #fff;
-            box-shadow: 5px 8px 20px rgba(0, 0, 0, 0.19), 0 2px 5px rgba(0, 0, 0, 0.23);
-            background-color: #ffffff;
-            border-radius: 50%;
-        }
-
-        .profile-picture img {
-            display: block;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
-
-        .profile-upload {
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            margin-right: 10px;
-            margin-top: 10px;
-            padding: 0px 5px;
-        }
-
-        .profile-upload-pic {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            left: 0px;
-            top: 0px;
-            opacity: 0;
-            z-index: 3;
-            cursor: pointer;
-        }
-
-        .mute_caption {
-            margin-top: 15px;
-            width: 100%;
-            display: inline-block;
-        }
-
-        .my_profile_picshow {
-            position: relative;
-            width: 100%;
-            display: inline-block;
-            padding: 15px 0px;
-            padding-left: 70px;
-        }
-
-        .my_profile_picshow img {
-            position: absolute;
-            left: 0px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            top: 0px;
-        }
-
-        .my_profile_name {
-            display: inline-block;
-            width: 100%;
-            font-weight: bold;
-            font-size: 16px;
-            color: #86bc43;
-        }
-
-        .errorClass {
-            border: 1px solid red !important;
-        }
     </style>
 @stop
 @section('content')
     <section class="product_section">
-        <div class="container">
+        <div class="container res_pad0">
             <div class="col-sm-12 col-md-3">
                 <div class="order_listbox">
                     <div class="carousal_head">
@@ -219,16 +139,15 @@
                             <span class="filter_head_txt slider_headtxt">Delivery Address Details</span>
                         </div>
                         <form enctype="multipart/form-data" id="userAddress">
-                            <div class="order_list_container">
+                            <div class="order_list_container  margin_top15">
                                 <div class="deli_row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6 radio_row">
                                         <div class="radio">
                                             <input id="add_1" value="male" class="gender" name="address_radio"
                                                    type="radio"
                                                    checked="" onchange="AddressOption('new');">
                                             <label for="add_1" class="radio-label">New</label>
                                         </div>
-
                                         <div class="radio">
                                             <input id="add_2" onchange="AddressOption('existing');" value="female"
                                                    class="gender" name="address_radio" type="radio">
