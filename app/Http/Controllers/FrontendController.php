@@ -161,6 +161,12 @@ class FrontendController extends Controller
         return view('web.product_list')->with(['categories' => $categories]);
     }
 
+    public function getallproducts()
+    {
+        $categories = DB::table('category_master')->where('is_active', '1')->get();
+        return view('web.all_product_category')->with(['categories' => $categories]);
+    }
+
     public function view_item()//modal
     {
         $item_id = request('item_id');
@@ -179,7 +185,7 @@ class FrontendController extends Controller
         $a = ($category_id == 0) ? $all : $by_id;
         $products_c = DB::select($a);
         $numrows = count($products_c);
-        $rowsperpage = 4;
+        $rowsperpage = 8;
         $totalpages = ceil($numrows / $rowsperpage);
         $limit = request('limit');
         if (request('currentpage') != '' && is_numeric(request('currentpage'))) {
@@ -198,7 +204,11 @@ class FrontendController extends Controller
         $s = ($category_id == 0) ? $all : $by_id;
 //        $s = "SELECT i.* FROM item_master i, item_category ic where ic.item_master_id = i.id and ic.category_id = $category_id ORDER BY i.id DESC LIMIT $offset,$rowsperpage";
         $items = DB::select($s);
-        return view('web.product_load')->with(['items' => $items, 'items_count' => $numrows]);
+        if ($numrows > 0) {
+            return view('web.product_load')->with(['items' => $items, 'items_count' => $numrows]);
+        }else{
+            return response()->json(array('no_record' => 'no_record'));
+        }
     }
     /**************************Items************************************/
 
@@ -275,7 +285,7 @@ class FrontendController extends Controller
             $selected_promo = request('selected_promo');
             if ($selected_point > 0) {
                 $user_master = UserMaster::find($user->id);
-                $user_master->gain_amount -= $selected_point;
+                $user_master->gain_amount = 0;
                 $user_master->save();
             }
 
@@ -325,7 +335,7 @@ class FrontendController extends Controller
             $address = UserAddress::find($address_id);
             $name = str_replace(' ', '', $address->name);
 
-            file_get_contents("http://api.msg91.com/api/sendhttp.php?sender=CONONE&route=4&mobiles=$address->contact&authkey=213418AONRGdnQ5ae96f62&country=91&message=Dear%20$name,%20Your%20order has%20been%20placed%20your%20order%20no%20%is%20OrganicDolchi$order->order_no");
+            file_get_contents("http://api.msg91.com/api/sendhttp.php?sender=CONONE&route=4&mobiles=$address->contact&authkey=213418AONRGdnQ5ae96f62&country=91&message=Dear%20$name,%20Your%20order has%20been%20placed%20your%20order%20no%20is%20OrganicDolchi$order->order_no");
 
             /********0.2% Amount Distribution*********/
 
@@ -338,11 +348,11 @@ class FrontendController extends Controller
                 $mail = new \App\Mail();
                 $mail->to = implode(",", $email);
                 $mail->subject = 'Organic Dolchi - Support Team';
-                $siteurl = 'http://18.222.69.192/prihul/';
+                $siteurl = 'http://www.organicdolchi.com/';
                 $username = $address->name;
 //                $salutation = ($user->gender == 'male') ? 'Mr.' : 'Mrs.';
 
-                $message = '<table width="650" cellpadding="0" cellspacing="0" align="center" style="background-color:#ececec;padding:40px;font-family:sans-serif;overflow:scroll"><tbody><tr><td><table cellpadding="0" cellspacing="0" align="center" width="100%"><tbody><tr><td><div style="line-height:50px;text-align:center;background-color:#fff;border-radius:5px;padding:20px"><a href="' . $siteurl . '" target="_blank" ><img src="' . $siteurl . 'images/white_logo_single2.png"></a></div></td></tr><tr><td><div><img src="' . $siteurl . 'global_images/acknowledgement.jpg" style="height:auto;width:100%;" tabindex="0"><div dir="ltr" style="opacity: 0.01; left: 775px; top: 343px;"><div><div class="aSK J-J5-Ji aYr"></div></div></div></div></td></tr><tr><td style="background-color:#fff;padding:20px;border-radius:0px 0px 5px 5px;font-size:14px"><div style="width:100%"><h1 style="color:#007cc2;text-align:center">Thank you ' /*. $salutation . ' '*/ . $username . '</h1><p style="font-size:14px;text-align:center;color:#333;padding:10px 20px 10px 20px">Thank you for your registration organicdolchi. organicdolchi.com is a Quick and easy shopping: Online/ Telephonic Call-back facility. Free Home Delivery: The products are delivered in 2 working days or less and your doorsteps.Convenient Payment Options: Payment via net banking facility, PayTm and Indian credit/debit cards. We also accept Cash on Delivery<br/></p></div></td></tr></tbody></table></td></tr><tr><td style="padding:20px;font-size:12px;color:#797979;text-align:center;line-height:20px;border-radius:5px 5px 0px 0px">DISCLAIMER - The information contained in this electronic message (including any accompanying documents) is solely intended for the information of the addressee(s) not be reproduced or redistributed or passed on directly or indirectly in any form to any other person.</td></tr></tbody></table>';
+                $message = '<table width="650" cellpadding="0" cellspacing="0" align="center" style="background-color:#ececec;padding:40px;font-family:sans-serif;overflow:scroll"><tbody><tr><td><table cellpadding="0" cellspacing="0" align="center" width="100%"><tbody><tr><td><div style="line-height:50px;text-align:center;background-color:#fff;border-radius:5px;padding:20px"><a href="' . $siteurl . '" target="_blank" ><img src="' . $siteurl . 'images/organic_logo.png"></a></div></td></tr><tr><td><div><img src="' . $siteurl . 'images/acknowledgement.jpg" style="height:auto;width:100%;" tabindex="0"><div dir="ltr" style="opacity: 0.01; left: 775px; top: 343px;"><div><div class="aSK J-J5-Ji aYr"></div></div></div></div></td></tr><tr><td style="background-color:#fff;padding:20px;border-radius:0px 0px 5px 5px;font-size:14px"><div style="width:100%"><h1 style="color:#007cc2;text-align:center">Thank you ' /*. $salutation . ' '*/ . $username . '</h1><p style="font-size:14px;text-align:center;color:#333;padding:10px 20px 10px 20px">Thank you forshopping with organicdolchi. organicdolchi.com is a Quick and easy shopping: Online/ Telephonic Call-back facility. Free Home Delivery: The products are delivered in 2 working days or less and your doorsteps. Convenient Payment Options: Payment via net banking facility, Payumoney and Indian credit/debit cards. We also accept Cash on Delivery<br/></p></div></td></tr></tbody></table></td></tr><tr><td style="padding:20px;font-size:12px;color:#797979;text-align:center;line-height:20px;border-radius:5px 5px 0px 0px">DISCLAIMER - The information contained in this electronic message (including any accompanying documents) is solely intended for the information of the addressee(s) not be reproduced or redistributed or passed on directly or indirectly in any form to any other person.</td></tr></tbody></table>';
                 $mail->body = $message;
                 if ($mail->send_mail()) {
                     //return redirect('mail')->withErrors('Email sent...');
@@ -350,7 +360,6 @@ class FrontendController extends Controller
                     //return redirect('mail')->withInput()->withErrors('Something went wrong. Please contact admin');
                 }
             }
-
 
             return redirect('checkout')->with('message', 'Your order has been successful...you will get confirmation mail');
         }

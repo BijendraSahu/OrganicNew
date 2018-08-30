@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <link rel="shortcut icon" type="images/png" href="{{url('assets/images/dashbaord_fevicon.png')}}"/>
+    <link rel="shortcut icon" type="images/png" href="{{url('assets/images/odfevicon.png')}}"/>
     <link rel="stylesheet" href="{{url('assets/css/bootstrap.css')}}" />
     <link rel="stylesheet" href="{{url('assets/css/bootstrap.min.css')}}" />
     <link rel="stylesheet" href="{{url('assets/css/materialdesignicons.min.css')}}" />
@@ -28,7 +28,6 @@
 
     <script type="text/javascript">
         function GetandSetOnEditor() {
-            debugger;
             var htm = $("#txtEditor").Editor("getText");
             alert(htm);
             /* var sethtm = $(grandPar).html();
@@ -480,18 +479,19 @@
             }
         }
         function MenuShift(dis) {
-            debugger;
             var checkclass=$('#page_body').attr('class');
             if(checkclass == "body_color")
             {
                 $('#page_body').addClass('collapse_side');
                 $(dis).find('.left_show').show();
                 $(dis).find('.right_show').hide();
+                $(dis).css('left','83px');
             }else
             {
                 $('#page_body').removeClass('collapse_side');
                 $(dis).find('.right_show').show();
                 $(dis).find('.left_show').hide();
+                $(dis).css('left','216px');
             }
         }
     </script>
@@ -524,6 +524,13 @@
             });
         }
     </script>
+    <style>
+        .abc{
+            position: fixed;
+            z-index: 1000;
+            left: 216px;
+        }
+    </style>
 </head>
 <body class="body_color" id="page_body">
 <nav class="top_navigationbar" id="fixed_nav">
@@ -752,16 +759,16 @@
 
 
 <aside class="dash_sidemenu pcb">
-    <div class="shift_iconbox" onclick="MenuShift(this);">
+    <div class="shift_iconbox abc" onclick="MenuShift(this);">
         <i class="mdi mdi-arrow-left-bold right_show"></i>
         <i class="mdi mdi-arrow-right-bold left_show"></i>
     </div>
     <div class="logo_block">
-        <img src="{{url('assets/images/Retinodes_logo.png')}}" class="big_aside_icon" />
-        <img src="{{url('assets/images/dashbaord_fevicon.png')}}" class="small_aside_icon" />
+        <img src="{{url('assets/images/organic_logo1.png')}}" class="big_aside_icon" />
+        <img src="{{url('assets/images/odfevicon.png')}}" class="small_aside_icon" />
     </div>
     <div class="dash_emp_details">
-        <img src="admin_pic/{{$_SESSION['admin_master']['id']}}/{{$_SESSION['admin_master']['image']}}" class="dash_profile_img" />
+        <img src="{{url('admin_pic/').'/'.$_SESSION['admin_master']['id'].'/'.$_SESSION['admin_master']['image']}}" class="dash_profile_img" />
         <div class="dash_emp_basic">
             <span class="dash_name">{{ucfirst($_SESSION['admin_master']['username'])}}</span>
             <span class="dash_designation">Admin</span>

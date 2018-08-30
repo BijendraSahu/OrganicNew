@@ -17,12 +17,6 @@
             }
         });
     </script>
-    <style type="text/css">
-        .errorClass {
-            border: 1px solid red;
-        }
-
-    </style>
     @yield('head')
 </head>
 <body class="body_color">
@@ -52,11 +46,8 @@
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-{{--@include('web.layouts.footer')--}}
-
-<script>
+</div>
+<script type="text/javascript">
     $(document).ready(function () {
         var editurl = "{{url('cart_load')}}";
         $.ajax({
@@ -82,7 +73,7 @@
     </script>
 @endif
 @if($errors->any())
-    <script>
+    <script type="text/javascript">
         if ('{{$errors->first()}}' == 'Please login first') {
             ShowLoginSignup('signin');
         } else {

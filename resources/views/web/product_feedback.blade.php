@@ -23,7 +23,7 @@
 @stop
 @section('content')
     <section class="feedback_block">
-        <div class="container-fluid">
+        <div class="container-fluid res_pad0">
             <div class="col-sm-12 col-md-9">
                 <div class="order_listbox">
                     <div class="carousal_head">
@@ -52,12 +52,12 @@
                                                 <div class="product_name">
                                                     <a href="{{url('view_product').'/'.(encrypt($item->id))}}">{{$item->name}}</a>
                                                 </div>
-                                                <div class="option_availability">
+                                               {{-- <div class="option_availability">
                                                     <div class="option_txt">Specification</div>
                                                     <div class="product_right_txt">
                                                         {!! $item->specifcation!!}
                                                     </div>
-                                                </div>
+                                                </div>--}}
                                                 {{--<div class="option_availability">--}}
                                                 {{--<div class="option_txt">Container Type</div>--}}
                                                 {{--<div class="product_right_txt">--}}
@@ -76,6 +76,12 @@
                                                         <div class="order_amt">
                                                             <i class="mdi mdi-currency-inr"></i> {{$order->total}}
                                                         </div>
+                                                    </div>
+                                                </div>
+                                                <div class="desc_cart">
+                                                    <div class="des_txt">Specifications :</div>
+                                                    <div class="des_details">
+                                                        {!! $item->specifcation!!}
                                                     </div>
                                                 </div>
                                             </div>
@@ -187,7 +193,7 @@
             var order_des_id = $(dis).attr('id');
             var item_id = $(dis).attr('data-content');
             var review = $('#review_' + item_id).val();
-            var star_rating = $('#rating').val();
+            var star_rating = $(dis).parent().find('#rating').val();
             if (star_rating.trim() == '') {
                 swal("Oops", "please select star rating for this product", "info");
             } else if (review.trim() == '') {

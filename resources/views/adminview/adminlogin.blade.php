@@ -15,7 +15,12 @@
     <script src="{{url('assets/js/jquery-3.2.1.min.js')}}"></script>
     <script src="{{url('assets/js/bootstrap.min.js')}}"></script>
     <style type="text/css">
-
+        .login_txt {
+            background-color: #fff;
+        }
+        .input-group-addon{
+            background-color: #fff !important;
+        }
     </style>
     <script type="text/javascript">
         $.getScript("https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js", function(){
@@ -143,11 +148,11 @@
 <body class="login_bg">
 <div class="container">
     <div class="row">
-        <div class="col-xs-4 col-md-offset-8 login_form">
+        <div class="col-xs-4 col-md-offset-8 login_form" style="background: #00000047">
             <div class="logo_images">
-                <img src="{{url('assets/images/Retinodes_logo.png')}}" />
+                <img style="height: 80px;" src="{{url('assets/images/organic_logo.png')}}" />
             </div>
-            <h2 class="login-caption"><span class="first_letter">L</span>ogin</h2>
+            <h2 class="login-caption" style="color: #ffcfcf;"><span style="color: #ffcfcf;" class="first_letter">L</span>ogin</h2>
             <div align="center" id="errorsec"></div>
             <p class="clearfix"></p>
             <div class="form-group" style="backface-visibility: hidden;">
@@ -173,6 +178,13 @@
 <div></div>
 <div class="particules" id="particles-js"></div>
 <script>
+    document.onkeydown=function(){
+        if(window.event.keyCode=='13'){
+            logincheck();
+        }
+    }
+
+
     function logincheck() {
         var username = $("#username").val();
         var password = $("#password").val();

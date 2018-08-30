@@ -64,6 +64,7 @@ Route::get('cart_delete/{id}', 'CartController@delete');
 
 Route::get('view_item', 'FrontendController@view_item');
 Route::get('getmoreproducts', 'FrontendController@getmoreproducts');
+Route::get('getallproducts', 'FrontendController@getallproducts');
 
 Route::get('/payment', 'CartController@payment');
 Route::post('success', 'CartController@payment_success');
@@ -79,7 +80,11 @@ Route::get('getItem_bycid','APIController@get_item_by_cid');
 Route::get('getItem','APIController@get_item_by_id');
 Route::get('getAllItem','APIController@get_All_item');
 Route::get('getlogin','APIController@getlogin');
-Route::post('getregister','APIController@geproduct_listtregister');
+Route::get('verifyotp','APIController@verify_otp');
+Route::get('forgotpassword', 'APIController@forgot_password');
+Route::get('resend_otp','APIController@resend_otp');
+Route::get('searchCategory','APIController@searchCategory');
+Route::post('getregister','APIController@getregister');
 Route::get('change_password','APIController@change_password');
 Route::post('edit_profile','APIController@edit_profile');
 Route::post('insert_user_address','APIController@insert_user_address');
@@ -116,6 +121,7 @@ Route::get('itemshow/{id}', 'ItemmasterController@itemshow');
 Route::get('edit_item_show/{id}', 'ItemmasterController@edit_item_show');
 Route::get('deactivate_item', 'ItemmasterController@deactivate_item');
 Route::post('itemeditpost', 'ItemmasterController@itemeditpost');
+Route::get('searchtable', 'ItemmasterController@searchtable');
 /////////////////////////////////////////api///////////////////////////////////////////////////////
 /*Route::get('firstapi', 'ItemmasterController@apishowall');*/
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -138,6 +144,7 @@ Route::get('/active_order', 'OrderController@active_order');
 Route::get('/inactive_order', 'OrderController@inactive_order');
 Route::get('/more_order/{id}', 'OrderController@more_order');
 Route::get('/bill_order/{id}', 'OrderController@bill_order');
+Route::get('delete_item_pic', 'ItemmasterController@delete_item_pic');
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Route::get('/statelist', 'StateController@statelist');
 Route::get('/add_state', 'StateController@add_state');
@@ -167,7 +174,6 @@ Route::get('/blog','BlogController@blog');
 Route::get('/addblogcat','BlogController@addblogcat');
 Route::get('/blogpost','BlogController@blogpost');
 Route::post('/blogpic','BlogController@blogpic');
+Route::get('/myrecipe','RecipeController@my_recipe_list');
+Route::get('/recipelist','RecipeController@recipe_list');
 //////////////////////////////////////////////////////////////////////////////////////////////
-
-
-

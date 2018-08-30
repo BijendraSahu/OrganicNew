@@ -66,7 +66,7 @@
                             @foreach(\Gloudemans\Shoppingcart\Facades\Cart::content() as $row)
                                 <div class="order_row border-none">
                                     <div class="order_details_box">
-                                        <div class="col-md-8 col-sm-12">
+                                        <div class="col-sm-8">
                                             <div class="productdetails_order_row">
                                                 <div class="order_product_imgbox">
                                                     @php $item_image = \App\ItemImages::where(['item_master_id' => $row->id])->first();
@@ -84,21 +84,20 @@
                                                     {{$item->name}}
                                                 </div>
                                                 <div class="option_availability">
-                                                    <div class="option_txt">Product description:</div>
-                                                    <div class="product_right_txt">
-                                                        {!! $item->specifcation!!}
-                                                    </div>
-                                                </div>
-
-                                                <div class="option_availability">
-                                                    <div class="option_txt">Quantity:</div>
+                                                    <div class="option_txt">Quantity :</div>
                                                     <div class="product_right_txt">
                                                         {{$row->qty}}
                                                     </div>
                                                 </div>
+                                                <div class="desc_cart">
+                                                    <div class="des_txt">Specifications :</div>
+                                                    <div class="des_details">
+                                                        {!! $item->specifcation!!}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4 col-sm-12">
+                                        <div class="col-sm-4">
                                             {{--<div class="track_del_address">Free delivery by 15-May-2018</div>--}}
                                             <div class="order_amt"><i
                                                         class="mdi mdi-currency-inr"></i> {{number_format($row->price,2)}}
@@ -115,14 +114,15 @@
                                                                min="1" max="10" id="crtupdate" value="{{$row->qty}}">
 
                                                     </div>
-                                                    <button type="submit"
-                                                            class="btn btn-primary btn-sm">
-                                                        <i class="mdi mdi-refresh"></i></button>
-
                                                     <a href="{{url('cart_delete').'/'.$row->rowId}}"
                                                        class="spinner_addcardbtn btn-danger" id="{{$row->id}}"><span
                                                                 class="mdi mdi-close close_btn"></span> <span
                                                                 class="button-group_text">Remove</span></a>
+                                                </div>
+                                                <div class="update_qty_box">
+                                                    <button type="submit"
+                                                            class="btn btn-primary btn-sm">
+                                                        <i class="mdi mdi-refresh basic_icon_margin"></i> Update Qty</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -142,11 +142,11 @@
     </section>
     @include('web.layouts.footer')
     <script>
-        $('#crtupdate').click(function () {
-            form = $('#cartupdate');
-//                                form.attr('action', form.attr('action') + '.xls').trigger('submit');
-//                                form.attr('action', action);
-            form.submit();
-        });
+//         $('#crtupdate').click(function () {
+//             form = $('#cartupdate');
+// //                                form.attr('action', form.attr('action') + '.xls').trigger('submit');
+// //                                form.attr('action', action);
+//             form.submit();
+//         });
     </script>
 @stop

@@ -3,20 +3,6 @@
 @section('title', 'Organic Food : Checkout')
 
 @section('head')
-    <style>
-        .min_height_0 {
-            min-height: 0px;
-        }
-
-        .hide {
-            display: none;
-        }
-
-        .show {
-            display: block;
-        }
-
-    </style>
     <script type="text/javascript">
         function paymentOption(txt) {
             if (txt == "cash") {
@@ -51,7 +37,6 @@
         $(document).scroll(function () {
             // checkOffFixed();
         });
-
 
         function PromoSubmit() {
             var promo_code = $('#promo_code').val();
@@ -100,7 +85,6 @@
             $('#promo').text('');
             $('#selected_promo').val('');
         }
-
 
         function getcod(dis) {
             var iscod = $(dis).val();
@@ -289,8 +273,104 @@
                         <div class="carousal_head">
                             <span class="filter_head_txt slider_headtxt">Delivery Address</span>
                         </div>
-                        <form enctype="multipart/form-data" id="userAddress">
-                            <div class="order_list_container">
+                        <div class="exis_container style-scroll">
+                        <div class="exis_addbox">
+                            <div class="first_row">
+                                <div class="radio_box">
+                                    <div class="radio">
+                                        <input id="deli_radio_1" value="1" class="gender" name="add_delivery" type="radio" checked="checked" />
+                                        <label for="deli_radio_1" class="radio-label"></label>
+                                    </div>
+                                </div>
+                                <div class="add_name_box">Pinku Kesharwani</div>
+                                <div class="contact_box">9589883533</div>
+                            </div>
+                          {{--  <div class="delivery_email">pinkukesharwani89@gmail.com</div>--}}
+                            <div class="delivery_add">
+                                It Park bargi hills, Jabalpur, Jabalpur, Madhya Pradesh - 482002
+                            </div>
+
+                            <div class="deli_btnbox">
+                                <button type="button" onclick="ChooseAddress('deli_radio_1');" class="btn btn-success btn-sm"><i class="mdi mdi-home-map-marker basic_icon_margin"></i>Deliver Here
+                                </button>
+
+                                <button onclick="AddUpdate_Address('edit');" type="button" class="btn btn-warning pull-right btn-sm"><i class="mdi mdi-map-marker-radius basic_icon_margin"></i>Edit Address
+                                </button>
+                            </div>
+
+                        </div>
+                        <div class="exis_addbox">
+                            <div class="first_row">
+                                <div class="radio_box">
+                                    <div class="radio">
+                                        <input id="deli_radio_2" value="2" class="deliever" name="add_delivery" type="radio" />
+                                        <label for="deli_radio_2" class="radio-label"></label>
+                                    </div>
+                                </div>
+                                <div class="add_name_box">Bijendra Sahu</div>
+                                <div class="contact_box">6525352642</div>
+                            </div>
+                            <div class="delivery_add">
+                                It Park bargi hills, Jabalpur, Jabalpur, Madhya Pradesh - 482002
+                            </div>
+
+                            <div class="deli_btnbox">
+                                <button onclick="ChooseAddress('deli_radio_2');" type="button" class="btn btn-success btn-sm"><i class="mdi mdi-home-map-marker basic_icon_margin"></i>Deliver Here
+                                </button>
+
+                                <button onclick="AddUpdate_Address('edit');" type="button" class="btn btn-warning pull-right btn-sm"><i class="mdi mdi-map-marker-radius basic_icon_margin"></i>Edit Address
+                                </button>
+                            </div>
+
+                        </div>
+                        </div>
+                        <div class="new_addbox">
+                            <div class="new_add_head col-sm-12">
+
+                                <div class="add_name_box" id="add_update_head">ADD A NEW ADDRESS</div>
+
+                                <button onclick="AddUpdate_Address('new');" type="button" class="btn btn-primary pull-right btn-sm"><i class="mdi mdi-map-marker-plus basic_icon_margin"></i>Add New
+                                </button>
+                            </div>
+                            <div class="add_update_box" id="content_address_box">
+                                <div class="deli_row">
+                                    <div class="col-sm-6">
+                                        <input type="text" placeholder="Name" name="name" id="add_name_update" class="form-control">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" placeholder="Phone No." name="contact" id="add_contact_update" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="deli_row">
+                                    <div class="col-sm-6">
+                                        <select class="form-control" id="add_city"
+                                                name="add_city">
+                                            <option value="0"> --Please Select City--</option>
+                                            @foreach($cities as $city)
+                                                <option value="{{$city->id}}">{{$city->city}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" placeholder="Pincode" name="pincode" id="add_pincode_update" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="deli_row">
+                                    <div class="col-sm-12">
+                                        <textarea class="form-control glo_txtarea" id="add_address_update" name="address" placeholder="Address"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 address_btnbox">
+                                    <button id="btn_add_new" type="button" class="btn btn-danger pull-right"><i class="mdi mdi-map-marker-plus basic_icon_margin"></i>SAVE AND DELIVER HERE
+                                    </button>
+                                    <button id="btn_add_update" type="button" style="display: none" class="btn btn-danger pull-right"><i class="mdi mdi-map-marker-plus basic_icon_margin"></i>UPDATE AND DELIVER HERE
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form enctype="multipart/form-data" id="userAddress" >
+                            <div class="order_list_container margin_top15" style="display: none">
                                 <div class="deli_row">
                                     <div class="col-sm-6">
                                         <div class="radio">
@@ -349,8 +429,8 @@
                                 </div>
                                 <div class="deli_row">
                                     <div class="col-sm-6">
-                                        <select class="form-control" id="add_city"
-                                                name="add_city">
+                                        <select class="form-control" id="add_city_pre"
+                                                name="add_city_pre">
                                             <option value="0"> --Please Select City--</option>
                                             @foreach($cities as $city)
                                                 <option value="{{$city->id}}">{{$city->city}}</option>
@@ -367,13 +447,15 @@
                                     <div class="col-sm-12">
                                         <div id="update_address" class="hidden">
                                             <input type="button" onclick="disable_remove();"
-                                                   class="btn btn-primary pull-right" value="Update Address"/></div>
-                                        <div id="save_address" class="hidden">
+                                                   class="btn btn-primary pull-right" value="Update Address"/>
                                             <input type="button" onclick="cancel_update();"
                                                    class="btn btn-danger pull-right"
                                                    value="Cancel"/>
-
                                         </div>
+                                        {{--<div id="save_address" class="hidden">
+
+
+                                        </div>--}}
 
                                         {{--<input type="checkbox" value="test1" name="test_record[]" />--}}
                                         {{--<input type="checkbox" value="test2" name="test_record[]" />--}}
@@ -387,7 +469,7 @@
                         <div class="carousal_head">
                             <span class="filter_head_txt slider_headtxt">Payment Option</span>
                         </div>
-                        <div class="order_list_container min_height_0">
+                        <div class="order_list_container margin_top15 min_height_0">
                             <div class="deli_row">
                                 <div class="col-sm-12">
                                     <div class="radio">
@@ -425,7 +507,7 @@
                                 @foreach(\Gloudemans\Shoppingcart\Facades\Cart::content() as $row)
                                     <div class="order_row border-none">
                                         <div class="order_details_box">
-                                            <div class="col-md-8 col-sm-12">
+                                            <div class="col-sm-9">
                                                 <div class="productdetails_order_row">
                                                     <div class="order_product_imgbox">
                                                         @php $item_images = \App\ItemImages::where(['item_master_id' => $row->id])->first();
@@ -443,7 +525,21 @@
                                                     <div class="product_name">
                                                         <a href="{{url('view_product').'/'.(encrypt($row->id))}}">{{$row->name}}</a>
                                                     </div>
+
                                                     <div class="option_availability">
+                                                        <div class="option_txt">Quantity :</div>
+                                                        <div class="product_right_txt">
+                                                            {{$row->qty}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="desc_cart">
+                                                        <div class="des_txt">Specifications :</div>
+                                                        <div class="des_details">
+                                                            {!! $item->specifcation!!}
+                                                        </div>
+                                                    </div>
+
+                                                   {{-- <div class="option_availability">
                                                         <div class="option_txt">Specification</div>
                                                         <div class="product_right_txt">
                                                             {!! $item->specifcation!!}
@@ -454,7 +550,7 @@
                                                         <div class="product_right_txt">
                                                             {{$row->qty}}
                                                         </div>
-                                                    </div>
+                                                    </div>--}}
                                                     {{--<div class="option_availability">--}}
                                                     {{--<div class="option_txt">Container Type</div>--}}
                                                     {{--<div class="product_right_txt">--}}
@@ -469,9 +565,9 @@
                                                     {{--</div>--}}
                                                 </div>
                                             </div>
-                                            <div class="col-md-4 col-sm-12">
-                                                <div class="order_amt"><i
-                                                            class="mdi mdi-currency-inr"></i> {{number_format($row->price,2)}}
+                                            <div class="col-sm-3">
+                                                <div class="order_amt margin_top15"><i
+                                                            class="mdi mdi-currency-inr"></i> {{number_format($row->price*$row->qty,2)}}
                                                 </div>
                                             </div>
                                         </div>
@@ -500,9 +596,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="deli_row">
-                        <input type="text" name="ask_number" id="promo_code" autocomplete="off"
-                               class="form-control login_txt"
-                               placeholder="Enter Promo Code"/>
+                        <input type="text" name="ask_number" id="promo_code" maxlength="15" autocomplete="off"
+                               class="form-control login_txt" placeholder="Enter Promo Code"/>
                     </div>
                 </div>
                 <div class="modal-footer text-center">
@@ -513,8 +608,33 @@
             </div>
         </div>
     </div>
-    <script>
+    <script type="text/javascript">
+        function AddUpdate_Address(curr_action)
+        {
+            $('.deliever').prop("checked", false);
+            if(curr_action == "new")
+            {
+                $('#btn_add_new').show();
+                $('#btn_add_update').hide();
+                $('#content_address_box').slideDown();
+                $('#add_update_head').text('ADD A NEW ADDRESS');
+                empty_address();
+            }else {
+                $('#btn_add_new').hide();
+                $('#btn_add_update').show();
+                $('#content_address_box').slideDown();
+                $('#add_update_head').text('UPDATE ADDRESS');
+            }
 
+        }
+        function ChooseAddress(chk_id) {
+            $('.deliever').prop("checked", false);
+            document.getElementById(chk_id).checked = true;
+            $('#add_update_head').text('ADD A NEW ADDRESS');
+            $('#content_address_box').slideUp();
+            $('#btn_add_new').show();
+            $('#btn_add_update').hide();
+        }
         function disable_remove() {
             $('#add_name').removeAttr('disabled', 'disabled');
             $('#add_email').removeAttr('disabled', 'disabled');
@@ -663,7 +783,6 @@
                 empty_address();
             }
         }
-
 
     </script>
 @stop

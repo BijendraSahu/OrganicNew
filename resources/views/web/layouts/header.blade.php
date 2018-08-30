@@ -1,10 +1,3 @@
-<style>
-    .error_register {
-        color: red;
-        font-weight: bold;
-        padding-top: 58px;
-    }
-</style>
 <nav class="main_menu fixed_menu" id="top_header_menu">
     <div class="container">
         <div class="row top_menubox">
@@ -64,8 +57,8 @@
                 <div class="login_with_baskit">
                     <ul>
                         @if(!isset($_SESSION['user_master']))
-                            <li onclick="ShowLoginSignup('signin');">Sign In</li>
-                            <li onclick="ShowLoginSignup('signup');">Sign Up</li>
+                            <li onclick="ShowLoginSignup('signin');">Login</li>
+                            <li onclick="ShowLoginSignup('signup');">Register</li>
                         @else
                             <li>
                                 <div class="my_account_box glo_menuclick">My Account
@@ -130,13 +123,13 @@
         </div>
     </div>
 </nav>
-{{--<div class="page_loader" id="page_loader">--}}
-{{--<div class="loaders">--}}
-{{--<div class="dot dot-1"></div>--}}
-{{--<div class="dot dot-2"></div>--}}
-{{--<div class="dot dot-3"></div>--}}
-{{--</div>--}}
-{{--</div>--}}
+<div class="page_loader" id="page_loader">
+    <div class="loaders">
+        <div class="dot dot-1"></div>
+        <div class="dot dot-2"></div>
+        <div class="dot dot-3"></div>
+    </div>
+</div>
 <div class="fixed_button fixed_top" id="top_scroll_btn" onclick="ScrollBottom();">
     <i class="mdi mdi-mdi mdi-arrow-expand-down"></i>
 </div>
@@ -161,8 +154,8 @@
             </div>
             <div class="modal-body">
                 <div class="deli_row">
-                    <input type="number" name="ask_number" id="ask_number" autocomplete="off"
-                           class="form-control numberOnly login_txt"
+                    <input type="text" name="ask_number" id="ask_number" autocomplete="off"
+                           class="form-control numberOnly login_txt NumberOnly" maxlength="13"
                            placeholder="Enter Mobile Number"/>
                 </div>
             </div>
@@ -269,8 +262,13 @@
             </div>
             <div class="left_block forgot">
                 <h1>Forgot</h1>
-                <p>Enter mobile number associated with your Organic Dolchi account.</p>
+                <p>Enter mobile phone number associated with your Organic Dolchi account.</p>
                 <img src="{{url('images/forgot_image.png')}}"/>
+            </div>
+            <div class="left_block verify">
+                <h1>Verify</h1>
+                <p>Hurray! You are just one step away from validating your account.</p>
+                <img src="{{url('images/verify_image.png')}}"/>
             </div>
         </div>
         <div class="login_right_txt">
@@ -278,8 +276,7 @@
                 <form action="{{url('login')}}" method="post" enctype="multipart/form-data"
                       class="form-horizontal" id="frmLogin">
                     <div class="deli_row">
-                        <input type="text" name="email_pass" autocomplete="off" class="form-control login_txt"
-                               placeholder="Email/Mobile Number " id="login_mobile">
+                        <input type="text" name="email_pass" autocomplete="off" maxlength="10" class="form-control numberOnly login_txt" placeholder="Mobile Number" id="login_mobile">
                     </div>
                     <div class="deli_row">
                         <input type="password" name="login_password" autocomplete="off" class="form-control login_txt"
@@ -294,11 +291,11 @@
                 </form>
                 <hr>
                 <div class="product_btn_box">
-                    <div class="btn btn-warning pull-left" onclick="ShowLoginSignup('forgot')">
+                    <div class="btn btn-warning" onclick="ShowLoginSignup('forgot')">
                         <i class="mdi mdi-account-alert basic_icon_margin"></i>Forgot
                     </div>
-                    <div class="btn btn-success pull-center" onclick="ShowLoginSignup('verify')">
-                        <i class="mdi mdi-account-alert basic_icon_margin"></i>Verify Account
+                    <div class="btn btn-info pull-center" style="margin-left: 5px;" onclick="ShowLoginSignup('verify')">
+                        <i class="mdi mdi-account-check basic_icon_margin"></i>Verify Account
                     </div>
                     <div class="btn btn-primary pull-right" onclick="ShowLoginSignup('signup');">
                         <i class="mdi mdi-account-edit basic_icon_margin"></i>Sign Up
@@ -307,13 +304,12 @@
             </div>
             <div class="right_block forgot">
                 <div class="deli_row">
-                    <input type="text" name="email_pass" autocomplete="off" maxlength="10"
-                           class="form-control numberOnly login_txt"
-                           placeholder="Enter Mobile Number ">
+                    <input type="text" name="email_pass" autocomplete="off" class="form-control login_txt"
+                           placeholder="Enter Mobile Number " id="fcontact_no">
                 </div>
                 <hr>
                 <div class="deli_row">
-                    <button class="btn btn-success login_btn" onclick="forgotpasswordsend();">
+                    <button class="btn btn-success login_btn" onclick="forgotpasswordsend()">
                         <i class="mdi mdi-account-check basic_icon_margin"></i>Submit
                     </button>
                 </div>
@@ -326,7 +322,7 @@
             </div>
             <div class="right_block verify">
                 <div class="deli_row">
-                    <input type="text" name="email_pass" autocomplete="off" class="form-control "
+                    <input type="text" name="email_pass" autocomplete="off" class="form-control login_txt"
                            placeholder="Enter verification code" id="txtotp2">
                 </div>
                 <hr>
@@ -344,35 +340,31 @@
             </div>
             <div class="right_block registration">
                 <div class="deli_row">
-                    <input type="text" name="referal_code" autocomplete="off"
-                           class="form-control numberOnly txt_space login_txt"
-                           placeholder="Referral Code(Contact No)" maxlength="10" onpaste="return false;" id="ref_code">
+                    <input type="text" name="referal_code" autocomplete="off" class="form-control login_txt"
+                           placeholder="Referral Code" id="ref_code">
                 </div>
                 <div class="deli_row">
-                    <input type="text" name="reg_name" autocomplete="off" class="form-control txt_space login_txt"
+                    <input type="text" name="reg_name" autocomplete="off" class="form-control login_txt"
                            placeholder="Enter Name" id="name">
                 </div>
                 <div class="deli_row">
-                    <input type="email" name="reg_email" autocomplete="off" class="form-control txt_space login_txt"
-                           placeholder="Enter Email Id" id="email_id" maxlength="50" onpaste="return false;">
+                    <input type="text" name="reg_email" autocomplete="off" class="form-control login_txt"
+                           placeholder="Enter Email Id" id="email_id">
                 </div>
                 <div class="deli_row">
-                    <input type="text" name="reg_number" autocomplete="off" maxlength="10"
-                           class="form-control numberOnly txt_space login_txt"
-                           placeholder="Enter Mobile Number" id="mobile" onpaste="return false;">
+                    <input type="text" name="reg_number" autocomplete="off" class="form-control login_txt"
+                           placeholder="Enter Mobile Number" id="mobile">
                 </div>
                 <div class="deli_row">
-                    <input type="password" name="reg_password" autocomplete="off"
-                           class="form-control txt_space login_txt"
+                    <input type="password" name="reg_password" autocomplete="off" class="form-control login_txt"
                            placeholder="Enter Password" id="password">
                 </div>
                 <div class="deli_row">
-                    <input type="password" name="reg_password" autocomplete="off"
-                           class="form-control txt_space login_txt"
+                    <input type="password" name="reg_password" autocomplete="off" class="form-control login_txt"
                            placeholder="Confirmation Password" id="confirm_password">
                 </div>
                 <div class="deli_row">
-                    <button onclick="check();" data-validate="true" id="btnReg" class="btn btn-success login_btn">
+                    <button onclick="check();" class="btn btn-success login_btn">
                         <i class="mdi mdi-account basic_icon_margin"></i>Registered
                     </button>
                 </div>
@@ -387,53 +379,22 @@
         </div>
     </div>
 </div>
-
-{{--<div id="re_verify_otp_email" class="connect_LBbox modal fade in" role="dialog" aria-hidden="false">--}}
-{{--<div class="modal-dialog forgotpass_lb">--}}
-{{--<!-- Modal content-->--}}
-{{--<div class="modal-content">--}}
-{{--<div class="modal-header">--}}
-{{--<button type="button" class="close" data-dismiss="modal" onclick="closeForgotLbox();">×</button>--}}
-{{--<h4 class="modal-title">OTP VERIFICATION</h4>--}}
-{{--</div>--}}
-{{--<div class="modal-body">--}}
-{{--<div class="logindiv" style="border: none">--}}
-{{--<input type="text" class="form-control forgot_txt" placeholder="Please enter otp" id="txtotp2"--}}
-{{--autocomplete="off" data-validate="TT_btnforgotpass">--}}
-{{--<div class="forgot_icon mdi mdi-account-check"></div>--}}
-{{--</div>--}}
-{{--<!--  <div class="logindiv" style="border: none">--}}
-{{--<input type="text" class="form-control forgot_txt" placeholder="Please enter email id"  id="txtvarify_email" autocomplete="off" data-validate="TT_btnforgotpass">--}}
-{{--<div class="forgot_icon mdi mdi-email-open-outline"></div>--}}
-{{--</div>-->--}}
-{{--<p class="statusMsg"></p>--}}
-{{--</div>--}}
-{{--<div class="modal-footer text-center">--}}
-{{--<a href="#">--}}
-{{--<button type="button" class="btn btn-primary" onclick="submitotpForm()" id="varify_otp_email">--}}
-{{--Validate OTP--}}
-{{--</button>--}}
-{{--</a>--}}
-
-{{--</div>--}}
-{{--</div>--}}
-
-{{--</div>--}}
-{{--</div>--}}
-<!--<style type="text/css">
-
-</style>
 <script type="text/javascript">
+    $('#frmLogin').keydown(function (e) {
+        if (e.keyCode == 13) {
+            $('#frmLogin').submit();
+        }
+    });
 
-</script>-->
-<script type="text/javascript">
     function forgotpasswordsend() {
         var contact = $('#fcontact_no').val();
-        if (contact.trim() == '') {
-            swal("Oops....", "Please enter contact", "info");
-            return false;
+        var result = true;
+        if (!Boolean(Requiredtxt("#fcontact_no"))) {
+            result = false;
         }
-        else {
+        if (!result) {
+            return false;
+        } else {
             $.ajax({
                 type: "get",
                 contentType: "application/json; charset=utf-8",
@@ -453,6 +414,7 @@
             });
         }
     }
+
     function submitotpForm() {
         var txtotp = $('#txtotp2').val();
         if (txtotp.trim() == '') {
@@ -560,6 +522,7 @@
             }
         });
     });
+
     function Requiredtxt(me) {
         var text = $.trim($(me).val());
         if (text == '') {
@@ -570,18 +533,7 @@
             return true;
         }
     }
-    {{--var EmailValidate = function (me) {--}}
-    {{--var pattern = /^[a-zA-Z0-9\-_]+(\.[a-zA-Z0-9\-_]+)*@[a-z0-9]+(\-[a-z0-9]+)*(\.[a-z0-9]+(\-[a-z0-9]+)*)*\.[a-z]{2,4}$/;--}}
 
-    {{--var emailText = $.trim($(me).val());--}}
-    {{--if (pattern.test(emailText)) {--}}
-    {{--$(me).removeClass("errorClass");--}}
-    {{--return true;--}}
-    {{--} else {--}}
-    {{--$(me).addClass("errorClass");--}}
-    {{--return false;--}}
-    {{--}--}}
-    {{--}--}}
     function check() {
         var email = $('#email_id').val();
         var mobile = $('#mobile').val();
@@ -599,7 +551,6 @@
             register_user();
         }
     }
-
 
     function register_user() {
         var ref_code = $('#ref_code').val();
@@ -664,7 +615,6 @@
         }
     }
 
-
     function send_login() {
         var login_mobile = $('#login_mobile').val();
         var login_password = $('#login_password').val();
@@ -702,12 +652,12 @@
         }
     }
 
-    $(document).onkeydown = function () {
-        // document.onkeydown = function () {
-        if (window.event.keyCode == '13') {
-            send_login();
-        }
-    }
+    //    $(document).onkeydown = function () {
+    //        // document.onkeydown = function () {
+    //        if (window.event.keyCode == '13') {
+    //            send_login();
+    //        }
+    //    }
 
     function submitChange() {
         $('#myModal_UpdatePassword').modal('show');
@@ -761,7 +711,7 @@
         $('[data-toggle="tooltip"]').tooltip();
     });
 
-    $(".txt_space").on({
+    $(".login_txt").on({
         keydown: function (e) {
             if (e.which === 32)
                 return false;

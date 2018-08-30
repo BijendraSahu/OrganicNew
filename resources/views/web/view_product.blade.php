@@ -5,21 +5,22 @@
                 <div class="large" id="view_large_bg"></div>
                 @php $image = \App\ItemImages::where(['item_master_id' => $item->id])->first(); @endphp
                 @if(isset($image->image) && file_exists("p_img/$item->id/".$image->image))
-                    <img class="small" id="view_images" src="{{url('p_img').'/'.$item->id.'/'.$image->image}}"/>
+                    <img class="small lb_small" id="view_images" src="{{url('p_img').'/'.$item->id.'/'.$image->image}}"/>
                 @else
                     <img height="300px" id="view_images" width="300px" src="{{url('images/default.png')}}">
                 @endif
             </div>
             <div class="images_thumbbox">
+                @php $image = \App\ItemImages::where(['item_master_id' => $item->id])->first(); @endphp
                 @if(count($item_images)>0)
                     @foreach($item_images as $img)
-                        @if(isset($image->image) && file_exists("p_img/$item->id/".$image->image))
+                        @if(file_exists("p_img/$item->id/".$image->image))
                             <img class="brics_images" src="{{url('p_img').'/'.$item->id.'/'.$img->image}}"
                                  onclick="appendimages(this);"/>
                         @endif
                     @endforeach
                 @else
-                    <img height="300px" id="view_images" width="300px" src="{{url('images/images/default.png')}}">
+                    <img class="brics_images" id="view_images" src="{{url('images/default.png')}}">
                 @endif
             </div>
         </div>
@@ -41,11 +42,11 @@
             </div>
             <div class="option_availability">
                 <div class="option_txt">Qty :</div>
-                <input type="number" min="1" max="10" id="qty_{{$item->id}}" class="form-control text-center"
+                <input type="number" min="1" max="10" id="qty_view_{{$item->id}}" class="form-control text-center"
                        value="1"/>
             </div>
             <div class="option_availability">
-                <button class="more_addToCart btn-primary" type="button" id="{{$item->id}}"
+                <button class="more_addToCart btn-primary product_add_tocard" type="button" id="{{$item->id}}"
                         onclick="AddTOcartView(this);">
                     <i class="mdi mdi-cart"></i> <span id="{{$item->id}}" onclick="AddTOcartView(this);"
                                                        class="button-group__text">Add</span>
@@ -55,7 +56,7 @@
                 Description :
             </div>
             <div class="more_product_details">
-                {!! $item->description !!}
+                {!!isset($item->description)?$item->description:'-'!!}
             </div>
 
         </div>
@@ -65,7 +66,7 @@
     function AddTOcartView(dis) {
         var itemid = $(dis).attr('id');
         var rateid = $('#price :selected').val();
-        var qty = $('#qty_' + itemid).val();
+        var qty = $('#qty_view_' + itemid).val();
         var carturl = "{{url('addtocart')}}";
         $.ajax({
             type: "get",

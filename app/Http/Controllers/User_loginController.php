@@ -20,8 +20,9 @@ class User_loginController extends Controller
             return 'Mobile Number Already Linked With Another Account!!!!!!';
         } else {
             $otp = rand(100000, 999999);
+            $rc = rand(10000000, 99999999);
             $data = new UserMaster();
-            $data->rc = request('ref_code');
+            $data->rc = "rc".$rc;
             $data->otp = $otp;
             $data->name = request('user_name');
             $data->email = request('email_id');
