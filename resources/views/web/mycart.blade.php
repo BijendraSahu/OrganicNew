@@ -66,7 +66,7 @@
                             @foreach(\Gloudemans\Shoppingcart\Facades\Cart::content() as $row)
                                 <div class="order_row border-none">
                                     <div class="order_details_box">
-                                        <div class="col-md-8 col-sm-12">
+                                        <div class="col-sm-8">
                                             <div class="productdetails_order_row">
                                                 <div class="order_product_imgbox">
                                                     @php $item_image = \App\ItemImages::where(['item_master_id' => $row->id])->first();
@@ -97,7 +97,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4 col-sm-12">
+                                        <div class="col-sm-4">
                                             {{--<div class="track_del_address">Free delivery by 15-May-2018</div>--}}
                                             <div class="order_amt"><i
                                                         class="mdi mdi-currency-inr"></i> {{number_format($row->price,2)}}
