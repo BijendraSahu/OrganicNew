@@ -20,61 +20,32 @@
                                                      class="mdi mdi-plus"></i>Add Blog</button>
                       </span>
                                     <p class="clearfix"></p>
-
+<?php $blogdata=\App\Blogmodel::where(['is_active'=>'1'])->orderBy('id','desc')->get();?>
+                                    @foreach($blogdata as $myobject)
                                         <div class="row line">
                                             <div class="col-sm-4 one">
                                                 <div class="shadow">
-                                                    <img src="blog_pic/1/1530602476_35888654_1758215954292882_4526243180286312448_n.jpg" class="first" width="270px" height="200px"/>
+                                                    <img src="blog_pic/{{$myobject->id}}/{{$myobject->img_url}}" class="first" width="270px" height="200px"/>
                                                 </div>
                                             </div>
                                             <div class="col-sm-7 two">
                                                 <div  >
-                                                    <h3>SEO Friendly</h3>
-                                                    <p class="blog_detail_box"> This is the only wordpress theme you will ever use
-                                                        This is the only wordpress theme you will ever use
-                                                        This is the only wordpress theme you will ever use
-                                                        This is the only wordpress theme you will ever use
-                                                        This is the only wordpress theme you will ever use
-                                                        This is the only wordpress theme you will ever use.</p>
+                                                    <h3>{{ucwords($myobject->title)}}</h3>
+                                                    <div class="blog_detail_box">{!! $myobject->description!!}</div>
                                                     <div class="name">
                                                         <span>by</span>
-                                                        <span style="font-weight: bold">ADITYA SHRIVASTAVA, </span>
-                                                        <span>23/01/1996</span>
+                                                        <span style="font-weight: bold">{{ucwords($myobject->created_by)}} , </span>
+                                                        <span> {{$myobject->created_date}}</span>
                                                     </div>
                                                     <br>
-                                                    <button class="button"><span>Read More</span></button>
+                                                    {{--<button class="button"><span>Read More</span></button>--}}
 
                                                     <!--<button class="btn btn-primary">READ MORE</button>-->
                                                 </div>
                                             </div>
                                         </div>
-                                    <div class="row line">
-                                        <div class="col-sm-4 one">
-                                            <div class="shadow">
-                                                <img src="blog_pic/4/1530692968_photo-1515163988842-60ece4c9a5bb.jpg" class="first" width="270px" height="200px"/>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-7 two">
-                                            <div  >
-                                                <h3>SEO Friendly</h3>
-                                                <p class="blog_detail_box"> This is the only wordpress theme you will ever use
-                                                    This is the only wordpress theme you will ever use
-                                                    This is the only wordpress theme you will ever use
-                                                    This is the only wordpress theme you will ever use
-                                                    This is the only wordpress theme you will ever use
-                                                    This is the only wordpress theme you will ever use.</p>
-                                                <div class="name">
-                                                    <span>by</span>
-                                                    <span style="font-weight: bold">ADITYA SHRIVASTAVA, </span>
-                                                    <span>23/01/1996</span>
-                                                </div>
-                                                <br>
-                                                <button class="button"><span>Read More</span></button>
+                                        @endforeach
 
-                                                <!--<button class="btn btn-primary">READ MORE</button>-->
-                                            </div>
-                                        </div>
-                                    </div>
 
                                 </div>
                             </div>

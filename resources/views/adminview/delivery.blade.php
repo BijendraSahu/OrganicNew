@@ -33,12 +33,18 @@
                                         @foreach($deliverydata as $object)
                                             @if($object->is_active=='1')
                                         <tr>
-                                            <input type="hidden" id="cityid{{$object->id}}" value="{{$object->city_id}}">
-                                           {{-- <td id="cityname{{$object->id}}">{{$object->cityname->city_name}}</td>--}}
-                                            <td id="area{{$object->id}}">{{$object->area}}</td>
-                                            <td id="pin{{$object->id}}">{{$object->pin}}</td>
-                                            <td id="amount{{$object->id}}">{{$object->amount}}</td>
-                                            <td id="delivery_charge{{$object->id}}">{{$object->delivery_charge}}</td>
+                                            <td>{{$object->cityname->city}}</td>
+                                            <input type="hidden" value="{{$object->cityname->city}}" id="cityname{{$object->id}}">
+                                            <input type="hidden" value="{{$object->cityname->id}}" id="cityid{{$object->id}}">
+
+                                            <td>{{$object->area}}</td>
+                                            <input type="hidden" value="{{$object->area}}" id="cityarea{{$object->id}}">
+                                            <td>{{$object->pin}}</td>
+                                            <input type="hidden" value="{{$object->pin}}" id="citypin{{$object->id}}">
+                                            <td>{{$object->amount}}</td>
+                                            <input type="hidden" value="{{$object->amount}}" id="cityamount{{$object->id}}">
+                                            <td>{{$object->delivery_charge}}</td>
+                                            <input type="hidden" value="{{$object->delivery_charge}}" id="citydc{{$object->id}}">
                                             <td><button type="button" onclick="editdeli({{$object->id}});" class="btn btn-primary btn-xs">Edit</button>
                                                 <button type="button" onclick="deletedeli({{$object->id}});" class="btn btn-success btn-xs">Delete</button></td>
 
@@ -60,18 +66,21 @@
     </section>
 
     <script>
+
+
        function opendeliform()
         {
             $('#smallheader').html('');
             $('#smallbody').html('');
             $('#smallfooter').html('');
             $('#smallheader').append('<div><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Add Delivery</h4></div>');
-            $('#smallbody').append('<select class="form-control" name="city_name" id="city_name"><option value="">Select</option>@foreach($citydata as $mydata) @if($mydata->is_deleted=='0') <option value="{{$mydata->id}}">{{$mydata->city_name}}</option>@endif @endforeach </select><p></p><input type="text" name="area" id="area" placeholder="enter area name" class="form-control"><p></p><input type="text" name="pin" id="pin" placeholder="enter pin code" class="form-control"><p></p><input type="text" name="amount" id="amount" placeholder="enter amount" class="form-control"><p></p><input type="text" name="del_charge" placeholder="enter delevery charge" id="del_charge" class="form-control"><p></p>');
+            $('#smallbody').append('<select class="form-control" name="city_name" id="city_name"><option value="">Select</option>@foreach($citydata as $mydata) @if($mydata->is_deleted=='0') <option value="{{$mydata->id}}">{{$mydata->city}}</option>@endif @endforeach </select><p></p><input type="text" name="area" id="area" placeholder="enter area name" class="form-control"><p></p><input type="text" name="pin" id="pin" placeholder="enter pin code" class="form-control"><p></p><input type="text" name="amount" id="amount" placeholder="enter amount" class="form-control"><p></p><input type="text" name="del_charge" placeholder="enter delevery charge" id="del_charge" class="form-control"><p></p>');
             $('#smallfooter').append('<button id="add_btn" type="button" class="btn btn-default" data-dismiss="modal">Close</button><button onclick="addarea();" class="btn btn-primary">Add</button>');
             $('#myModalsmall').modal();
         }
         function addarea()
         {
+
            var cityid=$('#city_name').val();
            var area=$('#area').val();
            var pin=$('#pin').val();
@@ -94,32 +103,32 @@
 
         function editdeli(id)
         {
-var cityname=$('#cityname'+id).html();
-var area=$('#area'+id).html();
-var pin=$('#pin'+id).html();
-var amount=$('#amount'+id).html();
-var delivery_charge=$('#delivery_charge'+id).html();
-var cityid=$('#cityid'+id).val();
-
-/*alert(cityname+area+pin+amount+delivery_charge+cityid);*/
+            var cityname=$('#cityname'+id).val();
+            var area=$('#cityarea'+id).val();
+            var pin=$('#citypin'+id).val();
+            var amount=$('#cityamount'+id).val();
+            var delivery_charge=$('#citydc'+id).val();
+            var cityid=$('#cityid'+id).val();
             $('#smallheader').html('');
             $('#smallbody').html('');
             $('#smallfooter').html('');
-            $('#smallheader').append('<div><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Add Delivery</h4></div>');
-            $('#smallbody').append('<select class="form-control" name="city_name" id="city_name"><option value="'+cityid+'">'+cityname+'</option>@foreach($citydata as $mydata) @if($mydata->is_deleted=='0') <option value="{{$mydata->id}}">{{$mydata->city_name}}</option>@endif @endforeach </select><p></p><input type="text" name="area" id="area" value="'+area+'" placeholder="enter area name" class="form-control"><p></p><input type="text" value="'+pin+'" name="pin" id="pin" placeholder="enter pin code" class="form-control"><p></p><input type="text" name="amount" id="amount" value="'+amount+'" placeholder="enter amount" class="form-control"><p></p><input type="text" name="del_charge" placeholder="enter delevery charge" value="'+delivery_charge+'" id="del_charge" class="form-control"><p></p>');
-            $('#smallfooter').append('<button id="add_btn" type="button" class="btn btn-default" data-dismiss="modal">Close</button><button onclick="updateaddarea('+id+');" class="btn btn-primary">Add</button>');
+            $('#smallheader').append('<div><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Update Delivery</h4></div>');
+            $('#smallbody').append('<select class="form-control" name="city_name_one" id="city_name_one"><option value="'+cityid+'">'+cityname+'</option>@foreach($citydata as $mydata) @if($mydata->is_deleted=='0') <option value="{{$mydata->id}}">{{$mydata->city}}</option>@endif @endforeach </select><p></p><input type="text" name="area" id="area_one" value="'+area+'" placeholder="enter area name" class="form-control textWithSpace"><p></p><input type="text" value="'+pin+'" name="pin" id="pin_one" placeholder="enter pin code" class="form-control numberOnly"><p></p><input type="text" name="amount" id="amount_one" value="'+amount+'" placeholder="enter amount" class="form-control numberOnly"><p></p><input type="text" name="del_charge" placeholder="enter delevery charge" value="'+delivery_charge+'" id="del_charge_one" class="form-control numberOnly"><p></p>');
+            $('#smallfooter').append('<button id="add_btn" type="button" class="btn btn-default" data-dismiss="modal">Close</button><button onclick="updateaddarea('+id+');" class="btn btn-primary">Update</button>');
             $('#myModalsmall').modal();
+
         }
+
+
 
         function updateaddarea(id)
         {
             var idd=id;
-            var cityid=$('#city_name').val();
-            var area=$('#area').val();
-            var pin=$('#pin').val();
-            var amount=$('#amount').val();
-            var del_charge=$('#del_charge').val();
-        /* alert(cityid+area+pin+amount+del_charge);*/
+            var cityid=$('#city_name_one').val();
+            var area=$('#area_one').val();
+            var pin=$('#pin_one').val();
+            var amount=$('#amount_one').val();
+            var del_charge=$('#del_charge_one').val();
             $.get('{{url('update_delivery')}}', {cityid: cityid,area: area,pin: pin,amount: amount,del_charge: del_charge,idd: idd}, function (data) {
                console.log(data);
                 $('#myModalsmall').modal('hide');
