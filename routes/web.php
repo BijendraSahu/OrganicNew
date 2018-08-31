@@ -176,12 +176,16 @@ Route::get('/addblogcat','BlogController@addblogcat');
 Route::get('/blogpost','BlogController@blogpost');
 Route::get('/upblogpost','BlogController@upblogpost');
 Route::post('/blogpic','BlogController@blogpic');
+//////////////////////////////////////////////////////////////////////////////////////
 Route::get('/myrecipe','RecipeController@my_recipe_list');
 Route::get('/recipelist','RecipeController@recipe_list');
 Route::get('/updateblog/{id}','BlogController@updateblog');
+
+Route::get('/allreciepe','RecipeController@allreciepe');
 //////////////////////////////////////////////////////////////////////////////////////////////
 Route::get('/testimonials','TestimonialsController@list');
 Route::get('/addtstimonials','TestimonialsController@addtstimonials');
 Route::get('/inactivetest','TestimonialsController@inactivetest');
 Route::get('/activetest','TestimonialsController@activetest');
 Route::get('/deletetest','TestimonialsController@deletetest');
+//////////////////////////////////////////////////////////////////////////////////////////////

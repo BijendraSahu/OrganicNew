@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+session_start();
 
 class RecipeController extends Controller
 {
@@ -14,5 +15,10 @@ class RecipeController extends Controller
     public function recipe_list()
     {
         return view('web.recipelist');
+    }
+
+    public function allreciepe()
+    {
+        return view('adminview.reciepe');
     }
 }
