@@ -32,10 +32,7 @@ class RecipeController extends Controller
         return view('web.recipelist');
     }
 
-    public function allreciepe()
-    {
-        return view('adminview.reciepe');
-    }
+
 
     public function recipe_store(Request $request)
     {
@@ -90,6 +87,11 @@ class RecipeController extends Controller
             }
         }
         return redirect('myrecipe?type=list')->with('message', 'Your recipe has been submitted...');
+    }
+
+    public function allreciepe()
+    {
+        return view('adminview.reciepe');
     }
 
 }
