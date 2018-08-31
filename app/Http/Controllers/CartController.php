@@ -175,7 +175,7 @@ class CartController extends Controller
 
         file_get_contents("http://api.msg91.com/api/sendhttp.php?sender=CONONE&route=4&mobiles=$address->contact&authkey=213418AONRGdnQ5ae96f62&country=91&message=Dear%20$name,%20Your%20order has%20been%20placed%20your%20order%20no%20is%20OrganicDolchi$order->order_no");
 
-        $allmails = [$address->email];
+        $allmails = [$_SESSION['user_master']->email];
 
         foreach ($allmails as $mail) {
             $email[] = $mail;

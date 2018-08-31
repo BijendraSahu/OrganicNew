@@ -32,10 +32,22 @@
                                 Edit Profile
                             </a>
                         </div>
-                        <div class="menu_popup_settingrow">
+                      {{--  <div class="menu_popup_settingrow">
                             <a class="menu_setting_row" onclick="ShowAddress();">
                                 <i class="mdi mdi-map-marker"></i>
                                 Manage Address
+                            </a>
+                        </div>--}}
+                        <div class="menu_popup_settingrow">
+                            <a href="{{url('myrecipe?type=list')}}" class="menu_setting_row">
+                                <i class="mdi mdi-view-list"></i>
+                               My Recipe List
+                            </a>
+                        </div>
+                        <div class="menu_popup_settingrow">
+                            <a href="{{url('myrecipe?type=new')}}" class="menu_setting_row">
+                                <i class="mdi mdi-tooltip-edit"></i>
+                                Add Recipe
                             </a>
                         </div>
                         <div class="menu_popup_settingrow">

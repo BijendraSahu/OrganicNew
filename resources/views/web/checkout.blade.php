@@ -269,203 +269,255 @@
                             </div>-->
                         </div>
                     </div>
-                    <div class="order_listbox margin_bottom0">
+                    <div class="order_listbox margin_bottom0" id="address_refresh">
                         <div class="carousal_head">
                             <span class="filter_head_txt slider_headtxt">Delivery Address</span>
                         </div>
                         <div class="exis_container style-scroll">
-                        <div class="exis_addbox">
-                            <div class="first_row">
-                                <div class="radio_box">
-                                    <div class="radio">
-                                        <input id="deli_radio_1" value="1" class="gender" name="add_delivery" type="radio" checked="checked" />
-                                        <label for="deli_radio_1" class="radio-label"></label>
+                            @php
+                                $addresses = \App\UserAddress::where(['is_active' => '1', 'user_id' => $user->id])->orderBy('created_time','desc')->get();
+                            $count=1;
+                            @endphp
+
+                            @if(count($addresses)>0)
+                                @foreach($addresses as $address)
+                                    <div class="exis_addbox">
+                                        <div class="first_row">
+                                            <div class="radio_box">
+                                                @if($count == 1)
+                                                    <input type="hidden" id="add_id" name="add_id" value="{{$address->id}}">
+                                                @endif
+                                                <div class="radio">
+                                                    <input id="deli_radio_{{$address->id}}" value="1" class="gender"
+                                                           name="add_delivery"
+                                                           type="radio" {{$count==1?'checked="checked"':''}} />
+                                                    <label for="deli_radio_{{$address->id}}"
+                                                           class="radio-label"></label>
+                                                </div>
+                                            </div>
+                                            <div class="add_name_box">{{$address->name}}</div>
+                                            <div class="contact_box">{{$address->contact}}</div>
+                                        </div>
+                                        {{--  <div class="delivery_email">pinkukesharwani89@gmail.com</div>--}}
+                                        <div class="delivery_add">
+                                            {{$address->address}}, Jabalpur, Madhya Pradesh - {{$address->zip}}
+                                        </div>
+
+                                        <div class="deli_btnbox">
+                                            <button type="button"
+                                                    onclick="ChooseAddress('deli_radio_{{$address->id}}');"
+                                                    class="btn btn-success btn-sm"><i
+                                                        class="mdi mdi-home-map-marker basic_icon_margin"></i>Deliver
+                                                Here
+                                            </button>
+
+                                            <button onclick="AddUpdate_Address('edit',{{$address->id}});" type="button"
+                                                    class="btn btn-warning pull-right btn-sm"><i
+                                                        class="mdi mdi-map-marker-radius basic_icon_margin"></i>Edit
+                                                Address
+                                            </button>
+                                        </div>
+
                                     </div>
-                                </div>
-                                <div class="add_name_box">Pinku Kesharwani</div>
-                                <div class="contact_box">9589883533</div>
-                            </div>
-                          {{--  <div class="delivery_email">pinkukesharwani89@gmail.com</div>--}}
-                            <div class="delivery_add">
-                                It Park bargi hills, Jabalpur, Jabalpur, Madhya Pradesh - 482002
-                            </div>
+                                    {{--<div class="exis_addbox">
+                                        <div class="first_row">
+                                            <div class="radio_box">
+                                                <div class="radio">
+                                                    <input id="deli_radio_2" value="2" class="deliever"
+                                                           name="add_delivery"
+                                                           type="radio"/>
+                                                    <label for="deli_radio_2" class="radio-label"></label>
+                                                </div>
+                                            </div>
+                                            <div class="add_name_box">Bijendra Sahu</div>
+                                            <div class="contact_box">6525352642</div>
+                                        </div>
+                                        <div class="delivery_add">
+                                            It Park bargi hills, Jabalpur, Jabalpur, Madhya Pradesh - 482002
+                                        </div>
 
-                            <div class="deli_btnbox">
-                                <button type="button" onclick="ChooseAddress('deli_radio_1');" class="btn btn-success btn-sm"><i class="mdi mdi-home-map-marker basic_icon_margin"></i>Deliver Here
-                                </button>
+                                        <div class="deli_btnbox">
+                                            <button onclick="ChooseAddress('deli_radio_2');" type="button"
+                                                    class="btn btn-success btn-sm"><i
+                                                        class="mdi mdi-home-map-marker basic_icon_margin"></i>Deliver
+                                                Here
+                                            </button>
 
-                                <button onclick="AddUpdate_Address('edit');" type="button" class="btn btn-warning pull-right btn-sm"><i class="mdi mdi-map-marker-radius basic_icon_margin"></i>Edit Address
-                                </button>
-                            </div>
+                                            <button onclick="AddUpdate_Address('edit','1');" type="button"
+                                                    class="btn btn-warning pull-right btn-sm"><i
+                                                        onclick="getuseraddress();"
+                                                        class="mdi mdi-map-marker-radius basic_icon_margin"></i>Edit
+                                                Address
+                                            </button>
+                                        </div>
 
-                        </div>
-                        <div class="exis_addbox">
-                            <div class="first_row">
-                                <div class="radio_box">
-                                    <div class="radio">
-                                        <input id="deli_radio_2" value="2" class="deliever" name="add_delivery" type="radio" />
-                                        <label for="deli_radio_2" class="radio-label"></label>
-                                    </div>
-                                </div>
-                                <div class="add_name_box">Bijendra Sahu</div>
-                                <div class="contact_box">6525352642</div>
-                            </div>
-                            <div class="delivery_add">
-                                It Park bargi hills, Jabalpur, Jabalpur, Madhya Pradesh - 482002
-                            </div>
+                                    </div>--}}
+                                    @php $count++ @endphp
+                                @endforeach
+                            @else
 
-                            <div class="deli_btnbox">
-                                <button onclick="ChooseAddress('deli_radio_2');" type="button" class="btn btn-success btn-sm"><i class="mdi mdi-home-map-marker basic_icon_margin"></i>Deliver Here
-                                </button>
-
-                                <button onclick="AddUpdate_Address('edit');" type="button" class="btn btn-warning pull-right btn-sm"><i class="mdi mdi-map-marker-radius basic_icon_margin"></i>Edit Address
-                                </button>
-                            </div>
-
-                        </div>
+                            @endif
                         </div>
                         <div class="new_addbox">
                             <div class="new_add_head col-sm-12">
 
                                 <div class="add_name_box" id="add_update_head">ADD A NEW ADDRESS</div>
 
-                                <button onclick="AddUpdate_Address('new');" type="button" class="btn btn-primary pull-right btn-sm"><i class="mdi mdi-map-marker-plus basic_icon_margin"></i>Add New
+                                <button onclick="AddUpdate_Address('new','0');" type="button"
+                                        class="btn btn-primary pull-right btn-sm"><i
+                                            class="mdi mdi-map-marker-plus basic_icon_margin"></i>Add New
                                 </button>
                             </div>
-                            <div class="add_update_box" id="content_address_box">
-                                <div class="deli_row">
-                                    <div class="col-sm-6">
-                                        <input type="text" placeholder="Name" name="name" id="add_name_update" class="form-control">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="text" placeholder="Phone No." name="contact" id="add_contact_update" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="deli_row">
-                                    <div class="col-sm-6">
-                                        <select class="form-control" id="add_city"
-                                                name="add_city">
-                                            <option value="0"> --Please Select City--</option>
-                                            @foreach($cities as $city)
-                                                <option value="{{$city->id}}">{{$city->city}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="text" placeholder="Pincode" name="pincode" id="add_pincode_update" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="deli_row">
-                                    <div class="col-sm-12">
-                                        <textarea class="form-control glo_txtarea" id="add_address_update" name="address" placeholder="Address"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 address_btnbox">
-                                    <button id="btn_add_new" type="button" class="btn btn-danger pull-right"><i class="mdi mdi-map-marker-plus basic_icon_margin"></i>SAVE AND DELIVER HERE
-                                    </button>
-                                    <button id="btn_add_update" type="button" style="display: none" class="btn btn-danger pull-right"><i class="mdi mdi-map-marker-plus basic_icon_margin"></i>UPDATE AND DELIVER HERE
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <form enctype="multipart/form-data" id="userAddress" >
-                            <div class="order_list_container margin_top15" style="display: none">
-                                <div class="deli_row">
-                                    <div class="col-sm-6">
-                                        <div class="radio">
-                                            <input id="add_1" value="male" class="gender" name="address_radio"
-                                                   type="radio"
-                                                   checked="" onchange="AddressOption('new');">
-                                            <label for="add_1" class="radio-label">New</label>
+                            <form enctype="multipart/form-data" id="userAddress">
+                                <div class="add_update_box" id="content_address_box">
+                                    <div class="deli_row">
+                                        <div class="col-sm-6">
+                                            <input type="text" placeholder="Name" name="name" id="add_name_update"
+                                                   class="form-control">
                                         </div>
-
-                                        <div class="radio">
-                                            <input id="add_2" onchange="AddressOption('existing');" value="female"
-                                                   class="gender" name="address_radio" type="radio">
-                                            <label for="add_2" class="radio-label">Existing</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" placeholder="Phone No." name="contact"
+                                                   id="add_contact_update" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="col-sm-6" id="existing_dropbox" style="display:none">
-                                        @php
-                                            $addresses = \App\UserAddress::where(['is_active' => '1', 'user_id' => $user->id])->get();
-                                        @endphp
-                                        @if(count($addresses)>0)
-                                            <select onchange="getuseraddress();" class="form-control"
-                                                    id="existaddress" name="address_id">
-                                                <option value="0"> --- Please Select ---</option>
-                                                @foreach($addresses as $address)
-                                                    <option value="{{$address->id}}">{{$address->name.', '.$address->contact.', '.$address->address.', '.(isset($address->city_id)?$address->city->city:'-').', '.$address->zip}}
-                                                    </option>
+                                    <div class="deli_row">
+                                        <div class="col-sm-6">
+                                            <select class="form-control" id="add_city"
+                                                    name="add_city">
+                                                {{--<option value="0"> --Please Select City--</option>--}}
+                                                @foreach($cities as $city)
+                                                    <option value="{{$city->id}}">{{$city->city}}</option>
                                                 @endforeach
                                             </select>
-                                        @else
-                                            <select onchange="getuseraddress();" class="form-control"
-                                                    id="existaddress" name="address_id">
-                                                <option value="0"> --- Please Select ---</option>
-                                            </select>
-                                        @endif
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input type="text" placeholder="Pincode" name="pincode"
+                                                   id="add_pincode_update"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="deli_row">
+                                        <div class="col-sm-12">
+                                        <textarea class="form-control glo_txtarea" id="add_address_update"
+                                                  name="address" placeholder="Address"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 address_btnbox">
+                                        <button id="btn_add_new" type="button" onclick="saveaddress()"
+                                                class="btn btn-danger pull-right"><i
+                                                    class="mdi mdi-map-marker-plus basic_icon_margin"></i>SAVE AND
+                                            DELIVER
+                                            HERE
+                                        </button>
+                                        <button id="btn_add_update" type="button" onclick="saveaddress()"
+                                                style="display: none"
+                                                class="btn btn-danger pull-right"><i
+                                                    class="mdi mdi-map-marker-plus basic_icon_margin"></i>UPDATE AND
+                                            DELIVER
+                                            HERE
+                                        </button>
                                     </div>
                                 </div>
-                                <div class="deli_row">
-                                    <div class="col-sm-6">
-                                        <input type="text" placeholder="Name" name="name" id="add_name"
-                                               class="form-control">
+                            </form>
+                        </div>
+
+                        {{--<form enctype="multipart/form-data" id="userAddress">--}}
+                        <div class="order_list_container margin_top15" style="display: none">
+                            <div class="deli_row">
+                                <div class="col-sm-6">
+                                    <div class="radio">
+                                        <input id="add_1" value="male" class="gender" name="address_radio"
+                                               type="radio"
+                                               checked="" onchange="AddressOption('new');">
+                                        <label for="add_1" class="radio-label">New</label>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <input type="text" placeholder="Phone No." name="contact" id="add_contact"
-                                               class="form-control">
+
+                                    <div class="radio">
+                                        <input id="add_2" onchange="AddressOption('existing');" value="female"
+                                               class="gender" name="address_radio" type="radio">
+                                        <label for="add_2" class="radio-label">Existing</label>
                                     </div>
                                 </div>
-                                <div class="deli_row">
-                                    <div class="col-sm-6">
-                                        <input type="text" placeholder="Email Id" name="email" id="add_email"
-                                               class="form-control">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="text" placeholder="Pincode" name="pincode" id="add_pincode"
-                                               class="form-control">
-                                    </div>
-                                </div>
-                                <div class="deli_row">
-                                    <div class="col-sm-6">
-                                        <select class="form-control" id="add_city_pre"
-                                                name="add_city_pre">
-                                            <option value="0"> --Please Select City--</option>
-                                            @foreach($cities as $city)
-                                                <option value="{{$city->id}}">{{$city->city}}</option>
+                                <div class="col-sm-6" id="existing_dropbox" style="display:none">
+                                    @php
+                                        $addresses = \App\UserAddress::where(['is_active' => '1', 'user_id' => $user->id])->get();
+                                    @endphp
+                                    @if(count($addresses)>0)
+                                        <select onchange="getuseraddress();" class="form-control"
+                                                id="existaddress" name="address_id">
+                                            <option value="0"> --- Please Select ---</option>
+                                            @foreach($addresses as $address)
+                                                <option value="{{$address->id}}">{{$address->name.', '.$address->contact.', '.$address->address.', '.(isset($address->city_id)?isset($address->city->city):'-').', '.$address->zip}}
+                                                </option>
                                             @endforeach
                                         </select>
-                                    </div>
-
-                                    <div class="col-sm-6">
-                                        <textarea class="form-control glo_txtarea" id="add_address" name="address"
-                                                  placeholder="Address"></textarea>
-                                    </div>
-                                </div>
-                                <div class="deli_row">
-                                    <div class="col-sm-12">
-                                        <div id="update_address" class="hidden">
-                                            <input type="button" onclick="disable_remove();"
-                                                   class="btn btn-primary pull-right" value="Update Address"/>
-                                            <input type="button" onclick="cancel_update();"
-                                                   class="btn btn-danger pull-right"
-                                                   value="Cancel"/>
-                                        </div>
-                                        {{--<div id="save_address" class="hidden">
-
-
-                                        </div>--}}
-
-                                        {{--<input type="checkbox" value="test1" name="test_record[]" />--}}
-                                        {{--<input type="checkbox" value="test2" name="test_record[]" />--}}
-                                        {{--<input type="checkbox" value="test3" name="test_record[]" />--}}
-                                        <input type="button" onclick="saveaddress()"
-                                               class="btn btn-success pull-right"
-                                               value="Save"/></div>
+                                    @else
+                                        <select onchange="getuseraddress();" class="form-control"
+                                                id="existaddress" name="address_id">
+                                            <option value="0"> --- Please Select ---</option>
+                                        </select>
+                                    @endif
                                 </div>
                             </div>
-                        </form>
+                            <div class="deli_row">
+                                <div class="col-sm-6">
+                                    <input type="text" placeholder="Name" name="name" id="add_name"
+                                           class="form-control">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" placeholder="Phone No." name="contact" id="add_contact"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="deli_row">
+                                <div class="col-sm-6">
+                                    <input type="text" placeholder="Email Id" name="email" id="add_email"
+                                           class="form-control">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" placeholder="Pincode" name="pincode" id="add_pincode"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="deli_row">
+                                <div class="col-sm-6">
+                                    <select class="form-control" id="add_city_pre"
+                                            name="add_city_pre">
+                                        {{--<option value="0"> --Please Select City--</option>--}}
+                                        @foreach($cities as $city)
+                                            <option value="{{$city->id}}">{{$city->city}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-6">
+                                        <textarea class="form-control glo_txtarea" id="add_address" name="address"
+                                                  placeholder="Address"></textarea>
+                                </div>
+                            </div>
+                            <div class="deli_row">
+                                <div class="col-sm-12">
+                                    <div id="update_address" class="hidden">
+                                        <input type="button" onclick="disable_remove();"
+                                               class="btn btn-primary pull-right" value="Update Address"/>
+                                        <input type="button" onclick="cancel_update();"
+                                               class="btn btn-danger pull-right"
+                                               value="Cancel"/>
+                                    </div>
+                                    {{--<div id="save_address" class="hidden">
+
+
+                                    </div>--}}
+
+                                    {{--<input type="checkbox" value="test1" name="test_record[]" />--}}
+                                    {{--<input type="checkbox" value="test2" name="test_record[]" />--}}
+                                    {{--<input type="checkbox" value="test3" name="test_record[]" />--}}
+                                    <input type="button" onclick="saveaddress()"
+                                           class="btn btn-success pull-right"
+                                           value="Save"/></div>
+                            </div>
+                        </div>
+                        {{--</form>--}}
                         <div class="carousal_head">
                             <span class="filter_head_txt slider_headtxt">Payment Option</span>
                         </div>
@@ -488,7 +540,7 @@
 
 
                                     {{--<div class="percent_show" id="terms_show" style="display: none">--}}
-                                        {{--3% Gateway Charge applicable on Total Amount levied by PayUMoney.--}}
+                                    {{--3% Gateway Charge applicable on Total Amount levied by PayUMoney.--}}
                                     {{--</div>--}}
                                     <input type="hidden" name="payment" value="1" id="payment">
                                 </div>
@@ -539,18 +591,18 @@
                                                         </div>
                                                     </div>
 
-                                                   {{-- <div class="option_availability">
-                                                        <div class="option_txt">Specification</div>
-                                                        <div class="product_right_txt">
-                                                            {!! $item->specifcation!!}
-                                                        </div>
-                                                    </div>
-                                                    <div class="option_availability">
-                                                        <div class="option_txt">Quantity:</div>
-                                                        <div class="product_right_txt">
-                                                            {{$row->qty}}
-                                                        </div>
-                                                    </div>--}}
+                                                    {{-- <div class="option_availability">
+                                                         <div class="option_txt">Specification</div>
+                                                         <div class="product_right_txt">
+                                                             {!! $item->specifcation!!}
+                                                         </div>
+                                                     </div>
+                                                     <div class="option_availability">
+                                                         <div class="option_txt">Quantity:</div>
+                                                         <div class="product_right_txt">
+                                                             {{$row->qty}}
+                                                         </div>
+                                                     </div>--}}
                                                     {{--<div class="option_availability">--}}
                                                     {{--<div class="option_txt">Container Type</div>--}}
                                                     {{--<div class="product_right_txt">--}}
@@ -609,24 +661,26 @@
         </div>
     </div>
     <script type="text/javascript">
-        function AddUpdate_Address(curr_action)
-        {
+        function AddUpdate_Address(curr_action, get_id) {
             $('.deliever').prop("checked", false);
-            if(curr_action == "new")
-            {
+            if (curr_action == "new") {
+                $('#add_id').val(0);
                 $('#btn_add_new').show();
                 $('#btn_add_update').hide();
                 $('#content_address_box').slideDown();
                 $('#add_update_head').text('ADD A NEW ADDRESS');
                 empty_address();
-            }else {
+            } else {
                 $('#btn_add_new').hide();
                 $('#btn_add_update').show();
                 $('#content_address_box').slideDown();
                 $('#add_update_head').text('UPDATE ADDRESS');
             }
-
+            if (get_id > 0) {
+                getuseraddress(get_id);
+            }
         }
+
         function ChooseAddress(chk_id) {
             $('.deliever').prop("checked", false);
             document.getElementById(chk_id).checked = true;
@@ -658,38 +712,34 @@
         }
 
         function saveaddress() {
-            var existaddress = $('#existaddress :selected').val();
-            var add_name = $('#add_name').val();
-            var add_contact = $('#add_contact').val();
-            var add_email = $('#add_email').val();
-            var add_city = $('#add_city :selected').val();
-            var add_pincode = $('#add_pincode').val();
-            var add_address = $('#add_address').val();
+            var existaddress = $('#add_id').val();
+            var add_name = $('#add_name_update').val();
+            var add_contact = $('#add_contact_update').val();
+//            var add_email = $('#add_email').val();
+            var add_city = $('#add_city_pre :selected').val();
+            var add_pincode = $('#add_pincode_update').val();
+            var add_address = $('#add_address_update').val();
             // var value = $('#userAddress').serialize();
 
             if (add_name == '') {
                 swal("Fields Required", "Please enter name", "error");
-                $('#add_name').focus();
+//                $('#add_name_update').focus();
                 return false;
             } else if (add_contact == '') {
                 swal("Fields Required", "Please enter contact", "error");
-                $('#add_contact').focus();
-                return false;
-            } else if (add_email == '') {
-                swal("Fields Required", "Please enter email", "error");
-                $('#add_email').focus();
+//                $('#add_contact').focus();
                 return false;
             } else if (add_city == '0') {
                 swal("Fields Required", "Please select city", "error");
-                $('#add_city').focus();
+//                $('#add_city').focus();
                 return false;
             } else if (add_pincode == '') {
                 swal("Fields Required", "Please enter pincode", "error");
-                $('#add_pincode').focus();
+//                $('#add_pincode').focus();
                 return false;
             } else if (add_address == '') {
                 swal("Fields Required", "Please enter address", "error");
-                $('#add_address').focus();
+//                $('#add_address').focus();
                 return false;
             } else {
                 $.ajax({
@@ -697,7 +747,7 @@
                     url: "{{ url('address_update') }}",
                     data: {
                         add_name: add_name,
-                        add_email: add_email,
+//                        add_email: add_email,
                         add_contact: add_contact,
                         add_city: add_city,
                         add_pincode: add_pincode,
@@ -711,8 +761,9 @@
                         if (data == 'success') {
                             swal("Success", "Address has been updated...", "success");
                             setTimeout(function () {
-                                window.location.reload();
+                                $("#address_refresh").load(location.href + " #address_refresh");
                             }, 2000);
+
                         } else {
                             swal("Oops", "Some went wrong...", "error");
                         }
@@ -727,7 +778,7 @@
         }
 
         function confirm_order() {
-            var existaddress = $('#existaddress :selected').val();
+            var existaddress = $('#add_id').val();
             if (existaddress == '0') {
                 swal("Address Required", "Please select delivery address", "warning");
 //                $('#existaddress').focus();
@@ -747,41 +798,42 @@
             }
         }
 
-        function getuseraddress() {
-            var address_id = $('#existaddress :selected').val();
-            if (address_id > 0) {
-                $.ajax({
-                    type: 'get',
-                    url: "{{ url('getexistaddress') }}",
-                    data: {address_id: address_id},
-                    success: function (data) {
-                        $('#add_name').val(data.name);
-                        $('#add_email').val(data.email);
-                        $('#add_contact').val(data.contact);
-                        $('#add_address').val(data.address);
-                        $('#add_city').val(data.city_id);
-                        $('#add_pincode').val(data.pincode);
+        function getuseraddress(getid) {
+//            var address_id = $('#existaddress :selected').val();
+//            if (address_id > 0) {
+            $.ajax({
+                type: 'get',
+                url: "{{ url('getexistaddress') }}",
+                data: {address_id: getid},
+                success: function (data) {
+                    $('#add_name_update').val(data.name);
+                    $('#add_id').val(getid);
+//                        $('#add_email').val(data.email);
+                    $('#add_contact_update').val(data.contact);
+                    $('#add_address_update').val(data.address);
+                    $('#add_city_pre').val(data.city_id);
+                    $('#add_pincode_update').val(data.pincode);
 
-                        $('#add_name').attr('disabled', 'disabled');
-                        $('#add_email').attr('disabled', 'disabled');
-                        $('#add_contact').attr('disabled', 'disabled');
-                        $('#add_address').attr('disabled', 'disabled');
-                        $('#add_city').attr('disabled', 'disabled');
-                        $('#add_pincode').attr('disabled', 'disabled');
-                        $('#update_address').removeAttr('class', 'hidden');
-                    },
-                    error: function (xhr, status, error) {
-                        ShowErrorPopupMsg('Error in uploading...');
-                        $('#userpostForm').css("opacity", "");
-                        // $('#err1').html(xhr.responseText);
-                        // ShowErrorPopupMsg(xhr.message);
-                    }
-                });
-            } else {
-                $('#update_address').attr('class', 'hidden');
-                $('#save_address').attr('class', 'hidden');
-                empty_address();
-            }
+//                        $('#add_name').attr('disabled', 'disabled');
+//                        $('#add_email').attr('disabled', 'disabled');
+//                        $('#add_contact').attr('disabled', 'disabled');
+//                        $('#add_address').attr('disabled', 'disabled');
+//                        $('#add_city').attr('disabled', 'disabled');
+//                        $('#add_pincode').attr('disabled', 'disabled');
+//                        $('#update_address').removeAttr('class', 'hidden');
+                },
+                error: function (xhr, status, error) {
+                    ShowErrorPopupMsg('Error in uploading...');
+                    $('#userpostForm').css("opacity", "");
+                    // $('#err1').html(xhr.responseText);
+                    // ShowErrorPopupMsg(xhr.message);
+                }
+            });
+//            } else {
+//                $('#update_address').attr('class', 'hidden');
+//                $('#save_address').attr('class', 'hidden');
+//                empty_address();
+//            }
         }
 
     </script>
