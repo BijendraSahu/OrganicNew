@@ -25,25 +25,37 @@ class CityController extends Controller
 
     public function add_updatecity()
     {
-        $data = array(
-            'state_id' => request('stateid'),
-            'city_name' => request('city')
+        try{
 
-        );
-        CityModel::where('id', request('IDD'))
-            ->update($data);
-        return 1;
+            $data = array(
+                'state_id' => request('stateid'),
+                'city' => request('city')
+
+            );
+            CityModel::where('id', request('IDD'))
+                ->update($data);
+            return 1;
+        }catch(\Exception $ex)
+        {
+            return $ex->getMessage();
+        }
+
     }
 
 
     public function delete_city()
     {
-        $data = array(
-            'is_deleted' => '1',
+        try{
+            $data = array(
+                'is_deleted' => '1',
+            );
+            CityModel::where('id', request('IDD'))
+                ->update($data);
+            return 1;
+        }catch(\Exception $ex)
+        {
+            $ex->getMessage();
+        }
 
-        );
-        CityModel::where('id', request('IDD'))
-            ->update($data);
-        return 1;
     }
 }

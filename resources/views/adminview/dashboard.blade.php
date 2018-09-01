@@ -36,7 +36,7 @@
                <section id="menu1">
                     <div class="home_brics_row">
                         <?php $cdata= \App\ItemCategory::where(['is_active'=>1])->count();?>
-                        <a href="/category"><div class="col-sm-3">
+                        <a href="{{url('/category')}}"><div class="col-sm-3">
                             <div class="white_brics">
                                 <div class="white_icon_withtxt">
                                     <div class="white_icons_blk"><i class="mdi mdi-tag"></i></div>
@@ -48,7 +48,7 @@
                         </div>
                         </a>
                             <?php $idata= \App\ItemMaster::where(['is_active'=>1])->count();?>
-                        <a href="/items">
+                        <a href="{{url('/items')}}">
                         <div class="col-sm-3">
                             <div class="white_brics">
                                 <div class="white_icon_withtxt">
@@ -63,7 +63,7 @@
                         </div>
                         </a>
                             <?php $udata= \App\UserMaster::where(['is_active'=>1])->count();?>
-                         <a href="/userlist">
+                         <a href="{{url('/userlist')}}">
                         <div class="col-sm-3">
                             <div class="white_brics">
                                 <div class="white_icon_withtxt">
@@ -77,7 +77,7 @@
                         </div>
                          </a>
                             <?php $odata= \App\OrderMaster::where(['is_active'=>1])->count();?>
-                            <a href="/orderlist">
+                            <a href="{{url('/orderlist')}}">
                         <div class="col-sm-3">
                             <div class="white_brics">
                                 <div class="white_icon_withtxt">
@@ -240,7 +240,7 @@
                 <section id="menu1">
                     <div class="home_brics_row">
                         <?php $ddata= \App\DeliveryModel::where(['is_active'=>1])->count();?>
-                        <a href="/delivery">
+                        <a href="{{url('/delivery')}}">
                             <div class="col-sm-3">
                                 <div class="white_brics">
                                     <div class="white_icon_withtxt">
@@ -255,7 +255,7 @@
                         </a>
 
 
-                        <a href="/review">
+                        <a href="{{url('/review')}} ">
                             <?php $rdata= \App\Review::where(['is_active'=>1])->count();?>
                             <div class="col-sm-3">
                                 <div class="white_brics">
@@ -272,7 +272,7 @@
 
 
 
-                        <a href="/statelist">
+                        <a href="/statelist {{url('')}}">
                             <?php $sdata= \App\StateModel::where(['is_deleted'=>0])->count();?>
                             <div class="col-sm-3">
                                 <div class="white_brics">
@@ -288,7 +288,7 @@
                             </div>
                         </a>
                             <?php $cidata= \App\Cities::count();?>
-                        <a href="/citylist"><div class="col-sm-3">
+                        <a href="{{url('/citylist')}}"><div class="col-sm-3">
                                 <div class="white_brics">
                                     <div class="white_icon_withtxt">
                                         <div class="white_icons_blk"><i class=" mdi mdi-map-marker"></i></div>
@@ -450,7 +450,7 @@
                     <div class="home_brics_row">
 
 
-                        <a href="/ask"><div class="col-sm-3">
+                        <a href="{{url('/ask')}}"><div class="col-sm-3">
                                 <?php $Askdata= \App\AskModel::count();?>
 
                                 <div class="white_brics">
@@ -463,7 +463,7 @@
                                 </div>
                             </div>
                         </a>
-                        <a href="/blog">
+                        <a href="{{url('/blog')}}">
                             <?php $blogdata= \App\Blogmodel::count();?>
                             <div class="col-sm-3">
                                 <div class="white_brics">

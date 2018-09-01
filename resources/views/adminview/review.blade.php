@@ -60,6 +60,10 @@
         .slider.round:before {
             border-radius: 50%;
         }
+        .hidealways
+        {
+
+        }
     </style>
 
     <section class="box_containner" id="fullid">
@@ -91,6 +95,7 @@
                                         </thead>
                                         <tbody>
                                         <section id="allrow">
+                                            <p id="norecord"></p>
                                         @foreach($review_data as $review_obj)
                                        <tr>
                                            <td>{{$review_obj->name}}</td>
@@ -128,6 +133,9 @@
         </div>
     </section>
     <script>
+        $( document ).ready(function() {
+            $('#norecord').hide();
+        });
         function aprove(id)
         {
             var IDD=id;
@@ -188,6 +196,7 @@
                     found = false;
                 } else {
                     tr[i].style.display = "none";
+
                 }
             }
         }

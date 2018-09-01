@@ -29,42 +29,53 @@
                                         </thead>
                                         <tbody>
                                         @foreach($citydata as $mydataown)
-                                        <tr>
+                                            @if($mydataown->is_deleted=='0')
+                                            <tr>
 
-                                            <td id="state{{$mydataown->id}}">{{$mydataown->cityname->state_name}}</td>
-                                            <td id="city{{$mydataown->id}}">{{$mydataown->city}}</td>
+                                                <td>{{$mydataown->cityname->state_name}}</td>
+                                                <input type="hidden" id="state{{$mydataown->id}}"
+                                                       value="{{$mydataown->cityname->state_name}}">
+                                                <td>{{$mydataown->city}}</td>
+                                                <input type="hidden" id="city{{$mydataown->id}}"
+                                                       value="{{$mydataown->city}}">
 
-                                            <input id="value{{$mydataown->id}}" type="hidden" value="{{$mydataown->state_id}}">
-                                            <td>
-                                                <button type="button" onclick="updatecity({{$mydataown->id}});" class="btn btn-success btn-xs">Update</button>
-                                                <button type="button" onclick="deletecity({{$mydataown->id}});"  class="btn btn-info btn-xs">Delete</button>
-                                            </td>
-                                        </tr>
+                                                <input id="value{{$mydataown->id}}" type="hidden"
+                                                       value="{{$mydataown->state_id}}">
+                                                <td>
+                                                    <button type="button" onclick="updatecity({{$mydataown->id}});"
+                                                            class="btn btn-success btn-xs">Update
+                                                    </button>
+                                                    <button type="button" onclick="deletecity({{$mydataown->id}});"
+                                                            class="btn btn-info btn-xs">Delete
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            @endif
 
-                                            @endforeach
+                                        @endforeach
                                         </tbody>
 
                                         <script>
-                                            function updatecity(id)
-                                            {
-                                                var idd=id;
-                                                var mydata=$('#city'+id).html();
-                                                var mystate=$('#state'+id).html();
-                                                var myvalue=$('#value'+id).val();
+                                            function updatecity(id) {
+                                                var idd = id;
+                                                var mydata = $('#city' + id).val();
+                                                var mystate = $('#state' + id).val();
+                                                var myvalue = $('#value' + id).val();
                                                 $('#smallheader').html('');
                                                 $('#smallbody').html('');
                                                 $('#smallfooter').html('');
-                                                $('#smallheader').append('<div><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Add State</h4></div>');
-                                                $('#smallbody').append('<select name="carlist" id="state_id" class="form-control"><option value="">Select State</option>@foreach($statedata as $stateobj) @if($stateobj->is_deleted=='0') <option value="{{$stateobj->id}}">{{$stateobj->state_name}}</option>@endif @endforeach </select> <p></p><input type="text" name="city" id="city" placeholder="Enter City Name" class="form-control"><p></p>');
-                                                $('#smallfooter').append('<button id="add_btn" type="button" class="btn btn-default" data-dismiss="modal">Close</button><button onclick="addupdatecity('+id+');" class="btn btn-primary">Add</button>');
+                                                $('#smallheader').append('<div><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Update City</h4></div>');
+                                                $('#smallbody').append('<select name="carlist" id="state_id" class="form-control"><option value="'+myvalue+'">'+mystate+'</option><option value="">Select State</option>@foreach($statedata as $stateobj) @if($stateobj->is_deleted=='0') <option value="{{$stateobj->id}}">{{$stateobj->state_name}}</option>@endif @endforeach </select><p></p><input type="text" name="city" id="city" value="'+mydata+'" placeholder="Enter City Name" class="form-control"><p></p>');
+                                                $('#smallfooter').append('<button id="add_btn" type="button" class="btn btn-default" data-dismiss="modal">Close</button><button onclick="addupdatecity('+id+');" class="btn btn-primary">Update</button>');
                                                 $('#myModalsmall').modal();
 
 
                                             }
-                                            function deletecity(id)
-                                            {
-                                                var IDD=id;
+
+                                            function deletecity(id) {
+                                                var IDD = id;
                                                 $.get('{{url('delete_city')}}', {IDD: IDD}, function (data) {
+                                                    alert(data);
                                                     $('#myModalsmall').modal('hide');
                                                     $("#item_list").load(location.href + " #item_list");
                                                     myFunction();
@@ -75,29 +86,32 @@
                                                 });
                                             }
 
-                                            function addupdatecity(id)
-                                            {
-                                                var stateid=$('#state_id').val();
-                                                var city=$('#city').val();
-                                                var IDD=id;
+                                            function addupdatecity(id) {
+                                                var stateid = $('#state_id').val();
+                                                var city = $('#city').val();
+                                                var IDD = id;
 
                                                 if (stateid == "") {
                                                     $('#state_id').addClass("valmy");
                                                     return false;
                                                 }
-                                                else if(city=="")
-                                                {
+                                                else if (city == "") {
                                                     $('#city').addClass("valmy");
                                                     return false;
                                                 }
                                                 else {
-                                                    $.get('{{url('add_updatecity')}}', {stateid: stateid,city: city,IDD: IDD}, function (data) {
+                                                    $.get('{{url('add_updatecity')}}', {
+                                                        stateid: stateid,
+                                                        city: city,
+                                                        IDD: IDD
+                                                    }, function (data) {
+
                                                         $('#myModalsmall').modal('hide');
                                                         $("#item_list").load(location.href + " #item_list");
                                                         myFunction();
                                                         $('#snackbar').html('');
                                                         $('#snackbar').addClass('show');
-                                                        $('#snackbar').html('City Added Successfully');
+                                                        $('#snackbar').html('City Updated Successfully');
 
                                                     });
                                                 }
@@ -113,13 +127,16 @@
                 </section>
 
 
-
             </div>
         </div>
+
+
+
+
+
     </section>
     <script>
-        function opencityform()
-        {
+        function opencityform() {
             $('#smallheader').html('');
             $('#smallbody').html('');
             $('#smallfooter').html('');
@@ -128,31 +145,30 @@
             $('#smallfooter').append('<button id="add_btn" type="button" class="btn btn-default" data-dismiss="modal">Close</button><button onclick="addcity();" class="btn btn-primary">Add</button>');
             $('#myModalsmall').modal();
         }
-        function addcity()
-        {
-            var stateid=$('#state_id').val();
-            var city=$('#city').val();
 
-                if (stateid == "") {
-                    $('#state_id').addClass("valmy");
-                    return false;
-                }
-                else if(city=="")
-                {
-                    $('#city').addClass("valmy");
-                    return false;
-                }
-                else {
-                    $.get('{{url('add_city')}}', {stateid: stateid,city: city}, function (data) {
-                        $('#myModalsmall').modal('hide');
-                        $("#item_list").load(location.href + " #item_list");
-                        myFunction();
-                        $('#snackbar').html('');
-                        $('#snackbar').addClass('show');
-                        $('#snackbar').html('City Added Successfully');
+        function addcity() {
+            var stateid = $('#state_id').val();
+            var city = $('#city').val();
 
-                    });
-                }
+            if (stateid == "") {
+                $('#state_id').addClass("valmy");
+                return false;
+            }
+            else if (city == "") {
+                $('#city').addClass("valmy");
+                return false;
+            }
+            else {
+                $.get('{{url('add_city')}}', {stateid: stateid, city: city}, function (data) {
+                    $('#myModalsmall').modal('hide');
+                    $("#item_list").load(location.href + " #item_list");
+                    myFunction();
+                    $('#snackbar').html('');
+                    $('#snackbar').addClass('show');
+                    $('#snackbar').html('City Added Successfully');
+
+                });
+            }
 
 
         }
