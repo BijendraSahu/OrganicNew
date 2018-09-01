@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,11 +8,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="shortcut icon" type="images/png" href="{{url('assets/images/odfevicon.png')}}"/>
-    <link rel="stylesheet" href="{{url('assets/css/bootstrap.css')}}" />
-    <link rel="stylesheet" href="{{url('assets/css/bootstrap.min.css')}}" />
-    <link rel="stylesheet" href="{{url('assets/css/materialdesignicons.min.css')}}" />
-    <link rel="stylesheet" href="{{url('assets/css/Dashboard.css')}}" />
-    <link rel="stylesheet" href="{{url('assets/css/Autocomplete.css')}}" />
+    <link rel="stylesheet" href="{{url('assets/css/bootstrap.css')}}"/>
+    <link rel="stylesheet" href="{{url('assets/css/bootstrap.min.css')}}"/>
+    <link rel="stylesheet" href="{{url('assets/css/materialdesignicons.min.css')}}"/>
+    <link rel="stylesheet" href="{{url('assets/css/Dashboard.css')}}"/>
+    <link rel="stylesheet" href="{{url('assets/css/Autocomplete.css')}}"/>
     <link rel="stylesheet" href="{{url('assets/css/media.css')}}"/>
     <link rel="stylesheet" href="{{url('assets/css/w3.css')}}"/>
     <link rel="stylesheet" href="{{url('assets/css/form-wizard-green.css')}}">
@@ -34,6 +33,7 @@
             /* var sethtm = $(grandPar).html();
              $("#txtEditor").Editor("setText", sethtm);*/
         }
+
         $(document).ready(function () {
             $(function () {
                 $('[data-toggle="tooltip"]').tooltip()
@@ -53,33 +53,35 @@
         });
     </script>
     <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet"/>
     <script type="text/javascript">
-        function  HideTranparent() {
+        function HideTranparent() {
             $('.overlay_res').fadeOut();
             $('.dash_sidemenu').removeClass('dash_sidemenu_show');
-            $('body').css('overflow','auto');
+            $('body').css('overflow', 'auto');
         }
+
         function ResponsiveMenuClick() {
 
             $('.overlay_res').fadeIn();
             $('.dash_sidemenu').addClass('dash_sidemenu_show');
-            $('body').css('overflow','hidden');
+            $('body').css('overflow', 'hidden');
         }
+
         $(document).ready(function () {
             /*date Picker*/
-           /* $('.glo_date').datepicker({
-                format: 'dd-M-yyyy', autoclose: true
-            }).on('changeDate', function (event) {
-                if ($('#date_of_birth').val() != "") {
-                    $("#date_of_birth").removeClass('vErrorRed');
-                }
-            });
-            /!*-----Time Picker-----*!/
-            $('.glo_timepicker').timepicker();
-            /!*--------Autocomplete ------*!/
-            $('.Glo_autocomplete').select2();
-            /!*----Header Tooltip--------*!/*/
+            /* $('.glo_date').datepicker({
+                 format: 'dd-M-yyyy', autoclose: true
+             }).on('changeDate', function (event) {
+                 if ($('#date_of_birth').val() != "") {
+                     $("#date_of_birth").removeClass('vErrorRed');
+                 }
+             });
+             /!*-----Time Picker-----*!/
+             $('.glo_timepicker').timepicker();
+             /!*--------Autocomplete ------*!/
+             $('.Glo_autocomplete').select2();
+             /!*----Header Tooltip--------*!/*/
             // Tooltip jquery
             $('.Glo_autocomplete').select2();
             $('.grid_title').hover(function () {
@@ -96,6 +98,7 @@
                 $('.icon_tp').hide();
             });
         });
+
         function MenuClick(dis) {
             $('.dash_sub_menu').slideUp();
             $('.right_menu_li').find('i').removeClass('mdi-chevron-down');
@@ -111,53 +114,60 @@
                 $(dis).find('i').addClass('mdi-chevron-down');
             }
         }
+
         function GridHeaderCheck(dis) {
             $('input[type="checkbox"]').prop("checked", $(dis).prop("checked"));
         }
     </script>
     <style>
-               .fab {
+        .fab {
             cursor: pointer;
         }
+
         .fab-backdrop {
             color: rgba(255, 255, 255, 0);
         }
+
         .fab-primary, .fab-secondary {
             transition: all 0.35s ease-in-out;
         }
+
         .fab.active .fab-primary {
             opacity: 0;
             transform: rotate(225deg);
         }
+
         .fab-secondary {
             opacity: 0;
             transform: rotate(-225deg);
         }
+
         .fab.active .fab-secondary {
             opacity: 1;
             transform: rotate(0);
             margin-top: -2px;
         }
 
-
-
         #inbox .show-on-hover:hover > ul.dropdown-menu {
             display: block;
 
         }
+
         #inbox .show-on-hover {
             position: fixed;
             bottom: 20px;
             right: 30px;
             z-index: 9999;
         }
-        #inbox .btn-io{
+
+        #inbox .btn-io {
             border-radius: 50%;
             height: 54px;
             width: 54px;
             padding: 0 !important;
             box-shadow: 0px 3px 7px 0px rgba(202, 124, 124, 0.72);
         }
+
         #inbox .dropup .dropdown-menu, .navbar-fixed-bottom .dropdown .dropdown-menu {
             top: auto;
             bottom: 100%;
@@ -165,10 +175,12 @@
             margin-bottom: -5px;
             padding-bottom: 30px;
         }
+
         #inbox .dropdown-menu-right {
             right: 0 !Important;
             left: auto !Important;
         }
+
         #inbox .dropdown-menu {
             position: absolute;
             top: 100%;
@@ -190,9 +202,11 @@
             -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0) !Important;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0) !Important;
         }
-        #inbox .fa-iox{
+
+        #inbox .fa-iox {
             font-size: 22px;
         }
+
         #inbox .dropdown-menu > li > a {
             display: block;
             padding: 0;
@@ -211,30 +225,31 @@
             font-size: 21px;
             box-shadow: 0px 3px 7px 0px rgba(203, 203, 203, 0.72);
         }
-        #inbox .dropdown-menu > li:first-child>a {
+
+        #inbox .dropdown-menu > li:first-child > a {
             background: #c67fd6 !important;
             color: #fff !important;
         }
-        #inbox .dropdown-menu > li:last-child>a {
+
+        #inbox .dropdown-menu > li:last-child > a {
             background: #D3A516;
             color: #fff;
         }
-        #inbox .dropdown-menu > li:nth-child(3)>a {
+
+        #inbox .dropdown-menu > li:nth-child(3) > a {
             background: #3C80F6;
             color: #fff;
         }
-        #inbox .dropdown-menu > li:nth-child(2)>a {
+
+        #inbox .dropdown-menu > li:nth-child(2) > a {
             background: #2CAC26;
             color: #fff;
         }
-        #inbox .fa-iosm{
+
+        #inbox .fa-iosm {
 
             margin-top: 7px;
         }
-
-
-
-
 
         #snackbar {
             visibility: hidden;
@@ -260,23 +275,47 @@
         }
 
         @-webkit-keyframes fadein {
-            from {bottom: 0; opacity: 0;}
-            to {bottom: 22px; opacity: 1;}
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+            to {
+                bottom: 22px;
+                opacity: 1;
+            }
         }
 
         @keyframes fadein {
-            from {bottom: 0; opacity: 0;}
-            to {bottom: 22px; opacity: 1;}
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+            to {
+                bottom: 22px;
+                opacity: 1;
+            }
         }
 
         @-webkit-keyframes fadeout {
-            from {bottom: 22px; opacity: 1;}
-            to {bottom: 0; opacity: 0;}
+            from {
+                bottom: 22px;
+                opacity: 1;
+            }
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
         }
 
         @keyframes fadeout {
-            from {bottom: 22px; opacity: 1;}
-            to {bottom: 0; opacity: 0;}
+            from {
+                bottom: 22px;
+                opacity: 1;
+            }
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
         }
 
         .btn_center {
@@ -287,46 +326,53 @@
         .update_btn {
             display: none;
         }
+
         .hidealways {
             display: none;
         }
-        .label_checkbox
-        {
+
+        .label_checkbox {
             display: inline-block;
         }
 
-        .label_checkbox .cr{
+        .label_checkbox .cr {
             margin: 0px 5px;
         }
-        .newrow
-        {
+
+        .newrow {
             background: #1e81cd52 !important;
         }
+
         .border_none {
             border: none !important;
         }
+
         .valmy {
             border: 2px solid red;
             background-color: #dc464629;
         }
-.pcb{
-    overflow-y: scroll;
-    overflow-x: initial;
-}
-        .pcb::-webkit-scrollbar{
+
+        .pcb {
+            overflow-y: scroll;
+            overflow-x: initial;
+        }
+
+        .pcb::-webkit-scrollbar {
             display: none;
         }
-        .ali
-        {
+
+        .ali {
             margin-left: 685px;
         }
-               .hidealways {
-                   display: none;
-               }
 
-        .container{
-            margin-top:20px;
+        .hidealways {
+            display: none;
         }
+
+        .container {
+            margin-top: 20px;
+        }
+
         .image-preview-input {
             position: relative;
             overflow: hidden;
@@ -335,6 +381,7 @@
             background-color: #fff;
             border-color: #ccc;
         }
+
         .image-preview-input input[type=file] {
             position: absolute;
             top: 0;
@@ -346,21 +393,22 @@
             opacity: 0;
             filter: alpha(opacity=0);
         }
+
         .image-preview-input-title {
-            margin-left:2px;
+            margin-left: 2px;
         }
 
-
-        p{
+        p {
             font-size: 15px;
         }
 
-        h3{
+        h3 {
             font-weight: bolder;
             font-size: 25px;
 
         }
-        .blog_detail_box{
+
+        .blog_detail_box {
             font-size: 15px;
             font-weight: 300;
             letter-spacing: .3px;
@@ -369,34 +417,35 @@
             line-height: 1.5;
 
         }
+
         .one {
 
-            margin:18px 60px 0px 0px;
+            margin: 18px 60px 0px 0px;
             border-radius: 5px;
             text-align: center;
         }
 
-        .shadow{
+        .shadow {
             margin-left: 26px;
             border-radius: 7px;
             display: inline-block;
             overflow: hidden;
-            -webkit-box-shadow: 0 8px 17px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.19);
-            box-shadow: 0 8px 17px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.19);
+            -webkit-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19);
+            box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19);
         }
 
-        .two{
+        .two {
             margin-top: 20px;
         }
 
-        .line{
+        .line {
             padding-bottom: 20px;
             border-bottom: solid thin #ccc;
         }
 
         .button {
             border-radius: 4px;
-            background-color:#4285f4;
+            background-color: #4285f4;
             border: none;
             color: #FFFFFF;
             text-align: center;
@@ -408,7 +457,8 @@
             margin: 0px;
 
         }
-        .first{
+
+        .first {
             height: 240px;
             border-radius: 5px;
             width: 320px;
@@ -479,27 +529,25 @@
                 $('#fixed_nav').removeClass('on_fullscreen_fixed');
             }
         }
+
         function MenuShift(dis) {
-            var checkclass=$('#page_body').attr('class');
-            if(checkclass == "body_color")
-            {
+            var checkclass = $('#page_body').attr('class');
+            if (checkclass == "body_color") {
                 $('#page_body').addClass('collapse_side');
                 $(dis).find('.left_show').show();
                 $(dis).find('.right_show').hide();
-                $(dis).css('left','83px');
-            }else
-            {
+                $(dis).css('left', '83px');
+            } else {
                 $('#page_body').removeClass('collapse_side');
                 $(dis).find('.right_show').show();
                 $(dis).find('.left_show').hide();
-                $(dis).css('left','216px');
+                $(dis).css('left', '216px');
             }
         }
     </script>
-    <script >
-        function settings()
-        {
-            var id=2;
+    <script>
+        function settings() {
+            var id = 2;
             $('#myheader').html('');
             $('#mybody').html('');
             $('#myfooter').html('');
@@ -526,7 +574,7 @@
         }
     </script>
     <style>
-        .abc{
+        .abc {
             position: fixed;
             z-index: 1000;
             left: 216px;
@@ -539,7 +587,8 @@
             overflow: hidden;
             background-color: #ddd;
         }
-        .loader:before{
+
+        .loader:before {
             display: block;
             position: absolute;
             content: "";
@@ -553,21 +602,47 @@
         }
 
         @-webkit-keyframes loading {
-            from {left: -200px; width: 30%;}
-            50% {width: 30%;}
-            70% {width: 70%;}
-            80% { left: 50%;}
-            95% {left: 120%;}
-            to {left: 100%;}
+            from {
+                left: -200px;
+                width: 30%;
+            }
+            50% {
+                width: 30%;
+            }
+            70% {
+                width: 70%;
+            }
+            80% {
+                left: 50%;
+            }
+            95% {
+                left: 120%;
+            }
+            to {
+                left: 100%;
+            }
         }
 
         @keyframes loading {
-            from {left: -200px; width: 30%;}
-            50% {width: 30%;}
-            70% {width: 70%;}
-            80% { left: 50%;}
-            95% {left: 120%;}
-            to {left: 100%;}
+            from {
+                left: -200px;
+                width: 30%;
+            }
+            50% {
+                width: 30%;
+            }
+            70% {
+                width: 70%;
+            }
+            80% {
+                left: 50%;
+            }
+            95% {
+                left: 120%;
+            }
+            to {
+                left: 100%;
+            }
         }
     </style>
 </head>
@@ -580,16 +655,17 @@
     <div class="option-container">
 
         <div class="user-info glo_menuclick">
-           {{-- <img src="images/Male_default.png" class="profile_img">--}}<span>{{ucfirst($_SESSION['admin_master']['username'])}}</span>
+            {{-- <img src="images/Male_default.png" class="profile_img">--}}
+            <span>{{ucfirst($_SESSION['admin_master']['username'])}}</span>
             <span class="caret"></span>
             <div class="menu_basic_popup menu_popup_setting effect scale0">
                 <div class="menu_popup_containner padding0">
-                   {{-- <div class="menu_popup_settingrow effect">
-                        <a href="#" class="menu_setting_row">
-                            <i class="mdi mdi-account-edit global_color"></i>
-                            Edit Profile
-                        </a>
-                    </div>--}}
+                    {{-- <div class="menu_popup_settingrow effect">
+                         <a href="#" class="menu_setting_row">
+                             <i class="mdi mdi-account-edit global_color"></i>
+                             Edit Profile
+                         </a>
+                     </div>--}}
                     <div class="menu_popup_settingrow effect">
                         <a href="#" onclick="settings();" class="menu_setting_row">
                             <i class="mdi mdi-account-settings-variant global_color"></i>
@@ -620,21 +696,27 @@
                 <div class="menu_popup_head">Notification</div>
                 <div class="menu_popup_containner">
                     <div class="menu_popup_row">
-                        <div class="menu_popup_imgbox"><img src="{{url('assets/images/Male_default.png')}}" class="profile_img"></div>
+                        <div class="menu_popup_imgbox"><img src="{{url('assets/images/Male_default.png')}}"
+                                                            class="profile_img"></div>
                         <div class="menu_popup_text">
                             <p class="popup_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                                 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
                                 veniam,</p>
-                            <div class="popup_iconwithtime"><i class="mdi mdi-calendar-clock global_color"></i> 28-Dec-2017</div>
+                            <div class="popup_iconwithtime"><i class="mdi mdi-calendar-clock global_color"></i>
+                                28-Dec-2017
+                            </div>
                         </div>
                     </div>
                     <div class="menu_popup_row">
-                        <div class="menu_popup_imgbox"><img src="{{url('assets/images/Male_default.png')}}" class="profile_img"></div>
+                        <div class="menu_popup_imgbox"><img src="{{url('assets/images/Male_default.png')}}"
+                                                            class="profile_img"></div>
                         <div class="menu_popup_text">
                             <p class="popup_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                                 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
                                 veniam,</p>
-                            <div class="popup_iconwithtime"><i class="mdi mdi-calendar-clock global_color"></i> 28-Dec-2017</div>
+                            <div class="popup_iconwithtime"><i class="mdi mdi-calendar-clock global_color"></i>
+                                28-Dec-2017
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -650,11 +732,13 @@
                 <div class="menu_popup_head">Messages</div>
                 <div class="menu_popup_containner style-scroll">
                     <div class="menu_popup_row">
-                        <div class="menu_popup_imgbox"><img src="{{url('assets/images/Male_default.png')}}" class="profile_img"></div>
+                        <div class="menu_popup_imgbox"><img src="{{url('assets/images/Male_default.png')}}"
+                                                            class="profile_img"></div>
                         <div class="menu_popup_massage">
                             <div class="popup_user_namewithdate">
                                 Pinku Kesharwani
-                                <div class="popup_iconwithtime_right"><i class="mdi mdi-calendar-clock global_color"></i> 28-Dec-2017
+                                <div class="popup_iconwithtime_right"><i
+                                            class="mdi mdi-calendar-clock global_color"></i> 28-Dec-2017
                                 </div>
                             </div>
                             <div class="popup_user_massagetxt">
@@ -663,11 +747,13 @@
                         </div>
                     </div>
                     <div class="menu_popup_row">
-                        <div class="menu_popup_imgbox"><img src="{{url('assets/images/Male_default.png')}}" class="profile_img"></div>
+                        <div class="menu_popup_imgbox"><img src="{{url('assets/images/Male_default.png')}}"
+                                                            class="profile_img"></div>
                         <div class="menu_popup_massage">
                             <div class="popup_user_namewithdate">
                                 Pinku Kesharwani
-                                <div class="popup_iconwithtime_right"><i class="mdi mdi-calendar-clock global_color"></i> 28-Dec-2017
+                                <div class="popup_iconwithtime_right"><i
+                                            class="mdi mdi-calendar-clock global_color"></i> 28-Dec-2017
                                 </div>
                             </div>
                             <div class="popup_user_massagetxt">
@@ -676,11 +762,13 @@
                         </div>
                     </div>
                     <div class="menu_popup_row">
-                        <div class="menu_popup_imgbox"><img src="{{url('assets/images/Male_default.png')}}" class="profile_img"></div>
+                        <div class="menu_popup_imgbox"><img src="{{url('assets/images/Male_default.png')}}"
+                                                            class="profile_img"></div>
                         <div class="menu_popup_massage">
                             <div class="popup_user_namewithdate">
                                 Pinku Kesharwani
-                                <div class="popup_iconwithtime_right"><i class="mdi mdi-calendar-clock global_color"></i> 28-Dec-2017
+                                <div class="popup_iconwithtime_right"><i
+                                            class="mdi mdi-calendar-clock global_color"></i> 28-Dec-2017
                                 </div>
                             </div>
                             <div class="popup_user_massagetxt">
@@ -689,11 +777,13 @@
                         </div>
                     </div>
                     <div class="menu_popup_row">
-                        <div class="menu_popup_imgbox"><img src="{{url('assets/images/Male_default.png')}}" class="profile_img"></div>
+                        <div class="menu_popup_imgbox"><img src="{{url('assets/images/Male_default.png')}}"
+                                                            class="profile_img"></div>
                         <div class="menu_popup_massage">
                             <div class="popup_user_namewithdate">
                                 Pinku Kesharwani
-                                <div class="popup_iconwithtime_right"><i class="mdi mdi-calendar-clock global_color"></i> 28-Dec-2017
+                                <div class="popup_iconwithtime_right"><i
+                                            class="mdi mdi-calendar-clock global_color"></i> 28-Dec-2017
                                 </div>
                             </div>
                             <div class="popup_user_massagetxt">
@@ -702,11 +792,13 @@
                         </div>
                     </div>
                     <div class="menu_popup_row">
-                        <div class="menu_popup_imgbox"><img src="{{url('assets/images/Male_default.png')}}" class="profile_img"></div>
+                        <div class="menu_popup_imgbox"><img src="{{url('assets/images/Male_default.png')}}"
+                                                            class="profile_img"></div>
                         <div class="menu_popup_massage">
                             <div class="popup_user_namewithdate">
                                 Pinku Kesharwani
-                                <div class="popup_iconwithtime_right"><i class="mdi mdi-calendar-clock global_color"></i> 28-Dec-2017
+                                <div class="popup_iconwithtime_right"><i
+                                            class="mdi mdi-calendar-clock global_color"></i> 28-Dec-2017
                                 </div>
                             </div>
                             <div class="popup_user_massagetxt">
@@ -715,11 +807,13 @@
                         </div>
                     </div>
                     <div class="menu_popup_row">
-                        <div class="menu_popup_imgbox"><img src="{{url('assets/images/Male_default.png')}}" class="profile_img"></div>
+                        <div class="menu_popup_imgbox"><img src="{{url('assets/images/Male_default.png')}}"
+                                                            class="profile_img"></div>
                         <div class="menu_popup_massage">
                             <div class="popup_user_namewithdate">
                                 Pinku Kesharwani
-                                <div class="popup_iconwithtime_right"><i class="mdi mdi-calendar-clock global_color"></i> 28-Dec-2017
+                                <div class="popup_iconwithtime_right"><i
+                                            class="mdi mdi-calendar-clock global_color"></i> 28-Dec-2017
                                 </div>
                             </div>
                             <div class="popup_user_massagetxt">
@@ -769,17 +863,20 @@
                 <i class="fa fa-plus fa-stack-1x fa-inverse fab-primary"></i>
                 <i class="fa fa-pencil fa-stack-1x fa-inverse fab-secondary"></i>
             </span>
-            </button></div>
+            </button>
+        </div>
         <ul class="dropdown-menu dropdown-menu-right" role="menu">
-            <li style="display: none;"><a href="#"  data-toggle="tooltip" data-placement="left" title="FullView"><i class="mdi mdi-fullscreen"></i></a></li>
-            <li><a href="#" onclick="toggleFullScreen(document.body);" data-toggle="tooltip" data-placement="left" title="FullView"><i class="mdi mdi-fullscreen"></i></a></li>
-            <li><a href="#" onclick="settings();" data-toggle="tooltip" data-placement="left" title="Settings"><i class="mdi mdi-account-settings-variant"></i></a></li>
-            <li><a href="{{url('/admin')}}" data-toggle="tooltip" data-placement="left" title="Dashboard"><i class="mdi mdi-speedometer"></i></a></li>
+            <li style="display: none;"><a href="#" data-toggle="tooltip" data-placement="left" title="FullView"><i
+                            class="mdi mdi-fullscreen"></i></a></li>
+            <li><a href="#" onclick="toggleFullScreen(document.body);" data-toggle="tooltip" data-placement="left"
+                   title="FullView"><i class="mdi mdi-fullscreen"></i></a></li>
+            <li><a href="#" onclick="settings();" data-toggle="tooltip" data-placement="left" title="Settings"><i
+                            class="mdi mdi-account-settings-variant"></i></a></li>
+            <li><a href="{{url('/admin')}}" data-toggle="tooltip" data-placement="left" title="Dashboard"><i
+                            class="mdi mdi-speedometer"></i></a></li>
         </ul>
     </div>
 </div>
-
-
 
 
 <div class="modal fade" id="myModalsmall" role="dialog">
@@ -806,108 +903,190 @@
         <i class="mdi mdi-arrow-right-bold left_show"></i>
     </div>
     <div class="logo_block">
-        <img src="{{url('assets/images/organic_logo1.png')}}" class="big_aside_icon" />
-        <img src="{{url('assets/images/odfevicon.png')}}" class="small_aside_icon" />
+        <img src="{{url('assets/images/organic_logo1.png')}}" class="big_aside_icon"/>
+        <img src="{{url('assets/images/odfevicon.png')}}" class="small_aside_icon"/>
     </div>
     <div class="dash_emp_details">
-        <img src="{{url('admin_pic/').'/'.$_SESSION['admin_master']['id'].'/'.$_SESSION['admin_master']['image']}}" class="dash_profile_img" />
+        <img src="{{url('admin_pic/').'/'.$_SESSION['admin_master']['id'].'/'.$_SESSION['admin_master']['image']}}"
+             class="dash_profile_img"/>
         <div class="dash_emp_basic">
             <span class="dash_name">{{ucfirst($_SESSION['admin_master']['username'])}}</span>
             <span class="dash_designation">Admin</span>
         </div>
     </div>
     <ul class="list-group dash_menu_ul">
-        <li class="right_menu_li">
-            <a href="{{url('/admin')}}">
-                <i class="dash_arrow mdi mdi-speedometer global_color"></i>
-                <span class="aside_menu_txt">Dashboard</span>
-            </a>
-        </li>
 
-        <li class="right_menu_li">
-            <a href="{{url('/category')}}">
-                <i class="dash_arrow mdi mdi-tag global_color"></i>
-                <span class="aside_menu_txt">Category</span>
-            </a>
-        </li>
-        <li class="right_menu_li">
-            <a href="{{url('/items')}}">
-                <i class="dash_arrow mdi mdi-content-duplicate global_color"></i>
-                <span class="aside_menu_txt">Items</span>
-            </a>
-        </li>
-        <li class="right_menu_li">
-            <a href="{{url('/userlist')}}">
-                <i class="dash_arrow mdi mdi-account-multiple global_color"></i>
-                <span class="aside_menu_txt">Users</span>
-            </a>
-        </li>
-        <li class="right_menu_li">
-            <a href="{{url('/orderlist')}}">
-                <i class="dash_arrow mdi mdi-clipboard-plus global_color"></i>
-                <span class="aside_menu_txt">Order</span>
-            </a>
-        </li>
-        <li class="right_menu_li">
-            <a href="{{url('/delivery')}}">
-                <i class="dash_arrow mdi mdi-gift global_color"></i>
-                <span class="aside_menu_txt">Delivery</span>
-            </a>
-        </li>
-        <li class="right_menu_li">
-            <a href="{{url('/review')}}">
-                <i class="dash_arrow mdi mdi-forum global_color"></i>
-                <span class="aside_menu_txt">Reviews</span>
-            </a>
-        </li>
-        <li class="right_menu_li">
-            <a href="{{url('/statelist')}}">
-                <i class="dash_arrow mdi mdi-earth global_color"></i>
-                <span class="aside_menu_txt">State</span>
-            </a>
-        </li>
-        <li class="right_menu_li">
-            <a href="{{url('/citylist')}}">
-                <i class="dash_arrow mdi mdi-map-marker global_color"></i>
-                <span class="aside_menu_txt">City</span>
-            </a>
-        </li>
-        <li class="right_menu_li">
-            <a href="{{url('/ask')}}">
-                <i class="dash_arrow mdi mdi-cellphone-android global_color"></i>
-                <span class="aside_menu_txt">Ask Caller</span>
-            </a>
-        </li>
-        <li class="right_menu_li">
-            <a href="{{url('/testimonials')}}">
-                <i class="dash_arrow mdi mdi-format-size global_color"></i>
-                <span class="aside_menu_txt">Testimonials</span>
-            </a>
-        </li>
-        <li class="right_menu_li">
-            <a href="{{url('/allreciepe')}}">
-                <i class="dash_arrow mdi mdi-radiator global_color"></i>
-                <span class="aside_menu_txt">All Reciepe</span>
-            </a>
-        </li>
-        <li class="right_menu_li">
-            <a href="{{url('/blog')}}">
-                <i class="dash_arrow mdi mdi-message-image global_color"></i>
-                <span class="aside_menu_txt">Blog</span>
-            </a>
-        </li>
-        <li class="right_menu_li">
-            <a href="{{url('/subscribe')}}">
-                <i class="dash_arrow mdi mdi-flag-checkered global_color"></i>
-                <span class="aside_menu_txt">Subscribe</span>
-            </a>
-        </li>
-        <li class="right_menu_li">
-            <a href="{{url('/rollmastermenu')}}">
-                <i class="dash_arrow mdi mdi mdi-account-settings-variant global_color"></i>
-                <span class="aside_menu_txt">Roll Master</span>
-            </a>
-        </li>
+        <?php $mymenuroll = \App\Menurolemodel::where(['user_id'=>$_SESSION['admin_master']->id])->get();?>
+
+
+
+
+        @foreach($mymenuroll as $mymenurollone)
+            @if($mymenurollone->menu_id==1)
+                <li class="right_menu_li">
+                    <a href="{{url('/admin')}}">
+                        <i class="dash_arrow mdi mdi-speedometer global_color"></i>
+                        <span class="aside_menu_txt">Dashboard</span>
+                    </a>
+                </li>
+            @endif
+        @endforeach
+        @foreach($mymenuroll as $mymenurollone)
+            @if($mymenurollone->menu_id==2)
+                <li class="right_menu_li">
+                    <a href="{{url('/category')}}">
+                        <i class="dash_arrow mdi mdi-tag global_color"></i>
+                        <span class="aside_menu_txt">Category</span>
+                    </a>
+                </li>
+            @endif
+        @endforeach
+
+
+        @foreach($mymenuroll as $mymenurollone)
+            @if($mymenurollone->menu_id==3)
+                <li class="right_menu_li">
+                    <a href="{{url('/items')}}">
+                        <i class="dash_arrow mdi mdi-content-duplicate global_color"></i>
+                        <span class="aside_menu_txt">Items</span>
+                    </a>
+                </li>
+            @endif
+        @endforeach
+
+        @foreach($mymenuroll as $mymenurollone)
+            @if($mymenurollone->menu_id==4)
+                <li class="right_menu_li">
+                    <a href="{{url('/userlist')}}">
+                        <i class="dash_arrow mdi mdi-account-multiple global_color"></i>
+                        <span class="aside_menu_txt">Users</span>
+                    </a>
+                </li>
+            @endif
+        @endforeach
+
+
+
+
+        @foreach($mymenuroll as $mymenurollone)
+            @if($mymenurollone->menu_id==5)
+                <li class="right_menu_li">
+                    <a href="{{url('/orderlist')}}">
+                        <i class="dash_arrow mdi mdi-clipboard-plus global_color"></i>
+                        <span class="aside_menu_txt">Order</span>
+                    </a>
+                </li>
+            @endif
+        @endforeach
+
+        @foreach($mymenuroll as $mymenurollone)
+            @if($mymenurollone->menu_id==6)
+                <li class="right_menu_li">
+                    <a href="{{url('/delivery')}}">
+                        <i class="dash_arrow mdi mdi-gift global_color"></i>
+                        <span class="aside_menu_txt">Delivery</span>
+                    </a>
+                </li>
+            @endif
+        @endforeach
+
+        @foreach($mymenuroll as $mymenurollone)
+            @if($mymenurollone->menu_id==7)
+                <li class="right_menu_li">
+                    <a href="{{url('/review')}}">
+                        <i class="dash_arrow mdi mdi-forum global_color"></i>
+                        <span class="aside_menu_txt">Reviews</span>
+                    </a>
+                </li>
+            @endif
+        @endforeach
+
+        @foreach($mymenuroll as $mymenurollone)
+            @if($mymenurollone->menu_id==8)
+                <li class="right_menu_li">
+                    <a href="{{url('/statelist')}}">
+                        <i class="dash_arrow mdi mdi-earth global_color"></i>
+                        <span class="aside_menu_txt">State</span>
+                    </a>
+                </li> @endif
+        @endforeach
+
+
+
+        @foreach($mymenuroll as $mymenurollone)
+            @if($mymenurollone->menu_id==9)
+                <li class="right_menu_li">
+                    <a href="{{url('/citylist')}}">
+                        <i class="dash_arrow mdi mdi-map-marker global_color"></i>
+                        <span class="aside_menu_txt">City</span>
+                    </a>
+                </li>
+            @endif
+        @endforeach
+
+
+        @foreach($mymenuroll as $mymenurollone)
+            @if($mymenurollone->menu_id==10)
+                <li class="right_menu_li">
+                    <a href="{{url('/ask')}}">
+                        <i class="dash_arrow mdi mdi-cellphone-android global_color"></i>
+                        <span class="aside_menu_txt">Ask Caller</span>
+                    </a>
+                </li>
+            @endif
+        @endforeach
+
+        @foreach($mymenuroll as $mymenurollone)
+            @if($mymenurollone->menu_id==11)
+                <li class="right_menu_li">
+                    <a href="{{url('/testimonials')}}">
+                        <i class="dash_arrow mdi mdi-format-size global_color"></i>
+                        <span class="aside_menu_txt">Testimonials</span>
+                    </a>
+                </li>
+            @endif
+        @endforeach
+
+        @foreach($mymenuroll as $mymenurollone)
+            @if($mymenurollone->menu_id==12)
+                <li class="right_menu_li">
+                    <a href="{{url('/allreciepe')}}">
+                        <i class="dash_arrow mdi mdi-radiator global_color"></i>
+                        <span class="aside_menu_txt">All Reciepe</span>
+                    </a>
+                </li>
+            @endif
+        @endforeach
+        @foreach($mymenuroll as $mymenurollone)
+            @if($mymenurollone->menu_id==13)
+                <li class="right_menu_li">
+                    <a href="{{url('/blog')}}">
+                        <i class="dash_arrow mdi mdi-message-image global_color"></i>
+                        <span class="aside_menu_txt">Blog</span>
+                    </a>
+                </li>
+            @endif
+        @endforeach
+        @foreach($mymenuroll as $mymenurollone)
+            @if($mymenurollone->menu_id==14)
+                <li class="right_menu_li">
+                    <a href="{{url('/subscribe')}}">
+                        <i class="dash_arrow mdi mdi-flag-checkered global_color"></i>
+                        <span class="aside_menu_txt">Subscribe</span>
+                    </a>
+                </li>
+            @endif
+        @endforeach
+        @foreach($mymenuroll as $mymenurollone)
+            @if($mymenurollone->menu_id==15)
+                <li class="right_menu_li">
+                    <a href="{{url('/rollmastermenu')}}">
+                        <i class="dash_arrow mdi mdi mdi-account-settings-variant global_color"></i>
+                        <span class="aside_menu_txt">Roll Master</span>
+                    </a>
+                </li>
+            @endif
+        @endforeach
 
 
         {{--<li class="right_menu_li" onclick="MenuClick(this);">
@@ -980,7 +1159,7 @@
 <script>
 
     $(document).ready(function () {
-       $('#myloaderid').hide();
+        $('#myloaderid').hide();
     });
 
     $('.fab').hover(function () {

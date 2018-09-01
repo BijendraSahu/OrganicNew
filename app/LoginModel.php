@@ -11,6 +11,6 @@ class LoginModel extends Model
 
     public function rm()
     {
-        return $this->belongsTo('App\rollmaster', 'id');
+        return $this->belongsTo('App\rollmaster', 'rollmaster_id');
     }
 }

@@ -133,11 +133,11 @@
                                     <?php $munudata=\App\Menumodel::where(['is_active'=>1])->get();?>
                                     @foreach($munudata as $munudata1)
                                     <div style="margin-bottom: 15px;" class="pretty p-icon p-rotate col-sm-2">
-                                        <input type="checkbox" />
+                                        <input value="{{$munudata1->id}}" type="checkbox" name="menuid[]" />
                                         <div class="state p-success">
                                             <i class="icon mdi mdi-check"></i>
 
-                                            <label>{{$munudata1->menu}}</label>
+                                            <label>{{ucwords($munudata1->menu)}}</label>
 
                                         </div>
                                     </div>

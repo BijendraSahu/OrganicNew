@@ -478,11 +478,222 @@
                                 </div>
                             </div>
                         </a>
+                        <a href="{{url('/testimonials')}} ">
+                            <?php $rdata= \App\Review::where(['is_active'=>1])->count();?>
+                            <div class="col-sm-3">
+                                <div class="white_brics">
+                                    <div class="white_icon_withtxt">
+                                        <div class="white_icons_blk white_brics_clr3"><i
+                                                    class="mdi mdi-forum"></i></div>
+                                        <div class="white_brics_txt">Testimonials</div>
+                                        <div class="white_brics_count">{{$rdata}}</div>
+                                    </div>
+                                    <div class="brics_progress white_brics_border_clr3"></div>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="{{url('/allreciepe')}}">
+                            <div class="col-sm-3">
+                                <div class="white_brics">
+                                    <div class="white_icon_withtxt">
+                                        <div class="white_icons_blk white_brics_clr4"><i
+                                                    class="mdi mdi-gift"></i></div>
+                                        <div class="white_brics_txt">All Reciepe</div>
+                                        <div class="white_brics_count">{{$ddata}}</div>
+                                    </div>
+                                    <div class="brics_progress white_brics_border_clr4"></div>
+                                </div>
+                            </div>
+                        </a>
+
+
+
+
 
                     </div>
                 </section>
 
 
+                {{--  <section id="menu2">
+                      <div class="col-sm-12 col-md-12 col-xs-12">
+                          <div class="dash_boxcontainner white_boxlist">
+                              <div class="upper_basic_heading"><span class="white_dash_head_txt">
+                         All Categories
+                         <button id="open_modal" class="btn btn-default pull-right"><i
+                                     class="mdi mdi-plus"></i>Add</button>
+                      </span>
+
+                                  <div id="snackbar">New Categories added Successfully</div>
+                                  <p class="clearfix"></p>
+                                  <section id="mytablereload">
+                                  <table class="table table-striped" id="mycattable">
+                                      <thead>
+                                      <tr>
+                                          <th>Sr.</th>
+                                          <th>Name</th>
+                                          <th>Description</th>
+                                          <th>Action</th>
+
+                                      </tr>
+                                      </thead>
+                                      @if(count($alldata) > 0)
+                                          @foreach($alldata as $object)
+                                              <tbody>
+                                              <tr class="hiderow{{$object->id}}" id="{{$object->id}}">
+                                                  <td>{{$no++}}</td>
+                                                  <td contenteditable="false"
+                                                      class="edittable{{$object->id}} name">{{$object->name}}</td>
+                                                  <td contenteditable="false"
+                                                      class="edittable{{$object->id}} description ">{{$object->description}}</td>
+                                                  <td>
+                                                      <button class="btn btn-sm btn-info edit{{$object->id}}"
+                                                              onclick="abcd({{$object->id}});">Edit
+                                                      </button>
+                                                      <button class="btn btn-sm btn-primary update_btn update{{$object->id}}"
+                                                              onclick="update(this,'{{$object->id}}');">Update
+                                                      </button>
+                                                      |
+                                                      <button class="btn btn-sm btn-danger"
+                                                              onclick="deletecat({{$object->id}});">Delete
+                                                      </button>
+                                                  </td>
+                                              </tr>
+                                              </tbody>
+                                          @endforeach
+                                      @else
+                                          <tbody>
+                                          <tr>
+                                              <td>No record Available</td>
+                                              <td></td>
+                                              <td></td>
+                                              <td></td>
+
+                                          </tr>
+
+                                          </tbody>
+                                      @endif
+
+                                  </table>
+                                  <div align="center">
+                                      {{$alldata->links()}}
+                                  </div>
+                                  </section>
+                              </div>
+
+                          </div>
+                      </div>
+                  </section>
+                  <section id="menu3">
+                      <section id="item_list">
+                      <div class="col-sm-12 col-md-12 col-xs-12">
+                          <div class="dash_boxcontainner white_boxlist">
+                              <div class="upper_basic_heading"><span class="white_dash_head_txt">
+                         All Items
+                         <button id="open_item_form" class="btn btn-default pull-right"><i
+                                     class="mdi mdi-plus"></i>Add</button>
+                      </span>
+
+                              </div>
+                          </div>
+                      </div>
+                  </section>
+                  </section>
+                  <section id="item_form" >
+                     --}}{{-- <section id="item_form" class="hidealways">--}}{{--
+                      <div class="col-sm-12 col-md-12 col-xs-12">
+                          <div class="dash_boxcontainner white_boxlist">
+                              <div class="upper_basic_heading"><span class="white_dash_head_txt">
+                         Add Items
+                      </span>
+                                 --}}{{-- <div class="">--}}{{--
+                                  <p class="clearfix"></p>
+                                  <label>Name : </label>
+                                  <p class="clearfix"></p>
+                                  <input type="text" name="item_name" class="form-control" placeholder="Enter Item Name">
+                                  <p class="clearfix"></p>
+                                  <label>Price : </label>
+                                  <p class="clearfix"></p>
+                                  <input type="text" name="item_price" class="form-control" placeholder="Enter Item price">
+                                  <p class="clearfix"></p>
+                                  <label>Select Categories : </label><p class="clearfix"></p>
+                                  @foreach($allcat as $object)
+                                      <div class="label_checkbox">
+                                      <div class="checkbox ">
+                                          <label><input type="checkbox"  class="setchat_box" value="{{$object->id}}" id="CheckboxHead"><span class="cr"><i class="cr-icon mdi mdi-check"></i></span>{{$object->name}}</label>
+                                      </div>
+                                      </div>
+                                  @endforeach
+                                  <p class="clearfix"></p>
+                                  <label>Select Image : </label> <p class="clearfix"></p>
+                                  <input type="file" name="item_pic" class="form-control" placeholder="Upload Item image">
+                                  <p class="clearfix"></p>
+                                  <label>Usage : </label>
+                                  <p class="clearfix"></p>
+                                  <textarea name="item_usage" id="item_usage" class="form-control " rows="4" cols="50" placeholder="Enter Your Item Usage "></textarea>
+                                  <p class="clearfix"></p>
+                                  <label>Description : </label>
+                                  <p class="clearfix"></p>
+                                  <textarea name="item_description" id="item_description" class="form-control " rows="4" cols="50" placeholder="Enter Your Item Description "></textarea>
+                                  <p class="clearfix"></p>
+                                  <label>Specifications : </label>
+                                  <p class="clearfix"></p>
+                                  <textarea name="item_specifications" id="item_specifications" class="form-control " rows="4" cols="50" placeholder="Enter Your Item Specifications "></textarea>
+                                  <p class="clearfix"></p>
+                                  <label>Ingredients : </label>
+                                  <p class="clearfix"></p>
+                                  <textarea name="item_ingredients" id="item_ingredients" class="form-control " rows="4" cols="50" placeholder="Enter Your Item Ingredients "></textarea>
+                                  <p class="clearfix"></p>
+                                  <label>Nutrients : </label>
+                                  <p class="clearfix"></p>
+                                  <textarea name="item_available_nutrients" id="item_available_nutrients" class="form-control " rows="4" cols="50" placeholder="Enter Your Item Available Nutrients "></textarea>
+                                  <p class="clearfix"></p>
+                                  <label>Delivery : </label>
+                                  <p class="clearfix"></p>
+                                  <input type="text" name="item_delivery" class="form-control" placeholder="Enter Your Delivery Information">
+                                  <p class="clearfix"></p>
+                              </div>
+                          </div>
+                      </div>
+
+                  </section>--}}
+            </div>
+            <div class="row">
+                <section id="menu1">
+                    <div class="home_brics_row">
+                        <?php $ddata= \App\DeliveryModel::where(['is_active'=>1])->count();?>
+                        <a href="{{url('/subscribe')}}">
+                            <div class="col-sm-3">
+                                <div class="white_brics">
+                                    <div class="white_icon_withtxt">
+                                        <div class="white_icons_blk white_brics_clr4"><i
+                                                    class="mdi mdi-gift"></i></div>
+                                        <div class="white_brics_txt">Subscribe</div>
+                                        <div class="white_brics_count">{{$ddata}}</div>
+                                    </div>
+                                    <div class="brics_progress white_brics_border_clr4"></div>
+                                </div>
+                            </div>
+                        </a>
+
+
+                        <a href="{{url('/rollmastermenu')}} ">
+                            <?php $rdata= \App\Review::where(['is_active'=>1])->count();?>
+                            <div class="col-sm-3">
+                                <div class="white_brics">
+                                    <div class="white_icon_withtxt">
+                                        <div class="white_icons_blk white_brics_clr3"><i
+                                                    class="mdi mdi-forum"></i></div>
+                                        <div class="white_brics_txt">Roll Master</div>
+                                        <div class="white_brics_count">{{$rdata}}</div>
+                                    </div>
+                                    <div class="brics_progress white_brics_border_clr3"></div>
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
+                </section>
                 {{--  <section id="menu2">
                       <div class="col-sm-12 col-md-12 col-xs-12">
                           <div class="dash_boxcontainner white_boxlist">
