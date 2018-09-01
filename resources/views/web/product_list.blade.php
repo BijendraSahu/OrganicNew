@@ -762,24 +762,27 @@
                     <h4 class="modal-title">Notify Me for Product</h4>
                 </div>
                 <div class="modal-body">
+
                     <div class="all_data_view">
                         <div class="model_row">
-                            <input type="text" class="form-control" placeholder="Email Id"/>
+                            <input type="hidden" class="form-control" id="item_master_id"/>
+
+                            <input type="email" class="form-control email" id="n_email" value="{{isset($_SESSION['user_master']) ? $_SESSION['user_master']->email : '' }}" placeholder="Email Id"/>
                         </div>
                         <div class="model_row">
-                            <input type="text" class="form-control" placeholder="Mobile No."/>
+                            <input type="text" class="form-control numberOnly" maxlength="10" id="n_contact"
+                                   value="{{isset($_SESSION['user_master']) ? $_SESSION['user_master']->contact : '' }}"  placeholder="Mobile No."/>
                         </div>
                         <div class="model_row">
-                            <input type="text" class="form-control" placeholder="city"/>
-                        </div>
-                        <div class="model_row">
-                            <textarea class="form-control glo_txtarea" placeholder="Massage for product"></textarea>
+                            <textarea class="form-control glo_txtarea" id="n_message"
+                                      placeholder="Massage for product"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                    <button type="button" class="btn btn-primary" onclick="getNotify()">Submit
+                    </button>
                 </div>
             </div>
         </div>
@@ -790,6 +793,47 @@
         var append_div = '<div class="product_block loading_block" id="load_item"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div>';
         /*var no_record = '<div class="product_block">No Record Available</div>';*/
         var no_record = '<div class="no_found_row">No more items available !</div>';
+
+        function getItemid(dis) {
+            $('#item_master_id').val(dis);
+        }
+        function getNotify() {
+            var n_email = $('#n_email').val();
+            var n_contact = $('#n_contact').val();
+            var n_message = $('#n_message').val();
+            var item_master_id = $('#item_master_id').val();
+            if (n_email == '') {
+                swal("Required", "Please enter email", "info");
+            } else if (n_contact == '') {
+                swal("Required", "Please enter contact no", "info");
+            } else if (n_message == '') {
+                swal("Required", "Please enter message", "info");
+            } else {
+                $.ajax({
+                    type: "get",
+                    url: "{{url('notify')}}",
+//                    data: "ask_number= " + ask_number,
+                    data: {email: n_email, contact: n_contact, message: n_message, item_master_id: item_master_id},
+                    success: function (data) {
+                        if (data == 'success') {
+                            $('#Modal_NotifyMe').modal('hide');
+                            $('#n_email').val('');
+                            $('#n_contact').val('');
+                            $('#n_message').val('');
+                            $('#item_master_id').val('');
+                            swal("Thank you", "We will get back to you soon", "success");
+                        } else {
+                            swal("Oops", "Something went wrong", "info");
+                        }
+                    },
+                    error: function (data) {
+                        HidePopoupMsg();
+                        swal("Oops", "Something went wrong", "info");
+//                        ShowErrorPopupMsg('oops Something Went Wrong...');
+                    }
+                });
+            }
+        }
 
         function get_category(dis) {
             var category_id = $(dis).attr('id');

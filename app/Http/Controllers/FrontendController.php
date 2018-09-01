@@ -6,9 +6,11 @@ use App\Blogmodel;
 use App\ItemImages;
 use App\ItemMaster;
 use App\ItemPrice;
+use App\Notify;
 use App\OrderDescription;
 use App\OrderMaster;
 use App\Review;
+use App\Subscribe;
 use App\UserAddress;
 use App\UserMaster;
 use Carbon\Carbon;
@@ -85,7 +87,7 @@ class FrontendController extends Controller
                 $user->profile_img = $filename;
             }
             $user->save();
-            return 'success';
+            return redirect('my_profile')->with('message', 'Profile has been updated');
         }
     }
 
@@ -207,7 +209,7 @@ class FrontendController extends Controller
         $items = DB::select($s);
         if ($numrows > 0) {
             return view('web.product_load')->with(['items' => $items, 'items_count' => $numrows]);
-        }else{
+        } else {
             return response()->json(array('no_record' => 'no_record'));
         }
     }
@@ -281,7 +283,7 @@ class FrontendController extends Controller
             return redirect('checkout')->withInput()->withErrors('Your cart is empty');
         } else {
             $cart_total = \Gloudemans\Shoppingcart\Facades\Cart::subtotal();
-            $address_id = request('address_id');
+            $address_id = request('add_id');
             $shipping = request('udf2');
             $selected_point = request('selected_point');
             $selected_promo = request('selected_promo');
@@ -408,6 +410,29 @@ class FrontendController extends Controller
         $blog = Blogmodel::find($id);
         return view('web.view_blog')->with(['blog' => $blog]);
     }
+
     /**************************Blog************************************/
 
+    public function notify()
+    {
+        $data = new Notify();
+        $data->item_master_id = request('item_master_id');
+        $data->email = request('email');
+        $data->contact = request('contact');
+        $data->message = request('message');
+        $data->save();
+        echo 'success';
+    }
+
+    /**************************Subscribe************************************/
+    public function subscribe(Request $request)
+    {
+        $email = request('email');
+        Subscribe::where(['email' => $email])->delete();
+        $subscribe = new Subscribe();
+        $subscribe->email = $email;
+        $subscribe->save();
+        return 'Success';
+    }
+    /**************************Subscribe************************************/
 }

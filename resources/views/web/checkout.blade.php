@@ -119,7 +119,11 @@
 
         function proceed_to_pay() {
             var existaddress = $('#existaddress').val();
-            if (existaddress.trim() != '0') {
+            var net_amt = $('#net_amt').val();
+            if (net_amt < 1) {
+                swal("Cart Empty", "Your cart is empty", "info");
+                return false;
+            } else if (existaddress.trim() != '0') {
                 submitPayUmoney();
             } else {
                 swal("Required", "Please select address", "info");
@@ -215,7 +219,7 @@
                                 <div class="option_availability" id="promo_code_box" style="display: none">
                                     <div class="option_txt">Promo Pay</div>
                                     <div class="product_right_txt">
-                                        <i class="mdi mdi-currency-inr" id="promo">100.00</i> <i
+                                        <i class="mdi mdi-currency-inr" id="promo">0.0</i> <i
                                                 onclick="remove_promo()" class="mdi mdi-delete" id="remove_promo"></i>
                                     </div>
                                 </div>
@@ -285,10 +289,13 @@
                                         <div class="first_row">
                                             <div class="radio_box">
                                                 @if($count == 1)
-                                                    <input type="hidden" id="add_id" name="add_id" value="{{$address->id}}">
+                                                    <input type="hidden" id="add_id" name="add_id"
+                                                           value="{{$address->id}}">
                                                 @endif
                                                 <div class="radio">
-                                                    <input id="deli_radio_{{$address->id}}" value="1" class="gender"
+                                                    <input id="deli_radio_{{$address->id}}"
+                                                           onclick="selected_address('{{$address->id}}');" value="1"
+                                                           class="gender"
                                                            name="add_delivery"
                                                            type="radio" {{$count==1?'checked="checked"':''}} />
                                                     <label for="deli_radio_{{$address->id}}"
@@ -305,7 +312,7 @@
 
                                         <div class="deli_btnbox">
                                             <button type="button"
-                                                    onclick="ChooseAddress('deli_radio_{{$address->id}}');"
+                                                    onclick="ChooseAddress('deli_radio_{{$address->id}}',{{$address->id}});"
                                                     class="btn btn-success btn-sm"><i
                                                         class="mdi mdi-home-map-marker basic_icon_margin"></i>Deliver
                                                 Here
@@ -382,11 +389,9 @@
                                     </div>
                                     <div class="deli_row">
                                         <div class="col-sm-6">
-                                            <select class="form-control" id="add_city"
-                                                    name="add_city">
-                                                {{--<option value="0"> --Please Select City--</option>--}}
+                                            <select class="form-control" id="add_city" name="add_city">
                                                 @foreach($cities as $city)
-                                                    <option value="{{$city->id}}">{{$city->city}}</option>
+                                                    <option {{$city->id == 1 ? "selected":''}} value="{{$city->id}}">{{$city->city}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -485,7 +490,7 @@
                                             name="add_city_pre">
                                         {{--<option value="0"> --Please Select City--</option>--}}
                                         @foreach($cities as $city)
-                                            <option value="{{$city->id}}">{{$city->city}}</option>
+                                            <option {{$city->id == 1 ? "selected":''}} value="{{$city->id}}">{{$city->city}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -665,12 +670,14 @@
             $('.deliever').prop("checked", false);
             if (curr_action == "new") {
                 $('#add_id').val(0);
+                $('#add_city :selected').val(1);
                 $('#btn_add_new').show();
                 $('#btn_add_update').hide();
                 $('#content_address_box').slideDown();
                 $('#add_update_head').text('ADD A NEW ADDRESS');
                 empty_address();
             } else {
+                $('#add_id').val(get_id);
                 $('#btn_add_new').hide();
                 $('#btn_add_update').show();
                 $('#content_address_box').slideDown();
@@ -681,13 +688,17 @@
             }
         }
 
-        function ChooseAddress(chk_id) {
+        function ChooseAddress(chk_id, get_id) {
+            $('#add_id').val(get_id);
             $('.deliever').prop("checked", false);
             document.getElementById(chk_id).checked = true;
             $('#add_update_head').text('ADD A NEW ADDRESS');
             $('#content_address_box').slideUp();
             $('#btn_add_new').show();
             $('#btn_add_update').hide();
+        }
+        function selected_address(cheched_address_id) {
+            $('#add_id').val(cheched_address_id);
         }
         function disable_remove() {
             $('#add_name').removeAttr('disabled', 'disabled');
@@ -719,8 +730,6 @@
             var add_city = $('#add_city_pre :selected').val();
             var add_pincode = $('#add_pincode_update').val();
             var add_address = $('#add_address_update').val();
-            // var value = $('#userAddress').serialize();
-
             if (add_name == '') {
                 swal("Fields Required", "Please enter name", "error");
 //                $('#add_name_update').focus();
@@ -779,7 +788,11 @@
 
         function confirm_order() {
             var existaddress = $('#add_id').val();
-            if (existaddress == '0') {
+            var net_amt = $('#net_amt').val();
+            if (net_amt < 1) {
+                swal("Cart Empty", "Your cart is empty", "info");
+                return false;
+            } else if (existaddress == '0') {
                 swal("Address Required", "Please select delivery address", "warning");
 //                $('#existaddress').focus();
                 return false;

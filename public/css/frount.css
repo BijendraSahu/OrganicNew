@@ -2745,7 +2745,7 @@ ol.progtrckr li.progtrckr-todo:before {
     background: #ffffff;
     padding: 10px 15px;
     text-align: center;
-    color: #cccccc;
+    color: #000000;
     margin-bottom: 20px;
     font-size: 14px;
 }

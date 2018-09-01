@@ -7,9 +7,9 @@
         <div class="long_product_img">
             <?php $image = \App\ItemImages::where(['item_master_id' => $item->id])->first(); ?>
             @if(isset($image->image) && file_exists("p_img/$item->id/".$image->image))
-                <img src="{{url('p_img').'/'.$item->id.'/'.$image->image}}">
+                <img src="{{url('p_img').'/'.$item->id.'/'.$image->image}}" />
             @else
-                <img src="{{url('images/default.png')}}">
+                <img src="{{url('images/default.png')}}" />
             @endif
             <div class="hover_center_block" id="{{$item->id}}"
                  onclick="getItemDetails(this);"
@@ -45,7 +45,7 @@
         @else
             <div class="notify_block long_notifyblock">
                 <div class="out_of_stock">Out Of Stock</div>
-                <div class="notify_me_btn" data-toggle="modal"
+                <div class="notify_me_btn" data-toggle="modal" onclick="getItemid({{$item->id}})"
                      data-target="#Modal_NotifyMe">Notify Me
                 </div>
             </div>

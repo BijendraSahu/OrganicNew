@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notify;
 use App\RecipeIngredient;
 use App\RecipeInstruction;
 use App\RecipeMaster;
@@ -86,5 +87,7 @@ class RecipeController extends Controller
         }
         return redirect('myrecipe?type=list')->with('message', 'Your recipe has been submitted...');
     }
+
+
 
 }

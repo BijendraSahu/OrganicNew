@@ -251,7 +251,7 @@
     </style>
 
     <script type="text/javascript">
-        var o = 1
+        var o = 1;
         $(document).ready(function () {
             $('.action-btn').click(function () {
                 if (o % 2 == 0) {
@@ -264,12 +264,10 @@
             });
 
             $('.item_chk').each(function () {
-                debugger;
                 @foreach($all_items_cat as $myobj)
                 if ($(this).val() == '{{$myobj->category_id}}') {
                     $(this).attr('checked', 'checked');
                 }
-
                 @endforeach
             });
 

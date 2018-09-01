@@ -17,10 +17,10 @@
                         <form action="#" method="post" class="footer_news_latter_form" id="newsletter-validate-detail1">
                             <div class="newsletter-wrap">
                                 <div class="sign_uptxt">Sign up for emails</div>
-                                <input type="text" name="email" id="newsletter1" title="Sign up for our newsletter"
-                                       class="news_letter_txt required-entry validate-email"
+                                <input type="text" autocomplete="off" name="email" id="newsletter1"
+                                       title="Sign up for our newsletter" class="news_letter_txt required-entry validate-email"
                                        placeholder="Enter your email address">
-                                <button type="submit" title="Subscribe" class="button subscribe">
+                                <button type="button" onclick="getSubscribe()" title="Subscribe" class="button subscribe">
                                     <span>Subscribe</span></button>
                             </div>
                         </form>
@@ -114,3 +114,42 @@
         </div>
     </div>
 </footer>
+<script type="text/javascript">
+    function Requiredtxt(me) {
+        var text = $.trim($(me).val());
+        if (text == '') {
+            $(me).addClass("errorClass");
+            return false;
+        } else {
+            $(me).removeClass("errorClass");
+            return true;
+        }
+    }
+    function getSubscribe() {
+        var email = $('#newsletter1').val();
+        var result = true;
+        if (!Boolean(Requiredtxt("#newsletter1"))) {
+            result = false;
+        }
+        if (!result) {
+            return false;
+        } else {
+            $.ajax({
+                type: "get",
+                contentType: "application/json; charset=utf-8",
+                url: "{{ url('subscribe') }}",
+                data: {email: email},
+                success: function (data) {
+                    if (data == 'Success') {
+                        $('#newsletter1').val('');
+                        swal("Thank you", "We will get back to you soon", "success");
+                    }
+                },
+                error: function (xhr, status, error) {
+//                    $('#err1').html(xhr.responseText);
+                    swal("Server Issue", "Something went wrong", "info");
+                }
+            });
+        }
+    }
+</script>

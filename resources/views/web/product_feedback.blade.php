@@ -29,7 +29,7 @@
                     <div class="carousal_head">
                         <span class="filter_head_txt slider_headtxt">Ratings & Reviews</span>
                     </div>
-                    <div class="order_list_container">
+                    <div class="order_list_container" id="feedback_refresh">
                         @if(count($orders)>0)
                             @foreach($orders as $order)
                                 @php
@@ -208,7 +208,7 @@
                         if (data == 'success') {
                             swal("Success", "Your review has been submitted...", "success");
                             setTimeout(function () {
-                                window.location.reload();
+                                $("#feedback_refresh").load(location.href + " #feedback_refresh");
                             }, 2000);
                         } else {
                             swal("Oops", "Something went wrong with review please try again later", "info");
