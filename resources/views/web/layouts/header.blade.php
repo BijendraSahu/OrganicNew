@@ -20,7 +20,7 @@
                                         <div class="testominial_row">
                                             @if($test->user->profile_img != 'images/Male_default.png')
                                                 <img class="testominial_img"
-                                                     src="{{url('u_img').'/'.$user->id.'/'.$user->profile_img}}">
+                                                     src="{{url('u_img').'/'.$test->user_id.'/'.$test->user->profile_img}}">
                                             @else
                                                 <img class="testominial_img" src="{{url('images/Male_default.png')}}">
                                             @endif
