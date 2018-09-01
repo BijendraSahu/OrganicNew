@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{url('assets/css/w3.css')}}"/>
     <link rel="stylesheet" href="{{url('assets/css/form-wizard-green.css')}}">
     <link rel="stylesheet" href="{{url('assets/css/text_editor.css')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
     <script src="{{url('assets/js/jquery-3.2.1.min.js')}}"></script>
     <script src="{{url('assets/js/bootstrap.min.js')}}"></script>
     <script src="{{url('assets/js/Global.js')}}"></script>
@@ -595,6 +596,7 @@
                             Setting
                         </a>
                     </div>
+
                     {{--<div class="menu_popup_settingrow effect" onclick="update_password();" data-toggle="modal2" data-target="#myModal_UpdatePassword">
                         <a href="#" class="menu_setting_row">
                             <i class="mdi mdi-lock-open-outline global_color"></i>
@@ -772,7 +774,7 @@
             <li style="display: none;"><a href="#"  data-toggle="tooltip" data-placement="left" title="FullView"><i class="mdi mdi-fullscreen"></i></a></li>
             <li><a href="#" onclick="toggleFullScreen(document.body);" data-toggle="tooltip" data-placement="left" title="FullView"><i class="mdi mdi-fullscreen"></i></a></li>
             <li><a href="#" onclick="settings();" data-toggle="tooltip" data-placement="left" title="Settings"><i class="mdi mdi-account-settings-variant"></i></a></li>
-            <li><a href="/admin" data-toggle="tooltip" data-placement="left" title="Dashboard"><i class="mdi mdi-speedometer"></i></a></li>
+            <li><a href="{{url('/admin')}}" data-toggle="tooltip" data-placement="left" title="Dashboard"><i class="mdi mdi-speedometer"></i></a></li>
         </ul>
     </div>
 </div>
@@ -900,6 +902,14 @@
                 <span class="aside_menu_txt">Subscribe</span>
             </a>
         </li>
+        <li class="right_menu_li">
+            <a href="{{url('/rollmastermenu')}}">
+                <i class="dash_arrow mdi mdi mdi-account-settings-variant global_color"></i>
+                <span class="aside_menu_txt">Roll Master</span>
+            </a>
+        </li>
+
+
         {{--<li class="right_menu_li" onclick="MenuClick(this);">
             <a href="javascript:;">
                 <span class="dash_arrow mdi mdi-account-multiple-outline  global_color"></span>

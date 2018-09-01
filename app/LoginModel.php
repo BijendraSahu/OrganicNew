@@ -8,4 +8,9 @@ class LoginModel extends Model
 {
     protected $table = 'admin_master';
     public $timestamps = false;
+
+    public function rm()
+    {
+        return $this->belongsTo('App\rollmaster', 'id');
+    }
 }

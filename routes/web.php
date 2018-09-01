@@ -199,9 +199,9 @@ Route::get('/addtstimonials','TestimonialsController@addtstimonials');
 Route::get('/inactivetest','TestimonialsController@inactivetest');
 Route::get('/activetest','TestimonialsController@activetest');
 Route::get('/deletetest','TestimonialsController@deletetest');
-
-
-
 Route::get('/subscribe','SubscribeController@view');
-
 //////////////////////////////////////////////////////////////////////////////////////////////
+
+Route::get('/rollmastermenu','RollmasterController@view');
+Route::get('/postrollmaster','RollmasterController@postrollmaster');
+
