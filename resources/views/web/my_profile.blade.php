@@ -127,12 +127,12 @@
                                             <div class="deli_row">
                                                 <input type="text" name="email" value="{{$user->email}}" id="e_id"
                                                        placeholder="Email Id"
-                                                       class="form-control"/>
+                                                       class="form-control" onkeypress="return false;"/>
                                             </div>
                                             <div class="deli_row">
                                                 <input type="text" name="contact" value="{{$user->contact}}" id="p_id"
                                                        placeholder="Phone No."
-                                                       class="form-control"/>
+                                                       class="form-control" onkeypress="return false;"/>
                                             </div>
                                             <div class="deli_row">
                                                 <button type="submit" class="btn btn-success confirm_order_btn"><i

@@ -59,12 +59,12 @@ class CartController extends Controller
         return redirect()->back();
     }
 
-    public function delete($id)
+    public function delete()
     {
-        $rowId = $id;
+        $rowId = request('cart_item_id');
         Cart::remove($rowId);
-//        \Session::flash('success-msg', 'Successfully Removed');
-        return redirect()->back();
+        $cart = Cart::content();
+        return view('web.cart.cart_load')->with(['cart' => $cart]);
     }
 
 

@@ -59,7 +59,7 @@ Route::get('web_check_promo','FrontendController@web_check_promo');
 Route::get('cart_load', 'CartController@cartload');
 Route::post('cart_update/{id}', 'CartController@cart_update');
 Route::get('addtocart', 'CartController@addtocart');
-Route::get('cart_delete/{id}', 'CartController@delete');
+Route::get('cart_delete', 'CartController@delete');
 
 
 Route::get('view_item', 'FrontendController@view_item');

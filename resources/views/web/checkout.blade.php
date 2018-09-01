@@ -771,7 +771,7 @@
                             swal("Success", "Address has been updated...", "success");
                             setTimeout(function () {
                                 $("#address_refresh").load(location.href + " #address_refresh");
-                            }, 2000);
+                            }, 1000);
 
                         } else {
                             swal("Oops", "Some went wrong...", "error");

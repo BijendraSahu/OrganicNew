@@ -227,7 +227,7 @@
                                             <textarea class="form-control instruction_area required"
                                                       id="txt_recp_banifits"
                                                       name="instruction[]"
-                                                      placeholder="Instruction / Each Steps"></textarea>
+                                                      placeholder="Instruction / Each Steps*"></textarea>
                                             <div class="addmore" onclick="addmore_instruction(this);">
                                                 <i class="mdi mdi-plus"></i>
                                             </div>
@@ -235,14 +235,14 @@
                                     </div>
                                     <div class="deli_row">
                                         <div class="col-sm-12">
-                                            <label>Upload Recipe Image</label>
+                                            <label>Upload Recipe Image*</label>
                                             <div class="input-group">
             <span class="input-group-btn">
                 <span class="btn btn-default btn-file">
                     Browse… <input type="file" name="image" accept=".png,.jpg, .jpeg, .gif, media_type" id="imgInp"/>
                 </span>
             </span>
-                                                <input type="text" class="form-control margin_bottom0 required" readonly>
+                                                <input type="text" class="form-control margin_bottom0" readonly>
                                             </div>
                                         </div>
                                     </div>

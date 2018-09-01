@@ -43,6 +43,12 @@
                             <li onclick="ShowLoginSignup('signup');">Register</li>
                         @else
                             <li>
+                               {{-- @if($_SESSION['user_master']->profile_img != 'images/Male_default.png')
+                                    <img class="testominial_img"
+                                         src="{{url('u_img').'/'.$_SESSION['user_master']->id.'/'.$_SESSION['user_master']->profile_img}}">
+                                @else
+                                    <img class="testominial_img" src="{{url('images/Male_default.png')}}">
+                                @endif--}}
                                 <div class="my_account_box glo_menuclick">My Account
                                     <div class="menu_basic_popup menu_popup_account scale0">
                                         <div class="menu_popup_account">
@@ -92,6 +98,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </li>
                         @endif
                         <li style="border-right: none;">
