@@ -78,6 +78,7 @@ Route::get('/blogpost','BlogController@blogpost');
 Route::post('/blogpic','BlogController@blogpic');
 Route::get('myrecipe','RecipeController@my_recipe_list');
 Route::post('recipe_store','RecipeController@recipe_store');
+Route::get('recipe_delete','RecipeController@recipe_delete');
 Route::get('/recipelist','RecipeController@recipe_list');
 Route::get('notify', 'FrontendController@notify');
 Route::get('subscribe', 'FrontendController@subscribe');

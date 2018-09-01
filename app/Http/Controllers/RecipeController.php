@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ItemMaster;
 use App\RecipeIngredient;
 use App\RecipeInstruction;
 use App\RecipeMaster;
@@ -20,8 +21,9 @@ class RecipeController extends Controller
         if (isset($_SESSION['user_master'])) {
             $user_ses = $_SESSION['user_master'];
             $user = UserMaster::find($user_ses->id);
-            $recipes = RecipeMaster::where(['created_by' => $user->id])->orderBy('id', 'desc')->get();
-            return view('web.myrecipe')->with(['user' => $user, 'recipes' => $recipes, 'type' => request('type')]);
+            $items = ItemMaster::where(['is_active' => 1])->get();
+            $recipes = RecipeMaster::where(['created_by' => $user->id, 'is_active' => 1])->orderBy('id', 'desc')->get();
+            return view('web.myrecipe')->with(['user' => $user, 'recipes' => $recipes, 'items' => $items, 'type' => request('type')]);
         } else {
             return Redirect::back()->withInput()->withErrors(array('message' => 'Please login first'));
         }
@@ -87,6 +89,14 @@ class RecipeController extends Controller
         return redirect('myrecipe?type=list')->with('message', 'Your recipe has been submitted...');
     }
 
+    public function recipe_delete()
+    {
+        $recipe = RecipeMaster::find(request('recipe_id'));
+        $recipe->is_active = 0;
+        $recipe->save();
+        echo 'success';
+    }
+
     public function allreciepe()
     {
         return view('adminview.reciepe');
@@ -101,12 +111,12 @@ class RecipeController extends Controller
             RecipeMaster::where('id', request('myid'))
                 ->update($rdata);
             return 1;
-        }catch(\Exception $ex)
-        {
+        } catch (\Exception $ex) {
             return $ex->getMessage();
         }
 
     }
+
     public function rejectRecip()
     {
         try {
@@ -117,8 +127,7 @@ class RecipeController extends Controller
             RecipeMaster::where('id', request('myid'))
                 ->update($rdata);
             return 2;
-        }catch(\Exception $ex)
-        {
+        } catch (\Exception $ex) {
             return $ex->getMessage();
         }
     }
@@ -132,12 +141,10 @@ class RecipeController extends Controller
             RecipeMaster::where('id', request('myid'))
                 ->update($rdata);
             return 2;
-        }catch(\Exception $ex)
-        {
+        } catch (\Exception $ex) {
             return $ex->getMessage();
         }
     }
-
 
 
 }
