@@ -75,45 +75,49 @@
                         <div class="col-sm-12 col-md-12 col-xs-12">
                             <div class="dash_boxcontainner white_boxlist">
                                 <div class="upper_basic_heading"><span class="white_dash_head_txt">
-                         Testimonials
-                         <button onclick="openmyform();" class="btn btn-default pull-right"><i
-                                     class="mdi mdi-plus"></i>Add</button>
+                        All Reciepe
+                         {{--<button onclick="openmyform();" class="btn btn-default pull-right"><i
+                                     class="mdi mdi-plus"></i>Add</button>--}}
                       </span>
-                                    <?php $mydata=\App\Testimonials::orderBy('id','desc')->get();?>
+                                    <?php $myrdata=\App\RecipeMaster::where(['is_active'=>1])->orderBy('id','desc')->get();?>
                                     <p class="clearfix"></p>
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
-                                            <th>User Name</th>
+                                            <th width="10%">Image</th>
+                                            <th width="10%">Title</th>
                                             {{--     <th width="50%"></th>--}}
-                                            <th>review</th>
+                                            <th width="50%">Description</th>
+                                            <th>Difficulty Level</th>
                                             <th>Status</th>
                                             <th>option</th>
 
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($mydata as $obj)
+                                        @foreach($myrdata as $obj)
 
                                             <tr>
-                                                <td>{{$obj->user_id}}</td>
-                                                <input type="hidden" name="myuid" id="myuid{{$obj->user_id}}">
-                                                <td>{{$obj->review}}</td>
+                                                <td><img style="height: 90px;" src="{{url('/').'/'.$obj->image}}"></td>
+                                                <td>{{$obj->title}}</td>
+                                                <td>{{$obj->desciption}}</td>
+                                                <td>{{$obj->difficulty_level}}</td>
+                                                <td>{{$obj->is_approved}}</td>
                                                 <td>
-                                                    @if($obj->is_active == 1)
-                                                        <span class="badge badge-primary">Showing</span>
+                                                    @if($obj->is_approved=='approved'||$obj->is_approved=='rejected')
+                                                        <a data-toggle="tooltip" title="Delete" href="#" onclick="deleteR({{$obj->id}});" class="btn btn-primary">
+                                                            <span class="glyphicon glyphicon-remove-sign"></span>
+                                                        </a>
                                                     @else
-                                                        <span class="badge badge-primary">Not Showing</span>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    {{-- <button onclick="edittest({{$obj->id}});" class="btn btn-primary btn-sm">Update</button>--}}
-                                                    <button onclick="deletetest({{$obj->id}});" class="btn btn-danger btn-sm">Delete</button>
-                                                    @if($obj->is_active == 1)
-                                                        <button onclick="inactiveTest({{$obj->id}});" class="btn btn-default btn-sm">inactive</button>
-                                                    @else
-                                                        <button onclick="activeTest({{$obj->id}});" class="btn btn-warning btn-sm">Active</button>
-                                                    @endif
+
+
+                                                    {{-- <button onclick="edittest({{$obj->id}});" class="btn btn-primary btn-sm">Update</button>--}}<a data-toggle="tooltip" title="Approved" href="#"  onclick="approvedr({{$obj->id}});"  class="btn btn-success ">
+                                                        <span class="glyphicon glyphicon-ok"></span>
+                                                    </a>
+                                                    <a data-toggle="tooltip" title="Rejected" href="#" onclick="rejectr({{$obj->id}});" class="btn btn-danger">
+                                                        <span class="glyphicon glyphicon-remove"></span>
+                                                    </a>
+                                                        @endif
 
                                                 </td>
 
@@ -158,52 +162,80 @@
                 </section>
             </div>
         </div>
+
+        <div class="modal fade" id="myModalR" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div id="Rh" class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add Reject Information</h4>
+                    </div>
+                    <div id="Rb" class="modal-body">
+                        <textarea class="form-control" id="rejectdetails" placeholder="Enter Some Details"></textarea>
+                    </div>
+                    <div id="Rf" class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        </div>
+
+
+
     </section>
 
     <script>
-
-
-        function inactiveTest(id) {
-            var myid = id;
-            $.get('{{url('inactivetest')}}', {myid: myid}, function (data) {
-                /* alert(data);*/
-                /*  alert(data);
-                  console.log(data);*/
-
-                location.reload();
-            });
-        }
-        function activeTest(id) {
-            var myid = id;
-            $.get('{{url('activetest')}}', {myid: myid}, function (data) {
-                /* alert(data);*/
-                /*  alert(data);
-                  console.log(data);*/
-
-                location.reload();
-            });
-        }
-        function deletetest(id) {
-            var myy = id;
-            $.get('{{url('deletetest')}}', {myy: myy}, function (data) {
-                /* alert(data);*/
-                /*   alert(data);
-                   console.log(data);
-   */
-                location.reload();
-            });
-        }
-
-        function mytesti()
+        function approvedr(id)
         {
-            var user =$('#userid').val();
-            var review =$('#review').val();
-            $.get('{{url('addtstimonials')}}', {user: user,review:review}, function (data) {
+          var myid=id;
+            $.get('{{url('approvereciepe')}}', {myid: myid}, function (data) {
                 /* alert(data);*/
 
                 location.reload();
             });
+
         }
+function rejectr(id)
+{
+
+    $('#Rf').html('');
+    $('#Rf').append('<button id="add_btn" type="button" class="btn btn-default" data-dismiss="modal">Close</button><button onclick="sendrejreq('+id+');" class="btn btn-danger">Reject</button>');
+    $('#myModalR').modal();
+
+
+}
+
+function sendrejreq(id)
+{
+    var myid=id;
+    var value= $('#rejectdetails').val();
+
+    $.get('{{url('rejectRecip')}}', {myid: myid,value:value}, function (data) {
+        /* alert(data);*/
+        alert(data);
+        console.log(data);
+        location.reload();
+    });
+}
+
+function deleteR(id)
+{
+    myid=id;
+    $.get('{{url('deleteRecip')}}', {myid: myid}, function (data) {
+        /* alert(data);*/
+
+        console.log(data);
+        location.reload();
+    });
+}
+
+
+
 
         function openmyform()
         {

@@ -883,9 +883,21 @@
             </a>
         </li>
         <li class="right_menu_li">
+            <a href="{{url('/allreciepe')}}">
+                <i class="dash_arrow mdi mdi-radiator global_color"></i>
+                <span class="aside_menu_txt">All Reciepe</span>
+            </a>
+        </li>
+        <li class="right_menu_li">
             <a href="{{url('/blog')}}">
                 <i class="dash_arrow mdi mdi-message-image global_color"></i>
                 <span class="aside_menu_txt">Blog</span>
+            </a>
+        </li>
+        <li class="right_menu_li">
+            <a href="{{url('/subscribe')}}">
+                <i class="dash_arrow mdi mdi-flag-checkered global_color"></i>
+                <span class="aside_menu_txt">Subscribe</span>
             </a>
         </li>
         {{--<li class="right_menu_li" onclick="MenuClick(this);">

@@ -188,6 +188,9 @@ Route::post('/blogpic','BlogController@blogpic');
 Route::get('/myrecipe','RecipeController@my_recipe_list');
 Route::get('/recipelist','RecipeController@recipe_list');
 Route::get('/updateblog/{id}','BlogController@updateblog');
+Route::get('/approvereciepe','RecipeController@approvereciepe');
+Route::get('/rejectRecip','RecipeController@rejectRecip');
+Route::get('/deleteRecip','RecipeController@deleteRecip');
 
 Route::get('/allreciepe','RecipeController@allreciepe');
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -196,5 +199,9 @@ Route::get('/addtstimonials','TestimonialsController@addtstimonials');
 Route::get('/inactivetest','TestimonialsController@inactivetest');
 Route::get('/activetest','TestimonialsController@activetest');
 Route::get('/deletetest','TestimonialsController@deletetest');
+
+
+
+Route::get('/subscribe','SubscribeController@view');
 
 //////////////////////////////////////////////////////////////////////////////////////////////

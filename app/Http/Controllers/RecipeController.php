@@ -94,4 +94,50 @@ class RecipeController extends Controller
         return view('adminview.reciepe');
     }
 
+    public function approvereciepe()
+    {
+        try {
+            $rdata = array(
+                'is_approved' => 'approved',
+            );
+            RecipeMaster::where('id', request('myid'))
+                ->update($rdata);
+            return 1;
+        }catch(\Exception $ex)
+        {
+            return $ex->getMessage();
+        }
+
+    }
+    public function rejectRecip()
+    {
+        try {
+            $rdata = array(
+                'is_approved' => 'rejected',
+                'reject_reason' => request('value'),
+            );
+            RecipeMaster::where('id', request('myid'))
+                ->update($rdata);
+            return 2;
+        }catch(\Exception $ex)
+        {
+            return $ex->getMessage();
+        }
+    }
+
+    public function deleteRecip()
+    {
+        try {
+            $rdata = array(
+                'is_active' => 0,
+            );
+            RecipeMaster::where('id', request('myid'))
+                ->update($rdata);
+            return 2;
+        }catch(\Exception $ex)
+        {
+            return $ex->getMessage();
+        }
+    }
+
 }
