@@ -45,31 +45,31 @@
 
                 <div class="col-sm-8 col-xs-12 col-lg-8">
                     <div class="footer-column">
-                        <h4  onclick="show_link(this);">Quick Links
+                        <h4  onclick="show_link(this);">Custom Menu
                             <div class="res_arrow_show mdi mdi-chevron-right"></div></h4>
                         <ul class="links">
-                            <li class="first"><a  href="blog_view1.php">
+                            <li class="first"><a href="blog">
                                     <i class="mdi mdi-arrow-right-bold"></i>Blog</a></li>
-                            <li><a href="Faq.php">
+                            <li><a href="faq">
                                     <i class="mdi mdi-arrow-right-bold"></i>FAQs</a></li>
-                            <li><a href="Payments.php">
+                            <li><a href="payments">
                                     <i class="mdi mdi-arrow-right-bold"></i>Payment</a></li>
-                            <li><a  href="return_policy.php">
-                                    <i class="mdi mdi-arrow-right-bold"></i>Return Policy</a></li>
+                            <li><a  href="product_list">
+                                    <i class="mdi mdi-arrow-right-bold"></i>Product List</a></li>
                         </ul>
                     </div>
                     <div class="footer-column">
-                        <h4  onclick="show_link(this);">Account
+                        <h4  onclick="show_link(this);">Informations
                             <div class="res_arrow_show mdi mdi-chevron-right"></div></h4>
                         <ul class="links">
-                            <li><a  href="about_us.html">
+                            <li><a  href="aboutus">
                                     <i class="mdi mdi-arrow-right-bold"></i>About Us</a></li>
-                            <li><a  href="contact_us.php">
+                            <li><a  href="contactus">
                                     <i class="mdi mdi-arrow-right-bold"></i>Contact Us</a></li>
-                            <li><a  href="terms.php">
+                            <li><a  href="terms">
                                     <i class="mdi mdi-arrow-right-bold"></i>Terms & Condition</a></li>
-                            <li class="last"><a  href="product_list.php">
-                                    <i class="mdi mdi-arrow-right-bold"></i>Product List</a>
+                            <li class="last"><a  href="returnpolicy">
+                                    <i class="mdi mdi-arrow-right-bold"></i>Return Policy</a>
                             </li>
                         </ul>
                     </div>

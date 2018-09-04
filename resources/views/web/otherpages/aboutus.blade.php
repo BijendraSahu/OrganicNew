@@ -1,5 +1,5 @@
 @extends('web.layouts.e_master')
-@section('title', 'Organic Food : Home')
+@section('title', 'Organic Food : aboutus')
 @section('head')
     <link rel="stylesheet" id="boldthemes_fonts-css"
           href="https://fonts.googleapis.com/css?family=Raleway%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%2C100italic%2C200italic%2C300italic%2C400italic%2C500italic%2C600italic%2C700italic%2C800italic%2C900italic%7CPlayfair+Display%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%2C100italic%2C200italic%2C300italic%2C400italic%2C500italic%2C600italic%2C700italic%2C800italic%2C900italic%7CRaleway%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%2C100italic%2C200italic%2C300italic%2C400italic%2C500italic%2C600italic%2C700italic%2C800italic%2C900italic%7CPlayfair+Display%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%2C100italic%2C200italic%2C300italic%2C400italic%2C500italic%2C600italic%2C700italic%2C800italic%2C900italic%7CRaleway%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%2C100italic%2C200italic%2C300italic%2C400italic%2C500italic%2C600italic%2C700italic%2C800italic%2C900italic&amp;subset=latin%2Clatin-ext&amp;ver=1.0.0"
@@ -7,11 +7,9 @@
     <style>
         .aboutus_main_heading {
             font-family: Playfair Display;
-            font-size: 42px;
+            font-size: 52px;
             font-weight: bold;
             color: #86bc43;
-            font-size: 60px;
-
         }
         .heading_box{
             font-weight: bold;
@@ -23,10 +21,11 @@
             /*background-size: 100%;*/
         }
         .about{
-            margin-top: 60px;
+            margin-top: 10px;
             margin-bottom: 60px;
         }
         .main_img{
+            margin-top: 10px;
             width: 100%;
         }
 
@@ -51,10 +50,7 @@
             max-width: 180px;
             display: inline-block
         }
-        .cmsms_row_outer, .cmsms_row_outer_parent {
-            width: 100%;
-            position: relative;
-        }.portfolio.opened-article .project  .profile.opened-article .profile  ,cmsms_row_inner {
+       .portfolio.opened-article .project  .profile.opened-article .profile  ,cmsms_row_inner {
              position: relative;
              width: 980px;
              padding: 0 20px;
@@ -63,27 +59,6 @@
              -moz-box-sizing: border-box;
              box-sizing: border-box;
          }
-        .cmsms_row_margin {
-            margin: 0 -2.07%;
-            position: relative;
-        }
-        .cmsms_column {
-            position: relative;
-            min-height: 1px;
-        }
-        .one_first {
-            position: relative;
-            float: left;
-            margin: 0 2%;
-        }
-        #cmsms_heading_5b7e45a42a195 {
-            text-align: left;
-            margin-top: 0px;
-        }
-        .cmsms_heading_wrap {
-            position: relative;
-            overflow: hidden;
-        }
         .quote_grid {
             margin-bottom: 20px;
             position: relative;
@@ -175,7 +150,7 @@
             text-align: center;
         }
         .img_place{
-            margin-left: 16px;
+
             margin-top: 25px;
             display: inline-flex;
         }
@@ -196,14 +171,21 @@
             color: #9e9e9e;
         }
         .img_place1{
-            margin-left: 50px;
-            border-radius: 5px;
-            webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
-            box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+
+        }
+        .blog_div{
+            margin-bottom: 50px;
+            text-align: center;
         }
 
         .img_decor{
             border-radius: 5px;
+            /*margin-left: 50px;*/
+            border-radius: 5px;
+            height:200px;
+            width:300px;
+            -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+            box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
         }
         .content{
             display: inline-flex;
@@ -219,7 +201,7 @@
         .content_txt1{
             background-color: #ffffff;
             width: 300px;
-            margin-left: 50px;
+            /*margin-left: 50px;*/
             text-align: center;
         }
         .fa_icon{
@@ -335,7 +317,6 @@
         <div class="col-sm-12 about">
             <div class="col-sm-6">
                 <img src="images/about_organic_dolchi.jpg" class="main_img"/>
-
             </div>
             <div class="col-sm-6">
                 <p class="aboutus_main_heading">About Organic Dolchi</p>
@@ -354,16 +335,8 @@
             </div>
         </div>
         <div class="container">
-            <div id="cmsms_row_5b7e45a42a03a" class="">
-                <div class="cmsms_row_outer_parent">
-                    <div class="cmsms_row_outer">
-                        <div class="cmsms_row_inner">
-                            <div class="cmsms_row_margin cmsms_11">
-                                <div class="cmsms_column one_first">
-
-                                    <div id="cmsms_heading_5b7e45a42a195" class="cmsms_heading_wrap cmsms_heading_align_left">
-                                        <h2 class="cmsms_heading heading">What People Say</h2>
-                                    </div><div class="cmsms_quotes quote_grid quote_two">
+            <h2 class="cmsms_heading heading">What People Say</h2>
+                                    <div class="cmsms_quotes quote_grid quote_two">
                                         <div class="quote_vert"></div><div class="quotes_list">
                                             <div class="cmsms_quote">
 
@@ -447,63 +420,88 @@
                                                 <!--_________________________ Finish Grid Article _________________________ -->
 
                                             </div>
-                                        </div><div class="quotes_list">
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        </div>
         </div>
         <div class="container-fluid">
-            <div class="txt_content">
-                <h1 class="heading">Our Latest Blog</h1>
-            </div>
-            <div class="img_place">
-                <div class="img_place1">
-                    <img src="images/organic_blog6.jpg" class="img_decor" height="200" width="300"/>
-                </div>
-                <div class="img_place1">
-                    <img src="images/organic_blog7.png" class="img_decor" height="200" width="300"/>
-                </div>
-                <div class="img_place1">
-                    <img src="images/organic_blog12.jpg" class="img_decor" height="200" width="300"/>
-                </div>
-                <div class="img_place1">
-                    <img src="images/organic_blog2.jpg" class="img_decor" height="200" width="300"/>
-                </div>
-            </div>
-            <div class="col-sm-12 content">
-                <div class="col-sm-4 content_txt1">
-                    <a class="view view_more content1">
-                        <i class="fa fa-clone fa_icon" aria-hidden="true"></i>
-                        <span class="clearfix content_txt">View More</span>
-                    </a>
-                </div>
-                <div class="col-sm-4 content_txt1">
-                    <a class="view view_more content1">
-                        <i class="fa fa-clone fa_icon" aria-hidden="true"></i>
-                        <span class="clearfix content_txt">View More</span>
-                    </a>
-                </div>
-                <div class="col-sm-4 content_txt1">
-                    <a class="view view_more content1">
-                        <i class="fa fa-clone fa_icon" aria-hidden="true"></i>
-                        <span class="clearfix content_txt">View More</span>
-                    </a>
-                </div>
-                <div class="col-sm-4 content_txt1">
-                    <a class="view view_more content1">
-                        <i class="fa fa-clone fa_icon" aria-hidden="true"></i>
-                        <span class="clearfix content_txt">View More</span>
-                    </a>
-                </div>
+            <div class="row">
+                        <div class="txt_content">
+                            <h1 class="heading">Our Latest Blog</h1>
+                        </div>
+                    <div class="col-sm-12 blog_div">
+                        <div class="img_place">
+                                <div class="col-sm-3 ">
+                                    <img src="images/organic_blog6.jpg" class="img_decor" />
+                                    <div class="content_txt1">
+                                        <h3>Blog Title 1</h3>
+                                      <a class="view view_more content1">
+                                      <i class="fa fa-clone fa_icon" aria-hidden="true"></i>
+                                      <span class="clearfix content_txt">View More</span>
+                                      </a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 img_place1">
+                                    <img src="images/organic_blog7.png" class="img_decor" />
+                                    <div class="content_txt1">
+                                        <h3>Blog Title 1</h3>
+                                        <a class="view view_more content1">
+                                            <i class="fa fa-clone fa_icon" aria-hidden="true"></i>
+                                            <span class="clearfix content_txt">View More</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 img_place1">
+                                    <img src="images/organic_blog12.jpg" class="img_decor" />
+                                    <div class="content_txt1">
+                                        <h3>Blog Title 1</h3>
+                                        <a class="view view_more content1">
+                                            <i class="fa fa-clone fa_icon" aria-hidden="true"></i>
+                                            <span class="clearfix content_txt">View More</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 img_place1">
+                                    <img src="images/organic_blog2.jpg" class="img_decor" />
+                                    <div class="content_txt1">
+                                        <h3>Blog Title 1</h3>
+                                        <a class="view view_more content1">
+                                            <i class="fa fa-clone fa_icon" aria-hidden="true"></i>
+                                            <span class="clearfix content_txt">View More</span>
+                                        </a>
+                                    </div>
+                                </div>
+                          </div>
+                    </div>
             </div>
         </div>
-        <section class="section-padding">
-            <div class="section-title text-center mb-5">
+                {{--<div class="col-sm-12 content">--}}
+                    {{--<div class="col-sm-3 content_txt1">--}}
+                        {{--<a class="view view_more content1">--}}
+                            {{--<i class="fa fa-clone fa_icon" aria-hidden="true"></i>--}}
+                            {{--<span class="clearfix content_txt">View More</span>--}}
+                        {{--</a>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-sm-3 content_txt1">--}}
+                        {{--<a class="view view_more content1">--}}
+                            {{--<i class="fa fa-clone fa_icon" aria-hidden="true"></i>--}}
+                            {{--<span class="clearfix content_txt">View More</span>--}}
+                        {{--</a>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-sm-3 content_txt1">--}}
+                        {{--<a class="view view_more content1">--}}
+                            {{--<i class="fa fa-clone fa_icon" aria-hidden="true"></i>--}}
+                            {{--<span class="clearfix content_txt">View More</span>--}}
+                        {{--</a>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-sm-3 content_txt1">--}}
+                        {{--<a class="view view_more content1">--}}
+                            {{--<i class="fa fa-clone fa_icon" aria-hidden="true"></i>--}}
+                            {{--<span class="clearfix content_txt">View More</span>--}}
+                        {{--</a>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+
+        <div class="section-title text-center mb-5">
                 <h2 class="heading_provide">What We Provide?</h2>
                 <div class="container heading_border"></div>
                 <p class="border_para_heading"> We give you the lowest prices on all your grocery needs.</p>
@@ -534,17 +532,6 @@
                     <div class="div1">
                         <img class="center_image" src="images/about_organic_dolchi.jpg" />
                         <img class="center_para_img" src="images/about_dolchi.png"/>
-                        <!--<div class="demo">-->
-                        <!--<button class="add-to-cart " data-button-action="add-to-cart" type="submit" title="Add to cart">-->
-                        <!--<i class="fa fa-shopping-basket"></i>-->
-                        <!--</button>-->
-                        <!--<div class="product-price-and-shipping">-->
-                        <!--<span itemprop="price" class="price">$25.91</span>-->
-                        <!--<span class="regular-price">$26.99</span>-->
-                        <!--</div>-->
-                        <!--</div>-->
-
-                        <!--<p>We produce Food In a Way Which Is Honest, Natural & Transparent.</p>-->
                     </div>
                     <div class="div2">
                     </div>
@@ -571,6 +558,5 @@
                 </div>
             </div>
     </section>
-    </section>
-    @include('web.layouts.footer')
+       @include('web.layouts.footer')
 @stop
