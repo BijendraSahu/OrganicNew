@@ -29,14 +29,18 @@
         }
 
     </style>
-
+    <?php $mymenuroll = \App\Menurolemodel::where(['user_id'=>$_SESSION['admin_master']->id])->get();?>
     <section class="box_containner">
         <div class="container-fluid">
             <div class="row">
                <section id="menu1">
                     <div class="home_brics_row">
+
+
+                        @foreach($mymenuroll as $mymenurollone)
+                            @if($mymenurollone->menu_id==2)
                         <?php $cdata= \App\ItemCategory::where(['is_active'=>1])->count();?>
-                        <a href="{{url('/category')}}"><div class="col-sm-3">
+                        <a href="{{url('organic').'/'.encrypt(1).'/category'}}"><div class="col-sm-3">
                             <div class="white_brics">
                                 <div class="white_icon_withtxt">
                                     <div class="white_icons_blk"><i class="mdi mdi-tag"></i></div>
@@ -47,8 +51,14 @@
                             </div>
                         </div>
                         </a>
+                        @endif
+                        @endforeach
+
+
+                            @foreach($mymenuroll as $mymenurollone)
+                                @if($mymenurollone->menu_id==3)
                             <?php $idata= \App\ItemMaster::where(['is_active'=>1])->count();?>
-                        <a href="{{url('/items')}}">
+                        <a href="{{url('organic').'/'.encrypt(1).'/items'}}">
                         <div class="col-sm-3">
                             <div class="white_brics">
                                 <div class="white_icon_withtxt">
@@ -62,8 +72,16 @@
                             </div>
                         </div>
                         </a>
+                                @endif
+                            @endforeach
+
+
+                            @foreach($mymenuroll as $mymenurollone)
+                                @if($mymenurollone->menu_id==4)
                             <?php $udata= \App\UserMaster::where(['is_active'=>1])->count();?>
-                         <a href="{{url('/userlist')}}">
+
+                             <a href="{{url('organic').'/'.encrypt(1).'/userlist'}}">
+
                         <div class="col-sm-3">
                             <div class="white_brics">
                                 <div class="white_icon_withtxt">
@@ -76,8 +94,14 @@
                             </div>
                         </div>
                          </a>
+                                @endif
+                            @endforeach
+
+
+                            @foreach($mymenuroll as $mymenurollone)
+                                @if($mymenurollone->menu_id==5)
                             <?php $odata= \App\OrderMaster::where(['is_active'=>1])->count();?>
-                            <a href="{{url('/orderlist')}}">
+                                <a href="{{url('organic').'/'.encrypt(1).'/orderlist'}}">
                         <div class="col-sm-3">
                             <div class="white_brics">
                                 <div class="white_icon_withtxt">
@@ -90,6 +114,8 @@
                             </div>
                         </div>
                             </a>
+                                @endif
+                            @endforeach
 
                     </div>
                 </section>
@@ -239,8 +265,10 @@
             <div class="row">
                 <section id="menu1">
                     <div class="home_brics_row">
+                        @foreach($mymenuroll as $mymenurollone)
+                            @if($mymenurollone->menu_id==6)
                         <?php $ddata= \App\DeliveryModel::where(['is_active'=>1])->count();?>
-                        <a href="{{url('/delivery')}}">
+                            <a href="{{url('organic').'/'.encrypt(1).'/delivery'}}">
                             <div class="col-sm-3">
                                 <div class="white_brics">
                                     <div class="white_icon_withtxt">
@@ -253,9 +281,12 @@
                                 </div>
                             </div>
                         </a>
+                            @endif
+                        @endforeach
 
-
-                        <a href="{{url('/review')}} ">
+                            @foreach($mymenuroll as $mymenurollone)
+                                @if($mymenurollone->menu_id==7)
+                            <a href="{{url('organic').'/'.encrypt(1).'/review'}}">
                             <?php $rdata= \App\Review::where(['is_active'=>1])->count();?>
                             <div class="col-sm-3">
                                 <div class="white_brics">
@@ -269,10 +300,12 @@
                                 </div>
                             </div>
                         </a>
+                                @endif
+                            @endforeach
 
-
-
-                        <a href="/statelist {{url('')}}">
+                            @foreach($mymenuroll as $mymenurollone)
+                                @if($mymenurollone->menu_id==8)
+                            <a href="{{url('organic').'/'.encrypt(1).'/statelist'}}">
                             <?php $sdata= \App\StateModel::where(['is_deleted'=>0])->count();?>
                             <div class="col-sm-3">
                                 <div class="white_brics">
@@ -287,8 +320,15 @@
                                 </div>
                             </div>
                         </a>
+                                @endif
+                            @endforeach
+
+
+                            @foreach($mymenuroll as $mymenurollone)
+                                @if($mymenurollone->menu_id==9)
                             <?php $cidata= \App\Cities::count();?>
-                        <a href="{{url('/citylist')}}"><div class="col-sm-3">
+                                <a href="{{url('organic').'/'.encrypt(1).'/citylist'}}">
+                       <div class="col-sm-3">
                                 <div class="white_brics">
                                     <div class="white_icon_withtxt">
                                         <div class="white_icons_blk"><i class=" mdi mdi-map-marker"></i></div>
@@ -299,6 +339,8 @@
                                 </div>
                             </div>
                         </a>
+                                @endif
+                            @endforeach
 
                     </div>
                 </section>
@@ -449,8 +491,11 @@
                 <section id="menu1">
                     <div class="home_brics_row">
 
+                        @foreach($mymenuroll as $mymenurollone)
+                            @if($mymenurollone->menu_id==10)
+                                <a href="{{url('organic').'/'.encrypt(1).'/ask'}}">
 
-                        <a href="{{url('/ask')}}"><div class="col-sm-3">
+                            <div class="col-sm-3">
                                 <?php $Askdata= \App\AskModel::count();?>
 
                                 <div class="white_brics">
@@ -463,7 +508,13 @@
                                 </div>
                             </div>
                         </a>
-                        <a href="{{url('/blog')}}">
+                            @endif
+                        @endforeach
+
+                            @foreach($mymenuroll as $mymenurollone)
+                                @if($mymenurollone->menu_id==13)
+
+                            <a href="{{url('organic').'/'.encrypt(1).'/blog'}}">
                             <?php $blogdata= \App\Blogmodel::count();?>
                             <div class="col-sm-3">
                                 <div class="white_brics">
@@ -478,7 +529,13 @@
                                 </div>
                             </div>
                         </a>
-                        <a href="{{url('/testimonials')}} ">
+                                @endif
+                            @endforeach
+                            @foreach($mymenuroll as $mymenurollone)
+                                @if($mymenurollone->menu_id==11)
+
+                            <a href="{{url('organic').'/'.encrypt(1).'/testimonials'}}">
+
                             <?php $rdata= \App\Review::where(['is_active'=>1])->count();?>
                             <div class="col-sm-3">
                                 <div class="white_brics">
@@ -492,8 +549,13 @@
                                 </div>
                             </div>
                         </a>
+                                @endif
+                            @endforeach
 
-                        <a href="{{url('/allreciepe')}}">
+                            @foreach($mymenuroll as $mymenurollone)
+                                @if($mymenurollone->menu_id==12)
+                            <a href="{{url('organic').'/'.encrypt(1).'/allreciepe'}}">
+
                             <div class="col-sm-3">
                                 <div class="white_brics">
                                     <div class="white_icon_withtxt">
@@ -506,6 +568,8 @@
                                 </div>
                             </div>
                         </a>
+                                @endif
+                            @endforeach
 
 
 
@@ -661,8 +725,10 @@
             <div class="row">
                 <section id="menu1">
                     <div class="home_brics_row">
+                        @foreach($mymenuroll as $mymenurollone)
+                            @if($mymenurollone->menu_id==14)
                         <?php $ddata= \App\DeliveryModel::where(['is_active'=>1])->count();?>
-                        <a href="{{url('/subscribe')}}">
+                            <a href="{{url('organic').'/'.encrypt(1).'/subscribe'}}">
                             <div class="col-sm-3">
                                 <div class="white_brics">
                                     <div class="white_icon_withtxt">
@@ -675,9 +741,13 @@
                                 </div>
                             </div>
                         </a>
+                            @endif
+                        @endforeach
 
+                            @foreach($mymenuroll as $mymenurollone)
+                                @if($mymenurollone->menu_id==15)
 
-                        <a href="{{url('/rollmastermenu')}} ">
+                            <a href="{{url('organic').'/'.encrypt(1).'/rollmastermenu'}}">
                             <?php $rdata= \App\Review::where(['is_active'=>1])->count();?>
                             <div class="col-sm-3">
                                 <div class="white_brics">
@@ -691,6 +761,9 @@
                                 </div>
                             </div>
                         </a>
+                                @endif
+                            @endforeach
+
 
                     </div>
                 </section>

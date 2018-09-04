@@ -9,9 +9,11 @@ session_start();
 
 class RollmasterController extends Controller
 {
-  public function view()
-  {
-      return view('adminview.rollmaster');
+  public function view($id)
+  {$tee = decrypt($id);
+      if ($tee == 1) {
+          return view('adminview.rollmaster');
+      }
   }
 
   public function postrollmaster()

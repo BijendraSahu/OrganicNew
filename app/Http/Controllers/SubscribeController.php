@@ -7,8 +7,11 @@ session_start();
 
 class SubscribeController extends Controller
 {
- public function view()
+ public function view($id)
  {
-     return view('adminview.subscribelist');
+     $tee = decrypt($id);
+     if ($tee == 1) {
+         return view('adminview.subscribelist');
+     }
  }
 }

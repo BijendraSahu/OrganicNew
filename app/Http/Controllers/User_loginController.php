@@ -198,10 +198,13 @@ class User_loginController extends Controller
     }
 
 
-    public function userlist()
+    public function userlist($id)
     {
-        $user_data = UserMaster::paginate(10);
-        return view('adminview.userlist', ['user_data' => $user_data]);
+        $tee = decrypt($id);
+        if ($tee == 1) {
+            $user_data = UserMaster::paginate(10);
+            return view('adminview.userlist', ['user_data' => $user_data]);
+        }
     }
 
     public function deactivate_user()

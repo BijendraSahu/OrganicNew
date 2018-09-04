@@ -924,7 +924,7 @@
         @foreach($mymenuroll as $mymenurollone)
             @if($mymenurollone->menu_id==1)
                 <li class="right_menu_li">
-                    <a href="{{url('/admin')}}">
+                    <a href="{{url('organic').'/'.encrypt(1).'/admin'}}">
                         <i class="dash_arrow mdi mdi-speedometer global_color"></i>
                         <span class="aside_menu_txt">Dashboard</span>
                     </a>
@@ -934,7 +934,8 @@
         @foreach($mymenuroll as $mymenurollone)
             @if($mymenurollone->menu_id==2)
                 <li class="right_menu_li">
-                    <a href="{{url('/category')}}">
+                    <a href="{{url('organic').'/'.encrypt(1).'/category'}}">
+                  {{--  <a href="{{url('/category')}}">--}}
                         <i class="dash_arrow mdi mdi-tag global_color"></i>
                         <span class="aside_menu_txt">Category</span>
                     </a>
@@ -946,7 +947,8 @@
         @foreach($mymenuroll as $mymenurollone)
             @if($mymenurollone->menu_id==3)
                 <li class="right_menu_li">
-                    <a href="{{url('/items')}}">
+                    <a href="{{url('organic').'/'.encrypt(1).'/items'}}">
+                  {{--  <a href="{{url('/items')}}">--}}
                         <i class="dash_arrow mdi mdi-content-duplicate global_color"></i>
                         <span class="aside_menu_txt">Items</span>
                     </a>
@@ -957,7 +959,8 @@
         @foreach($mymenuroll as $mymenurollone)
             @if($mymenurollone->menu_id==4)
                 <li class="right_menu_li">
-                    <a href="{{url('/userlist')}}">
+                    <a href="{{url('organic').'/'.encrypt(1).'/userlist'}}">
+               {{--     <a href="{{url('/userlist')}}">--}}
                         <i class="dash_arrow mdi mdi-account-multiple global_color"></i>
                         <span class="aside_menu_txt">Users</span>
                     </a>
@@ -971,7 +974,8 @@
         @foreach($mymenuroll as $mymenurollone)
             @if($mymenurollone->menu_id==5)
                 <li class="right_menu_li">
-                    <a href="{{url('/orderlist')}}">
+                   {{-- <a href="{{url('/orderlist')}}">--}}
+                    <a href="{{url('organic').'/'.encrypt(1).'/orderlist'}}">
                         <i class="dash_arrow mdi mdi-clipboard-plus global_color"></i>
                         <span class="aside_menu_txt">Order</span>
                     </a>
@@ -982,7 +986,8 @@
         @foreach($mymenuroll as $mymenurollone)
             @if($mymenurollone->menu_id==6)
                 <li class="right_menu_li">
-                    <a href="{{url('/delivery')}}">
+                    {{--<a href="{{url('/delivery')}}">--}}
+                    <a href="{{url('organic').'/'.encrypt(1).'/delivery'}}">
                         <i class="dash_arrow mdi mdi-gift global_color"></i>
                         <span class="aside_menu_txt">Delivery</span>
                     </a>
@@ -993,7 +998,8 @@
         @foreach($mymenuroll as $mymenurollone)
             @if($mymenurollone->menu_id==7)
                 <li class="right_menu_li">
-                    <a href="{{url('/review')}}">
+                    {{--<a href="{{url('/review')}}">--}}
+                    <a href="{{url('organic').'/'.encrypt(1).'/review'}}">
                         <i class="dash_arrow mdi mdi-forum global_color"></i>
                         <span class="aside_menu_txt">Reviews</span>
                     </a>
@@ -1004,7 +1010,8 @@
         @foreach($mymenuroll as $mymenurollone)
             @if($mymenurollone->menu_id==8)
                 <li class="right_menu_li">
-                    <a href="{{url('/statelist')}}">
+                   {{-- <a href="{{url('/statelist')}}">--}}
+                        <a href="{{url('organic').'/'.encrypt(1).'/statelist'}}">
                         <i class="dash_arrow mdi mdi-earth global_color"></i>
                         <span class="aside_menu_txt">State</span>
                     </a>
@@ -1016,7 +1023,8 @@
         @foreach($mymenuroll as $mymenurollone)
             @if($mymenurollone->menu_id==9)
                 <li class="right_menu_li">
-                    <a href="{{url('/citylist')}}">
+                    {{--<a href="{{url('/citylist')}}">--}}
+                    <a href="{{url('organic').'/'.encrypt(1).'/citylist'}}">
                         <i class="dash_arrow mdi mdi-map-marker global_color"></i>
                         <span class="aside_menu_txt">City</span>
                     </a>
@@ -1028,7 +1036,8 @@
         @foreach($mymenuroll as $mymenurollone)
             @if($mymenurollone->menu_id==10)
                 <li class="right_menu_li">
-                    <a href="{{url('/ask')}}">
+                    {{--<a href="{{url('/ask')}}">--}}
+                    <a href="{{url('organic').'/'.encrypt(1).'/ask'}}">
                         <i class="dash_arrow mdi mdi-cellphone-android global_color"></i>
                         <span class="aside_menu_txt">Ask Caller</span>
                     </a>
@@ -1039,7 +1048,8 @@
         @foreach($mymenuroll as $mymenurollone)
             @if($mymenurollone->menu_id==11)
                 <li class="right_menu_li">
-                    <a href="{{url('/testimonials')}}">
+                    {{--<a href="{{url('/testimonials')}}">--}}
+                        <a href="{{url('organic').'/'.encrypt(1).'/testimonials'}}">
                         <i class="dash_arrow mdi mdi-format-size global_color"></i>
                         <span class="aside_menu_txt">Testimonials</span>
                     </a>
@@ -1050,7 +1060,8 @@
         @foreach($mymenuroll as $mymenurollone)
             @if($mymenurollone->menu_id==12)
                 <li class="right_menu_li">
-                    <a href="{{url('/allreciepe')}}">
+                    {{--<a href="{{url('/allreciepe')}}">--}}
+                    <a href="{{url('organic').'/'.encrypt(1).'/allreciepe'}}">
                         <i class="dash_arrow mdi mdi-radiator global_color"></i>
                         <span class="aside_menu_txt">All Reciepe</span>
                     </a>
@@ -1060,7 +1071,8 @@
         @foreach($mymenuroll as $mymenurollone)
             @if($mymenurollone->menu_id==13)
                 <li class="right_menu_li">
-                    <a href="{{url('/blog')}}">
+                    {{--<a href="{{url('/blog')}}">--}}
+                    <a href="{{url('organic').'/'.encrypt(1).'/blog'}}">
                         <i class="dash_arrow mdi mdi-message-image global_color"></i>
                         <span class="aside_menu_txt">Blog</span>
                     </a>
@@ -1070,7 +1082,8 @@
         @foreach($mymenuroll as $mymenurollone)
             @if($mymenurollone->menu_id==14)
                 <li class="right_menu_li">
-                    <a href="{{url('/subscribe')}}">
+                    {{--<a href="{{url('/subscribe')}}">--}}
+                        <a href="{{url('organic').'/'.encrypt(1).'/subscribe'}}">
                         <i class="dash_arrow mdi mdi-flag-checkered global_color"></i>
                         <span class="aside_menu_txt">Subscribe</span>
                     </a>
@@ -1080,7 +1093,8 @@
         @foreach($mymenuroll as $mymenurollone)
             @if($mymenurollone->menu_id==15)
                 <li class="right_menu_li">
-                    <a href="{{url('/rollmastermenu')}}">
+                    {{--<a href="{{url('/rollmastermenu')}}">--}}
+                        <a href="{{url('organic').'/'.encrypt(1).'/rollmastermenu'}}">
                         <i class="dash_arrow mdi mdi mdi-account-settings-variant global_color"></i>
                         <span class="aside_menu_txt">Roll Master</span>
                     </a>

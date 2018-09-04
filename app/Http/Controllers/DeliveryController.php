@@ -10,11 +10,14 @@ session_start();
 
 class DeliveryController extends Controller
 {
-    public function delivery()
+    public function delivery($id)
     {
-        $citydata = CityModel::get();
-        $deliverydata = DeliveryModel::get();
-        return view('adminview.delivery', ['citydata' => $citydata, 'deliverydata' => $deliverydata]);
+        $tee = decrypt($id);
+        if ($tee == 1) {
+            $citydata = CityModel::get();
+            $deliverydata = DeliveryModel::get();
+            return view('adminview.delivery', ['citydata' => $citydata, 'deliverydata' => $deliverydata]);
+        }
     }
 
     public function add_delivery()

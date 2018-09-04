@@ -8,9 +8,12 @@ session_start();
 
 class AskController extends Controller
 {
-  public function ask()
+  public function ask($id)
   {
-      $data=AskModel::get();
-      return view ('adminview.ask',['data'=>$data]);
+      $tee = decrypt($id);
+      if ($tee == 1) {
+          $data = AskModel::get();
+          return view('adminview.ask', ['data' => $data]);
+      }
   }
 }

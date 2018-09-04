@@ -87,9 +87,11 @@ class RecipeController extends Controller
         return redirect('myrecipe?type=list')->with('message', 'Your recipe has been submitted...');
     }
 
-    public function allreciepe()
-    {
-        return view('adminview.reciepe');
+    public function allreciepe($id)
+    {  $tee = decrypt($id);
+        if ($tee == 1) {
+            return view('adminview.reciepe');
+        }
     }
 
     public function approvereciepe()
