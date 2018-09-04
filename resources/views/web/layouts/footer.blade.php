@@ -48,7 +48,7 @@
                         <h4  onclick="show_link(this);">Custom Menu
                             <div class="res_arrow_show mdi mdi-chevron-right"></div></h4>
                         <ul class="links">
-                            <li class="first"><a href="blog">
+                            <li class="first"><a href="{{url('blog')}}">
                                     <i class="mdi mdi-arrow-right-bold"></i>Blog</a></li>
                             <li><a href="faq">
                                     <i class="mdi mdi-arrow-right-bold"></i>FAQs</a></li>
