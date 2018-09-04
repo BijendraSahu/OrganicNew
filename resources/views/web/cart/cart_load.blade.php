@@ -36,7 +36,7 @@
                         <td class="text-center"> x{{$row->qty}}</td>
                         <td class="text-center"><i class="fa fa-inr"></i>{{$row->price}}</td>
                         <td class="text-right">
-                            <a href="{{url('cart_delete').'/'.$row->rowId}}" class="mdi mdi-close cart-delete"
+                            <a onclick="remove_item('{{$row->rowId}}')" class="mdi mdi-close cart-delete"
                                data-toggle="tooltip"
                                title="Remove"></a>
                         </td>
@@ -57,3 +57,20 @@
         </a>
     </div>
 </div>
+<script>
+    function remove_item(cart_item_id) {
+        $.ajax({
+            type: 'get',
+            url: "{{ url('cart_delete') }}",
+            data: {cart_item_id: cart_item_id},
+            success: function (data) {
+                $("#cartload").html(data);
+            },
+            error: function (xhr, status, error) {
+                $('#cartload').html(xhr.responseText);
+            }
+        });
+        // promo_code
+
+    }
+</script>

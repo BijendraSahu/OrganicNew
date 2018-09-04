@@ -680,7 +680,7 @@
                         </a>
                     </div>--}}
                     <div class="menu_popup_settingrow effect">
-                        <a href="{{url('logoutadmin')}}" class="menu_setting_row">
+                        <a href="{{url('lgt')}}" class="menu_setting_row">
                             <i class="mdi mdi-logout global_color"></i>
                             Logout
                         </a>

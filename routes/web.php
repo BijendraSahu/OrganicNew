@@ -14,11 +14,11 @@
 //Route::get('/', function () {
 //    return view('welcome');
 //});
-Route::GET('logoutadmin', function () {
+Route::GET('lgt', function () {
     session_start();
     $_SESSION['admin_master'] = null;
     $_SESSION['user_master'] = null;
-    return redirect('/adminlogin');
+    return redirect('/access');
 });
 Route::GET('logout', function () {
     session_start();
@@ -59,7 +59,7 @@ Route::get('web_check_promo','FrontendController@web_check_promo');
 Route::get('cart_load', 'CartController@cartload');
 Route::post('cart_update/{id}', 'CartController@cart_update');
 Route::get('addtocart', 'CartController@addtocart');
-Route::get('cart_delete/{id}', 'CartController@delete');
+Route::get('cart_delete', 'CartController@delete');
 
 
 Route::get('view_item', 'FrontendController@view_item');
@@ -78,9 +78,11 @@ Route::get('/blogpost','BlogController@blogpost');
 Route::post('/blogpic','BlogController@blogpic');
 Route::get('myrecipe','RecipeController@my_recipe_list');
 Route::post('recipe_store','RecipeController@recipe_store');
+Route::get('recipe_delete','RecipeController@recipe_delete');
 Route::get('/recipelist','RecipeController@recipe_list');
 Route::get('notify', 'FrontendController@notify');
 Route::get('subscribe', 'FrontendController@subscribe');
+Route::get('view_recipe/{id}','RecipeController@view_recipe');
 
 
 
@@ -118,6 +120,8 @@ Route::get('login_user', 'User_loginController@login');
 ///////////////////////////////admin/////////////////////////////////////////////////////////////////////////////////////////
 Route::get('organic/{id}/admin', 'AdminController@admin');
 Route::get('/adminlogin', 'AdminController@adminlogin');
+Route::get('/admin', 'AdminController@admin');
+Route::get('access', 'AdminController@adminlogin');
 Route::get('/logincheck', 'AdminController@logincheck');
 /////////////////////******Category*****///////////////////////////////////////////////////////////////////////////////
 Route::get('organic/{id}/category', 'AdminController@category');

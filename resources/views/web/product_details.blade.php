@@ -9,6 +9,7 @@
         input[type=number]::-webkit-outer-spin-button {
             opacity: 1;
         }
+
         .long_qty_box {
             max-width: 200px;
         }
@@ -73,7 +74,7 @@
             Initialize_ProductDetails();
             fixed_leftposition = $('#product_details_containner').offset().left;
             if ($(document).scrollTop() < 100) {
-               // $('#product_details_containner').css('left', fixed_leftposition);
+                // $('#product_details_containner').css('left', fixed_leftposition);
                 $('#product_details_containner').addClass('position_fixed_removed');
             }
         });
@@ -120,7 +121,8 @@
                                         @endif
                                     @endforeach
                                 @else
-                                    <img class="product_brics_images" id="view_images" src="{{url('images/default.png')}}" />
+                                    <img class="product_brics_images" id="view_images"
+                                         src="{{url('images/default.png')}}"/>
                                 @endif
 
                                 {{--<img class="product_brics_images" src="images/grapsh.jpg" onclick="appendimages(this);">--}}
@@ -240,7 +242,7 @@
                                 Specifications :
                             </div>
                             <div class="more_product_details">
-                            {!! isset($item->specifcation)?$item->specifcation:'-'!!}
+                                {!! isset($item->specifcation)?$item->specifcation:'-'!!}
                             </div>
                             {{-- <div class="option_availability">
                                  <div class="option_txt">Product Type</div>
@@ -277,13 +279,19 @@
                                 Recipe :
                             </div>
                             <div class="more_product_details">
-                               <ul class="list-unstyled recipe_ul margin_bottom0">
-                                   <li><a>Sweet Sorbet Recipe With Just 3 Ingredients!</a></li>
-                                   <li><a>This 4-Ingredient Vegan Aioli Recipe Comes With 3 Flavor Twists!</a></li>
-                                   <li><a>A Chimichurri Sauce Recipe for Summer Grilling</a></li>
-                                   <li><a>Organic Broccoli Cheese Cornbread</a></li>
-                                   <li><a>Frozen chocolate covered bananas</a></li>
-                               </ul>
+                                @if(count($recipes)>0)
+                                    <ul class="list-unstyled recipe_ul_detail_ margin_bottom0">
+                                        @foreach($recipes as $recipe)
+                                            <li><a target="_blank"
+                                                   href="{{url('view_recipe').'/'.$recipe->id}}">{{$recipe->title}}</a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <div class="container">
+                                        <span>No Recipe Available</span>
+                                    </div>
+                                @endif
                             </div>
                             <div class="more_product_head product_mainhead" id="rating_product_row">
                                 Ratings :
@@ -306,12 +314,13 @@
                                                     @endif
                                                 @endfor
                                                 {{--<span class="glyphicon glyphicon-star">--}}
-                            {{--</span><span class="glyphicon glyphicon-star">--}}
+                                                {{--</span><span class="glyphicon glyphicon-star">--}}
 
                                                 {{--</span><span class="glyphicon glyphicon-star">--}}
-                            {{--</span>--}}
+                                                {{--</span>--}}
                                             </div>
-                                                <span class="glyphicon glyphicon-user basic_icon_margin"></span>{{count($reviews)}} total
+                                            <span class="glyphicon glyphicon-user basic_icon_margin"></span>{{count($reviews)}}
+                                            total
 
                                         </div>
                                         <div class="col-xs-12 col-md-6">
@@ -349,7 +358,8 @@
                                                              role="progressbar"
                                                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
                                                              style="width: {{count($reviews)>0 ? round($five *100 / count($reviews),2):'0'}}%">
-                                                            <span class="sr-only">{{count($reviews)>0 ? round($five *100 / count($reviews),2):'0'}}%</span>
+                                                            <span class="sr-only">{{count($reviews)>0 ? round($five *100 / count($reviews),2):'0'}}
+                                                                %</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -363,7 +373,8 @@
                                                              role="progressbar"
                                                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
                                                              style="width: {{count($reviews)>0 ? round($four *100 / count($reviews),2):'0'}}%">
-                                                            <span class="sr-only">{{count($reviews)>0 ? round($four *100 / count($reviews),2):'0'}}%</span>
+                                                            <span class="sr-only">{{count($reviews)>0 ? round($four *100 / count($reviews),2):'0'}}
+                                                                %</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -376,7 +387,8 @@
                                                         <div class="progress-bar progress-bar-info" role="progressbar"
                                                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
                                                              style="width: {{count($reviews)>0 ? round($three *100 / count($reviews),2):'0'}}%">
-                                                            <span class="sr-only">{{count($reviews)>0 ? round($three *100 / count($reviews),2):'0'}}%</span>
+                                                            <span class="sr-only">{{count($reviews)>0 ? round($three *100 / count($reviews),2):'0'}}
+                                                                %</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -390,7 +402,8 @@
                                                              role="progressbar"
                                                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
                                                              style="width: {{count($reviews)>0 ? round($two *100 / count($reviews),2):'0'}}%">
-                                                            <span class="sr-only">{{count($reviews)>0 ? round($two *100 / count($reviews),2):'0'}}%</span>
+                                                            <span class="sr-only">{{count($reviews)>0 ? round($two *100 / count($reviews),2):'0'}}
+                                                                %</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -403,7 +416,8 @@
                                                         <div class="progress-bar progress-bar-danger" role="progressbar"
                                                              aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
                                                              style="width:{{count($reviews)>0 ?round($one *100 / count($reviews),2):'0'}}%">
-                                                            <span class="sr-only">{{count($reviews)>0 ?round($one *100 / count($reviews),2):'0'}}%</span>
+                                                            <span class="sr-only">{{count($reviews)>0 ?round($one *100 / count($reviews),2):'0'}}
+                                                                %</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -522,7 +536,7 @@
 //            var cart_counter = $('#baskit_counter');
 //            var cart_value = Number($(cart_counter).text());
 //            cart_value++;
-           // var imgtodrag = $(dis).parent().parent().find("img").eq(0);
+            // var imgtodrag = $(dis).parent().parent().find("img").eq(0);
             var imgtodrag = $('#view_images').eq(0);
             if (imgtodrag) {
                 var imgclone = imgtodrag.clone()

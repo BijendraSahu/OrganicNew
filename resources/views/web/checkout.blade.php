@@ -769,9 +769,7 @@
                         // console.log(data);
                         if (data == 'success') {
                             swal("Success", "Address has been updated...", "success");
-                            setTimeout(function () {
-                                $("#address_refresh").load(location.href + " #address_refresh");
-                            }, 2000);
+                            $("#address_refresh").load(location.href + " #address_refresh");
 
                         } else {
                             swal("Oops", "Some went wrong...", "error");

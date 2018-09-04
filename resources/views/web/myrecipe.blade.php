@@ -23,28 +23,19 @@
         }
         function addmore_instruction(dis) {
             var append_moreinst = '<div class="instrutiondeli_row">\n' +
-                '                                                    <textarea class="form-control instruction_area" id="txt_recp_banifits" name="address" placeholder="Instruction / Each Steps"></textarea>\n' +
+                '                                                    <textarea class="form-control instruction_area" id="txt_recp_banifits" name="instruction[]" placeholder="Instruction / Each Steps"></textarea>\n' +
                 '                                        <div class="addmore close_more" onclick="closemore_more(this);">\n' +
                 '                                            <i class="mdi mdi-close"></i>\n' +
                 '                                        </div>\n' +
                 '                                        </div>';
-            $('#instruction_container').prepend(append_moreinst);//
+            $('#instruction_container').append(append_moreinst);//
         }
 
         function addmore_ingredient(dis) {
+            var items = '@foreach($items as $item) <option value="{{$item->id}}">{{ucfirst($item->name)}}</option> @endforeach<option value="Other">Other</option>';
             var append_moreingredient = '  <div class="instrutiondeli_row">\n' +
                 '                                                <div class="ingredian_select_box">\n' +
-                '                                                    <select class="list-unstyled form-control ingre_select" onchange="checkIngredient(this);" name="ingredient[]">\n' +
-                '                                                        <option selected="" value="Select Ingredients">Select Ingredients</option>\n' +
-                '                                                        <option value="1">Daal</option>\n' +
-                '                                                        <option value="2">Chana</option>\n' +
-                '                                                        <option value="3">Daliya</option>\n' +
-                '                                                        <option value="4">Rice</option>\n' +
-                '                                                        <option value="5">Flakes</option>\n' +
-                '                                                        <option value="6">Honey</option>\n' +
-                '                                                        <option value="7">Oil</option>\n' +
-                '                                                        <option value="8">Other</option>\n' +
-                '                                                    </select>\n' +
+                '                                                    <select class="list-unstyled form-control ingre_select" onchange="checkIngredient(this);" name="ingredient[]">\n' + items + ' </select>\n' +
                 '                                                    <input type="text" placeholder="Quantity" class="form-control ingre_qty_select"  name="quantity[]">\n' +
                 '                                                </div>\n' +
                 '                                                <div class="other_ingredientsbox">\n' +
@@ -58,7 +49,7 @@
                 '                                                    <i class="mdi mdi-close"></i>\n' +
                 '                                                </div>\n' +
                 '                                            </div>';
-            $('#ingredients_container').prepend(append_moreingredient);
+            $('#ingredients_container').append(append_moreingredient);
         }
 
         function closemore_more(dis) {
@@ -152,7 +143,8 @@
                             <span class="filter_head_txt slider_headtxt">Recipe Details</span>
                         </div>
                         <div class="order_list_container">
-                            <form enctype="multipart/form-data" action="{{url('recipe_store')}}" id="userpostForm" method="post"
+                            <form enctype="multipart/form-data" action="{{url('recipe_store')}}" id="userpostForm"
+                                  method="post"
                                   class="margin_bottom0">
                                 <div class="order_details_box">
                                     <div class="deli_row">
@@ -174,7 +166,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <select class="form-control requiredDD" name="difficulty_level">
-                                                <option selected value="0" >Difficulty Level*</option>
+                                                <option selected value="0">Difficulty Level*</option>
                                                 <option value="Easy">Easy</option>
                                                 <option value="Medium">Medium</option>
                                                 <option value="Difficult">Difficult</option>
@@ -195,20 +187,17 @@
                                                         onchange="checkIngredient(this);">
                                                     <option selected="" value="0">Select Ingredients*
                                                     </option>
-                                                    <option value="1">Daal</option>
-                                                    <option value="2">Chana</option>
-                                                    <option value="3">Daliya</option>
-                                                    <option value="4">Rice</option>
-                                                    <option value="5">Flakes</option>
-                                                    <option value="6">Honey</option>
-                                                    <option value="7">Oil</option>
-                                                    <option value="8">Other</option>
+                                                    @foreach($items as $item)
+                                                        <option value="{{$item->id}}">{{ucfirst($item->name)}}</option>
+                                                    @endforeach
+                                                    <option value="00">Other</option>
                                                 </select>
                                                 <input type="text" placeholder="Quantity*" name="quantity[]"
                                                        class="form-control required ingre_qty_select">
                                             </div>
                                             <div class="other_ingredientsbox">
-                                                <input type="text" placeholder="Enter Ingredients" name="otr_ingredient[]"
+                                                <input type="text" placeholder="Enter Ingredients"
+                                                       name="otr_ingredient[]"
                                                        id="txt_otr_ingredient" class="form-control">
                                                 <input type="text" placeholder="Quantity" name="otr_ingredient_qty[]"
                                                        id="txt_otr_ingredient_qty" class="form-control ingre_qty">
@@ -227,7 +216,7 @@
                                             <textarea class="form-control instruction_area required"
                                                       id="txt_recp_banifits"
                                                       name="instruction[]"
-                                                      placeholder="Instruction / Each Steps"></textarea>
+                                                      placeholder="Instruction / Each Steps*"></textarea>
                                             <div class="addmore" onclick="addmore_instruction(this);">
                                                 <i class="mdi mdi-plus"></i>
                                             </div>
@@ -235,14 +224,14 @@
                                     </div>
                                     <div class="deli_row">
                                         <div class="col-sm-12">
-                                            <label>Upload Recipe Image</label>
+                                            <label>Upload Recipe Image*</label>
                                             <div class="input-group">
             <span class="input-group-btn">
                 <span class="btn btn-default btn-file">
                     Browse… <input type="file" name="image" accept=".png,.jpg, .jpeg, .gif, media_type" id="imgInp"/>
                 </span>
             </span>
-                                                <input type="text" class="form-control margin_bottom0 required" readonly>
+                                                <input type="text" class="form-control margin_bottom0" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -264,7 +253,11 @@
                                 @foreach($recipes as $recipe)
                                     <div class="my_recipe_row">
                                         <div class="my_recipe_imgbox">
-                                            <img class="my_rec_img" src="{{url('').'/'.$recipe->image}}">
+                                            @if(isset($recipe->image)&&!file_exists(url('').'/'.$recipe->image))
+                                                <img class="my_rec_img" src="{{url('').'/'.$recipe->image}}">
+                                            @else
+                                                <img class="my_rec_img" src="{{url('recipe/default_recipe.png')}}">
+                                            @endif
                                         </div>
                                         <div class="my_recipe_details">
                                             <div class="product_name"><a>{{$recipe->title}}</a>
@@ -273,7 +266,8 @@
                                                 <li>
                                                     <div class="recipe_title">Cooking Time :</div>
                                                     <div class="recipe_icon_txt">
-                                                        <i class="mdi mdi-watch basic_icon_margin"></i>{{$recipe->cooking_time}} Min
+                                                        <i class="mdi mdi-watch basic_icon_margin"></i>{{$recipe->cooking_time}}
+                                                        Min
                                                     </div>
                                                 </li>
                                                 <li>
@@ -300,7 +294,8 @@
                                                 <li>
                                                     <div class="recipe_title">Difficult Level :</div>
                                                     <div class="recipe_icon_txt">
-                                                        <i class="mdi mdi-star-outline basic_icon_margin"></i>{{$recipe->difficulty_level}}</div>
+                                                        <i class="mdi mdi-star-outline basic_icon_margin"></i>{{$recipe->difficulty_level}}
+                                                    </div>
                                                 </li>
 
                                             </ul>
@@ -308,21 +303,22 @@
                                                 {{$recipe->desciption}}
                                             </div>
                                             <div class="myrecipe_btnbox">
-                                                <button type="button" class="btn btn-default btn-sm pull-right"><i
+                                                <a href="{{url('view_recipe').'/'.$recipe->id}}"
+                                                   class="btn btn-default btn-sm pull-right"><i
                                                             class="mdi mdi-tooltip-edit basic_icon_margin"></i>View More
-                                                </button>
-                                                <button type="button" class="btn btn-danger btn-sm pull-right"><i
+                                                </a>
+                                                <button type="button" id="{{$recipe->id}}" onclick="delete_recipe(this)"
+                                                        class="btn btn-danger btn-sm pull-right"><i
                                                             class="mdi mdi-delete basic_icon_margin"></i>Delete
                                                 </button>
-                                                <button onclick="Recipe('new');" type="button"
-                                                        class="btn btn-warning btn-sm pull-right"><i
-                                                            class="mdi mdi-pencil basic_icon_margin"></i>Edit
-                                                </button>
+                                                {{-- <button onclick="Recipe('new');" type="button"
+                                                         class="btn btn-warning btn-sm pull-right"><i
+                                                             class="mdi mdi-pencil basic_icon_margin"></i>Edit
+                                                 </button>--}}
                                             </div>
                                         </div>
                                     </div>
                                 @endforeach
-
                             @else
                                 <div class="my_recipe_norecord">No recipe added by you.</br>
                                     <div class="address_btnbox margin_top15">
@@ -339,5 +335,42 @@
             </div>
         </div>
     </section>
+    <script>
+        function delete_recipe(dis) {
+            var recipe_id = $(dis).attr('id');
+            swal({
+                title: "Are you sure?",
+                text: "you want to delete this recipe",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willSubmit) => {
+                if (willSubmit) {
+                    $.ajax({
+                        type: 'get',
+                        url: "{{ url('recipe_delete') }}",
+                        data: {
+                            recipe_id: recipe_id,
+                        },
+                        // data: value,
+                        success: function (data) {
+                            // alert(data);
+                            // console.log(data);
+                            if (data == 'success') {
+                                swal("Success", "Recipe has been deleted", "success");
+                                $("#my_recipe_list").load(location.href + " #my_recipe_list");
+                            } else {
+                                swal("Oops", "Some went wrong...", "error");
+                            }
+
+                        },
+                        error: function (xhr, status, error) {
+                            swal("Oops", "Some went wrong...", "error");
+                        }
+                    });
+                }
+            });
+        }
+    </script>
     @include('web.layouts.footer')
 @stop

@@ -13,4 +13,9 @@ class RecipeMaster extends Model
     {
         return $this->belongsTo('App\RecipeCategory', 'recipe_category_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\UserMaster', 'created_by');
+    }
 }

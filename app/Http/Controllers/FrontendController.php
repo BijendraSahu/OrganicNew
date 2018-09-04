@@ -9,6 +9,8 @@ use App\ItemPrice;
 use App\Notify;
 use App\OrderDescription;
 use App\OrderMaster;
+use App\RecipeIngredient;
+use App\RecipeMaster;
 use App\Review;
 use App\Subscribe;
 use App\UserAddress;
@@ -114,8 +116,8 @@ class FrontendController extends Controller
         $item_images = ItemImages::where(['item_master_id' => $item->id])->get();
         $item_prices = ItemPrice::where(['item_master_id' => $item->id])->get();
         $reviews = Review::where(['item_master_id' => $item->id, 'is_approved' => 1])->get();
-
-        return view('web.product_details')->with(['item' => $item, 'item_images' => $item_images, 'item_prices' => $item_prices, 'reviews' => $reviews]);
+        $recipes = DB::select("SELECT * from recipe_master where id in (SELECT rec_id FROM `recipe_ingredients` WHERE product_id = $item->id) and is_active = 1");
+        return view('web.product_details')->with(['item' => $item, 'item_images' => $item_images, 'item_prices' => $item_prices, 'reviews' => $reviews, 'recipes' => $recipes]);
     }
 
     /**********Product Feedback*********/
@@ -157,7 +159,6 @@ class FrontendController extends Controller
     }
 
     /**********Product Feedback*********/
-
     public function product_list()
     {
         $categories = DB::table('category_master')->where('is_active', '1')->get();
