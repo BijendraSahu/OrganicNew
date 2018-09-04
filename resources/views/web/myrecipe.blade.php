@@ -23,7 +23,7 @@
         }
         function addmore_instruction(dis) {
             var append_moreinst = '<div class="instrutiondeli_row">\n' +
-                '                                                    <textarea class="form-control instruction_area" id="txt_recp_banifits" name="address" placeholder="Instruction / Each Steps"></textarea>\n' +
+                '                                                    <textarea class="form-control instruction_area" id="txt_recp_banifits" name="instruction[]" placeholder="Instruction / Each Steps"></textarea>\n' +
                 '                                        <div class="addmore close_more" onclick="closemore_more(this);">\n' +
                 '                                            <i class="mdi mdi-close"></i>\n' +
                 '                                        </div>\n' +
@@ -32,7 +32,7 @@
         }
 
         function addmore_ingredient(dis) {
-            var items = '@foreach($items as $item) <option value="{{$item->id}}">{{ucfirst($item->name)}}</option> @endforeach';
+            var items = '@foreach($items as $item) <option value="{{$item->id}}">{{ucfirst($item->name)}}</option> @endforeach<option value="Other">Other</option>';
             var append_moreingredient = '  <div class="instrutiondeli_row">\n' +
                 '                                                <div class="ingredian_select_box">\n' +
                 '                                                    <select class="list-unstyled form-control ingre_select" onchange="checkIngredient(this);" name="ingredient[]">\n' + items + ' </select>\n' +
@@ -253,7 +253,11 @@
                                 @foreach($recipes as $recipe)
                                     <div class="my_recipe_row">
                                         <div class="my_recipe_imgbox">
-                                            <img class="my_rec_img" src="{{url('').'/'.$recipe->image}}">
+                                            @if(isset($recipe->image)&&!file_exists(url('').'/'.$recipe->image))
+                                                <img class="my_rec_img" src="{{url('').'/'.$recipe->image}}">
+                                            @else
+                                                <img class="my_rec_img" src="{{url('recipe/default_recipe.png')}}">
+                                            @endif
                                         </div>
                                         <div class="my_recipe_details">
                                             <div class="product_name"><a>{{$recipe->title}}</a>
@@ -299,22 +303,22 @@
                                                 {{$recipe->desciption}}
                                             </div>
                                             <div class="myrecipe_btnbox">
-                                                <button type="button" class="btn btn-default btn-sm pull-right"><i
+                                                <a href="{{url('view_recipe').'/'.$recipe->id}}"
+                                                   class="btn btn-default btn-sm pull-right"><i
                                                             class="mdi mdi-tooltip-edit basic_icon_margin"></i>View More
-                                                </button>
+                                                </a>
                                                 <button type="button" id="{{$recipe->id}}" onclick="delete_recipe(this)"
                                                         class="btn btn-danger btn-sm pull-right"><i
                                                             class="mdi mdi-delete basic_icon_margin"></i>Delete
                                                 </button>
-                                               {{-- <button onclick="Recipe('new');" type="button"
-                                                        class="btn btn-warning btn-sm pull-right"><i
-                                                            class="mdi mdi-pencil basic_icon_margin"></i>Edit
-                                                </button>--}}
+                                                {{-- <button onclick="Recipe('new');" type="button"
+                                                         class="btn btn-warning btn-sm pull-right"><i
+                                                             class="mdi mdi-pencil basic_icon_margin"></i>Edit
+                                                 </button>--}}
                                             </div>
                                         </div>
                                     </div>
                                 @endforeach
-
                             @else
                                 <div class="my_recipe_norecord">No recipe added by you.</br>
                                     <div class="address_btnbox margin_top15">
@@ -354,10 +358,7 @@
                             // console.log(data);
                             if (data == 'success') {
                                 swal("Success", "Recipe has been deleted", "success");
-                                setTimeout(function () {
-                                    $("#my_recipe_list").load(location.href + " #my_recipe_list");
-                                }, 1000);
-
+                                $("#my_recipe_list").load(location.href + " #my_recipe_list");
                             } else {
                                 swal("Oops", "Some went wrong...", "error");
                             }

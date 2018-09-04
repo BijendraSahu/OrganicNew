@@ -8,6 +8,7 @@ use App\RecipeInstruction;
 use App\RecipeMaster;
 use App\UserMaster;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 session_start();
@@ -36,57 +37,76 @@ class RecipeController extends Controller
 
     public function recipe_store(Request $request)
     {
-        $rec = new RecipeMaster();
-        $rec->title = request('recipe_title');
-        $rec->desciption = request('benefits');
+        if ($request->file('image') == null) {
+            return redirect('myrecipe?type=new')->withInput()->withErrors(array('message' => 'Please select recipe image'));
+        } else {
+            $rec = new RecipeMaster();
+            $rec->title = request('recipe_title');
+            $rec->desciption = request('benefits');
 //        $rec->preparation_time = request('preparation_time');
-        $rec->cooking_time = request('cooking_time');
-        $rec->difficulty_level = request('difficulty_level');
-        $rec->serve_count = request('serve_count');
+            $rec->cooking_time = request('cooking_time');
+            $rec->difficulty_level = request('difficulty_level');
+            $rec->serve_count = request('serve_count');
 //        $rec->recipe_category_id = request('recipe_category_id');
-        $rec->created_by = $_SESSION['user_master']->id;
+            $rec->created_by = $_SESSION['user_master']->id;
 
 //        $destinationPath = 'recipe';
-        $file = $request->file('image');
-        if ($request->file('image') != null) {
-            $destination_path = 'recipe/';
-            $filename = str_random(6) . '_' . $file->getClientOriginalName();
-            $file->move($destination_path, $filename);
-            $rec->image = $destination_path . $filename;
-        }
-
-        $rec->save();
-
-        if (request('ingredient') != null) {
-            foreach (array_combine(request('ingredient'), request('quantity')) as $ing => $qty) {
-                $ctgry = new RecipeIngredient();
-                $ctgry->rec_id = $rec->id;
-                $ctgry->ingrediant = null;
-                $ctgry->product_id = $ing;
-                $ctgry->qty = $qty;
-                $ctgry->save();
+            $file = $request->file('image');
+            if ($request->file('image') != null) {
+                $destination_path = 'recipe/';
+                $filename = str_random(6) . '_' . $file->getClientOriginalName();
+                $file->move($destination_path, $filename);
+                $rec->image = $destination_path . $filename;
             }
-        }
-        if (request('otr_ingredient') != null) {
-            foreach (array_combine(request('otr_ingredient'), request('otr_ingredient_qty')) as $ing => $qty) {
-                $ctgry = new RecipeIngredient();
-                $ctgry->rec_id = $rec->id;
-                $ctgry->ingrediant = $ing;
-                $ctgry->product_id = null;
-                $ctgry->qty = $qty;
-                $ctgry->save();
-            }
-        }
 
-        if (request('instruction') != null) {
-            foreach (request('instruction') as $instruction) {
-                $ctgry = new RecipeInstruction();
-                $ctgry->rec_id = $rec->id;
-                $ctgry->instruction = $instruction;
-                $ctgry->save();
+            $rec->save();
+
+            if (request('ingredient') != null) {
+                foreach (array_combine(request('ingredient'), request('quantity')) as $ing => $qty) {
+                    if ($ing != 'Other') {
+//                    $recIng = RecipeIngredient::where(['rec_id' => $rec->id, 'product_id' => $ing])->first();
+//                    if (isset($recIng) > 0) {
+//                        $recIng->qty = $qty;
+//                        $recIng->save();
+//                    } else {
+                        $ctgry = new RecipeIngredient();
+                        $ctgry->rec_id = $rec->id;
+                        $ctgry->ingrediant = null;
+                        $ctgry->product_id = $ing;
+                        $ctgry->qty = $qty;
+                        $ctgry->save();
+//                    }
+                    }
+                }
             }
+            if (request('otr_ingredient') != null) {
+                foreach (array_combine(request('otr_ingredient'), request('otr_ingredient_qty')) as $ingredients => $qty) {
+//                $recIns = RecipeIngredient::where(['rec_id' => $rec->id, 'ingrediant' => $ing])->first();
+//                if (isset($recIns) > 0) {
+//                    $recIns->qty = $qty;
+//                    $recIns->save();
+//                } else {
+//                echo $ing.$qty;
+                    $ctgryOther = new RecipeIngredient();
+                    $ctgryOther->rec_id = $rec->id;
+                    $ctgryOther->ingrediant = $ingredients;
+                    $ctgryOther->product_id = null;
+                    $ctgryOther->qty = $qty;
+                    $ctgryOther->save();
+//                }
+                }
+            }
+
+            if (request('instruction') != null) {
+                foreach (request('instruction') as $instruction) {
+                    $ctgryIns = new RecipeInstruction();
+                    $ctgryIns->rec_id = $rec->id;
+                    $ctgryIns->instruction = $instruction;
+                    $ctgryIns->save();
+                }
+            }
+            return redirect('myrecipe?type=list')->with('message', 'Your recipe has been submitted...');
         }
-        return redirect('myrecipe?type=list')->with('message', 'Your recipe has been submitted...');
     }
 
     public function recipe_delete()
@@ -95,6 +115,14 @@ class RecipeController extends Controller
         $recipe->is_active = 0;
         $recipe->save();
         echo 'success';
+    }
+
+    public function view_recipe($id)
+    {
+        $recipe = RecipeMaster::find($id);
+        $recIng = RecipeIngredient::where(['rec_id' => $id])->first();
+        $similar_recipes = $recipes = DB::select("SELECT * from recipe_master where is_active= 1 and id in (SELECT rec_id FROM `recipe_ingredients` WHERE product_id = $recIng->product_id)");
+        return view('web.view_recipe')->with(['recipe' => $recipe, 'similar_recipes' => $similar_recipes]);
     }
 
     public function allreciepe()

@@ -112,13 +112,13 @@
         </div>
     </div>
 </nav>
-<div class="page_loader" id="page_loader">
-    <div class="loaders">
-        <div class="dot dot-1"></div>
-        <div class="dot dot-2"></div>
-        <div class="dot dot-3"></div>
-    </div>
-</div>
+{{--<div class="page_loader" id="page_loader">--}}
+    {{--<div class="loaders">--}}
+        {{--<div class="dot dot-1"></div>--}}
+        {{--<div class="dot dot-2"></div>--}}
+        {{--<div class="dot dot-3"></div>--}}
+    {{--</div>--}}
+{{--</div>--}}
 <div class="fixed_button fixed_top" id="top_scroll_btn" onclick="ScrollBottom();">
     <i class="mdi mdi-mdi mdi-arrow-expand-down"></i>
 </div>

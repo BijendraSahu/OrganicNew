@@ -14,11 +14,11 @@
 //Route::get('/', function () {
 //    return view('welcome');
 //});
-Route::GET('logoutadmin', function () {
+Route::GET('lgt', function () {
     session_start();
     $_SESSION['admin_master'] = null;
     $_SESSION['user_master'] = null;
-    return redirect('/adminlogin');
+    return redirect('/access');
 });
 Route::GET('logout', function () {
     session_start();
@@ -82,6 +82,7 @@ Route::get('recipe_delete','RecipeController@recipe_delete');
 Route::get('/recipelist','RecipeController@recipe_list');
 Route::get('notify', 'FrontendController@notify');
 Route::get('subscribe', 'FrontendController@subscribe');
+Route::get('view_recipe/{id}','RecipeController@view_recipe');
 
 
 
@@ -118,7 +119,7 @@ Route::get('register_user', 'User_loginController@register');
 Route::get('login_user', 'User_loginController@login');
 ///////////////////////////////admin/////////////////////////////////////////////////////////////////////////////////////////
 Route::get('/admin', 'AdminController@admin');
-Route::get('/adminlogin', 'AdminController@adminlogin');
+Route::get('access', 'AdminController@adminlogin');
 Route::get('/logincheck', 'AdminController@logincheck');
 /////////////////////******Category*****///////////////////////////////////////////////////////////////////////////////
 Route::get('/category', 'AdminController@category');

@@ -81,7 +81,7 @@
             ShowLoginSignup('signin');
         } else {
             setTimeout(function () {
-                swal("Success", "{{$errors->first()}}", "success");
+                swal("Error", "{{$errors->first()}}", "error");
             }, 500);
         }
 
