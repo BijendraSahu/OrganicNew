@@ -14,11 +14,11 @@
 //Route::get('/', function () {
 //    return view('welcome');
 //});
-Route::GET('logoutadmin', function () {
+Route::GET('lgt', function () {
     session_start();
     $_SESSION['admin_master'] = null;
     $_SESSION['user_master'] = null;
-    return redirect('/adminlogin');
+    return redirect('/access');
 });
 Route::GET('logout', function () {
     session_start();
@@ -59,7 +59,7 @@ Route::get('web_check_promo','FrontendController@web_check_promo');
 Route::get('cart_load', 'CartController@cartload');
 Route::post('cart_update/{id}', 'CartController@cart_update');
 Route::get('addtocart', 'CartController@addtocart');
-Route::get('cart_delete/{id}', 'CartController@delete');
+Route::get('cart_delete', 'CartController@delete');
 
 
 Route::get('view_item', 'FrontendController@view_item');
@@ -71,6 +71,20 @@ Route::post('success', 'CartController@payment_success');
 Route::post('failed', 'CartController@payment_failed');
 Route::get('blogs', 'FrontendController@blog_list');
 Route::get('view_blog/{slug}', 'FrontendController@view_blog');
+
+Route::get('/blog','BlogController@blog');
+Route::get('/addblogcat','BlogController@addblogcat');
+Route::get('/blogpost','BlogController@blogpost');
+Route::post('/blogpic','BlogController@blogpic');
+Route::get('myrecipe','RecipeController@my_recipe_list');
+Route::post('recipe_store','RecipeController@recipe_store');
+Route::get('recipe_delete','RecipeController@recipe_delete');
+Route::get('/recipelist','RecipeController@recipe_list');
+Route::get('notify', 'FrontendController@notify');
+Route::get('subscribe', 'FrontendController@subscribe');
+Route::get('view_recipe/{id}','RecipeController@view_recipe');
+
+
 
 
 
@@ -105,37 +119,40 @@ Route::get('register_user', 'User_loginController@register');
 Route::get('login_user', 'User_loginController@login');
 ///////////////////////////////admin/////////////////////////////////////////////////////////////////////////////////////////
 Route::get('/admin', 'AdminController@admin');
+Route::get('access', 'AdminController@adminlogin');
+Route::get('organic/{id}/admin', 'AdminController@admin');
 Route::get('/adminlogin', 'AdminController@adminlogin');
 Route::get('/logincheck', 'AdminController@logincheck');
 /////////////////////******Category*****///////////////////////////////////////////////////////////////////////////////
-Route::get('/category', 'AdminController@category');
+Route::get('organic/{id}/category', 'AdminController@category');
 Route::post('add_cat', 'CrudController@add_cat');
 Route::post('updatecat', 'CrudController@updatecat');
 Route::post('deletecat', 'CrudController@deletecat');
 /////////////////////////*******item******//////////////////////////////////////////////////////////////////
-Route::get('/items', 'ItemmasterController@items');
+Route::get('organic/{id}/items', 'ItemmasterController@items');
 Route::get('/send_cat_price', 'ItemmasterController@send_cat_price');
 Route::get('/update_item', 'ItemmasterController@update_item');
 Route::post('mypost', 'ItemmasterController@itemsadd');
 Route::get('itemshow/{id}', 'ItemmasterController@itemshow');
 Route::get('edit_item_show/{id}', 'ItemmasterController@edit_item_show');
 Route::get('deactivate_item', 'ItemmasterController@deactivate_item');
+Route::get('activatemy_item', 'ItemmasterController@activatemy_item');
 Route::post('itemeditpost', 'ItemmasterController@itemeditpost');
 Route::get('searchtable', 'ItemmasterController@searchtable');
 /////////////////////////////////////////api///////////////////////////////////////////////////////
 /*Route::get('firstapi', 'ItemmasterController@apishowall');*/
 ///////////////////////////////////////////////////////////////////////////////////////////
-Route::get('/userlist', 'User_loginController@userlist');
+Route::get('organic/{id}/userlist', 'User_loginController@userlist');
 Route::get('/deactivate_user', 'User_loginController@deactivate_user');
 Route::get('/activate_user', 'User_loginController@activate_user');
 Route::get('/usershow/{id}', 'User_loginController@usershow');
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-Route::get('/review', 'ReviewController@review');
+Route::get('organic/{id}/review', 'ReviewController@review');
 Route::get('/activate_review', 'ReviewController@activate_review');
 Route::get('/un_activate_review', 'ReviewController@un_activate_review');
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-Route::get('/orderlist', 'OrderController@orderlist');
+Route::get('organic/{id}/orderlist', 'OrderController@orderlist');
 Route::get('/ordered', 'OrderController@ordered');
 Route::get('/packed', 'OrderController@packed');
 Route::get('/shipped', 'OrderController@shipped');
@@ -146,13 +163,13 @@ Route::get('/more_order/{id}', 'OrderController@more_order');
 Route::get('/bill_order/{id}', 'OrderController@bill_order');
 Route::get('delete_item_pic', 'ItemmasterController@delete_item_pic');
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Route::get('/statelist', 'StateController@statelist');
+Route::get('organic/{id}/statelist', 'StateController@statelist');
 Route::get('/add_state', 'StateController@add_state');
 Route::get('/update_state', 'StateController@update_state');
 Route::get('/delete_state', 'StateController@delete_state');
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Route::get('/citylist', 'CityController@citylist');
+Route::get('organic/{id}/citylist', 'CityController@citylist');
 Route::get('/add_city', 'CityController@add_city');
 Route::get('/add_updatecity', 'CityController@add_updatecity');
 Route::get('/delete_city', 'CityController@delete_city');
@@ -162,20 +179,41 @@ Route::get('/changepass', 'SettingController@changepass');
 Route::post('myadminpost', 'SettingController@myadminpost');
 //////////////////////////////////////*********delivery*************////////////////////////////////////////////////////////////////////////////////////////
 
-Route::get('/delivery','DeliveryController@delivery');
+Route::get('organic/{id}/delivery','DeliveryController@delivery');
 Route::get('/add_delivery','DeliveryController@add_delivery');
 Route::get('/update_delivery','DeliveryController@update_delivery');
 Route::get('/delete_del','DeliveryController@delete_del');
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Route::get('/ask','AskController@ask');
+Route::get('organic/{id}/ask','AskController@ask');
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Route::get('/blog','BlogController@blog');
+Route::get('organic/{id}/blog','BlogController@blog');
 Route::get('/addblogcat','BlogController@addblogcat');
 Route::get('/blogpost','BlogController@blogpost');
+Route::get('/upblogpost','BlogController@upblogpost');
 Route::post('/blogpic','BlogController@blogpic');
+//////////////////////////////////////////////////////////////////////////////////////
 Route::get('/myrecipe','RecipeController@my_recipe_list');
 Route::get('/recipelist','RecipeController@recipe_list');
+Route::get('/updateblog/{id}','BlogController@updateblog');
+Route::get('/approvereciepe','RecipeController@approvereciepe');
+Route::get('/rejectRecip','RecipeController@rejectRecip');
+Route::get('/deleteRecip','RecipeController@deleteRecip');
+
+Route::get('organic/{id}/allreciepe','RecipeController@allreciepe');
+//////////////////////////////////////////////////////////////////////////////////////////////
+Route::get('organic/{id}/testimonials','TestimonialsController@list');
+Route::get('/addtstimonials','TestimonialsController@addtstimonials');
+Route::get('/inactivetest','TestimonialsController@inactivetest');
+Route::get('/activetest','TestimonialsController@activetest');
+Route::get('/deletetest','TestimonialsController@deletetest');
+Route::get('organic/{id}/subscribe','SubscribeController@view');
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+Route::get('organic/{id}/rollmastermenu','RollmasterController@view');
+Route::get('/postrollmaster','RollmasterController@postrollmaster');
+
+
 /////////////////////////////////////////////Outer rought/////////////////////////////////////////////////
 Route::get('/aboutus','RecipeController@aboutus');
 Route::get('/faq','RecipeController@faq');

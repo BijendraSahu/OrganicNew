@@ -10,8 +10,17 @@
         <div class="col-md-8 col-sm-12">
             <div class="productdetails_order_row">
                 <div class="order_product_imgbox">
-                    <img src="p_img\12\1529323809_photo-1515163988842-60ece4c9a5bb.jpg" alt="Organic product">
-                 {{--   <img src="p_img/'.{{$desobj->item_master_id}}.'/'.{{$desobj->my_image->image}}" alt="Organic product">--}}
+                    <?php $productpicone=\App\ItemImages::where(['item_master_id'=>$desobj->item_master_id])->first();?>
+
+
+
+                            @if(isset($productpicone->image) && file_exists("p_img/$desobj->item_master_id/".$productpicone->image))
+                                <img src="{{url('p_img').'/'.$desobj->item_master_id.'/'.$productpicone->image}}" alt="Organic product">
+                            @else
+                                <img src="{{url('images/default.png')}}">
+                            @endif
+
+                 {{--   <img src="" alt="Organic product">--}}
                 </div>
                 <div class="product_name">
                     <a class="product_details_link" href="product_details.php">{{$desobj->my_name->name}}</a>

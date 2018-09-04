@@ -7,53 +7,35 @@
                 </a>
             </div>
             <div class="menu_all_containner">
-                <div class="testominial_box">
-                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <div class="testominial_row">
-                                    <img class="testominial_img" src="{{url('images/testominial_img5.jpg')}}">
-                                    <div class="testominial_txtbox">
-                                        <h4>- Anurag Agrawal</h4>
-                                        <p>EAT PURE KEEP FIT EAT PURE KEEP FITEAT PURE KEEP FITEAT PURE KEEP FITEAT PURE
-                                            KEEP FITEAT PURE KEEP FIT</p>
+                @php
+                    $testimonial = \App\Testimonial::where(['is_active'=>1])->get();
+                    $count = 1;
+                @endphp
+                @if(count($testimonial)>0)
+                    <div class="testominial_box">
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                @foreach($testimonial as $test)
+                                    <div class="item {{$count == 1?"active":''}}">
+                                        <div class="testominial_row">
+                                            @if($test->user->profile_img != 'images/Male_default.png')
+                                                <img class="testominial_img"
+                                                     src="{{url('u_img').'/'.$test->user_id.'/'.$test->user->profile_img}}">
+                                            @else
+                                                <img class="testominial_img" src="{{url('images/Male_default.png')}}">
+                                            @endif
+                                            <div class="testominial_txtbox">
+                                                <h4>- {{$test->user->name}}</h4>
+                                                <p>{{str_limit($test->review,60)}}</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="testominial_row">
-                                    <img class="testominial_img" src="{{url('images/testominial_img4.jpg')}}">
-                                    <div class="testominial_txtbox">
-                                        <h4>- Sandhya Borkar</h4>
-                                        <p>At Organic Dolchi store kachnar At Organic Dolchi store kachnar At Organic
-                                            Dolchi store kachnar At Organic Dolchi store kachnar</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="testominial_row">
-                                    <img class="testominial_img" src="{{url('images/testominial_img3.jpg')}}">
-                                    <div class="testominial_txtbox">
-                                        <h4>- Ashish Katiyar</h4>
-                                        <p>At Organic Dolchi store kachnar At Organic Dolchi store kachnar At Organic
-                                            Dolchi store kachnar At Organic Dolchi store kachnar</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="testominial_row">
-                                    <img class="testominial_img" src="{{url('images/Admin_pic.jpg')}}">
-                                    <div class="testominial_txtbox">
-                                        <h4>- Pinku Kesharwani</h4>
-                                        <p>At Organic Dolchi store kachnar At Organic Dolchi store kachnar At Organic
-                                            Dolchi store kachnar</p>
-                                    </div>
-                                </div>
+                                    @php $count++ @endphp
+                                @endforeach
                             </div>
                         </div>
                     </div>
-                </div>
-
+                @endif
                 <div class="login_with_baskit">
                     <ul>
                         @if(!isset($_SESSION['user_master']))
@@ -61,6 +43,12 @@
                             <li onclick="ShowLoginSignup('signup');">Register</li>
                         @else
                             <li>
+                               {{-- @if($_SESSION['user_master']->profile_img != 'images/Male_default.png')
+                                    <img class="testominial_img"
+                                         src="{{url('u_img').'/'.$_SESSION['user_master']->id.'/'.$_SESSION['user_master']->profile_img}}">
+                                @else
+                                    <img class="testominial_img" src="{{url('images/Male_default.png')}}">
+                                @endif--}}
                                 <div class="my_account_box glo_menuclick">My Account
                                     <div class="menu_basic_popup menu_popup_account scale0">
                                         <div class="menu_popup_account">
@@ -110,6 +98,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </li>
                         @endif
                         <li style="border-right: none;">
@@ -123,13 +112,13 @@
         </div>
     </div>
 </nav>
-<div class="page_loader" id="page_loader">
-    <div class="loaders">
-        <div class="dot dot-1"></div>
-        <div class="dot dot-2"></div>
-        <div class="dot dot-3"></div>
-    </div>
-</div>
+{{--<div class="page_loader" id="page_loader">--}}
+    {{--<div class="loaders">--}}
+        {{--<div class="dot dot-1"></div>--}}
+        {{--<div class="dot dot-2"></div>--}}
+        {{--<div class="dot dot-3"></div>--}}
+    {{--</div>--}}
+{{--</div>--}}
 <div class="fixed_button fixed_top" id="top_scroll_btn" onclick="ScrollBottom();">
     <i class="mdi mdi-mdi mdi-arrow-expand-down"></i>
 </div>
@@ -276,7 +265,8 @@
                 <form action="{{url('login')}}" method="post" enctype="multipart/form-data"
                       class="form-horizontal" id="frmLogin">
                     <div class="deli_row">
-                        <input type="text" name="email_pass" autocomplete="off" maxlength="10" class="form-control numberOnly login_txt" placeholder="Mobile Number" id="login_mobile">
+                        <input type="text" name="email_pass" autocomplete="off" maxlength="10"
+                               class="form-control numberOnly login_txt" placeholder="Mobile Number" id="login_mobile">
                     </div>
                     <div class="deli_row">
                         <input type="password" name="login_password" autocomplete="off" class="form-control login_txt"

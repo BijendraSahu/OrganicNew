@@ -10,29 +10,38 @@ session_start();
 
 class OrderController extends Controller
 {
-public function orderlist()
+public function orderlist($id)
 {
-    $orderdata=OrderMaster::get();
-    $orderdetails=OrderDetails::get();
-    return view('adminview.allorder',['orderdata'=>$orderdata,'orderdetails'=>$orderdetails]);
+    $tee = decrypt($id);
+    if ($tee == 1) {
+        $orderdata = OrderMaster::get();
+        $orderdetails = OrderDetails::get();
+        return view('adminview.allorder', ['orderdata' => $orderdata, 'orderdetails' => $orderdetails]);
+    }
 }
 
 
 public function ordered()
 {
-    $idd=request('IDD');$data = array(
-    'status' => 'Ordered',
-    'updated_time'=>date("d-m-Y")
-);
-    OrderMaster::where('id', request('IDD'))
-        ->update($data);
-    return 1;
+    try{
+
+        $idd=request('IDD');$data = array(
+            'status' => 'Ordered',
+            'updated_time'=>NOW()
+        );
+        OrderMaster::where('id', request('IDD'))
+            ->update($data);
+        return 1;
+    }catch(\Exception $ex){
+        return $ex->getMessage();
+    }
+
 }
 public function packed()
 {
     $idd=request('IDD');$data = array(
     'status' => 'Packed',
-    'updated_time'=>date("d-m-Y")
+    'updated_time'=>NOW()
 );
     OrderMaster::where('id', request('IDD'))
         ->update($data);
@@ -42,7 +51,7 @@ public function shipped()
 {
     $idd=request('IDD');$data = array(
     'status' => 'Shipped',
-    'updated_time'=>date("d-m-Y")
+    'updated_time'=>NOW()
 );
     OrderMaster::where('id', request('IDD'))
         ->update($data);
@@ -52,7 +61,7 @@ public function delivered()
 {
     $idd=request('IDD');$data = array(
     'status' => 'Delivered',
-    'updated_time'=>date("d-m-Y")
+    'updated_time'=>NOW()
 );
     OrderMaster::where('id', request('IDD'))
         ->update($data);

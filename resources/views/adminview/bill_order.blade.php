@@ -82,7 +82,7 @@
 
 
         @foreach($order_details as $objectmy)
-        <tr><td>{{$objectmy->my_name->name}}</td><td class="right_txt">{{$objectmy->qty}}</td><td class="right_txt">{{$objectmy->myprice->spl_price}}</td><td class="right_txt">{{$objectmy->total}}</td></tr>
+        <tr><td>{{$objectmy->my_name->name}}</td><td class="right_txt">{{$objectmy->qty}}</td><td class="right_txt">{{$objectmy->unit_price}}</td><td class="right_txt">{{$objectmy->total}}</td></tr>
 @endforeach
 
         <tr><td colspan="4"><hr></td></tr>

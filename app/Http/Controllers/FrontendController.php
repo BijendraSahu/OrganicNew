@@ -6,11 +6,16 @@ use App\Blogmodel;
 use App\ItemImages;
 use App\ItemMaster;
 use App\ItemPrice;
+use App\Notify;
 use App\OrderDescription;
 use App\OrderMaster;
+use App\RecipeIngredient;
+use App\RecipeMaster;
 use App\Review;
+use App\Subscribe;
 use App\UserAddress;
 use App\UserMaster;
+use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -84,7 +89,7 @@ class FrontendController extends Controller
                 $user->profile_img = $filename;
             }
             $user->save();
-            return 'success';
+            return redirect('my_profile')->with('message', 'Profile has been updated');
         }
     }
 
@@ -111,8 +116,8 @@ class FrontendController extends Controller
         $item_images = ItemImages::where(['item_master_id' => $item->id])->get();
         $item_prices = ItemPrice::where(['item_master_id' => $item->id])->get();
         $reviews = Review::where(['item_master_id' => $item->id, 'is_approved' => 1])->get();
-
-        return view('web.product_details')->with(['item' => $item, 'item_images' => $item_images, 'item_prices' => $item_prices, 'reviews' => $reviews]);
+        $recipes = DB::select("SELECT * from recipe_master where id in (SELECT rec_id FROM `recipe_ingredients` WHERE product_id = $item->id) and is_active = 1");
+        return view('web.product_details')->with(['item' => $item, 'item_images' => $item_images, 'item_prices' => $item_prices, 'reviews' => $reviews, 'recipes' => $recipes]);
     }
 
     /**********Product Feedback*********/
@@ -154,7 +159,6 @@ class FrontendController extends Controller
     }
 
     /**********Product Feedback*********/
-
     public function product_list()
     {
         $categories = DB::table('category_master')->where('is_active', '1')->get();
@@ -206,7 +210,7 @@ class FrontendController extends Controller
         $items = DB::select($s);
         if ($numrows > 0) {
             return view('web.product_load')->with(['items' => $items, 'items_count' => $numrows]);
-        }else{
+        } else {
             return response()->json(array('no_record' => 'no_record'));
         }
     }
@@ -231,6 +235,7 @@ class FrontendController extends Controller
             $address->address = request('add_address');
             $address->zip = request('add_pincode');
             $address->city_id = request('add_city');
+            $address->created_time = Carbon::now('Asia/Kolkata');
             $address->save();
             return 'success';
         } else {
@@ -263,7 +268,7 @@ class FrontendController extends Controller
         if (isset($_SESSION['user_master'])) {
             $user_ses = $_SESSION['user_master'];
             $user = UserMaster::find($user_ses->id);
-            $states = DB::select("select * from cities order by state ASC");
+//            $states = DB::select("select * from cities order by state ASC");
             $cities = DB::select("select * from cities where city IS NOT NULL order by city ASC");
             return view('web.checkout')->with(['user' => $user, 'cities' => $cities]);
         } else {
@@ -279,7 +284,7 @@ class FrontendController extends Controller
             return redirect('checkout')->withInput()->withErrors('Your cart is empty');
         } else {
             $cart_total = \Gloudemans\Shoppingcart\Facades\Cart::subtotal();
-            $address_id = request('address_id');
+            $address_id = request('add_id');
             $shipping = request('udf2');
             $selected_point = request('selected_point');
             $selected_promo = request('selected_promo');
@@ -406,6 +411,29 @@ class FrontendController extends Controller
         $blog = Blogmodel::find($id);
         return view('web.view_blog')->with(['blog' => $blog]);
     }
+
     /**************************Blog************************************/
 
+    public function notify()
+    {
+        $data = new Notify();
+        $data->item_master_id = request('item_master_id');
+        $data->email = request('email');
+        $data->contact = request('contact');
+        $data->message = request('message');
+        $data->save();
+        echo 'success';
+    }
+
+    /**************************Subscribe************************************/
+    public function subscribe(Request $request)
+    {
+        $email = request('email');
+        Subscribe::where(['email' => $email])->delete();
+        $subscribe = new Subscribe();
+        $subscribe->email = $email;
+        $subscribe->save();
+        return 'Success';
+    }
+    /**************************Subscribe************************************/
 }

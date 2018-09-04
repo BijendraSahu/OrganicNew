@@ -32,10 +32,22 @@
                                 Edit Profile
                             </a>
                         </div>
+                        {{--  <div class="menu_popup_settingrow">
+                              <a class="menu_setting_row" onclick="ShowAddress();">
+                                  <i class="mdi mdi-map-marker"></i>
+                                  Manage Address
+                              </a>
+                          </div>--}}
                         <div class="menu_popup_settingrow">
-                            <a class="menu_setting_row" onclick="ShowAddress();">
-                                <i class="mdi mdi-map-marker"></i>
-                                Manage Address
+                            <a href="{{url('myrecipe?type=list')}}" class="menu_setting_row">
+                                <i class="mdi mdi-view-list"></i>
+                                My Recipe List
+                            </a>
+                        </div>
+                        <div class="menu_popup_settingrow">
+                            <a href="{{url('myrecipe?type=new')}}" class="menu_setting_row">
+                                <i class="mdi mdi-tooltip-edit"></i>
+                                Add Recipe
                             </a>
                         </div>
                         <div class="menu_popup_settingrow">
@@ -76,7 +88,8 @@
                         <div class="order_list_container">
                             <div class="order_row border-none">
 
-                                <form enctype="multipart/form-data" id="userpostForm">
+                                <form enctype="multipart/form-data" id="userpostForm"
+                                      action="{{url('profile_update')}}" method="post">
                                     <div class="order_details_box">
                                         <div class="col-md-5 col-sm-12">
                                             <div class="profile_block text-center">
@@ -114,15 +127,15 @@
                                             <div class="deli_row">
                                                 <input type="text" name="email" value="{{$user->email}}" id="e_id"
                                                        placeholder="Email Id"
-                                                       class="form-control"/>
+                                                       class="form-control" onkeypress="return false;"/>
                                             </div>
                                             <div class="deli_row">
                                                 <input type="text" name="contact" value="{{$user->contact}}" id="p_id"
                                                        placeholder="Phone No."
-                                                       class="form-control"/>
+                                                       class="form-control" onkeypress="return false;"/>
                                             </div>
                                             <div class="deli_row">
-                                                <button type="button" class="btn btn-success confirm_order_btn"><i
+                                                <button type="submit" class="btn btn-success confirm_order_btn"><i
                                                             class="mdi mdi-account-check basic_icon_margin"></i>Save
                                                 </button>
                                             </div>
@@ -303,57 +316,57 @@
             });
 
 
-            $("#userpostForm").on('submit', function (e) {
-                debugger;
-                e.preventDefault();
-                var username = $('#username').val();
-                var email = $('#e_id').val();
-                var contact = $('#p_id').val();
-                var result = true;
-                if (!Boolean(Requiredtxt("#username")) || !Boolean(Requiredtxt("#e_id")) || !Boolean(Requiredtxt("#p_id"))) {
-                    result = false;
-                }
-                if (!result) {
-                    return false;
-                } else {
-                    $.ajax({
-                        type: 'POST',
-                        url: "{{ url('profile_update') }}",
-                        data: new FormData(this),
-                        contentType: false,
-                        cache: false,
-                        processData: false,
-                        beforeSend: function () {
-                            if (confirm("Are you sure?")) {
-                                $('#userpostForm').css("opacity", ".5");
-                            } else {
-                                // stop the ajax call
-                                return false;
-                            }
-                        },
-                        success: function (data) {
-                            console.log(data);
-                            if (data == 'success') {
-                                ShowSuccessPopupMsg('Profile has been updated...');
-                                $('#userpostForm').css("opacity", "");
-                                setTimeout(function () {
-                                    window.location.href = "{{url('my_profile')}}";
-                                }, 2000);
-                            } else {
-                                $('#userpostForm').css("opacity", "");
-                                ShowErrorPopupMsg(data);
-                            }
-                        },
-                        error: function (xhr, status, error) {
-                            ShowErrorPopupMsg('Error in uploading...');
-                            $('#userpostForm').css("opacity", "");
-                            // $('#err1').html(xhr.responseText);
-                            // ShowErrorPopupMsg(xhr.message);
-                        }
-                    });
-                }
-//                }
-            });
+            {{--$("#userpostForm").on('submit', function (e) {--}}
+                {{--debugger;--}}
+                {{--e.preventDefault();--}}
+                {{--var username = $('#username').val();--}}
+                {{--var email = $('#e_id').val();--}}
+                {{--var contact = $('#p_id').val();--}}
+                {{--var result = true;--}}
+                {{--if (!Boolean(Requiredtxt("#username")) || !Boolean(Requiredtxt("#e_id")) || !Boolean(Requiredtxt("#p_id"))) {--}}
+                    {{--result = false;--}}
+                {{--}--}}
+                {{--if (!result) {--}}
+                    {{--return false;--}}
+                {{--} else {--}}
+                    {{--$.ajax({--}}
+                        {{--type: 'POST',--}}
+                        {{--url: "{{ url('profile_update') }}",--}}
+                        {{--data: new FormData(this),--}}
+                        {{--contentType: false,--}}
+                        {{--cache: false,--}}
+                        {{--processData: false,--}}
+                        {{--beforeSend: function () {--}}
+                            {{--if (confirm("Are you sure?")) {--}}
+                                {{--$('#userpostForm').css("opacity", ".5");--}}
+                            {{--} else {--}}
+                                {{--// stop the ajax call--}}
+                                {{--return false;--}}
+                            {{--}--}}
+                        {{--},--}}
+                        {{--success: function (data) {--}}
+                            {{--console.log(data);--}}
+                            {{--if (data == 'success') {--}}
+                                {{--ShowSuccessPopupMsg('Profile has been updated...');--}}
+                                {{--$('#userpostForm').css("opacity", "");--}}
+                                {{--setTimeout(function () {--}}
+                                    {{--window.location.href = "{{url('my_profile')}}";--}}
+                                {{--}, 2000);--}}
+                            {{--} else {--}}
+                                {{--$('#userpostForm').css("opacity", "");--}}
+                                {{--ShowErrorPopupMsg(data);--}}
+                            {{--}--}}
+                        {{--},--}}
+                        {{--error: function (xhr, status, error) {--}}
+                            {{--ShowErrorPopupMsg('Error in uploading...');--}}
+                            {{--$('#userpostForm').css("opacity", "");--}}
+                            {{--// $('#err1').html(xhr.responseText);--}}
+                            {{--// ShowErrorPopupMsg(xhr.message);--}}
+                        {{--}--}}
+                    {{--});--}}
+                {{--}--}}
+{{--//                }--}}
+            {{--});--}}
         });
     </script>
 @stop

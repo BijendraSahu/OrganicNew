@@ -5,37 +5,45 @@ namespace App\Http\Controllers;
 use App\Categorymaster;
 use App\LoginModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 session_start();
 
 class AdminController extends Controller
 {
-    public function admin()
+    public function admin($id)
     {
-
-        if ($_SESSION['admin_master'] != null) {
-            $alldata = Categorymaster::where(['is_active' => 1])->paginate(10);
-            $allcat = Categorymaster::where(['is_active' => 1])->get();
-            $alldata1 = Categorymaster::where(['is_active' => 1])->get();
-            $data=LoginModel::find(['id' => $_SESSION['admin_master']['id']])->first();
-            return view('adminview.dashboard', ['alldata' => $alldata , 'alldata1' => $alldata1 , 'allcat' => $allcat, 'data' => $data] )->with('no', 1);
-        } else {
-            return redirect('/adminlogin');
+        $tee = decrypt($id);
+        if ($tee == 1) {
+            if ($_SESSION['admin_master'] != null) {
+                $alldata = Categorymaster::where(['is_active' => 1])->paginate(10);
+                $allcat = Categorymaster::where(['is_active' => 1])->get();
+                $alldata1 = Categorymaster::where(['is_active' => 1])->get();
+                $data = LoginModel::find(['id' => $_SESSION['admin_master']['id']])->first();
+                return view('adminview.dashboard', ['alldata' => $alldata, 'alldata1' => $alldata1, 'allcat' => $allcat, 'data' => $data])->with('no', 1);
+            } else {
+                return redirect('/adminlogin');
+            }
+        }else {
+            return Redirect::back();
         }
 
     }
-    public function category()
+
+    public function category($id)
     {
+        $tee = decrypt($id);
+        if ($tee == 1) {
 
-        if ($_SESSION['admin_master'] != null) {
-            $alldata = Categorymaster::where(['is_active' => 1])->paginate(10);
-            $allcat = Categorymaster::where(['is_active' => 1])->get();
-            $alldata1 = Categorymaster::where(['is_active' => 1])->get();
-            return view('adminview.category', ['alldata' => $alldata , 'alldata1' => $alldata1 , 'allcat' => $allcat] )->with('no', 1);
-        } else {
-            return redirect('/adminlogin');
+            if ($_SESSION['admin_master'] != null) {
+                $alldata = Categorymaster::where(['is_active' => 1])->orderBy('id', 'desc')->paginate(10);
+                $allcat = Categorymaster::where(['is_active' => 1])->get();
+                $alldata1 = Categorymaster::where(['is_active' => 1])->get();
+                return view('adminview.category', ['alldata' => $alldata, 'alldata1' => $alldata1, 'allcat' => $allcat])->with('no', 1);
+            } else {
+                return redirect('/adminlogin');
+            }
         }
-
     }
 
 

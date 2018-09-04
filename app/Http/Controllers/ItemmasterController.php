@@ -20,17 +20,19 @@ session_start();
 
 class ItemmasterController extends Controller
 {
-    public function items()
+    public function items($id)
     {
-
-        if ($_SESSION['admin_master'] != null) {
-            $alldata = Categorymaster::where(['is_active' => 1])->paginate(10);
-            $allcat = Categorymaster::where(['is_active' => 1])->get();
-            $alldata1 = Categorymaster::where(['is_active' => 1])->get();
-            $all_items = ItemMaster::orderBy('id','DESC')->paginate(10);
-            return view('adminview.item_new', ['alldata' => $alldata, 'alldata1' => $alldata1, 'allcat' => $allcat, 'all_items' => $all_items])->with('no', 1);
-        } else {
-            return redirect('/adminlogin');
+        $tee = decrypt($id);
+        if ($tee == 1) {
+            if ($_SESSION['admin_master'] != null) {
+                $alldata = Categorymaster::where(['is_active' => 1])->paginate(10);
+                $allcat = Categorymaster::where(['is_active' => 1])->get();
+                $alldata1 = Categorymaster::where(['is_active' => 1])->get();
+                $all_items = ItemMaster::orderBy('id', 'DESC')->paginate(10);
+                return view('adminview.item_new', ['alldata' => $alldata, 'alldata1' => $alldata1, 'allcat' => $allcat, 'all_items' => $all_items])->with('no', 1);
+            } else {
+                return redirect('/adminlogin');
+            }
         }
 
     }
@@ -201,6 +203,17 @@ class ItemmasterController extends Controller
         /*  $reqidd=request('IDD');*/
         $data = array(
             'is_active' => '0'
+        );
+        ItemMaster::where('id', request('IDD'))
+            ->update($data);
+        return 1;
+
+    }
+    public function activatemy_item()
+    {
+        /*  $reqidd=request('IDD');*/
+        $data = array(
+            'is_active' => '1'
         );
         ItemMaster::where('id', request('IDD'))
             ->update($data);

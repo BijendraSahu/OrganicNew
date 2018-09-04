@@ -1,4 +1,3 @@
-@extends('web.layouts.e_master')
 
 @section('title', 'Organic Food : Recipe Details')
 

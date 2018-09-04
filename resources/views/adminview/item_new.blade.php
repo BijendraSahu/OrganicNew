@@ -224,12 +224,14 @@
             border-radius: 5px;
             width: 543px;
         }
-        .hh{
+
+        .hh {
             overflow-y: scroll;
-            overflow-x:hidden ;
+            overflow-x: hidden;
             height: 298px;
 
         }
+
         .hh::-webkit-scrollbar {
             display: none;
         }
@@ -279,22 +281,23 @@
                                     <p class="clearfix"></p>
                                     <div class="col-md-6">
                                         <select name="cat" onchange="mysearch();" id="Mycat" class="form-control">
-                                            <?php $catdata=\App\Categorymaster::where(['is_active'=>'1'])->get();?>
+                                            <?php $catdata = \App\Categorymaster::where(['is_active' => '1'])->get();?>
                                             <option value="">All</option>
-                                                @foreach($catdata as $mydata)
-                                                    <option value="{{$mydata->id}}">{{$mydata->name}}</option>
-                                                    @endforeach
+                                            @foreach($catdata as $mydata)
+                                                <option value="{{$mydata->id}}">{{$mydata->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="col-md-6">
-                                    <input id='myInput' class="form-control" placeholder="search" onkeyup='mysearch()' type='text'>
+                                        <input id='myInput' class="form-control" placeholder="search"
+                                               onkeyup='mysearch()' type='text'>
                                     </div>
 
                                     <table id='myTable' class="table table-striped">
                                         <thead>
                                         <tr>
                                             <th>Product Name</th>
-                                            <th width="50%">Delivery</th>
+                                            <th width="50%">Description</th>
                                             <th>Status</th>
                                             <th>option</th>
                                         </tr>
@@ -305,10 +308,14 @@
                                         <tbody class="activemy" id="old">
                                         @foreach($all_items as $itemobj)
 
-                                            <tr  id="oldid">
+                                            <tr id="oldid">
                                                 <input type="hidden" value="{{$itemobj->id}}">
                                                 <td>{{$itemobj->name}}</td>
-                                                <td width="30%">{{$itemobj->delivery}}</td>
+                                                @if($itemobj->description=="")
+                                                    <td width="30%">Not Given</td>
+                                                @else
+                                                    <td width="30%">{!!$itemobj->description!!}</td>
+                                                @endif
                                                 <td>@if($itemobj->is_active =='1')
                                                         <div class="status pending">Active</div>
                                                     @else
@@ -333,16 +340,23 @@
                                                                    data-target="#"><i
                                                                             class="mdi mdi-lead-pencil optiondrop_icon"></i>Edit</a>
                                                             </li>
-                                                            <li><a href="#"
-                                                                   onclick="deactivate_item({{$itemobj->id}});"><i
-                                                                            class="mdi mdi-delete optiondrop_icon"></i>Delete</a>
-                                                            </li>
-                                                            <li><a href="#"
-                                                                   onclick="openMymo({{$itemobj->id}});"
-                                                                   class="border_none" data-toggle="modal"
-                                                                   data-target=""><i
-                                                                            class="mdi mdi-more optiondrop_icon"></i>More</a>
-                                                            </li>
+
+                                                            @if($itemobj->is_active =='1')
+                                                                <li><a href="#"
+                                                                       onclick="deactivate_item({{$itemobj->id}});"><i
+                                                                                class="mdi mdi-delete optiondrop_icon"></i>Inactive</a>
+                                                            @else
+                                                                <li><a href="#"
+                                                                       onclick="activatemy_item({{$itemobj->id}});"><i
+                                                                                class="mdi mdi-star optiondrop_icon"></i>Active</a>
+                                                                    @endif
+                                                                </li>
+                                                                <li><a href="#"
+                                                                       onclick="openMymo({{$itemobj->id}});"
+                                                                       class="border_none" data-toggle="modal"
+                                                                       data-target=""><i
+                                                                                class="mdi mdi-more optiondrop_icon"></i>More</a>
+                                                                </li>
                                                         </ul>
                                                     </div>
                                                 </td>
@@ -393,14 +407,11 @@
                                                 <script>
 
 
-
-                                                    function myfunctionis()
-                                                    {
+                                                    function myfunctionis() {
                                                         var htm = $("#txtEditor_myy").Editor("getText");
 
                                                         $('#temp').val(htm);
                                                     }
-
 
 
                                                 </script>
@@ -446,52 +457,54 @@
                                         </div>
 
 
+                                        <div>
+                                            <div class="form-group field_wrapper">
+                                                <label class="form-label">Enter Price Details<span
+                                                            style="color: red;">*</span></label>
+                                                <br>
+                                                <div class="col-sm-1 form-group">
 
-                                        <div class="form-group field_wrapper">
-                                            <label class="form-label">Enter Price Details<span style="color: red;">*</span></label>
-                                            <br>
-                                            <div class="col-sm-1 form-group">
+                                                    <input type="text" class="form-control" id="unitismine"
+                                                           name="unit[]" value=""
+                                                           placeholder="Unit" required/>
+                                                </div>
+                                                <div class="col-sm-1 form-group">
+                                                    <select class="form-control" name="unit[]" id="weight">
+                                                        <option value="Kg">Kg</option>
+                                                        <option value="Gms">Gms</option>
+                                                        <option value="Lt">Lt</option>
+                                                        <option value="ml">ml</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-2 form-group">
+                                                    <input type="text" class="form-control" name="unit[]" value=""
+                                                           placeholder="Cost price" required/>
+                                                </div>
+                                                <div class="col-sm-2 form-group">
+                                                    <input type="text" class="form-control" name="unit[]" value=""
+                                                           placeholder="Price" required/>
+                                                </div>
+                                                <div class="col-sm-2 form-group">
+                                                    <input type="text" class="form-control" name="unit[]" value=""
+                                                           placeholder="Special Price" required/>
+                                                </div>
+                                                <div class="col-sm-1 form-group">
+                                                    <input type="text" class="form-control" name="unit[]" value=""
+                                                           placeholder="Qty" required/>
+                                                </div>
+                                                <div class="col-sm-2 form-group">
+                                                    <input type="text" class="form-control" name="unit[]" value=""
+                                                           placeholder="Product Id" required/>
+                                                </div>
+                                                <div class="col-sm-1 form-group">
+                                                    <a href="javascript:void(0);" class="addbtn add_button"
+                                                       name="price[]"
+                                                       title="Add field"><img src="{{url('assets/add-icon.png')}}"/></a>
+                                                </div>
+                                                <p class="clearfix"></p>
 
-                                                <input type="text" class="form-control" id="unitismine" name="unit[]" value=""
-                                                       placeholder="Unit" required/>
                                             </div>
-                                            <div class="col-sm-1 form-group">
-                                                <select class="form-control" name="unit[]" id="weight">
-                                                    <option value="Kg">Kg</option>
-                                                    <option value="Gms">Gms</option>
-                                                    <option value="Lt">Lt</option>
-                                                    <option value="ml">ml</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-2 form-group">
-                                                <input type="text" class="form-control" name="unit[]" value=""
-                                                       placeholder="Cost price" required/>
-                                            </div>
-                                            <div class="col-sm-2 form-group">
-                                                <input type="text" class="form-control" name="unit[]" value=""
-                                                       placeholder="Price" required/>
-                                            </div>
-                                            <div class="col-sm-2 form-group">
-                                                <input type="text" class="form-control" name="unit[]" value=""
-                                                       placeholder="Special Price" required/>
-                                            </div>
-                                            <div class="col-sm-1 form-group">
-                                                <input type="text" class="form-control" name="unit[]" value=""
-                                                       placeholder="Qty" required/>
-                                            </div>
-                                            <div class="col-sm-2 form-group">
-                                                <input type="text" class="form-control" name="unit[]" value=""
-                                                       placeholder="Product Id" required/>
-                                            </div>
-                                            <div class="col-sm-1 form-group">
-                                                <a href="javascript:void(0);" class="addbtn add_button" name="price[]"
-                                                   title="Add field"><img src="{{url('assets/add-icon.png')}}"/></a>
-                                            </div>
-                                            <p class="clearfix"></p>
-
                                         </div>
-
-
 
 
                                         <p class="clearfix"></p>
@@ -546,16 +559,18 @@
     </section>
 
 
+
     {{--////////////////////////////////////////////////*****Start Menu 3******//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--}}
 
 
     <script>
 
         $(document).ready(function () {
+            debugger;
             var maxField = 4; //Input fields increment limitation
             var addButton = $('.add_button'); //Add button selector
             var wrapper = $('.field_wrapper'); //Input field wrapper
-            var fieldHTML = '<div class="col-sm-1 form-group"><input type="text" class="form-control" id="unitismine" name="unit[]" value="" placeholder="Unit" required/></div><div class="col-sm-1 form-group"><select class="form-control" name="unit[]" id="weight"><option value="Kg">Kg</option><option value="Gms">Gms</option><option value="Lt">Lt</option><option value="ml">ml</option></select></div><div class="col-sm-2 form-group"><input type="text" class="form-control" name="unit[]" value="" placeholder="Cost price" required/></div><div class="col-sm-2 form-group"><input type="text" class="form-control" name="unit[]" value="" placeholder="Price" required/></div><div class="col-sm-2 form-group"><input type="text" class="form-control" name="unit[]" value="" placeholder="Special Price" required/></div><div class="col-sm-1 form-group"><input type="text" class="form-control" name="unit[]" value="" placeholder="Qty" required/></div><div class="col-sm-2 form-group"><input type="text" class="form-control" name="unit[]" value="" placeholder="Product Id" required/></div><a href="javascript:void(0);" class="remove_button" title="Remove field"><img src="{{url('assets/remove-icon.png')}}"/></a></div><p class="clearfix"></p>'; //New input field html
+            var fieldHTML = '<div class="append_div"><div class="col-sm-1 form-group"><input type="text" class="form-control" id="unitismine" name="unit[]" value=""placeholder="Unit" required/></div><div class="col-sm-1 form-group"><select class="form-control" name="unit[]" id="weight"><option value="Kg">Kg</option><option value="Gms">Gms</option><option value="Lt">Lt</option><option value="ml">ml</option></select></div><div class="col-sm-2 form-group"><input type="text" class="form-control" name="unit[]" value=""placeholder="Cost price" required/></div><div class="col-sm-2 form-group"><input type="text" class="form-control" name="unit[]" value="" placeholder="Price"required/></div><div class="col-sm-2 form-group"><input type="text" class="form-control" name="unit[]" value=""placeholder="Special Price" required/></div><div class="col-sm-1 form-group"><input type="text" class="form-control"name="unit[]" value="" placeholder="Qty"required/></div><div class="col-sm-2 form-group"><input type="text" class="form-control" name="unit[]" value=""placeholder="Product Id" required/></div><a href="javascript:void(0);" class="remove_button" title="Remove field"><img src="{{url('assets/remove-icon.png')}}"/></a><p class="clearfix"></p></div>'; //New input field html
             var x = 1; //Initial field counter is 1
             $(addButton).click(function () { //Once add button is clicked
                 if (x < maxField) { //Check maximum number of input fields
@@ -564,11 +579,13 @@
                 }
             });
             $(wrapper).on('click', '.remove_button', function (e) { //Once remove button is clicked
+                debugger;
                 e.preventDefault();
-                $(this).parent('div').remove(); //Remove field html
+                $(this).parent('.append_div').remove(); //Remove field html
                 x--; //Decrement field counter
             });
         });
+
 
         function openAddform() {
             $('#item_form').show();
@@ -755,8 +772,6 @@
         }
 
 
-
-
         $(document).ready(function () {
 
             $('#open_modal').click(function () {
@@ -868,24 +883,38 @@
 
             });
         }
+
+
+        function activatemy_item(id) {
+            var IDD = id;
+            $.get('{{url('activatemy_item')}}', {IDD: IDD}, function (data) {
+                $('#myheader').html('');
+                $('#mybody').html('');
+                $('#mybody').html('Item Activate Successfully');
+
+                $('#myheader').html('Success  <button type="button" class="close"   data-dismiss="modal">&times;</button>');
+
+                $('#myModal').modal();
+                $("#item_part1").load(location.href + " #item_part1");
+
+
+            });
+        }
     </script>
     <script>
 
-        function mysearch()
-        {
-            var nameis= $('#myInput').val();
-            var catid= $('#Mycat').val();
-            if(nameis=="" && catid==''){
+        function mysearch() {
+            var nameis = $('#myInput').val();
+            var catid = $('#Mycat').val();
+            if (nameis == "" && catid == '') {
                 $('.activemy').show();
                 $('#newid').hide();
 
             }
-            else
-            {
-                $.get('{{url('searchtable')}}', {nameis: nameis,catid:catid}, function (data) {
+            else {
+                $.get('{{url('searchtable')}}', {nameis: nameis, catid: catid}, function (data) {
                     $('#newid').html("");
-                    if(data=="")
-                    {
+                    if (data == "") {
                         $('#newid').append('<tr><td>No Record Found</td></tr>');
 
                     }
@@ -905,22 +934,19 @@
                                 var sts = '<div class="status approved">Inactive</div>';
                             }
 
-                            if(data[i].description==null)
-                            {
-                                var des="Not Given"
+                            if (data[i].description == null) {
+                                var des = "Not Given"
                             }
-                            else
-                            {
-                                var des=data[i].description
+                            else {
+                                var des = data[i].description
                             }
 
-                            $('#newid').append('<tr><td>' + data[i].name + '</td><td width="30%">'+des+'</td><td>' + sts + ' </td><td><div class="btn-group"><button type="button" class="btn btn-primary btn-sm action-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options </button><button type="button" class="btn btn-primary btn-sm action-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu dropdown-menu-right grid-dropdown"><li><a href="' + url + '" data-toggle="modal" data-target="#"><i class="mdi mdi-lead-pencil optiondrop_icon"></i>Edit</a></li><li><a href="#" onclick="deactivate_item(' + data[i].id + ');"><i class="mdi mdi-delete optiondrop_icon"></i>Delete</a></li><li><a href="#" onclick="openMymo(' + data[i].id + ');" class="border_none" data-toggle="modal" data-target=""><i class="mdi mdi-more optiondrop_icon"></i>More</a></li></ul></div></td></tr>');
+                            $('#newid').append('<tr><td>' + data[i].name + '</td><td width="30%">' + des + '</td><td>' + sts + ' </td><td><div class="btn-group"><button type="button" class="btn btn-primary btn-sm action-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options </button><button type="button" class="btn btn-primary btn-sm action-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu dropdown-menu-right grid-dropdown"><li><a href="' + url + '" data-toggle="modal" data-target="#"><i class="mdi mdi-lead-pencil optiondrop_icon"></i>Edit</a></li><li><a href="#" onclick="deactivate_item(' + data[i].id + ');"><i class="mdi mdi-delete optiondrop_icon"></i>Delete</a></li><li><a href="#" onclick="openMymo(' + data[i].id + ');" class="border_none" data-toggle="modal" data-target=""><i class="mdi mdi-more optiondrop_icon"></i>More</a></li></ul></div></td></tr>');
                         }
                     }
                 });
             }
         }
-
 
 
         function searchTable() {
@@ -947,38 +973,38 @@
 
 
     </script>
-  {{--  <script>
-        function edit_item(id) {
-            $('#myheader').html('');
-            $('#mybody').html('');
-            $('#myfooter').html('');
-            $('#myheader').html('Product Edit View  <button type="button" class="close"  data-dismiss="modal">&times;</button>');
-            $('#myfooter').html('<button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>');
-            $('#myModal').modal();
+    {{--  <script>
+          function edit_item(id) {
+              $('#myheader').html('');
+              $('#mybody').html('');
+              $('#myfooter').html('');
+              $('#myheader').html('Product Edit View  <button type="button" class="close"  data-dismiss="modal">&times;</button>');
+              $('#myfooter').html('<button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>');
+              $('#myModal').modal();
 
-            /*alert(id);*/
-            /*var IDD= id;*/
-            var editurl1 = '{{ url('edit_item_show') }}' + '/' + id;
-            $.ajax({
-                type: "GET",
-                contentType: "application/json; charset=utf-8",
-                url: editurl1,
-                data: '{"data":"' + id + '"}',
-                success: function (data) {
-                    $('.modal-body').html(data);
+              /*alert(id);*/
+              /*var IDD= id;*/
+              var editurl1 = '{{ url('edit_item_show') }}' + '/' + id;
+              $.ajax({
+                  type: "GET",
+                  contentType: "application/json; charset=utf-8",
+                  url: editurl1,
+                  data: '{"data":"' + id + '"}',
+                  success: function (data) {
+                      $('.modal-body').html(data);
 
-                },
-                error: function (xhr, status, error) {
-                    $('.modal-body').html(xhr.responseText);
-                    //$('.modal-body').html("Technical Error Occured!");
-                }
-            });
-
-
-        }
+                  },
+                  error: function (xhr, status, error) {
+                      $('.modal-body').html(xhr.responseText);
+                      //$('.modal-body').html("Technical Error Occured!");
+                  }
+              });
 
 
-    </script>--}}
+          }
+
+
+      </script>--}}
     {{--///////////////////////////////////////////////////////////////////*****end Menu2*****//////////////////////////////////////////////////////////////////////////////////////////////////--}}
 @stop
 {{--$("#myroll").load(location.href + " #myroll");--}}

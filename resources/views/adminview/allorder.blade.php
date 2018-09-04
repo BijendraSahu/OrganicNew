@@ -100,7 +100,7 @@
                                                             <a onclick="active({{$order_object->id}});" href="#">Active</a>
                                                             <a onclick="inactive({{$order_object->id}});" href="#">InActive</a>
                                                         </div>
-                                                    </div>&nbsp;&nbsp;<a href='{{url("/bill_order/{$order_object->id}")}}' target="_blank"><button class="btn btn-primary btn-sm">Bill &nbsp;<i class="mdi mdi-clipboard-text"></i></button></a>&nbsp;&nbsp;<button onclick="more_full({{$order_object->id}});" class="btn btn-primary btn-sm">More &nbsp;<i class="mdi mdi-eye"></i></button></td>
+                                                    </div>&nbsp;&nbsp;<a href='{{url("/bill_order/{$order_object->id}")}}' target="_blank"><button class="btn btn-primary btn-sm">Bill &nbsp;<i class="mdi mdi-clipboard-text"></i></button></a>&nbsp;&nbsp;<button onclick="more_full({{$order_object->id}});" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-sm">More &nbsp;<i class="mdi mdi-eye"></i></button></td>
                                             </tr>
                                             @endforeach
 
@@ -128,15 +128,13 @@
     <script>
 
             function more_full(id) {
-                $('#myheader').html('');
-                $('#mybody').html('');
-                $('#myfooter').html('');
-                $('#myheader').html('Order Full View  <button type="button" class="close"  data-dismiss="modal">&times;</button>');
-                $('#myfooter').html('<button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>');
-
-
+                // $('#myModal').modal();
+                // $('#myfooter').html('');
+                $('#myheader').html('Order Full View');
+                // $('#myfooter').html('<button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>');
                 /*alert(id);*/
                 /*var IDD= id;*/
+                $('#mybody').html('<img height="50px" class="center-block" src="{{url('images/loading.gif')}}"/>');
                 var editurl1 = '{{ url('more_order') }}' + '/' + id;
                 $.ajax({
                     type: "GET",
@@ -144,12 +142,12 @@
                     url: editurl1,
                     data: '{"data":"' + id + '"}',
                     success: function (data) {
-                        $('#myModal').modal();
-                        $('.modal-body').html(data);
+
+                        $('#mybody').html(data);
 
                     },
                     error: function (xhr, status, error) {
-                        $('.modal-body').html(xhr.responseText);
+                        $('#mybody').html(xhr.responseText);
                         //$('.modal-body').html("Technical Error Occured!");
                     }
                 });
@@ -204,12 +202,14 @@
         }
         function ordered(id)
         {
+
           var IDD = id;
             $.ajax({
                 type: "get",
                 url: "{{url('/ordered')}}",
                 data: "IDD= " + IDD ,
                 success: function (data) {
+                    alert(data);
                     $("#user_table").load(location.href + " #user_table");
                     myFunction();
                     $('#snackbar').html('');
