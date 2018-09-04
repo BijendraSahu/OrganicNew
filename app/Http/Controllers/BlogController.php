@@ -13,10 +13,13 @@ session_start();
 
 class BlogController extends Controller
 {
-    public function blog()
+    public function blog($id)
     {
-        $data = BlogCategory::get();
-        return view('adminview.blog', ['data' => $data]);
+        $tee = decrypt($id);
+        if ($tee == 1) {
+            $data = BlogCategory::get();
+            return view('adminview.blog', ['data' => $data]);
+        }
     }
 
     public function blogpic()

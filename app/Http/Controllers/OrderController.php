@@ -10,11 +10,14 @@ session_start();
 
 class OrderController extends Controller
 {
-public function orderlist()
+public function orderlist($id)
 {
-    $orderdata=OrderMaster::get();
-    $orderdetails=OrderDetails::get();
-    return view('adminview.allorder',['orderdata'=>$orderdata,'orderdetails'=>$orderdetails]);
+    $tee = decrypt($id);
+    if ($tee == 1) {
+        $orderdata = OrderMaster::get();
+        $orderdetails = OrderDetails::get();
+        return view('adminview.allorder', ['orderdata' => $orderdata, 'orderdetails' => $orderdetails]);
+    }
 }
 
 

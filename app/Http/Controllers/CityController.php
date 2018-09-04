@@ -8,11 +8,14 @@ use Illuminate\Http\Request;
 session_start();
 class CityController extends Controller
 {
-    public function citylist()
+    public function citylist($id)
     {
-        $citydata=CityModel::get();
-        $statedata=StateModel::get();
-        return view('adminview.city',['citydata'=> $citydata,'statedata'=> $statedata]);
+        $tee = decrypt($id);
+        if ($tee == 1) {
+            $citydata = CityModel::get();
+            $statedata = StateModel::get();
+            return view('adminview.city', ['citydata' => $citydata, 'statedata' => $statedata]);
+        }
     }
     public function add_city()
     {

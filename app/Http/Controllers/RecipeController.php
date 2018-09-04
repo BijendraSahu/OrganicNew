@@ -125,9 +125,11 @@ class RecipeController extends Controller
         return view('web.view_recipe')->with(['recipe' => $recipe, 'similar_recipes' => $similar_recipes]);
     }
 
-    public function allreciepe()
-    {
-        return view('adminview.reciepe');
+    public function allreciepe($id)
+    {  $tee = decrypt($id);
+        if ($tee == 1) {
+            return view('adminview.reciepe');
+        }
     }
 
     public function approvereciepe()

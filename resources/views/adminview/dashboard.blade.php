@@ -29,14 +29,18 @@
         }
 
     </style>
-
+    <?php $mymenuroll = \App\Menurolemodel::where(['user_id'=>$_SESSION['admin_master']->id])->get();?>
     <section class="box_containner">
         <div class="container-fluid">
             <div class="row">
                <section id="menu1">
                     <div class="home_brics_row">
+
+
+                        @foreach($mymenuroll as $mymenurollone)
+                            @if($mymenurollone->menu_id==2)
                         <?php $cdata= \App\ItemCategory::where(['is_active'=>1])->count();?>
-                        <a href="{{url('/category')}}"><div class="col-sm-3">
+                        <a href="{{url('organic').'/'.encrypt(1).'/category'}}"><div class="col-sm-3">
                             <div class="white_brics">
                                 <div class="white_icon_withtxt">
                                     <div class="white_icons_blk"><i class="mdi mdi-tag"></i></div>
@@ -47,8 +51,14 @@
                             </div>
                         </div>
                         </a>
+                        @endif
+                        @endforeach
+
+
+                            @foreach($mymenuroll as $mymenurollone)
+                                @if($mymenurollone->menu_id==3)
                             <?php $idata= \App\ItemMaster::where(['is_active'=>1])->count();?>
-                        <a href="{{url('/items')}}">
+                        <a href="{{url('organic').'/'.encrypt(1).'/items'}}">
                         <div class="col-sm-3">
                             <div class="white_brics">
                                 <div class="white_icon_withtxt">
@@ -62,8 +72,16 @@
                             </div>
                         </div>
                         </a>
+                                @endif
+                            @endforeach
+
+
+                            @foreach($mymenuroll as $mymenurollone)
+                                @if($mymenurollone->menu_id==4)
                             <?php $udata= \App\UserMaster::where(['is_active'=>1])->count();?>
-                         <a href="{{url('/userlist')}}">
+
+                             <a href="{{url('organic').'/'.encrypt(1).'/userlist'}}">
+
                         <div class="col-sm-3">
                             <div class="white_brics">
                                 <div class="white_icon_withtxt">
@@ -76,8 +94,14 @@
                             </div>
                         </div>
                          </a>
+                                @endif
+                            @endforeach
+
+
+                            @foreach($mymenuroll as $mymenurollone)
+                                @if($mymenurollone->menu_id==5)
                             <?php $odata= \App\OrderMaster::where(['is_active'=>1])->count();?>
-                            <a href="{{url('/orderlist')}}">
+                                <a href="{{url('organic').'/'.encrypt(1).'/orderlist'}}">
                         <div class="col-sm-3">
                             <div class="white_brics">
                                 <div class="white_icon_withtxt">
@@ -90,6 +114,8 @@
                             </div>
                         </div>
                             </a>
+                                @endif
+                            @endforeach
 
                     </div>
                 </section>
@@ -239,8 +265,10 @@
             <div class="row">
                 <section id="menu1">
                     <div class="home_brics_row">
+                        @foreach($mymenuroll as $mymenurollone)
+                            @if($mymenurollone->menu_id==6)
                         <?php $ddata= \App\DeliveryModel::where(['is_active'=>1])->count();?>
-                        <a href="{{url('/delivery')}}">
+                            <a href="{{url('organic').'/'.encrypt(1).'/delivery'}}">
                             <div class="col-sm-3">
                                 <div class="white_brics">
                                     <div class="white_icon_withtxt">
@@ -253,9 +281,12 @@
                                 </div>
                             </div>
                         </a>
+                            @endif
+                        @endforeach
 
-
-                        <a href="{{url('/review')}} ">
+                            @foreach($mymenuroll as $mymenurollone)
+                                @if($mymenurollone->menu_id==7)
+                            <a href="{{url('organic').'/'.encrypt(1).'/review'}}">
                             <?php $rdata= \App\Review::where(['is_active'=>1])->count();?>
                             <div class="col-sm-3">
                                 <div class="white_brics">
@@ -269,10 +300,12 @@
                                 </div>
                             </div>
                         </a>
+                                @endif
+                            @endforeach
 
-
-
-                        <a href="/statelist {{url('')}}">
+                            @foreach($mymenuroll as $mymenurollone)
+                                @if($mymenurollone->menu_id==8)
+                            <a href="{{url('organic').'/'.encrypt(1).'/statelist'}}">
                             <?php $sdata= \App\StateModel::where(['is_deleted'=>0])->count();?>
                             <div class="col-sm-3">
                                 <div class="white_brics">
@@ -287,8 +320,15 @@
                                 </div>
                             </div>
                         </a>
+                                @endif
+                            @endforeach
+
+
+                            @foreach($mymenuroll as $mymenurollone)
+                                @if($mymenurollone->menu_id==9)
                             <?php $cidata= \App\Cities::count();?>
-                        <a href="{{url('/citylist')}}"><div class="col-sm-3">
+                                <a href="{{url('organic').'/'.encrypt(1).'/citylist'}}">
+                       <div class="col-sm-3">
                                 <div class="white_brics">
                                     <div class="white_icon_withtxt">
                                         <div class="white_icons_blk"><i class=" mdi mdi-map-marker"></i></div>
@@ -299,6 +339,8 @@
                                 </div>
                             </div>
                         </a>
+                                @endif
+                            @endforeach
 
                     </div>
                 </section>
@@ -449,8 +491,11 @@
                 <section id="menu1">
                     <div class="home_brics_row">
 
+                        @foreach($mymenuroll as $mymenurollone)
+                            @if($mymenurollone->menu_id==10)
+                                <a href="{{url('organic').'/'.encrypt(1).'/ask'}}">
 
-                        <a href="{{url('/ask')}}"><div class="col-sm-3">
+                            <div class="col-sm-3">
                                 <?php $Askdata= \App\AskModel::count();?>
 
                                 <div class="white_brics">
@@ -463,7 +508,13 @@
                                 </div>
                             </div>
                         </a>
-                        <a href="{{url('/blog')}}">
+                            @endif
+                        @endforeach
+
+                            @foreach($mymenuroll as $mymenurollone)
+                                @if($mymenurollone->menu_id==13)
+
+                            <a href="{{url('organic').'/'.encrypt(1).'/blog'}}">
                             <?php $blogdata= \App\Blogmodel::count();?>
                             <div class="col-sm-3">
                                 <div class="white_brics">
@@ -478,11 +529,244 @@
                                 </div>
                             </div>
                         </a>
+                                @endif
+                            @endforeach
+                            @foreach($mymenuroll as $mymenurollone)
+                                @if($mymenurollone->menu_id==11)
+
+                            <a href="{{url('organic').'/'.encrypt(1).'/testimonials'}}">
+
+                            <?php $rdata= \App\Review::where(['is_active'=>1])->count();?>
+                            <div class="col-sm-3">
+                                <div class="white_brics">
+                                    <div class="white_icon_withtxt">
+                                        <div class="white_icons_blk white_brics_clr3"><i
+                                                    class="mdi mdi-forum"></i></div>
+                                        <div class="white_brics_txt">Testimonials</div>
+                                        <div class="white_brics_count">{{$rdata}}</div>
+                                    </div>
+                                    <div class="brics_progress white_brics_border_clr3"></div>
+                                </div>
+                            </div>
+                        </a>
+                                @endif
+                            @endforeach
+
+                            @foreach($mymenuroll as $mymenurollone)
+                                @if($mymenurollone->menu_id==12)
+                            <a href="{{url('organic').'/'.encrypt(1).'/allreciepe'}}">
+
+                            <div class="col-sm-3">
+                                <div class="white_brics">
+                                    <div class="white_icon_withtxt">
+                                        <div class="white_icons_blk white_brics_clr4"><i
+                                                    class="mdi mdi-gift"></i></div>
+                                        <div class="white_brics_txt">All Reciepe</div>
+                                        <div class="white_brics_count">{{$ddata}}</div>
+                                    </div>
+                                    <div class="brics_progress white_brics_border_clr4"></div>
+                                </div>
+                            </div>
+                        </a>
+                                @endif
+                            @endforeach
+
+
+
+
 
                     </div>
                 </section>
 
 
+                {{--  <section id="menu2">
+                      <div class="col-sm-12 col-md-12 col-xs-12">
+                          <div class="dash_boxcontainner white_boxlist">
+                              <div class="upper_basic_heading"><span class="white_dash_head_txt">
+                         All Categories
+                         <button id="open_modal" class="btn btn-default pull-right"><i
+                                     class="mdi mdi-plus"></i>Add</button>
+                      </span>
+
+                                  <div id="snackbar">New Categories added Successfully</div>
+                                  <p class="clearfix"></p>
+                                  <section id="mytablereload">
+                                  <table class="table table-striped" id="mycattable">
+                                      <thead>
+                                      <tr>
+                                          <th>Sr.</th>
+                                          <th>Name</th>
+                                          <th>Description</th>
+                                          <th>Action</th>
+
+                                      </tr>
+                                      </thead>
+                                      @if(count($alldata) > 0)
+                                          @foreach($alldata as $object)
+                                              <tbody>
+                                              <tr class="hiderow{{$object->id}}" id="{{$object->id}}">
+                                                  <td>{{$no++}}</td>
+                                                  <td contenteditable="false"
+                                                      class="edittable{{$object->id}} name">{{$object->name}}</td>
+                                                  <td contenteditable="false"
+                                                      class="edittable{{$object->id}} description ">{{$object->description}}</td>
+                                                  <td>
+                                                      <button class="btn btn-sm btn-info edit{{$object->id}}"
+                                                              onclick="abcd({{$object->id}});">Edit
+                                                      </button>
+                                                      <button class="btn btn-sm btn-primary update_btn update{{$object->id}}"
+                                                              onclick="update(this,'{{$object->id}}');">Update
+                                                      </button>
+                                                      |
+                                                      <button class="btn btn-sm btn-danger"
+                                                              onclick="deletecat({{$object->id}});">Delete
+                                                      </button>
+                                                  </td>
+                                              </tr>
+                                              </tbody>
+                                          @endforeach
+                                      @else
+                                          <tbody>
+                                          <tr>
+                                              <td>No record Available</td>
+                                              <td></td>
+                                              <td></td>
+                                              <td></td>
+
+                                          </tr>
+
+                                          </tbody>
+                                      @endif
+
+                                  </table>
+                                  <div align="center">
+                                      {{$alldata->links()}}
+                                  </div>
+                                  </section>
+                              </div>
+
+                          </div>
+                      </div>
+                  </section>
+                  <section id="menu3">
+                      <section id="item_list">
+                      <div class="col-sm-12 col-md-12 col-xs-12">
+                          <div class="dash_boxcontainner white_boxlist">
+                              <div class="upper_basic_heading"><span class="white_dash_head_txt">
+                         All Items
+                         <button id="open_item_form" class="btn btn-default pull-right"><i
+                                     class="mdi mdi-plus"></i>Add</button>
+                      </span>
+
+                              </div>
+                          </div>
+                      </div>
+                  </section>
+                  </section>
+                  <section id="item_form" >
+                     --}}{{-- <section id="item_form" class="hidealways">--}}{{--
+                      <div class="col-sm-12 col-md-12 col-xs-12">
+                          <div class="dash_boxcontainner white_boxlist">
+                              <div class="upper_basic_heading"><span class="white_dash_head_txt">
+                         Add Items
+                      </span>
+                                 --}}{{-- <div class="">--}}{{--
+                                  <p class="clearfix"></p>
+                                  <label>Name : </label>
+                                  <p class="clearfix"></p>
+                                  <input type="text" name="item_name" class="form-control" placeholder="Enter Item Name">
+                                  <p class="clearfix"></p>
+                                  <label>Price : </label>
+                                  <p class="clearfix"></p>
+                                  <input type="text" name="item_price" class="form-control" placeholder="Enter Item price">
+                                  <p class="clearfix"></p>
+                                  <label>Select Categories : </label><p class="clearfix"></p>
+                                  @foreach($allcat as $object)
+                                      <div class="label_checkbox">
+                                      <div class="checkbox ">
+                                          <label><input type="checkbox"  class="setchat_box" value="{{$object->id}}" id="CheckboxHead"><span class="cr"><i class="cr-icon mdi mdi-check"></i></span>{{$object->name}}</label>
+                                      </div>
+                                      </div>
+                                  @endforeach
+                                  <p class="clearfix"></p>
+                                  <label>Select Image : </label> <p class="clearfix"></p>
+                                  <input type="file" name="item_pic" class="form-control" placeholder="Upload Item image">
+                                  <p class="clearfix"></p>
+                                  <label>Usage : </label>
+                                  <p class="clearfix"></p>
+                                  <textarea name="item_usage" id="item_usage" class="form-control " rows="4" cols="50" placeholder="Enter Your Item Usage "></textarea>
+                                  <p class="clearfix"></p>
+                                  <label>Description : </label>
+                                  <p class="clearfix"></p>
+                                  <textarea name="item_description" id="item_description" class="form-control " rows="4" cols="50" placeholder="Enter Your Item Description "></textarea>
+                                  <p class="clearfix"></p>
+                                  <label>Specifications : </label>
+                                  <p class="clearfix"></p>
+                                  <textarea name="item_specifications" id="item_specifications" class="form-control " rows="4" cols="50" placeholder="Enter Your Item Specifications "></textarea>
+                                  <p class="clearfix"></p>
+                                  <label>Ingredients : </label>
+                                  <p class="clearfix"></p>
+                                  <textarea name="item_ingredients" id="item_ingredients" class="form-control " rows="4" cols="50" placeholder="Enter Your Item Ingredients "></textarea>
+                                  <p class="clearfix"></p>
+                                  <label>Nutrients : </label>
+                                  <p class="clearfix"></p>
+                                  <textarea name="item_available_nutrients" id="item_available_nutrients" class="form-control " rows="4" cols="50" placeholder="Enter Your Item Available Nutrients "></textarea>
+                                  <p class="clearfix"></p>
+                                  <label>Delivery : </label>
+                                  <p class="clearfix"></p>
+                                  <input type="text" name="item_delivery" class="form-control" placeholder="Enter Your Delivery Information">
+                                  <p class="clearfix"></p>
+                              </div>
+                          </div>
+                      </div>
+
+                  </section>--}}
+            </div>
+            <div class="row">
+                <section id="menu1">
+                    <div class="home_brics_row">
+                        @foreach($mymenuroll as $mymenurollone)
+                            @if($mymenurollone->menu_id==14)
+                        <?php $ddata= \App\DeliveryModel::where(['is_active'=>1])->count();?>
+                            <a href="{{url('organic').'/'.encrypt(1).'/subscribe'}}">
+                            <div class="col-sm-3">
+                                <div class="white_brics">
+                                    <div class="white_icon_withtxt">
+                                        <div class="white_icons_blk white_brics_clr4"><i
+                                                    class="mdi mdi-gift"></i></div>
+                                        <div class="white_brics_txt">Subscribe</div>
+                                        <div class="white_brics_count">{{$ddata}}</div>
+                                    </div>
+                                    <div class="brics_progress white_brics_border_clr4"></div>
+                                </div>
+                            </div>
+                        </a>
+                            @endif
+                        @endforeach
+
+                            @foreach($mymenuroll as $mymenurollone)
+                                @if($mymenurollone->menu_id==15)
+
+                            <a href="{{url('organic').'/'.encrypt(1).'/rollmastermenu'}}">
+                            <?php $rdata= \App\Review::where(['is_active'=>1])->count();?>
+                            <div class="col-sm-3">
+                                <div class="white_brics">
+                                    <div class="white_icon_withtxt">
+                                        <div class="white_icons_blk white_brics_clr3"><i
+                                                    class="mdi mdi-forum"></i></div>
+                                        <div class="white_brics_txt">Roll Master</div>
+                                        <div class="white_brics_count">{{$rdata}}</div>
+                                    </div>
+                                    <div class="brics_progress white_brics_border_clr3"></div>
+                                </div>
+                            </div>
+                        </a>
+                                @endif
+                            @endforeach
+
+
+                    </div>
+                </section>
                 {{--  <section id="menu2">
                       <div class="col-sm-12 col-md-12 col-xs-12">
                           <div class="dash_boxcontainner white_boxlist">

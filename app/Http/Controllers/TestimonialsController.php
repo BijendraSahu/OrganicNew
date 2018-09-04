@@ -9,9 +9,11 @@ session_start();
 
 class TestimonialsController extends Controller
 {
-    public function list()
-    {
-        return view('adminview.testimonials');
+    public function list($id)
+    {  $tee = decrypt($id);
+        if ($tee == 1) {
+            return view('adminview.testimonials');
+        }
     }
 
 

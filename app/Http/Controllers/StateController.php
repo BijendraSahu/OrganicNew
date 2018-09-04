@@ -7,10 +7,13 @@ use Illuminate\Http\Request;
 session_start();
 class StateController extends Controller
 {
- public function statelist()
+ public function statelist($id)
  {
-     $statedata = StateModel::get();
-     return view('adminview.state',['statedata'=>$statedata]);
+     $tee = decrypt($id);
+     if ($tee == 1) {
+         $statedata = StateModel::get();
+         return view('adminview.state', ['statedata' => $statedata]);
+     }
  }
  public function add_state()
  {

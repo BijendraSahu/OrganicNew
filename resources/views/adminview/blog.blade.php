@@ -25,7 +25,7 @@
                                         <div class="row line">
                                             <div class="col-sm-4 one">
                                                 <div class="shadow">
-                                                    <img src="blog_pic/{{$myobject->id}}/{{$myobject->img_url}}" class="first" width="270px" height="200px"/>
+                                                    <img src="{{url('blog_pic')}}/{{$myobject->id}}/{{$myobject->img_url}}" class="first" width="270px" height="200px"/>
                                                 </div>
                                             </div>
                                             <div class="col-sm-7 two">
