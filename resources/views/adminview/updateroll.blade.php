@@ -82,7 +82,7 @@
                       </span>
 
 
-                                        <input type="text" value="{{$mydata->username}}" name="username" class="form-control" placeholder="Enter User Name">
+                                        <input type="text" value="{{$mydata->username}}" name="username" class="form-control" placeholder="Enter User Name" disabled="disabled">
                                         <input type="text" value="{{$mydata->password}}" name="password1" class="form-control" placeholder="Enter User Password">
                                         <input type="hidden" value="{{$mydata->id}}" name="myid">
 

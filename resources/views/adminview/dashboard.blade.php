@@ -267,7 +267,7 @@
                     <div class="home_brics_row">
                         @foreach($mymenuroll as $mymenurollone)
                             @if($mymenurollone->menu_id==6)
-                        <?php $ddata= \App\DeliveryModel::where(['is_active'=>1])->count();?>
+                        <?php $dddata= \App\DeliveryModel::where(['is_active'=>1])->count();?>
                             <a href="{{url('organic').'/'.encrypt(1).'/delivery'}}">
                             <div class="col-sm-3">
                                 <div class="white_brics">
@@ -275,7 +275,7 @@
                                         <div class="white_icons_blk white_brics_clr4"><i
                                                     class="mdi mdi-gift"></i></div>
                                         <div class="white_brics_txt">Delivery</div>
-                                        <div class="white_brics_count">{{$ddata}}</div>
+                                      {{--  <div class="white_brics_count">{{$dddata}}</div>--}}
                                     </div>
                                     <div class="brics_progress white_brics_border_clr4"></div>
                                 </div>
@@ -555,14 +555,14 @@
                             @foreach($mymenuroll as $mymenurollone)
                                 @if($mymenurollone->menu_id==12)
                             <a href="{{url('organic').'/'.encrypt(1).'/allreciepe'}}">
-
+                                <?php $RRdata= \App\RecipeMaster::where(['is_active'=>1])->count();?>
                             <div class="col-sm-3">
                                 <div class="white_brics">
                                     <div class="white_icon_withtxt">
                                         <div class="white_icons_blk white_brics_clr4"><i
                                                     class="mdi mdi-gift"></i></div>
                                         <div class="white_brics_txt">All Reciepe</div>
-                                        <div class="white_brics_count">{{$ddata}}</div>
+                                        <div class="white_brics_count">{{$RRdata}}</div>
                                     </div>
                                     <div class="brics_progress white_brics_border_clr4"></div>
                                 </div>
@@ -754,7 +754,7 @@
                                     <div class="white_icon_withtxt">
                                         <div class="white_icons_blk white_brics_clr3"><i
                                                     class="mdi mdi-forum"></i></div>
-                                        <div class="white_brics_txt">Roll Master</div>
+                                        <div class="white_brics_txt">Role Master</div>
                                         <div class="white_brics_count">{{$rdata}}</div>
                                     </div>
                                     <div class="brics_progress white_brics_border_clr3"></div>
