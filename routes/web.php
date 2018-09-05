@@ -118,10 +118,10 @@ Route::get('getOrders','APIController@getOrders');
 Route::get('register_user', 'User_loginController@register');
 Route::get('login_user', 'User_loginController@login');
 ///////////////////////////////admin/////////////////////////////////////////////////////////////////////////////////////////
-Route::get('organic/{id}/admin', 'AdminController@admin');
-Route::get('/adminlogin', 'AdminController@adminlogin');
 Route::get('/admin', 'AdminController@admin');
 Route::get('access', 'AdminController@adminlogin');
+Route::get('organic/{id}/admin', 'AdminController@admin');
+Route::get('/adminlogin', 'AdminController@adminlogin');
 Route::get('/logincheck', 'AdminController@logincheck');
 /////////////////////******Category*****///////////////////////////////////////////////////////////////////////////////
 Route::get('organic/{id}/category', 'AdminController@category');
