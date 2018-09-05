@@ -39,16 +39,15 @@ class RollmasterController extends Controller
                 $item_category->save();
             }
         }
-        return redirect('/rollmastermenu');
+        return Redirect::back();
     }
 
     public function postrollmasterupdate()
     {
 
         $data = array(
-            'username' => request('username'),
             'password' => request('password1'),
-            'rollmaster_id' => 2,
+
         );
         LoginModel::where('id', request('myid'))
             ->update($data);
