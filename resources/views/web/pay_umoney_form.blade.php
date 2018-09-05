@@ -76,29 +76,37 @@ $new_str = str_replace(' ', '', $firstName);
 
         <div class="col-md-12">
             <div class="form-group">
-                <label for="inputType" class="col-md-2 control-label">Email<span class="mandatory">*</span></label>
-                <div class="col-sm-3"><label for=""><b>{{$email}}</b></label>
-                    <input type="hidden" readonly="readonly" name="email"
-                           value="{{$email}}" class="form-control" id="inputType"
-                           placeholder="Enter Email">
-                </div>
-                <label for="inputType" class="col-md-1 control-label">Phone<span class="mandatory">*</span></label>
+                {{--<label for="inputType" class="col-md-2 control-label">Email<span class="mandatory">*</span></label>--}}
+                {{--<div class="col-sm-3"><label for=""><b>{{$email}}</b></label>--}}
+                    {{--<input type="hidden" readonly="readonly" name="email"--}}
+                           {{--value="{{$email}}" class="form-control" id="inputType"--}}
+                           {{--placeholder="Enter Email">--}}
+                {{--</div>--}}
+                <label for="inputType" class="col-md-2 control-label">Phone<span class="mandatory">*</span></label>
                 <div class="col-sm-3"><label for=""><b>{{$mobile}}</b></label>
                     <input type="hidden" readonly="readonly" name="phone"
                            value="{{$mobile}}" class="form-control" id="inputType"
                            placeholder="Enter Phone"></div>
-            </div>
-        </div>
-        <p class="clearfix"></p>
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="inputType" class="col-md-2 control-label">Address:<span class="mandatory">*</span></label>
-                <div class="col-md-7"><label for=""><b>{{$addressdel1}}</b></label>
+
+                <label for="inputType" class="col-md-1 control-label">Address:<span class="mandatory">*</span></label>
+                <div class="col-sm-3"><label for=""><b>{{$addressdel1}}</b></label>
                     <input type="hidden" readonly="readonly" name="addressdel" class="form-control"
                            value="{{$addressdel1}}"
                            placeholder=" Enter Address"></div>
+
             </div>
         </div>
+        {{--<p class="clearfix"></p>--}}
+        {{--<div class="col-md-12">--}}
+            {{--<div class="form-group">--}}
+                {{--<label for="inputType" class="col-md-2 control-label">Address:<span class="mandatory">*</span></label>--}}
+                {{--<div class="col-md-7"><label for=""><b>{{$addressdel1}}</b></label>--}}
+                    {{--<input type="hidden" readonly="readonly" name="addressdel" class="form-control"--}}
+                           {{--value="{{$addressdel1}}"--}}
+                           {{--placeholder=" Enter Address"></div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+
         {{--@if($shipping > 0)--}}
             {{--<p class="clearfix"></p>--}}
             {{--<div class="col-md-12">--}}

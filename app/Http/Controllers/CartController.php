@@ -69,25 +69,26 @@ class CartController extends Controller
     }
 
 
-    public function payment(/*$amt, $cod, $addressdel, $code, */
-        Request $request)   //////////////////Final
+    public function payment(Request $request)   //////////////////Final
     {
 //        session_start();
         $cart = Cart::content();
         $user = $_SESSION['user_master'];
         $exist = UserAddress::find(request('existaddress'));
-        $addressdel1 = $exist->name . ', ' . $exist->contact . ', ' . $exist->address . ', ' . $exist->city->city . ', ' . $exist->city->state;
+        $addressdel1 = $exist->name . ', ' . $exist->contact . ', ' . $exist->address;
 
         $address_id = request('existaddress');
-        $selected_point = request('selected_point');
-        $selected_promo = request('selected_promo');
+        $selected_point = (request('selected_point') > 0) ? request('selected_point') : 0;
+        $selected_promo = (request('selected_promo') > 0) ? request('selected_promo') : 0;
         define('SUCCESS_URL', 'http://18.222.69.192/success');  //have complete url
         define('FAIL_URL', 'http://18.222.69.192/failed');    //add complete url
-        $MERCHANT_KEY = "wyMjdvT3";
-        $SALT = "zBehL9tdjJ";
+        $MERCHANT_KEY = "uuost9YW";
+        $SALT = "STCIocBzJD";
+//        $MERCHANT_KEY = "mqqqWtY9";
+//        $SALT = "x2fGRxrwL7";
         $txnid = substr(hash('sha256', mt_rand() . microtime()), 0, 20);
         $email = $exist->email;
-        $firstName = $exist->name;
+        $firstName = str_replace(' ', '', $exist->name);
         $amt = request('amt');
 //        $amt_pum = request('amt') * 3 / 100;
         $totalCost = $amt;
@@ -108,7 +109,108 @@ class CartController extends Controller
         return redirect('checkout')->withErrors(array('message' => 'Payment has been failed please try again...'));
     }
 
-    public function payment_success()
+    public function payment_success(Request $request)
+    {
+        $cart = \Gloudemans\Shoppingcart\Facades\Cart::content();
+        $user = UserMaster::find($_SESSION['user_master']->id);
+        if (count($cart) == 0) {
+            return redirect('checkout')->withInput()->withErrors('Your cart is empty');
+        } else {
+            $cart_total = \Gloudemans\Shoppingcart\Facades\Cart::subtotal();
+//            $address_id = request('add_id');
+//            $shipping = request('udf2');
+//            $selected_point = request('selected_point');
+//            $selected_promo = request('selected_promo');
+
+            $shipping = request('udf2');
+            $selected_point = request('udf3');
+            $selected_promo = request('udf4');
+            $address_id = request('udf5');
+
+            if ($selected_point > 0) {
+                $user_master = UserMaster::find($user->id);
+                $user_master->gain_amount = 0;
+                $user_master->save();
+            }
+
+            $order = new OrderMaster();
+            $order->order_no = rand(100000, 999999);
+            $order->user_id = $user->id;
+            $order->address_id = $address_id;
+            $order->status = 'Ordered';
+            $order->delivery_charge = $shipping == 0 ? '0' : $shipping;
+            $order->bill_amount = $cart_total;
+            $order->point_pay = $selected_point == '' ? 0 : $selected_point;
+            $order->promo_pay = $selected_promo == '' ? 0 : $selected_promo;
+            $order->paid_amt = request('amount');
+            $order->order_date = Carbon::now('Asia/Kolkata');
+            $order->save();
+            foreach ($cart as $row) {
+                $order_des = new OrderDescription();
+                $order_des->order_master_id = $order->id;
+                $order_des->item_master_id = $row->id;
+                $order_des->qty = $row->qty;
+                $order_des->unit_price = $row->price;
+                $order_des->total = $row->price * $row->qty;
+                $order_des->save();
+            }
+            \Gloudemans\Shoppingcart\Facades\Cart::destroy();
+
+            /********0.2% Amount Distribution*********/
+//            $total_amt = DB::selectOne("SELECT SUM(total) as total_amt FROM `order_description` WHERE order_master_id = $order->id");
+            $pointAmt = $cart_total * 0.2 / 100;
+
+            $queryResult = DB::select("call getParentId($user->id)");
+            if (count($queryResult) > 0) {
+                if (count($queryResult) >= 4) {
+                    for ($i = 0; $i < 4; $i++) {
+                        $puser = UserMaster::find($queryResult[$i]->parent_id);
+                        $puser->gain_amount += $pointAmt;
+                        $puser->save();
+                    }
+                } else {
+                    foreach ($queryResult as $parent_id) {
+                        $puser = UserMaster::find($parent_id->parent_id);
+                        $puser->gain_amount += $pointAmt;
+                        $puser->save();
+                    }
+                }
+            }
+
+            $address = UserAddress::find($address_id);
+            $name = str_replace(' ', '', $address->name);
+
+            file_get_contents("http://api.msg91.com/api/sendhttp.php?sender=CONONE&route=4&mobiles=$address->contact&authkey=213418AONRGdnQ5ae96f62&country=91&message=Dear%20$name,%20Your%20order has%20been%20placed%20your%20order%20no%20is%20OrganicDolchi$order->order_no");
+
+            /********0.2% Amount Distribution*********/
+
+            $allmails = [$address->email];
+
+            foreach ($allmails as $mail) {
+                $email[] = $mail;
+            }
+            if (count($email) > 0) {
+                $mail = new \App\Mail();
+                $mail->to = implode(",", $email);
+                $mail->subject = 'Organic Dolchi - Support Team';
+                $siteurl = 'http://www.organicdolchi.com/';
+                $username = $address->name;
+//                $salutation = ($user->gender == 'male') ? 'Mr.' : 'Mrs.';
+
+                $message = '<table width="650" cellpadding="0" cellspacing="0" align="center" style="background-color:#ececec;padding:40px;font-family:sans-serif;overflow:scroll"><tbody><tr><td><table cellpadding="0" cellspacing="0" align="center" width="100%"><tbody><tr><td><div style="line-height:50px;text-align:center;background-color:#fff;border-radius:5px;padding:20px"><a href="' . $siteurl . '" target="_blank" ><img src="' . $siteurl . 'images/organic_logo.png"></a></div></td></tr><tr><td><div><img src="' . $siteurl . 'images/acknowledgement.jpg" style="height:auto;width:100%;" tabindex="0"><div dir="ltr" style="opacity: 0.01; left: 775px; top: 343px;"><div><div class="aSK J-J5-Ji aYr"></div></div></div></div></td></tr><tr><td style="background-color:#fff;padding:20px;border-radius:0px 0px 5px 5px;font-size:14px"><div style="width:100%"><h1 style="color:#007cc2;text-align:center">Thank you ' /*. $salutation . ' '*/ . $username . '</h1><p style="font-size:14px;text-align:center;color:#333;padding:10px 20px 10px 20px">Thank you forshopping with organicdolchi. organicdolchi.com is a Quick and easy shopping: Online/ Telephonic Call-back facility. Free Home Delivery: The products are delivered in 2 working days or less and your doorsteps. Convenient Payment Options: Payment via net banking facility, Payumoney and Indian credit/debit cards. We also accept Cash on Delivery<br/></p></div></td></tr></tbody></table></td></tr><tr><td style="padding:20px;font-size:12px;color:#797979;text-align:center;line-height:20px;border-radius:5px 5px 0px 0px">DISCLAIMER - The information contained in this electronic message (including any accompanying documents) is solely intended for the information of the addressee(s) not be reproduced or redistributed or passed on directly or indirectly in any form to any other person.</td></tr></tbody></table>';
+                $mail->body = $message;
+                if ($mail->send_mail()) {
+                    //return redirect('mail')->withErrors('Email sent...');
+                } else {
+                    //return redirect('mail')->withInput()->withErrors('Something went wrong. Please contact admin');
+                }
+            }
+
+            return redirect('checkout')->with('message', 'Your order has been successful...you will get confirmation mail');
+        }
+    }
+
+    public function payment_success_old()
     {
 //        echo json_encode($_REQUEST);
         $user = UserMaster::find($_SESSION['user_master']->id);
@@ -201,6 +303,4 @@ class CartController extends Controller
             return redirect('product_list')->with('message', 'Payment successful...Your order has been placed');
         }
     }
-
-
 }

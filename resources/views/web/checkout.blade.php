@@ -118,7 +118,7 @@
         }
 
         function proceed_to_pay() {
-            var existaddress = $('#existaddress').val();
+            var existaddress = $('#add_id').val();
             var net_amt = $('#net_amt').val();
             if (net_amt < 1) {
                 swal("Cart Empty", "Your cart is empty", "info");
@@ -140,7 +140,7 @@
             var id = 1;
             var selected_point = $('#selected_point').val();
             var selected_promo = $('#selected_promo').val();
-            var existaddress = $('#existaddress').val();
+            var existaddress = $('#add_id').val();
             var delivery_charge = $('#delivery_charge').text();
             var amt = $('#net_amt').val();
             var payment_url = '{{ url('/') }}' + "/payment/";
@@ -290,7 +290,7 @@
                                             <div class="radio_box">
                                                 @if($count == 1)
                                                     <input type="hidden" id="add_id" name="add_id"
-                                                           value="{{$address->id}}">
+                                                           value="{{$address->id}}"/>
                                                 @endif
                                                 <div class="radio">
                                                     <input id="deli_radio_{{$address->id}}"
