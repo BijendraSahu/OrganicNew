@@ -304,6 +304,7 @@ class FrontendController extends Controller
             $order->point_pay = $selected_point == '' ? 0 : $selected_point;
             $order->promo_pay = $selected_promo == '' ? 0 : $selected_promo;
             $order->paid_amt = request('amount');
+            $order->order_date = Carbon::now('Asia/Kolkata');
             $order->save();
             foreach ($cart as $row) {
                 $order_des = new OrderDescription();

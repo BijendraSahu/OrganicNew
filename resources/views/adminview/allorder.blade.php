@@ -23,7 +23,7 @@
             position: absolute;
             background-color: #f1f1f1;
             min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             z-index: 1;
         }
 
@@ -34,11 +34,17 @@
             display: block;
         }
 
-        .dropdown-content a:hover {background-color: #ddd;}
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
 
-        .dropdown:hover .dropdown-content {display: block;}
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
 
-        .dropdown:hover .dropbtn {background-color: #3e8e41;}
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
     </style>
 
     <section class="box_containner" id="fullid">
@@ -54,7 +60,8 @@
                     </span>
 
                                 <div id="snackbar">New Categories added Successfully</div>
-                                <p class="clearfix"></p><input id='myInput' class="form-control" placeholder="search" onkeyup='searchTable()' type='text'>
+                                <p class="clearfix"></p><input id='myInput' class="form-control" placeholder="search"
+                                                               onkeyup='searchTable()' type='text'>
                                 <br>
                                 <section id="user_table">
                                     <table class="table table-striped" id='myTable'>
@@ -74,14 +81,14 @@
                                         @foreach($orderdata as $order_object)
                                             <tr>
                                                 <td>{{$order_object->order_no}}</td>
-                                                <td>{{$order_object->order_date}}</td>
+                                                <td>{{date_format(date_create($order_object->order_date), "d-M-Y h:i A")}} </td>
                                                 <td>{{$order_object->user_id}}</td>
                                                 <td>
                                                     @if($order_object->is_active=='1')
                                                         <div class="status pending">Active</div>
-                                                        @else
+                                                    @else
                                                         <div class="status approved">Inactive</div>
-                                                        @endif
+                                                    @endif
                                                 </td>
 
                                                 <td>{{$order_object->status}}</td>
@@ -90,27 +97,39 @@
                                                         <button class="btn btn-success btn-sm">Status Change</button>
                                                         <div class="dropdown-content">
                                                             <a onclick="ordered({{$order_object->id}});" href="#">Ordered</a>
-                                                            <a onclick="packed({{$order_object->id}});" href="#">Packed</a>
+                                                            <a onclick="packed({{$order_object->id}});"
+                                                               href="#">Packed</a>
                                                             <a onclick="shipped({{$order_object->id}});" href="#">Shipped</a>
                                                             <a onclick="delivered({{$order_object->id}});" href="#">Delivered</a>
                                                         </div>
-                                                    </div>&nbsp;&nbsp;<div class="dropdown">
+                                                    </div>
+                                                    &nbsp;&nbsp;
+                                                    <div class="dropdown">
                                                         <button class="btn btn-success btn-sm">ON/OFF</button>
                                                         <div class="dropdown-content">
-                                                            <a onclick="active({{$order_object->id}});" href="#">Active</a>
+                                                            <a onclick="active({{$order_object->id}});"
+                                                               href="#">Active</a>
                                                             <a onclick="inactive({{$order_object->id}});" href="#">InActive</a>
                                                         </div>
-                                                    </div>&nbsp;&nbsp;<a href='{{url("/bill_order/{$order_object->id}")}}' target="_blank"><button class="btn btn-primary btn-sm">Bill &nbsp;<i class="mdi mdi-clipboard-text"></i></button></a>&nbsp;&nbsp;<button onclick="more_full({{$order_object->id}});" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-sm">More &nbsp;<i class="mdi mdi-eye"></i></button></td>
+                                                    </div>
+                                                    &nbsp;&nbsp;<a href='{{url("/bill_order/{$order_object->id}")}}'
+                                                                   target="_blank">
+                                                        <button class="btn btn-primary btn-sm">Bill &nbsp;<i
+                                                                    class="mdi mdi-clipboard-text"></i></button>
+                                                    </a>&nbsp;&nbsp;
+                                                    <button onclick="more_full({{$order_object->id}});"
+                                                            data-toggle="modal" data-target="#myModal"
+                                                            class="btn btn-primary btn-sm">More &nbsp;<i
+                                                                class="mdi mdi-eye"></i></button>
+                                                </td>
                                             </tr>
-                                            @endforeach
-
+                                        @endforeach
 
 
                                         </tbody>
                                     </table>
 
                                 </section>
-
 
 
                             </div>
@@ -121,56 +140,52 @@
                 </section>
 
 
-
             </div>
         </div>
     </section>
     <script>
 
-            function more_full(id) {
-                // $('#myModal').modal();
-                // $('#myfooter').html('');
-                $('#myheader').html('Order Full View');
-                // $('#myfooter').html('<button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>');
-                /*alert(id);*/
-                /*var IDD= id;*/
-                $('#mybody').html('<img height="50px" class="center-block" src="{{url('images/loading.gif')}}"/>');
-                var editurl1 = '{{ url('more_order') }}' + '/' + id;
-                $.ajax({
-                    type: "GET",
-                    contentType: "application/json; charset=utf-8",
-                    url: editurl1,
-                    data: '{"data":"' + id + '"}',
-                    success: function (data) {
+        function more_full(id) {
+            // $('#myModal').modal();
+            // $('#myfooter').html('');
+            $('#myheader').html('Order Full View');
+            // $('#myfooter').html('<button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>');
+            /*alert(id);*/
+            /*var IDD= id;*/
+            $('#mybody').html('<img height="50px" class="center-block" src="{{url('images/loading.gif')}}"/>');
+            var editurl1 = '{{ url('more_order') }}' + '/' + id;
+            $.ajax({
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                url: editurl1,
+                data: '{"data":"' + id + '"}',
+                success: function (data) {
 
-                        $('#mybody').html(data);
+                    $('#mybody').html(data);
 
-                    },
-                    error: function (xhr, status, error) {
-                        $('#mybody').html(xhr.responseText);
-                        //$('.modal-body').html("Technical Error Occured!");
-                    }
-                });
-
+                },
+                error: function (xhr, status, error) {
+                    $('#mybody').html(xhr.responseText);
+                    //$('.modal-body').html("Technical Error Occured!");
+                }
+            });
 
 
         }
 
 
-
-        function active(id)
-        {
+        function active(id) {
             var IDD = id;
             $.ajax({
                 type: "get",
                 url: "{{url('/active_order')}}",
-                data: "IDD= " + IDD ,
+                data: "IDD= " + IDD,
                 success: function (data) {
                     $("#user_table").load(location.href + " #user_table");
                     myFunction();
                     $('#snackbar').html('');
                     $('#snackbar').addClass('show');
-                    $('#snackbar').html('order is active');
+                    $('#snackbar').html('Order has been Activated');
 
                 },
                 error: function (data) {
@@ -179,19 +194,18 @@
             });
 
         }
-        function inactive(id)
-        {
+        function inactive(id) {
             var IDD = id;
             $.ajax({
                 type: "get",
                 url: "{{url('/inactive_order')}}",
-                data: "IDD= " + IDD ,
+                data: "IDD= " + IDD,
                 success: function (data) {
                     $("#user_table").load(location.href + " #user_table");
                     myFunction();
                     $('#snackbar').html('');
                     $('#snackbar').addClass('show');
-                    $('#snackbar').html('order is inactive');
+                    $('#snackbar').html('Order has been Inactivated');
 
                 },
                 error: function (data) {
@@ -200,21 +214,19 @@
             });
 
         }
-        function ordered(id)
-        {
+        function ordered(id) {
 
-          var IDD = id;
+            var IDD = id;
             $.ajax({
                 type: "get",
                 url: "{{url('/ordered')}}",
-                data: "IDD= " + IDD ,
+                data: "IDD= " + IDD,
                 success: function (data) {
-                    alert(data);
                     $("#user_table").load(location.href + " #user_table");
                     myFunction();
                     $('#snackbar').html('');
                     $('#snackbar').addClass('show');
-                    $('#snackbar').html('status Change Into Orderd');
+                    $('#snackbar').html('Status is now changed to Ordered');
 
                 },
                 error: function (data) {
@@ -222,20 +234,19 @@
                 }
             });
 
-         }
-        function packed(id)
-        {
+        }
+        function packed(id) {
             var IDD = id;
             $.ajax({
                 type: "get",
                 url: "{{url('/packed')}}",
-                data: "IDD= " + IDD ,
+                data: "IDD= " + IDD,
                 success: function (data) {
                     $("#user_table").load(location.href + " #user_table");
                     myFunction();
                     $('#snackbar').html('');
                     $('#snackbar').addClass('show');
-                    $('#snackbar').html('status Change Into packed');
+                    $('#snackbar').html('Status is now changed to packed');
 
                 },
                 error: function (data) {
@@ -243,19 +254,18 @@
                 }
             });
         }
-        function shipped(id)
-        {
+        function shipped(id) {
             var IDD = id;
             $.ajax({
                 type: "get",
                 url: "{{url('/shipped')}}",
-                data: "IDD= " + IDD ,
+                data: "IDD= " + IDD,
                 success: function (data) {
                     $("#user_table").load(location.href + " #user_table");
                     myFunction();
                     $('#snackbar').html('');
                     $('#snackbar').addClass('show');
-                    $('#snackbar').html('status Change Into Shipped');
+                    $('#snackbar').html('Status is now changed to Shipped');
 
                 },
                 error: function (data) {
@@ -263,19 +273,18 @@
                 }
             });
         }
-        function delivered(id)
-        {
+        function delivered(id) {
             var IDD = id;
             $.ajax({
                 type: "get",
                 url: "{{url('/delivered')}}",
-                data: "IDD= " + IDD ,
+                data: "IDD= " + IDD,
                 success: function (data) {
                     $("#user_table").load(location.href + " #user_table");
                     myFunction();
                     $('#snackbar').html('');
                     $('#snackbar').addClass('show');
-                    $('#snackbar').html('status Change Into Delivered');
+                    $('#snackbar').html('Status is now changed to Delivered');
 
                 },
                 error: function (data) {
@@ -283,7 +292,6 @@
                 }
             });
         }
-
 
 
     </script>

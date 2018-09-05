@@ -11,6 +11,7 @@ use App\OrderMaster;
 use App\Review;
 use App\UserAddress;
 use App\UserMaster;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Validator;
@@ -271,6 +272,7 @@ class APIController extends Controller
             $data->email = request('email');
             $data->contact = request('mobile');
             $data->password = md5(request('password'));
+            $data->created_at = Carbon::now('Asia/Kolkata');
             $data->save();
             if (request('ref_code') != '') {
                 $this->CreateRelation(request('ref_code'), $data->id); //ref_code = user contact no

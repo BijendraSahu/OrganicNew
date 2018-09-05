@@ -6,6 +6,7 @@ use App\OrderDescription;
 use App\OrderMaster;
 use App\UserAddress;
 use App\UserMaster;
+use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -132,6 +133,7 @@ class CartController extends Controller
             $order->promo_pay = $selected_promo == '' ? 0 : $selected_promo;
             $order->paid_amt = request('amount');
             $order->is_cod = 0;
+            $order->order_date = Carbon::now('Asia/Kolkata');
             $order->save();
             if ($selected_point > 0) {
                 $user->gain_amount = 0;
