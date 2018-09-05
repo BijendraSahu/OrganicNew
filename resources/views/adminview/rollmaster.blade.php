@@ -87,7 +87,10 @@
                                             <th width="10%">Image</th>
                                             <th width="10%">Username</th>
                                             {{--     <th width="50%"></th>--}}
-                                            <th width="50%">Roll Master</th>
+                                            <th width="20%">Roll Master</th>
+                                            <th width="50%">Select Menu</th>
+                                            <th width="10%">Action</th>
+
 
                                         </tr>
                                         </thead>
@@ -98,8 +101,18 @@
                                                 <td><img style="height: 90px;" src="{{url('/admin_pic').'/'.$obj->id.'/'.$obj->image}}"></td>
                                                 <td>{{$obj->username}}</td>
                                                 <td>{{$obj->rm->roll}}</td>
+                                                <td>
+                                                    <?php $myalldata=\App\Menurolemodel::where(['user_id'=>$obj->id])->get();?>
+                                                    @foreach($myalldata as $myobj)
+                                                            <div class="col-md-4"><i class="mdi mdi-equal-box"></i>{{ucwords($myobj->mnmy->menu)}}</div>
+                                                        @endforeach
+
+                                                </td>
+                                                <td><a href="{{url('/getfullrole').'/'.$obj->id}}"><input type="button" class="btn btn-primary btn-sm" value="Update"></a></td>
                                             </tr>
                                         @endforeach
+
+
 
 
                                         </tbody>

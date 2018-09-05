@@ -689,7 +689,7 @@
             </div>
         </div>
 
-        <div class="menu_basic_block glo_menuclick">
+        {{--<div class="menu_basic_block glo_menuclick">
             <span class="mdi mdi-earth"></span>
             <div class="total_count">5</div>
             <div class="menu_basic_popup effect scale0 notification_popbox">
@@ -828,7 +828,7 @@
                     <a href="#"> See All </a>
                 </div>
             </div>
-        </div>
+        </div>--}}
         {{--<div class="expand_block" onclick="toggleFullScreen(document.body)">
             <i class="mdi mdi-arrow-expand-all expand_on"></i>
             <i class="mdi mdi-arrow-collapse-all expand_off"></i>
@@ -1101,68 +1101,6 @@
                 </li>
             @endif
         @endforeach
-
-
-        {{--<li class="right_menu_li" onclick="MenuClick(this);">
-            <a href="javascript:;">
-                <span class="dash_arrow mdi mdi-account-multiple-outline  global_color"></span>
-                <span class="aside_menu_txt"> Option menu 1</span>
-                <i class="mdi mdi-chevron-right icon-left-arrow"></i>
-            </a>
-            <ul class="list-group dash_sub_menu">
-                <li>
-                    <a href="Dashboard.html">Option Manu List 1</a>
-                </li>
-                <li>
-                    <a href="Dashboard.html">Option Manu List 2</a>
-                </li>
-            </ul>
-        </li>--}}
-        {{--<li class="right_menu_li"  onclick="MenuClick(this);">
-            <a href="javascript:;">
-                <span class="dash_arrow mdi mdi-format-list-numbers  global_color"></span>
-                <span class="aside_menu_txt">Option menu 2</span>
-                <i class="mdi mdi-chevron-right icon-left-arrow"></i>
-            </a>
-            <ul class="list-group dash_sub_menu">
-                <li>
-                    <a href="Dashboard.html">Option Manu List 1</a>
-                </li>
-                <li>
-                    <a href="Dashboard.html">Option Manu List 2</a>
-                </li>
-            </ul>
-        </li>
-        <li class="right_menu_li"  onclick="MenuClick(this);">
-            <a href="javascript:;" class="waves-effect waves-block">
-                <span class="dash_arrow mdi mdi-account-star  global_color"></span>
-                <span class="aside_menu_txt">Option menu 3</span>
-                <i class="mdi mdi-chevron-right icon-left-arrow"></i>
-            </a>
-            <ul class="list-group dash_sub_menu">
-                <li>
-                    <a href="Dashboard.html">Option Manu List 1</a>
-                </li>
-                <li>
-                    <a href="Dashboard.html">Option Manu List 2</a>
-                </li>
-            </ul>
-        </li>
-        <li class="right_menu_li"  onclick="MenuClick(this);">
-            <a href="javascript:;">
-                <span class="dash_arrow mdi mdi-sitemap global_color"></span>
-                <span class="aside_menu_txt">Option menu 4</span>
-                <i class="mdi mdi-chevron-right icon-left-arrow"></i>
-            </a>
-            <ul class="list-group dash_sub_menu">
-                <li>
-                    <a href="Dashboard.html">Option Manu List 1</a>
-                </li>
-                <li>
-                    <a href="Dashboard.html">Option Manu List 2</a>
-                </li>
-            </ul>
-        </li>--}}
     </ul>
 
 </aside>
