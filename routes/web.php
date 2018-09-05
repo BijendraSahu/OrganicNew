@@ -212,6 +212,8 @@ Route::get('organic/{id}/subscribe','SubscribeController@view');
 
 Route::get('organic/{id}/rollmastermenu','RollmasterController@view');
 Route::get('/postrollmaster','RollmasterController@postrollmaster');
+Route::get('/postrollmasterupdate','RollmasterController@postrollmasterupdate');
+Route::get('/getfullrole/{id}','RollmasterController@getfullrole');
 
 
 /////////////////////////////////////////////Outer rought/////////////////////////////////////////////////
