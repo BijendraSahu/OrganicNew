@@ -37,7 +37,9 @@ Route::get('checkout', 'FrontendController@checkout');
 Route::get('pd', 'FrontendController@product_details');
 Route::get('view_product/{slug}', 'FrontendController@product_details');
 
-Route::post('login', 'FrontendController@login');
+//Route::post('login', 'FrontendController@login');
+Route::get('register_user', 'User_loginController@register');
+Route::get('login_user', 'User_loginController@login');
 //Route::get('checkrc', 'LoginController@checkrc');
 Route::get('checkno', 'User_loginController@checkno');
 Route::get('checkemail', 'User_loginController@checkemail');
@@ -47,6 +49,7 @@ Route::get('forgot_password', 'User_loginController@forgot_password');
 
 
 Route::post('profile_update', 'FrontendController@profile_update');
+Route::get('removeProfile', 'FrontendController@removeProfile'); //Profile
 Route::get('getexistaddress', 'FrontendController@getexistaddress');
 Route::get('address_update', 'FrontendController@address_update');
 Route::post('change_p', 'FrontendController@change_password');
@@ -115,8 +118,7 @@ Route::post('confirm_checkout','APIController@confirm_checkout');
 Route::get('getOrders','APIController@getOrders');
 /*************API******************/
 /////////////////////////////////******Aditya***********/////////////////////////////////////////////////////////////////////////
-Route::get('register_user', 'User_loginController@register');
-Route::get('login_user', 'User_loginController@login');
+
 ///////////////////////////////admin/////////////////////////////////////////////////////////////////////////////////////////
 Route::get('/admin', 'AdminController@admin');
 Route::get('access', 'AdminController@adminlogin');

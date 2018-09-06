@@ -33,11 +33,11 @@ class User_loginController extends Controller
                 $this->CreateRelation(request('ref_code'), $data->id); //ref_code = user contact no
             }
             if (isset($data->contact)) {
-                file_get_contents("http://api.msg91.com/api/sendhttp.php?sender=CONONE&route=4&mobiles=$data->contact&authkey=213418AONRGdnQ5ae96f62&country=91&message=Dear%20user,%20OTP%20to%verfiy%20into%20your%20account%20is%20$otp");
+                file_get_contents("http://api.msg91.com/api/sendhttp.php?sender=CONONE&route=4&mobiles=$data->contact&authkey=213418AONRGdnQ5ae96f62&country=91&message=Dear%20user,%20OTP%20to%20verify%20into%20your%20account%20is%20$otp");
             }
 
             /***********Mail************/
-            $allmails = [request('email_id')];
+            /*$allmails = [request('email_id')];
 
             foreach ($allmails as $mail) {
                 $email[] = $mail;
@@ -59,7 +59,7 @@ class User_loginController extends Controller
                     //return redirect('mail')->withInput()->withErrors('Something went wrong. Please contact admin');
                 }
 //            echo $message;
-            }
+            }*/
             return 'Success';
 
         }

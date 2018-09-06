@@ -1,3 +1,12 @@
+<style>
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 10%;
+        margin-top: -27%;
+    }
+</style>
 <nav class="main_menu fixed_menu" id="top_header_menu">
     <div class="container">
         <div class="row top_menubox">
@@ -43,12 +52,12 @@
                             <li onclick="ShowLoginSignup('signup');">Register</li>
                         @else
                             <li>
-                               {{-- @if($_SESSION['user_master']->profile_img != 'images/Male_default.png')
-                                    <img class="testominial_img"
-                                         src="{{url('u_img').'/'.$_SESSION['user_master']->id.'/'.$_SESSION['user_master']->profile_img}}">
-                                @else
-                                    <img class="testominial_img" src="{{url('images/Male_default.png')}}">
-                                @endif--}}
+                                {{-- @if($_SESSION['user_master']->profile_img != 'images/Male_default.png')
+                                     <img class="testominial_img"
+                                          src="{{url('u_img').'/'.$_SESSION['user_master']->id.'/'.$_SESSION['user_master']->profile_img}}">
+                                 @else
+                                     <img class="testominial_img" src="{{url('images/Male_default.png')}}">
+                                 @endif--}}
                                 <div class="my_account_box glo_menuclick">My Account
                                     <div class="menu_basic_popup menu_popup_account scale0">
                                         <div class="menu_popup_account">
@@ -330,28 +339,29 @@
             </div>
             <div class="right_block registration">
                 <div class="deli_row">
-                    <input type="text" name="referal_code" autocomplete="off" class="form-control login_txt"
-                           placeholder="Referral Code" id="ref_code">
+                    <input type="text" name="referal_code" autocomplete="off" class="form-control numberOnly login_txt"
+                           placeholder="Referral Code" id="ref_code" maxlength="10">
                 </div>
                 <div class="deli_row">
                     <input type="text" name="reg_name" autocomplete="off" class="form-control login_txt"
-                           placeholder="Enter Name" id="name">
+                           placeholder="Enter Name*" id="name" maxlength="25">
                 </div>
                 <div class="deli_row">
                     <input type="text" name="reg_email" autocomplete="off" class="form-control login_txt"
-                           placeholder="Enter Email Id" id="email_id">
+                           placeholder="Enter Email Id" id="email_id" maxlength="30">
                 </div>
                 <div class="deli_row">
-                    <input type="text" name="reg_number" autocomplete="off" class="form-control login_txt"
-                           placeholder="Enter Mobile Number" id="mobile">
-                </div>
-                <div class="deli_row">
-                    <input type="password" name="reg_password" autocomplete="off" class="form-control login_txt"
-                           placeholder="Enter Password" id="password">
+                    <input type="text" name="reg_number" autocomplete="off" maxlength="10"
+                           class="form-control numberOnly login_txt"
+                           placeholder="Enter Mobile Number*" id="mobile">
                 </div>
                 <div class="deli_row">
                     <input type="password" name="reg_password" autocomplete="off" class="form-control login_txt"
-                           placeholder="Confirmation Password" id="confirm_password">
+                           placeholder="Enter Password*" id="password">
+                </div>
+                <div class="deli_row">
+                    <input type="password" name="reg_password" autocomplete="off" class="form-control login_txt"
+                           placeholder="Confirmation Password*" id="confirm_password">
                 </div>
                 <div class="deli_row">
                     <button onclick="check();" class="btn btn-success login_btn">
@@ -360,10 +370,14 @@
                 </div>
                 <hr>
                 <div class="deli_row">
+
                     <button class="btn btn-default login_btn" onclick="ShowLoginSignup('signin');">
                         <i class="mdi mdi-account-check basic_icon_margin"></i>Existing User? Log In
                     </button>
+                    <img src="{{url('images/loading.gif')}}" id="loadingImg" class="center hidden" alt=""/>
+
                 </div>
+
 
             </div>
         </div>
@@ -475,7 +489,7 @@
 //                    data: '{"formData":"' + formData + '", "rc":"' + txt_val + '"}',
                     success: function (data) {
                         if (data == 'already') {
-                            swal("Oops....", "Contact no already exist please user different contact no", "info");
+                            swal("Oops....", "Contact no already exist please use different contact no", "info");
                             $('#mobile').val('');
                         }
                     },
@@ -523,46 +537,70 @@
             return true;
         }
     }
-
+    $('#email_id').focusout(function () {
+        var domains = ["gmail.com", "hotmail.com", "msn.com", "yahoo.com", "yahoo.in", "yahoo.com", "aol.com", "hotmail.co.uk", "yahoo.co.in", "live.com", "rediffmail.com", "outlook.com", "hotmail.it", "googlemail.com", "mail.com"]; //update ur domains here
+        var idx1 = this.value.indexOf("@");
+        if (idx1 > -1) {
+            var splitStr = this.value.split("@");
+            var sub = splitStr[1].split(".");
+            if ($.inArray(splitStr[1], domains) == -1) {
+                swal("Oops....", "Email must have correct domain name Eg: @gmail.com", "info");
+                this.value = "";
+            }
+        }
+    });
     function check() {
         var email = $('#email_id').val();
         var mobile = $('#mobile').val();
         var password = $('#password').val();
         var confirm_password = $('#confirm_password').val();
+
         var phoneno = /^\d{10}$/;
         var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
         var result = true;
-        if (!Boolean(Requiredtxt("#name")) || !Boolean(Requiredtxt("#email_id")) || !Boolean(Requiredtxt("#password")) || !Boolean(Requiredtxt("#confirm_password"))) {
+        if (!Boolean(Requiredtxt("#name")) || !Boolean(Requiredtxt("#password")) || !Boolean(Requiredtxt("#confirm_password"))) {
             result = false;
         }
         if (!result) {
             return false;
         } else {
-            register_user();
+            if (mobile.length < 10) {
+                swal("Oops....", "Mobile number must have 10 digits", "info");
+            } else if (password.length < 6) {
+                swal("Oops....", "Password must have atleast 6 digits", "info");
+            } else if (password != confirm_password) {
+                swal("Oops....", "Password and confirm password mismatch", "info");
+            } else {
+                register_user();
+            }
         }
     }
+
 
     function register_user() {
         var ref_code = $('#ref_code').val();
         var user_name = $('#name').val();
         var email_id = $('#email_id').val();
         var mobile = $('#mobile').val();
-        var password = $('#password').val();
-        var confirm_password = $('#confirm_password').val();
+        var password = $('#password').val().trim();
         $.ajax({
             type: "get",
             url: "{{url('register_user')}}",
-            data: "ref_code= " + ref_code + "&user_name= " + user_name + "&email_id= " + email_id + "&mobile= " + mobile + "&password= " + password,
+//            data: "ref_code= " + ref_code + "&user_name= " + user_name + "&email_id= " + email_id + "&mobile= " + mobile + "&password= " + password,
+            data: {ref_code: ref_code, user_name: user_name, email_id: email_id, mobile: mobile, password: password},
+            beforeSend: function () {
+                $('#loadingImg').removeClass('hidden');
+            },
             success: function (data) {
-
                 if (data == 'Mobile Number Already Linked With Another Account!!!!!!') {
-                    $('#error_register').html('Mobile Number Already Linked With Another Account!!!!!!');
-                }
-                else if (data == 'email Address is Already Linked With Another Account!!!') {
-                    $('#error_register').html('email Address is Already Linked With Another Account!!!');
-                }
-                else {
+                    $('#loadingImg').addClass('hidden');
+                    swal("Already Exist", "Mobile Number Already Linked With Another Account!!!!!!", "info");
+                } else if (data == 'email Address is Already Linked With Another Account!!!') {
+                    $('#loadingImg').addClass('hidden');
+                    swal("Already Exist", "Email Address is Already Linked With Another Account!!!", "info");
+                } else {
                     $('#error_register').html('');
+                    $('#loadingImg').addClass('hidden');
                     HidePopoupMsg();
                     $('#ref_code').val('');
                     $('#name').val('');
@@ -570,7 +608,8 @@
                     $('#mobile').val('');
                     $('#password').val('');
                     $('#confirm_password').val('');
-                    swal("Success....", "User Registration Successfully...", "success");
+                    ShowLoginSignup('verify');
+                    swal("Success....", "Registration has been successful...please verify your account by entering verification code", "success");
                 }
             },
             error: function (data) {
@@ -702,12 +741,14 @@
     });
 
     $(".login_txt").on({
-        keydown: function (e) {
-            if (e.which === 32)
-                return false;
+        keypress: function (e) {
+            if (this.value.trim().length < 1) {
+                if (e.which === 32)
+                    return false;
+            }
         },
-        change: function () {
-            this.value = this.value.replace(/\s/g, "");
-        }
+//        change: function () {
+//            this.value = this.value.replace(/\s/g, "");
+//        }
     });
 </script>
