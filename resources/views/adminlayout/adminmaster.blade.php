@@ -545,7 +545,7 @@
             }
         }
     </script>
-    <script>
+    <script type="text/javascript">
         function settings() {
             var id = 2;
             $('#myheader').html('');

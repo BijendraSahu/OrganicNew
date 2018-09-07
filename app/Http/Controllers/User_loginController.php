@@ -22,7 +22,7 @@ class User_loginController extends Controller
             $otp = rand(100000, 999999);
             $rc = rand(10000000, 99999999);
             $data = new UserMaster();
-            $data->rc = "rc".$rc;
+            $data->rc = "rc" . $rc;
             $data->otp = $otp;
             $data->name = request('user_name');
             $data->email = request('email_id');
@@ -32,9 +32,7 @@ class User_loginController extends Controller
             if (request('ref_code') != '') {
                 $this->CreateRelation(request('ref_code'), $data->id); //ref_code = user contact no
             }
-            if (isset($data->contact)) {
-                file_get_contents("http://api.msg91.com/api/sendhttp.php?sender=CONONE&route=4&mobiles=$data->contact&authkey=213418AONRGdnQ5ae96f62&country=91&message=Dear%20user,%20OTP%20to%20verify%20into%20your%20account%20is%20$otp");
-            }
+            file_get_contents("http://api.msg91.com/api/sendhttp.php?sender=CONONE&route=4&mobiles=$data->contact&authkey=213418AONRGdnQ5ae96f62&country=91&message=Dear%20user,%20OTP%20to%20verify%20into%20your%20account%20is%20$otp");
 
             /***********Mail************/
             /*$allmails = [request('email_id')];

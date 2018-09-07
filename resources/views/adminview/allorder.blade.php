@@ -1,6 +1,6 @@
 @extends('adminlayout.adminmaster')
 
-@section('title','Organic Dolchi | OrderList')
+@section('title','Taj Tailors | OrderList')
 
 @section('content')
 
@@ -23,7 +23,7 @@
             position: absolute;
             background-color: #f1f1f1;
             min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
         }
 
@@ -34,17 +34,11 @@
             display: block;
         }
 
-        .dropdown-content a:hover {
-            background-color: #ddd;
-        }
+        .dropdown-content a:hover {background-color: #ddd;}
 
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
+        .dropdown:hover .dropdown-content {display: block;}
 
-        .dropdown:hover .dropbtn {
-            background-color: #3e8e41;
-        }
+        .dropdown:hover .dropbtn {background-color: #3e8e41;}
     </style>
 
     <section class="box_containner" id="fullid">
@@ -59,9 +53,8 @@
                                                  class="mdi mdi-plus"></i>Add</button>--}}
                     </span>
 
-                                <div id="snackbar">New Categories added Successfully</div>
-                                <p class="clearfix"></p><input id='myInput' class="form-control" placeholder="search"
-                                                               onkeyup='searchTable()' type='text'>
+                                <div id="snackbar">New Order added Successfully</div>
+                                <p class="clearfix"></p><input id='myInput' class="form-control" placeholder="search" onkeyup='searchTable()' type='text'>
                                 <br>
                                 <section id="user_table">
                                     <table class="table table-striped" id='myTable'>
@@ -71,7 +64,6 @@
                                             <th>Date</th>
                                             <th>User</th>
                                             <th>Active / Inactive</th>
-
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
@@ -81,7 +73,7 @@
                                         @foreach($orderdata as $order_object)
                                             <tr>
                                                 <td>{{$order_object->order_no}}</td>
-                                                <td>{{date_format(date_create($order_object->order_date), "d-M-Y h:i A")}} </td>
+                                                <td>{{$order_object->order_date}}</td>
                                                 <td>{{$order_object->user_id}}</td>
                                                 <td>
                                                     @if($order_object->is_active=='1')
@@ -97,33 +89,20 @@
                                                         <button class="btn btn-success btn-sm">Status Change</button>
                                                         <div class="dropdown-content">
                                                             <a onclick="ordered({{$order_object->id}});" href="#">Ordered</a>
-                                                            <a onclick="packed({{$order_object->id}});"
-                                                               href="#">Packed</a>
+                                                            <a onclick="packed({{$order_object->id}});" href="#">Packed</a>
                                                             <a onclick="shipped({{$order_object->id}});" href="#">Shipped</a>
                                                             <a onclick="delivered({{$order_object->id}});" href="#">Delivered</a>
                                                         </div>
-                                                    </div>
-                                                    &nbsp;&nbsp;
-                                                    <div class="dropdown">
+                                                    </div>&nbsp;&nbsp;<div class="dropdown">
                                                         <button class="btn btn-success btn-sm">ON/OFF</button>
                                                         <div class="dropdown-content">
-                                                            <a onclick="active({{$order_object->id}});"
-                                                               href="#">Active</a>
+                                                            <a onclick="active({{$order_object->id}});" href="#">Active</a>
                                                             <a onclick="inactive({{$order_object->id}});" href="#">InActive</a>
                                                         </div>
-                                                    </div>
-                                                    &nbsp;&nbsp;<a href='{{url("/bill_order/{$order_object->id}")}}'
-                                                                   target="_blank">
-                                                        <button class="btn btn-primary btn-sm">Bill &nbsp;<i
-                                                                    class="mdi mdi-clipboard-text"></i></button>
-                                                    </a>&nbsp;&nbsp;
-                                                    <button onclick="more_full({{$order_object->id}});"
-                                                            data-toggle="modal" data-target="#myModal"
-                                                            class="btn btn-primary btn-sm">More &nbsp;<i
-                                                                class="mdi mdi-eye"></i></button>
-                                                </td>
+                                                    </div>&nbsp;&nbsp;<a href='{{url("/bill_order/{$order_object->id}")}}' target="_blank"><button class="btn btn-primary btn-sm">Bill &nbsp;<i class="mdi mdi-clipboard-text"></i></button></a>&nbsp;&nbsp;<button onclick="more_full({{$order_object->id}});" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-sm">More &nbsp;<i class="mdi mdi-eye"></i></button></td>
                                             </tr>
                                         @endforeach
+
 
 
                                         </tbody>
@@ -132,12 +111,14 @@
                                 </section>
 
 
+
                             </div>
 
 
                         </div>
                     </div>
                 </section>
+
 
 
             </div>
@@ -171,21 +152,24 @@
             });
 
 
+
         }
 
 
-        function active(id) {
+
+        function active(id)
+        {
             var IDD = id;
             $.ajax({
                 type: "get",
                 url: "{{url('/active_order')}}",
-                data: "IDD= " + IDD,
+                data: "IDD= " + IDD ,
                 success: function (data) {
                     $("#user_table").load(location.href + " #user_table");
                     myFunction();
                     $('#snackbar').html('');
                     $('#snackbar').addClass('show');
-                    $('#snackbar').html('Order has been Activated');
+                    $('#snackbar').html('order is active');
 
                 },
                 error: function (data) {
@@ -194,18 +178,19 @@
             });
 
         }
-        function inactive(id) {
+        function inactive(id)
+        {
             var IDD = id;
             $.ajax({
                 type: "get",
                 url: "{{url('/inactive_order')}}",
-                data: "IDD= " + IDD,
+                data: "IDD= " + IDD ,
                 success: function (data) {
                     $("#user_table").load(location.href + " #user_table");
                     myFunction();
                     $('#snackbar').html('');
                     $('#snackbar').addClass('show');
-                    $('#snackbar').html('Order has been Inactivated');
+                    $('#snackbar').html('order is inactive');
 
                 },
                 error: function (data) {
@@ -214,19 +199,21 @@
             });
 
         }
-        function ordered(id) {
+        function ordered(id)
+        {
 
             var IDD = id;
             $.ajax({
                 type: "get",
                 url: "{{url('/ordered')}}",
-                data: "IDD= " + IDD,
+                data: "IDD= " + IDD ,
                 success: function (data) {
+                    alert(data);
                     $("#user_table").load(location.href + " #user_table");
                     myFunction();
                     $('#snackbar').html('');
                     $('#snackbar').addClass('show');
-                    $('#snackbar').html('Status is now changed to Ordered');
+                    $('#snackbar').html('status Change Into Orderd');
 
                 },
                 error: function (data) {
@@ -235,18 +222,19 @@
             });
 
         }
-        function packed(id) {
+        function packed(id)
+        {
             var IDD = id;
             $.ajax({
                 type: "get",
                 url: "{{url('/packed')}}",
-                data: "IDD= " + IDD,
+                data: "IDD= " + IDD ,
                 success: function (data) {
                     $("#user_table").load(location.href + " #user_table");
                     myFunction();
                     $('#snackbar').html('');
                     $('#snackbar').addClass('show');
-                    $('#snackbar').html('Status is now changed to packed');
+                    $('#snackbar').html('status Change Into packed');
 
                 },
                 error: function (data) {
@@ -254,18 +242,19 @@
                 }
             });
         }
-        function shipped(id) {
+        function shipped(id)
+        {
             var IDD = id;
             $.ajax({
                 type: "get",
                 url: "{{url('/shipped')}}",
-                data: "IDD= " + IDD,
+                data: "IDD= " + IDD ,
                 success: function (data) {
                     $("#user_table").load(location.href + " #user_table");
                     myFunction();
                     $('#snackbar').html('');
                     $('#snackbar').addClass('show');
-                    $('#snackbar').html('Status is now changed to Shipped');
+                    $('#snackbar').html('status Change Into Shipped');
 
                 },
                 error: function (data) {
@@ -273,18 +262,19 @@
                 }
             });
         }
-        function delivered(id) {
+        function delivered(id)
+        {
             var IDD = id;
             $.ajax({
                 type: "get",
                 url: "{{url('/delivered')}}",
-                data: "IDD= " + IDD,
+                data: "IDD= " + IDD ,
                 success: function (data) {
                     $("#user_table").load(location.href + " #user_table");
                     myFunction();
                     $('#snackbar').html('');
                     $('#snackbar').addClass('show');
-                    $('#snackbar').html('Status is now changed to Delivered');
+                    $('#snackbar').html('status Change Into Delivered');
 
                 },
                 error: function (data) {
@@ -292,6 +282,7 @@
                 }
             });
         }
+
 
 
     </script>

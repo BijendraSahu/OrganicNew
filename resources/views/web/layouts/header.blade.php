@@ -695,19 +695,16 @@
         var newpassword = $('#txtchange_newPsd').val();
         var confirmpassword = $('#txtchange_retypePsd').val();
         if (oldpassword.trim() == '') {
-            alert('Please enter your previous password');
-            $('#txtChange_previousPsd').focus();
+            swal("Required", "Please enter your previous password", "info");
             return false;
         } else if (newpassword.trim() == '') {
-            alert('Please enter your new password');
-            $('#txtchange_newPsd').focus();
+            swal("Required", "Please enter your new password", "info");
             return false;
         } else if (confirmpassword.trim() == '') {
-            alert('Please enter your confirm password');
-            $('#txtchange_retypePsd').focus();
+            swal("Required", "Please enter your confirm password", "info");
             return false;
         } else if (confirmpassword.trim() != newpassword.trim()) {
-            alert('Password Mismatch');
+            swal("Password Mismatch", "Password and confirm password must be same", "info");
             return false;
         } else {
             $.ajax({
@@ -718,19 +715,19 @@
                 data: '{"newpassword":"' + newpassword + '", "confirmpassword":"' + confirmpassword + '", "oldpassword":"' + oldpassword + '"}',
                 success: function (data) {
                     if (data == 'ok') {
-//                        console.log(data);
                         $('#txtChange_previousPsd').val('');
                         $('#txtchange_newPsd').val('');
                         $('#txtchange_retypePsd').val('');
-                        ShowSuccessPopupMsg('Password changed successfully');
+                        swal("Success", "Password changed successfully", "success");
                         $('#myModal_UpdatePassword').modal('toggle');
                     } else if (data == 'Incorrect') {
                         $('#txtChange_previousPsd').val('');
-                        ShowErrorPopupMsg('Incorrect current password');
+                        swal("Warning", "Incorrect current password", "info");
                     }
                 },
                 error: function (xhr, status, error) {
-                    $('#err1').html(xhr.responseText);
+                    swal("Warning", "Someting went wrong", "info");
+//                    $('#err1').html(xhr.responseText);
                 }
             });
         }
