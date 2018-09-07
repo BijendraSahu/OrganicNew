@@ -69,7 +69,7 @@ function empty_address() {
     $('#add_email').val('');
     $('#add_contact').val('');
     $('#add_pincode').val('');
-    $('#add_city').val(0);
+    // $('#add_city').val(0);
     $('#add_address').val('');
 }
 function RemoveProfileImage(changepicid, file_id) {

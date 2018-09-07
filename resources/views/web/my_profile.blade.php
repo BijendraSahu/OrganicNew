@@ -228,6 +228,8 @@
         </div>
         <p id="err1"></p>
     </section>
+    @include('web.layouts.footer')
+
     <script>
 
         function removeProfile(changepicid, file_id) {
