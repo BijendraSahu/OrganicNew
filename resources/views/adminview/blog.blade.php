@@ -20,31 +20,34 @@
                                                      class="mdi mdi-plus"></i>Add Blog</button>
                       </span>
                                     <p class="clearfix"></p>
-<?php $blogdata=\App\Blogmodel::where(['is_active'=>'1'])->orderBy('id','desc')->paginate(5);?>
                                     @foreach($blogdata as $myobject)
                                         <div class="row line">
                                             <div class="col-sm-4 one">
                                                 <div class="shadow">
-                                                    <img src="{{url('blog_pic')}}/{{$myobject->id}}/{{$myobject->img_url}}" class="first" width="270px" height="200px"/>
+                                                    <img src="{{url('blog_pic')}}/{{$myobject->id}}/{{$myobject->img_url}}"
+                                                         class="first" width="270px" height="200px"/>
                                                 </div>
                                             </div>
                                             <div class="col-sm-7 two">
-                                                <div  >
+                                                <div>
                                                     <h3>{{ucwords($myobject->title)}}</h3>
                                                     <div class="blog_detail_box">{!! $myobject->description!!}</div>
                                                     <div class="name">
                                                         <span>by</span>
-                                                        <span style="font-weight: bold">{{ucwords($myobject->created_by)}} , </span>
+                                                        <span style="font-weight: bold">{{ucwords($myobject->created_by)}}
+                                                            , </span>
                                                         <span> {{$myobject->created_date}}</span>
                                                     </div>
                                                     <br>
-                                                    <a href="{{url('updateblog').'/'.$myobject->id}}"><button class="button"><span>Edit</span></button></a>
+                                                    <a href="{{url('updateblog').'/'.$myobject->id}}">
+                                                        <button class="button"><span>Edit</span></button>
+                                                    </a>
 
                                                     <!--<button class="btn btn-primary">READ MORE</button>-->
                                                 </div>
                                             </div>
                                         </div>
-                                        @endforeach
+                                    @endforeach
                                     {{$blogdata->links()}}
 
 
@@ -54,7 +57,7 @@
                     </section>
                 </section>
                 <div id="showmy" class="hidealways">
-                <section id="item_part3" >
+                    <section id="item_part3">
 
                         <div class="col-sm-12 col-md-12 col-xs-12">
                             <div class="dash_boxcontainner white_boxlist" id="blogform">
@@ -66,24 +69,32 @@
                       </span>
                                     <p class="clearfix"></p>
 
-                                                          <div class="col-sm-6">
-                                                     <label>Title</label>
-                                         <input type="text" name="title" id="title" placeholder="Enter Title" class="form-control">
-                                                     <label>Description</label>
-                               <div class="text_editor" id="txtEditor_blog"></div>
-                                                                   <p></p>
-                                                                </div>
+                                    <div class="col-sm-6">
+                                        <label>Title</label>
+                                        <input type="text" name="title" id="title" placeholder="Enter Title"
+                                               class="form-control">
+                                        <label>Description</label>
+                                        <div class="text_editor" id="txtEditor_blog"></div>
+                                        <p></p>
+                                    </div>
                                     <div class="col-sm-6">
                                         <label>Blog Meta Title</label>
-                                        <input type="text" name="meta_title" id="blog_meta_title" placeholder="Enter Meta Title" class="form-control">
+                                        <input type="text" name="meta_title" id="blog_meta_title"
+                                               placeholder="Enter Meta Title" class="form-control">
                                         <label>Blog Meta Keyword</label>
-                                        <input type="text" name="meta_keyword" id="blog_meta_keyword" placeholder="Enter Meta Keyword" class="form-control">
+                                        <input type="text" name="meta_keyword" id="blog_meta_keyword"
+                                               placeholder="Enter Meta Keyword" class="form-control">
                                         <label>Blog Meta Description</label>
-                                        <input type="text" name="meta_description" id="blog_meta_description" placeholder="Enter Meta Description" class="form-control">
+                                        <input type="text" name="meta_description" id="blog_meta_description"
+                                               placeholder="Enter Meta Description" class="form-control">
                                         <label>Created by</label>
-                                        <input type="text" name="created_by" id="created_by" placeholder="Enter created by" class="form-control" value="{{ucfirst($_SESSION['admin_master']['username'])}}" disabled="disabled">
+                                        <input type="text" name="created_by" id="created_by"
+                                               placeholder="Enter created by" class="form-control"
+                                               value="{{ucfirst($_SESSION['admin_master']['username'])}}"
+                                               disabled="disabled">
                                         <label>Select Catagory</label>
-                                        <select class="form-control Glo_autocomplete"  id="mycatid" multiple="multiple" data-placeholder="Select"
+                                        <select class="form-control Glo_autocomplete" id="mycatid" multiple="multiple"
+                                                data-placeholder="Select"
                                                 style="width: 100%;">
                                             @foreach($data as $object)
                                                 <option value="{{$object->id}}">{{$object->name}}</option>
@@ -91,14 +102,13 @@
                                         </select>
                                         <p></p>
 
-                                        <button type="button" class="btn btn-primary btn-block"  onclick="blogpost();">Post</button>
+                                        <button type="button" class="btn btn-primary btn-block" onclick="blogpost();">
+                                            Post
+                                        </button>
                                         <p></p>
 
 
-
-
                                     </div>
-
 
 
                                 </div>
@@ -107,7 +117,7 @@
                     </section>
                 </div>
                 <div id="formmy" class="hidealways">
-                <section id="item_part2" >
+                    <section id="item_part2">
 
                         <div class="col-sm-12 col-md-12 col-xs-12">
                             <div class="dash_boxcontainner white_boxlist" id="blogform">
@@ -119,11 +129,12 @@
                                     <p class="clearfix"></p>
 
 
-
                                     <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
                                         <!-- image-preview-filename input [CUT FROM HERE]-->
                                         <div class="input-group image-preview">
-                                            <input type="text" class="form-control image-preview-filename" disabled="disabled"> <!-- don't give a name === doesn't send on POST/GET -->
+                                            <input type="text" class="form-control image-preview-filename"
+                                                   disabled="disabled">
+                                            <!-- don't give a name === doesn't send on POST/GET -->
                                             <span class="input-group-btn">
                     <!-- image-preview-clear button -->
                     <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
@@ -131,7 +142,8 @@
                     </button>
                                                 <!-- image-preview-input -->
 
-                                                <form action="{{url('/blogpic')}}" method="post" id="blogpicpost" enctype="multipart/form-data">
+                                                <form action="{{url('/blogpic')}}" method="post" id="blogpicpost"
+                                                      enctype="multipart/form-data">
                     <div class="btn btn-default image-preview-input">
                         <span class="glyphicon glyphicon-folder-open"></span>
                         <span class="image-preview-input-title">Browse</span>
@@ -146,17 +158,16 @@
                                     </div>
 
 
-                                    </div>
-
-
-
                                 </div>
+
+
                             </div>
-                </section>
-                </div>
                         </div>
-        </div>
                     </section>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <script type="text/javascript">
 
@@ -195,126 +206,132 @@
         });
 
 
-        function addblogcat()
-{
-    var cat_name=$('#cat_name').val();
-    var meta_title=$('#meta_title').val();
-    var meta_keyword=$('#meta_keyword').val();
-    var meta_description=$('#meta_description').val();
-    $.get('{{url('addblogcat')}}', {cat_name: cat_name,meta_title: meta_title,meta_keyword: meta_keyword,meta_description: meta_description}, function (data) {
+        function addblogcat() {
+            var cat_name = $('#cat_name').val();
+            var meta_title = $('#meta_title').val();
+            var meta_keyword = $('#meta_keyword').val();
+            var meta_description = $('#meta_description').val();
+            $.get('{{url('addblogcat')}}', {
+                cat_name: cat_name,
+                meta_title: meta_title,
+                meta_keyword: meta_keyword,
+                meta_description: meta_description
+            }, function (data) {
 
-        swal({
-            title: "Good job!",
-            text: "Blog Category Added Successfully",
-            icon: "success",
-            button: "Go",
-        });
-
-
-
-    });
-}
-function openblogcat()
-{
-    $('#smallheader').html('');
-    $('#smallbody').html('');
-    $('#smallfooter').html('');
-    $('#smallheader').append('<div><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Add Blog Category</h4></div>');
-    $('#smallbody').append('<input type="text" name="cat_name" id="cat_name" class="form-control" placeholder="Enter Category Name"><input type="text" name="meta_title" id="meta_title" class="form-control" placeholder="Enter Meta Title"><input type="text" name="meta_keyword" id="meta_keyword" class="form-control" placeholder="Enter Meta Keyword"><input type="text" name="meta_description" id="meta_description" class="form-control" placeholder="Enter Meta Description">');
-    $('#smallfooter').append('<button id="add_btn" type="button" class="btn btn-default" data-dismiss="modal">Close</button><button onclick="addblogcat();" class="btn btn-primary">Add</button>');
-    $('#myModalsmall').modal();
-
-}
-function openblogform()
-{
-    $("#showmy").removeClass("hidealways");
-    $("#item_part1").addClass("hidealways");
-}
-function openbloglist()
-{
-    $("#item_part1").removeClass("hidealways");
-    $("#showmy").addClass("hidealways");
-}
+                swal({
+                    title: "Good job!",
+                    text: "Blog Category Added Successfully",
+                    icon: "success",
+                    button: "Go",
+                });
 
 
-function blogpost()
-{
-    var title=$('#title').val();
-    var description = $("#txtEditor_blog").Editor("getText");
-    var mycatid=$('#mycatid').val();
-    var blog_meta_title=$('#blog_meta_title').val();
-    var blog_meta_keyword=$('#blog_meta_keyword').val();
-    var blog_meta_description=$('#blog_meta_description').val();
-    $.get('{{url('blogpost')}}', {title: title,description: description,mycatid: mycatid,blog_meta_title: blog_meta_title,blog_meta_keyword: blog_meta_keyword,blog_meta_description: blog_meta_description}, function (data) {
-        openpic();
-    });
+            });
+        }
+        function openblogcat() {
+            $('#smallheader').html('');
+            $('#smallbody').html('');
+            $('#smallfooter').html('');
+            $('#smallheader').append('<div><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Add Blog Category</h4></div>');
+            $('#smallbody').append('<input type="text" name="cat_name" id="cat_name" class="form-control" placeholder="Enter Category Name"><input type="text" name="meta_title" id="meta_title" class="form-control" placeholder="Enter Meta Title"><input type="text" name="meta_keyword" id="meta_keyword" class="form-control" placeholder="Enter Meta Keyword"><input type="text" name="meta_description" id="meta_description" class="form-control" placeholder="Enter Meta Description">');
+            $('#smallfooter').append('<button id="add_btn" type="button" class="btn btn-default" data-dismiss="modal">Close</button><button onclick="addblogcat();" class="btn btn-primary">Add</button>');
+            $('#myModalsmall').modal();
+
+        }
+        function openblogform() {
+            $("#showmy").removeClass("hidealways");
+            $("#item_part1").addClass("hidealways");
+        }
+        function openbloglist() {
+            $("#item_part1").removeClass("hidealways");
+            $("#showmy").addClass("hidealways");
+        }
 
 
-}
-function openpic()
-{$("#item_part1").addClass("hidealways");
-    $("#showmy").addClass("hidealways");
-    $("#formmy").removeClass("hidealways");
+        function blogpost() {
+            var title = $('#title').val();
+            var description = $("#txtEditor_blog").Editor("getText");
+            var mycatid = $('#mycatid').val();
+            var blog_meta_title = $('#blog_meta_title').val();
+            var blog_meta_keyword = $('#blog_meta_keyword').val();
+            var blog_meta_description = $('#blog_meta_description').val();
+            $.get('{{url('blogpost')}}', {
+                title: title,
+                description: description,
+                mycatid: mycatid,
+                blog_meta_title: blog_meta_title,
+                blog_meta_keyword: blog_meta_keyword,
+                blog_meta_description: blog_meta_description
+            }, function (data) {
+                openpic();
+            });
 
-}
-$(document).on('click', '#close-preview', function(){
-    $('.image-preview').popover('hide');
-    // Hover befor close the preview
-    $('.image-preview').hover(
-        function () {
-            $('.image-preview').popover('show');
-        },
-        function () {
+
+        }
+        function openpic() {
+            $("#item_part1").addClass("hidealways");
+            $("#showmy").addClass("hidealways");
+            $("#formmy").removeClass("hidealways");
+
+        }
+        $(document).on('click', '#close-preview', function () {
             $('.image-preview').popover('hide');
-        }
-    );
-});
-
-$(function() {
-    // Create the close button
-    var closebtn = $('<button/>', {
-        type:"button",
-        text: 'x',
-        id: 'close-preview',
-        style: 'font-size: initial;',
-    });
-    closebtn.attr("class","close pull-right");
-    // Set the popover default content
-    $('.image-preview').popover({
-        trigger:'manual',
-        html:true,
-        title: "<strong>Preview</strong>"+$(closebtn)[0].outerHTML,
-        content: "There's no image",
-        placement:'bottom'
-    });
-    // Clear event
-    $('.image-preview-clear').click(function(){
-        $('.image-preview').attr("data-content","").popover('hide');
-        $('.image-preview-filename').val("");
-        $('.image-preview-clear').hide();
-        $('.image-preview-input input:file').val("");
-        $(".image-preview-input-title").text("Browse");
-    });
-    // Create the preview image
-    $(".image-preview-input input:file").change(function (){
-        var img = $('<img/>', {
-            id: 'dynamic',
-            width:250,
-            height:200
+            // Hover befor close the preview
+            $('.image-preview').hover(
+                function () {
+                    $('.image-preview').popover('show');
+                },
+                function () {
+                    $('.image-preview').popover('hide');
+                }
+            );
         });
-        var file = this.files[0];
-        var reader = new FileReader();
-        // Set preview image into the popover data-content
-        reader.onload = function (e) {
-            $(".image-preview-input-title").text("Change");
-            $(".image-preview-clear").show();
-            $(".image-preview-filename").val(file.name);
-            img.attr('src', e.target.result);
-            $(".image-preview").attr("data-content",$(img)[0].outerHTML).popover("show");
-        }
-        reader.readAsDataURL(file);
-    });
-});
+
+        $(function () {
+            // Create the close button
+            var closebtn = $('<button/>', {
+                type: "button",
+                text: 'x',
+                id: 'close-preview',
+                style: 'font-size: initial;',
+            });
+            closebtn.attr("class", "close pull-right");
+            // Set the popover default content
+            $('.image-preview').popover({
+                trigger: 'manual',
+                html: true,
+                title: "<strong>Preview</strong>" + $(closebtn)[0].outerHTML,
+                content: "There's no image",
+                placement: 'bottom'
+            });
+            // Clear event
+            $('.image-preview-clear').click(function () {
+                $('.image-preview').attr("data-content", "").popover('hide');
+                $('.image-preview-filename').val("");
+                $('.image-preview-clear').hide();
+                $('.image-preview-input input:file').val("");
+                $(".image-preview-input-title").text("Browse");
+            });
+            // Create the preview image
+            $(".image-preview-input input:file").change(function () {
+                var img = $('<img/>', {
+                    id: 'dynamic',
+                    width: 250,
+                    height: 200
+                });
+                var file = this.files[0];
+                var reader = new FileReader();
+                // Set preview image into the popover data-content
+                reader.onload = function (e) {
+                    $(".image-preview-input-title").text("Change");
+                    $(".image-preview-clear").show();
+                    $(".image-preview-filename").val(file.name);
+                    img.attr('src', e.target.result);
+                    $(".image-preview").attr("data-content", $(img)[0].outerHTML).popover("show");
+                }
+                reader.readAsDataURL(file);
+            });
+        });
 
     </script>
 

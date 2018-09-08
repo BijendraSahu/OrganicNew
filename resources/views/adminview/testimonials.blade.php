@@ -79,13 +79,13 @@
                          <button onclick="openmyform();" class="btn btn-default pull-right"><i
                                      class="mdi mdi-plus"></i>Add</button>
                       </span>
-                                    <?php $mydata=\App\Testimonials::orderBy('id','desc')->get();?>
+                                    <?php $mydata=\App\Testimonial::orderBy('id','desc')->get();?>
                                     <p class="clearfix"></p>
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
                                             <th>User Name</th>
-                                       {{--     <th width="50%"></th>--}}
+                                            {{--     <th width="50%"></th>--}}
                                             <th>review</th>
                                             <th>Status</th>
                                             <th>option</th>
@@ -96,7 +96,7 @@
                                         @foreach($mydata as $obj)
 
                                             <tr>
-                                                <td>{{$obj->user_id}}</td>
+                                                <td>{{$obj->user->name}}</td>
                                                 <input type="hidden" name="myuid" id="myuid{{$obj->user_id}}">
                                                 <td>{{$obj->review}}</td>
                                                 <td>
@@ -107,13 +107,13 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                   {{-- <button onclick="edittest({{$obj->id}});" class="btn btn-primary btn-sm">Update</button>--}}
+                                                    {{-- <button onclick="edittest({{$obj->id}});" class="btn btn-primary btn-sm">Update</button>--}}
                                                     <button onclick="deletetest({{$obj->id}});" class="btn btn-danger btn-sm">Delete</button>
                                                     @if($obj->is_active == 1)
-                                                    <button onclick="inactiveTest({{$obj->id}});" class="btn btn-default btn-sm">inactive</button>
-                                                        @else
+                                                        <button onclick="inactiveTest({{$obj->id}});" class="btn btn-default btn-sm">inactive</button>
+                                                    @else
                                                         <button onclick="activeTest({{$obj->id}});" class="btn btn-warning btn-sm">Active</button>
-                                                        @endif
+                                                    @endif
 
                                                 </td>
 
@@ -123,9 +123,9 @@
 
                                         </tbody>
                                     </table>
-                                   {{-- <div align="center">
-                                        {{$all_items->links()}}
-                                    </div>--}}
+                                    {{-- <div align="center">
+                                         {{$all_items->links()}}
+                                     </div>--}}
 
                                 </div>
                             </div>
@@ -138,15 +138,15 @@
                             <div class="dash_boxcontainner white_boxlist">
                                 <div class="upper_basic_heading"><span class="white_dash_head_txt">
                        Add Testimonials
-                         {{--<button onclick="openAddform();" class="btn btn-default pull-right"><i
-                                     class="mdi mdi-plus"></i>Add</button>--}}
+                                        {{--<button onclick="openAddform();" class="btn btn-default pull-right"><i
+                                                    class="mdi mdi-plus"></i>Add</button>--}}
                       </span>
                                     <?php $userdata= \App\UserMaster::get();?>
                                     <select class="form-control" name="userid" id="userid">
                                         <option value="0">--select--</option>
                                         @foreach($userdata as $userobj)
-                                        <option value="{{$userobj->id}}">{{$userobj->name}}</option>
-                                            @endforeach
+                                            <option value="{{$userobj->id}}">{{$userobj->name}}</option>
+                                        @endforeach
                                     </select>
 
                                     <textarea class="form-control" placeholder="Enter Review" name="review" id="review" cols="30" rows="10"></textarea>
@@ -167,8 +167,8 @@
             var myid = id;
             $.get('{{url('inactivetest')}}', {myid: myid}, function (data) {
                 /* alert(data);*/
-              /*  alert(data);
-                console.log(data);*/
+                /*  alert(data);
+                 console.log(data);*/
 
                 location.reload();
             });
@@ -177,8 +177,8 @@
             var myid = id;
             $.get('{{url('activetest')}}', {myid: myid}, function (data) {
                 /* alert(data);*/
-              /*  alert(data);
-                console.log(data);*/
+                /*  alert(data);
+                 console.log(data);*/
 
                 location.reload();
             });
@@ -187,9 +187,9 @@
             var myy = id;
             $.get('{{url('deletetest')}}', {myy: myy}, function (data) {
                 /* alert(data);*/
-             /*   alert(data);
-                console.log(data);
-*/
+                /*   alert(data);
+                 console.log(data);
+                 */
                 location.reload();
             });
         }
@@ -199,7 +199,7 @@
             var user =$('#userid').val();
             var review =$('#review').val();
             $.get('{{url('addtstimonials')}}', {user: user,review:review}, function (data) {
-               /* alert(data);*/
+                /* alert(data);*/
 
                 location.reload();
             });
@@ -207,8 +207,8 @@
 
         function openmyform()
         {
-                $("#item_part1").addClass("hidealways");
-                $("#item_part2").removeClass("hidealways");
+            $("#item_part1").addClass("hidealways");
+            $("#item_part2").removeClass("hidealways");
         }
         function openlist()
         {

@@ -1,6 +1,6 @@
 @extends('adminlayout.adminmaster')
 
-@section('title','Taj Tailors | OrderList')
+@section('title','Organic Dolchi | OrderList')
 
 @section('content')
 
@@ -74,7 +74,7 @@
                                             <tr>
                                                 <td>{{$order_object->order_no}}</td>
                                                 <td>{{$order_object->order_date}}</td>
-                                                <td>{{$order_object->user_id}}</td>
+                                                <td>{{$order_object->user->name}}</td>
                                                 <td>
                                                     @if($order_object->is_active=='1')
                                                         <div class="status pending">Active</div>
@@ -157,13 +157,11 @@
 
 
 
-        function active(id)
-        {
-            var IDD = id;
+        function active(id) {
             $.ajax({
                 type: "get",
                 url: "{{url('/active_order')}}",
-                data: "IDD= " + IDD ,
+                data: {IDD: id},
                 success: function (data) {
                     $("#user_table").load(location.href + " #user_table");
                     myFunction();
@@ -176,15 +174,13 @@
 
                 }
             });
-
         }
-        function inactive(id)
-        {
-            var IDD = id;
+
+        function inactive(id) {
             $.ajax({
                 type: "get",
                 url: "{{url('/inactive_order')}}",
-                data: "IDD= " + IDD ,
+                data: {IDD: id},
                 success: function (data) {
                     $("#user_table").load(location.href + " #user_table");
                     myFunction();
@@ -199,21 +195,17 @@
             });
 
         }
-        function ordered(id)
-        {
-
-            var IDD = id;
+        function ordered(id) {
             $.ajax({
                 type: "get",
                 url: "{{url('/ordered')}}",
-                data: "IDD= " + IDD ,
+                data: {IDD: id},
                 success: function (data) {
-                    alert(data);
                     $("#user_table").load(location.href + " #user_table");
                     myFunction();
                     $('#snackbar').html('');
                     $('#snackbar').addClass('show');
-                    $('#snackbar').html('status Change Into Orderd');
+                    $('#snackbar').html('Status has been changed to Ordered');
 
                 },
                 error: function (data) {
@@ -222,19 +214,17 @@
             });
 
         }
-        function packed(id)
-        {
-            var IDD = id;
+        function packed(id) {
             $.ajax({
                 type: "get",
                 url: "{{url('/packed')}}",
-                data: "IDD= " + IDD ,
+                data: {IDD: id},
                 success: function (data) {
                     $("#user_table").load(location.href + " #user_table");
                     myFunction();
                     $('#snackbar').html('');
                     $('#snackbar').addClass('show');
-                    $('#snackbar').html('status Change Into packed');
+                    $('#snackbar').html('Status has been changed to Packed');
 
                 },
                 error: function (data) {
@@ -242,40 +232,34 @@
                 }
             });
         }
-        function shipped(id)
-        {
-            var IDD = id;
+        function shipped(id) {
             $.ajax({
                 type: "get",
                 url: "{{url('/shipped')}}",
-                data: "IDD= " + IDD ,
+                data: {IDD: id},
                 success: function (data) {
                     $("#user_table").load(location.href + " #user_table");
                     myFunction();
                     $('#snackbar').html('');
                     $('#snackbar').addClass('show');
-                    $('#snackbar').html('status Change Into Shipped');
-
+                    $('#snackbar').html('Status has been changed to Shipped');
                 },
                 error: function (data) {
 
                 }
             });
         }
-        function delivered(id)
-        {
-            var IDD = id;
+        function delivered(id) {
             $.ajax({
                 type: "get",
                 url: "{{url('/delivered')}}",
-                data: "IDD= " + IDD ,
+                data: {IDD: id},
                 success: function (data) {
                     $("#user_table").load(location.href + " #user_table");
                     myFunction();
                     $('#snackbar').html('');
                     $('#snackbar').addClass('show');
-                    $('#snackbar').html('status Change Into Delivered');
-
+                    $('#snackbar').html('Status has been changed to Delivered');
                 },
                 error: function (data) {
 
