@@ -185,6 +185,7 @@
     <script type="text/javascript" src="js/owl.carousel.js"></script>
     <style type="text/css">
 
+
         /* .vertical .carousel-inner {
              height: 100%;
          }
@@ -269,6 +270,7 @@
             box-shadow: none;
             border: solid thin #e1e1e1;
         }
+
         @media (max-width: 767px) and (min-width: 320px) {
             .animate_top {
                 top: 85px;
@@ -443,63 +445,62 @@
         }
 
         function checkOffset() {
-            if ($('#product_filter_container').offset().top + $('#product_filter_container').height()
-                >= $('#footer').offset().top - 30) {
+            if ($('#product_filter_container').offset().top + $('#product_filter_container').height() >= $('#footer').offset().top - 30) {
                 $('#product_filter_container').addClass('filter_removefixed');
             }
-           if ($(document).scrollTop() + window.innerHeight < $('#footer').offset().top) {
+            if ($(document).scrollTop() + window.innerHeight < $('#footer').offset().top) {
                 $('#product_filter_container').removeClass('filter_removefixed');
             }
-           //debugger;
+            //debugger;
 
         }
         $(window).scroll(function () {
-            if ($(window).scrollTop() + $(window).innerHeight() == $(document).height()) {
+            if ($(window).scrollTop() + window.innerHeight == $(document).height()) {
                 if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
                     getmoreItems();
                 }
             }
             /* if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-                 if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
-                     getmoreItems();
-                 }
+             if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
+             getmoreItems();
+             }
              }*/
             /* if($(window).scrollTop() + $(window).height() == $(document).height()) {
 
              }*/
-          /*  if($(document).scrollTop() == $(document).height() - $(document).height()) {
-                if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
-                    getmoreItems();
-                }
-            }*/
+            /*  if($(document).scrollTop() == $(document).height() - $(document).height()) {
+             if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
+             getmoreItems();
+             }
+             }*/
             /*if($(window).scrollTop() + $(window).height() == $(document).height()){ //scrolled to bottom of the page
-                if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
-                    getmoreItems();
-                }
-            }*/
+             if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
+             getmoreItems();
+             }
+             }*/
             /*if($(window).scrollTop() + $(window).height() == $("#product_all_container").height()){
-               /!* if(($(window).scrollTop() == $(document).height() - $(window).height())) {*!/
-                if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
-                    getmoreItems();
-                }
-            }*/
+             /!* if(($(window).scrollTop() == $(document).height() - $(window).height())) {*!/
+             if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
+             getmoreItems();
+             }
+             }*/
             /*if($(window).scrollTop() + $(window).height() >= $(document).height()){ //scrolled to bottom of the page
-                if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
-                    getmoreItems();
-                }
-            }*/
+             if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
+             getmoreItems();
+             }
+             }*/
             /*debugger;
-            var chk_footer=$('#footer').offset().top;
-            alert(chk_footer);
-            alert($(window).checkScrollbar());
-            if($(window).checkScrollbar() >= chk_footer)
-            {
-                if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
-                    getmoreItems();
-                }else {
-                    $("#product_all").html(no_record);
-                }
-            }*/
+             var chk_footer=$('#footer').offset().top;
+             alert(chk_footer);
+             alert($(window).checkScrollbar());
+             if($(window).checkScrollbar() >= chk_footer)
+             {
+             if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
+             getmoreItems();
+             }else {
+             $("#product_all").html(no_record);
+             }
+             }*/
         });
         $(document).scroll(function () {
             checkOffset();
@@ -549,6 +550,7 @@
     </script>
 @stop
 @section('content')
+
     <section class="product_section">
         <div class="container-fluid">
             <div class="product_all_container" id="product_all_container">
@@ -572,7 +574,8 @@
                             <li class="product_list_li selected" onclick="get_category(this)">Products Category</li>
                             <li class="product_list_li" onclick="get_items(this)" id="0">All Products</li>
                             @foreach($categories as $category)
-                                <li class="product_list_li" onclick="get_items(this)" id="{{$category->id}}">{{$category->name}}</li>
+                                <li class="product_list_li" onclick="get_items(this)"
+                                    id="{{$category->id}}">{{$category->name}}</li>
                             @endforeach
                         </ul>
                     </div>
@@ -593,7 +596,9 @@
                             <div class="col-md-4 col-lg-3 col-sm-6">
                                 <div class="product_carousal_box">
                                     <div class="carousal_head">
-                                        <span class="filter_head_txt slider_headtxt" style="cursor: pointer" onclick="get_items(this)" id="{{$category->id}}">{{$category->name}}</span>
+                                        <span class="filter_head_txt slider_headtxt" style="cursor: pointer"
+                                              onclick="get_items(this)"
+                                              id="{{$category->id}}">{{$category->name}}</span>
                                     </div>
 
                                     <div id="myCarousel{{$category->id}}" class="carousel slide vertical">
@@ -732,6 +737,12 @@
             </div>
         </div>
     </section>
+    <div class="loader" id="loader">
+        <div class="internal_bg">
+            {{--            <img src="{{url('assets/images/logo_loader.png')}}" class="top_loader" />--}}
+        </div>
+        <img class="loader_main" src="{{url('assets/images/1L.gif')}}"/>
+    </div>
     <div class="filter_overlay" id="overlay_div" onclick="hide_filter()"></div>
     <input type="hidden" id="see_id" value="1"/>
     <input type="hidden" id="category_id" value="">
@@ -767,11 +778,14 @@
                         <div class="model_row">
                             <input type="hidden" class="form-control" id="item_master_id"/>
 
-                            <input type="email" class="form-control email" id="n_email" value="{{isset($_SESSION['user_master']) ? $_SESSION['user_master']->email : '' }}" placeholder="Email Id"/>
+                            <input type="email" class="form-control email" id="n_email"
+                                   value="{{isset($_SESSION['user_master']) ? $_SESSION['user_master']->email : '' }}"
+                                   placeholder="Email Id"/>
                         </div>
                         <div class="model_row">
                             <input type="text" class="form-control numberOnly" maxlength="10" id="n_contact"
-                                   value="{{isset($_SESSION['user_master']) ? $_SESSION['user_master']->contact : '' }}"  placeholder="Mobile No."/>
+                                   value="{{isset($_SESSION['user_master']) ? $_SESSION['user_master']->contact : '' }}"
+                                   placeholder="Mobile No."/>
                         </div>
                         <div class="model_row">
                             <textarea class="form-control glo_txtarea" id="n_message"
@@ -790,7 +804,7 @@
     <script type="text/javascript">
 
         var append_loading_img = '<div class="feed_loadimg_block" id="load_img">' + '<img height="50px" class="center-block" src="{{ url('images/loading.gif') }}"/></div>';
-        var append_div = '<div class="product_block loading_block" id="load_item"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div>';
+        var append_div = '<div class="product_block loading_block" id="load_item"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div><div class="product_block loading_block" id="load_item"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div><div class="product_block loading_block" id="load_item"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div><div class="product_block loading_block" id="load_item"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div>';
         /*var no_record = '<div class="product_block">No Record Available</div>';*/
         var no_record = '<div class="no_found_row">No more items available !</div>';
 
@@ -836,6 +850,7 @@
         }
 
         function get_category(dis) {
+            $('#loader').css('display', 'block');
             var category_id = $(dis).attr('id');
             var limit = Number($('#see_id').val());
 //            alert(category_id);
@@ -850,8 +865,10 @@
                     $('#product_all').html(append_div);
                 },
                 success: function (data) {
+                    $('#loader').css('display','none');
                     $("#load_item").remove();
                     $("#product_all").html(data);
+
                 },
                 error: function (xhr, status, error) {
                     $('#product_all').html(xhr.responseText);
@@ -861,8 +878,9 @@
             hide_filter();
         }
         function get_items(dis) {
+            $('#loader').css('display', 'block');
             var category_id = $(dis).attr('id');
-           // $('#see_id').val('');
+            // $('#see_id').val('');
             var limit = 1;
             $('#see_id').val(1);
 //            alert(category_id);
@@ -876,12 +894,13 @@
                     $('#product_all').html(append_div);
                 },
                 success: function (data) {
+                    $('#loader').css('display', 'none');
                     if (data.no_record == 'no_record') {
                         $("#load_item").remove();
                         $("#product_all").html(no_record);
                     } else {
                         $("#load_item").remove();
-                       $('#product_all').html('');
+                        $('#product_all').html('');
                         $("#product_all").html(data);
                     }
                 },

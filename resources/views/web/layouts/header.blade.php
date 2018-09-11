@@ -153,7 +153,7 @@
             <div class="modal-body">
                 <div class="deli_row">
                     <input type="text" name="ask_number" id="ask_number" autocomplete="off"
-                           class="form-control numberOnly login_txt NumberOnly" maxlength="13"
+                           class="form-control numberOnly login_txt NumberOnly" maxlength="10"
                            placeholder="Enter Mobile Number"/>
                 </div>
             </div>

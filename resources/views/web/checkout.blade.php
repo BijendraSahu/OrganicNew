@@ -164,6 +164,11 @@
                 }
             });
         }
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+            $('#add_pincode_update').tooltip({'trigger':'focus', 'title': 'Pincode must have 6 digit'});
+        });
+
     </script>
 @stop
 @section('content')
@@ -207,12 +212,13 @@
                                         <div class="point_paybox apply" id="applyamt">
                                             <div class="checkbox">
                                                 <input type="checkbox" name="pay_by_point" id="pay_by_point"
-                                                       value="{{$user->gain_amount}}"
+                                                       value="{{isset($user->gain_amount)?$user->gain_amount:'0'}}"
                                                        onchange="Paybypoint(this);"/>
                                                 <input type="hidden" name="selected_point" id="selected_point"/>
                                                 <input type="hidden" name="selected_promo" id="selected_promo"/>
                                             </div>
-                                            <i class="mdi mdi-currency-inr" id="point">{{$user->gain_amount}}</i>
+                                            <i class="mdi mdi-currency-inr"
+                                               id="point">{{isset($user->gain_amount)?$user->gain_amount:'0'}}</i>
                                         </div>
                                     </div>
                                 </div>
@@ -279,7 +285,7 @@
                         </div>
                         <div class="exis_container style-scroll">
                             @php
-                                $addresses = \App\UserAddress::where(['is_active' => '1', 'user_id' => $user->id])->orderBy('created_time','desc')->get();
+                                $addresses = \App\UserAddress::where(['is_active' => '1', 'user_id' => isset($user->id)?$user->id:'0'])->orderBy('created_time','desc')->get();
                             $count=1;
                             @endphp
 
@@ -379,12 +385,12 @@
                                 <div class="add_update_box" id="content_address_box">
                                     <div class="deli_row">
                                         <div class="col-sm-6">
-                                            <input type="text" placeholder="Name" name="name" id="add_name_update"
-                                                   class="form-control">
+                                            <input type="text" placeholder="Name*" name="name" id="add_name_update"
+                                                   class="form-control textWithSpace required" value="{{$_SESSION['user_master']->name}}">
                                         </div>
                                         <div class="col-sm-6">
-                                            <input type="text" placeholder="Phone No." name="contact"
-                                                   id="add_contact_update" class="form-control">
+                                            <input type="text" placeholder="Phone No.*" name="contact"
+                                                   id="add_contact_update" minlength="10" maxlength="10" class="numberOnly form-control required"  value="{{$_SESSION['user_master']->contact}}">
                                         </div>
                                     </div>
                                     <div class="deli_row">
@@ -396,9 +402,9 @@
                                             </select>
                                         </div>
                                         <div class="col-sm-6">
-                                            <input type="text" placeholder="Pincode" name="pincode"
-                                                   id="add_pincode_update"
-                                                   class="form-control">
+                                            <input type="text" placeholder="Pincode*" name="pincode"
+                                                   id="add_pincode_update" minlength="6" maxlength="6"
+                                                   class="form-control numberOnly required">
                                         </div>
                                     </div>
                                     <div class="deli_row">
@@ -445,7 +451,7 @@
                                 </div>
                                 <div class="col-sm-6" id="existing_dropbox" style="display:none">
                                     @php
-                                        $addresses = \App\UserAddress::where(['is_active' => '1', 'user_id' => $user->id])->get();
+                                        $addresses = \App\UserAddress::where(['is_active' => '1', 'user_id' =>  isset($user->id)?$user->id:'0'])->get();
                                     @endphp
                                     @if(count($addresses)>0)
                                         <select onchange="getuseraddress();" class="form-control"
@@ -567,34 +573,49 @@
                                             <div class="col-sm-9">
                                                 <div class="productdetails_order_row">
                                                     <div class="order_product_imgbox">
-                                                        @php $item_images = \App\ItemImages::where(['item_master_id' => $row->id])->first();
-                                                        $item = \App\ItemMaster::find($row->id);
+                                                        @php $item_image = \App\ItemImages::where(['item_master_id' => $row->id])->first();
+                                                    $item_price = \App\ItemPrice::find($row->options->has('item_price_id') ? $row->options->item_price_id : '1');
+                                                    $item = \App\ItemMaster::find($row->id);
                                                         @endphp
-                                                        @if(isset($item_images))
-                                                            <img src="{{url('p_img').'/'.$row->id.'/'.$item_images->image}}"
+                                                        @if(isset($item_image))
+                                                            <img src="{{url('p_img').'/'.$row->id.'/'.$item_image->image}}"
                                                                  alt="{{$row->name}}">
                                                         @else
-                                                            <img src="{{url('images/product_09.jpg')}}"
+                                                            <img src="{{url('images/default.png')}}"
                                                                  alt="Organic product">
                                                         @endif
 
                                                     </div>
                                                     <div class="product_name">
-                                                        <a href="{{url('view_product').'/'.(encrypt($row->id))}}">{{$row->name}}</a>
+                                                        {{$item->name}}
                                                     </div>
-
+                                                    <div class="option_availability">
+                                                        <div class="option_txt">Price :</div>
+                                                        <div class="product_right_txt">
+                                                            @if($item_price->price > 0)
+                                                                <span class="mdi mdi-currency-inr"></span>{{$item_price->price}}
+                                                            @else
+                                                                {{"-"}}
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <div class="option_availability">
+                                                        <div class="option_txt">Special Price :</div>
+                                                        <div class="product_right_txt">
+                                                            @if($item_price->spl_price >0 )
+                                                                <span class="mdi mdi-currency-inr"></span> {{$item_price->spl_price}}
+                                                            @else
+                                                                {{"-"}}
+                                                            @endif
+                                                        </div>
+                                                    </div>
                                                     <div class="option_availability">
                                                         <div class="option_txt">Quantity :</div>
                                                         <div class="product_right_txt">
                                                             {{$row->qty}}
                                                         </div>
                                                     </div>
-                                                    <div class="desc_cart">
-                                                        <div class="des_txt">Specifications :</div>
-                                                        <div class="des_details">
-                                                            {!! $item->specifcation!!}
-                                                        </div>
-                                                    </div>
+
 
                                                     {{-- <div class="option_availability">
                                                          <div class="option_txt">Specification</div>
@@ -742,7 +763,11 @@
                 swal("Fields Required", "Please select city", "error");
 //                $('#add_city').focus();
                 return false;
-            } else if (add_pincode == '') {
+            } else if (add_pincode.length < 6) {
+                swal("Fields Required", "Pincode must have 6 digits", "error");
+//                $('#add_pincode').focus();
+                return false;
+            }else if (add_pincode == '') {
                 swal("Fields Required", "Please enter pincode", "error");
 //                $('#add_pincode').focus();
                 return false;

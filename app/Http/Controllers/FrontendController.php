@@ -394,7 +394,8 @@ class FrontendController extends Controller
     public function order_list()
     {
         if (isset($_SESSION['user_master'])) {
-            $orders = DB::select("SELECT * FROM order_description od, order_master o WHERE od.order_master_id = o.id");
+            $user_id = $_SESSION['user_master']->id;
+            $orders = DB::select("SELECT * FROM order_description od, order_master o WHERE od.order_master_id = o.id and o.user_id = $user_id");
             return view('web.order_list')->with(['orders' => $orders]);
         } else {
             return Redirect::back()->withInput()->withErrors(array('message' => 'Please login first'));

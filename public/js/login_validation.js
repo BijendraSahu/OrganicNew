@@ -9,7 +9,6 @@ $(document).ready(function () {
         if (!(event.keyCode >= 48 && event.keyCode <= 57)) return false;
     });
 
-
     $(".amount").keypress(function () {
         if (event.keyCode == 8 || event.keyCode == 46) return true;
         if (!(event.keyCode >= 48 && event.keyCode <= 57)) return false;
