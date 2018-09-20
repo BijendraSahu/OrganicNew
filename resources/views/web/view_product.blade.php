@@ -34,9 +34,9 @@
                 <div class="option_txt">Option Availibity :</div>
                 <select class="form-control rate" name="unit" id="price">
                     @foreach($item_prices as $item_price)
-                        @if($item_price->qty > 0)
+{{--                        @if($item_price->qty > 0)--}}
                             <option value="{{$item_price->id}}">{{$item_price->unit.' - '.'Rs '.$item_price->price}}</option>
-                        @endif
+                        {{--@endif--}}
                     @endforeach
                 </select>
             </div>

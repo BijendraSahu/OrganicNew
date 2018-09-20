@@ -32,11 +32,11 @@
                     <tr>
                         <td class="text-left"><a class="cart_product_name"
                                                  title="{{$row->name}}"
-                                                 href="#">{{ str_limit($row->name, 12) }}</a></td>
+                                                 href="#">{{ str_limit($row->name, 15) }}</a></td>
                         <td class="text-center"> x{{$row->qty}}</td>
                         <td class="text-center"><i class="fa fa-inr"></i>{{$row->price}}</td>
                         <td class="text-right">
-                            <a onclick="remove_item('{{$row->rowId}}')" class="mdi mdi-close cart-delete"
+                            <a onclick="remove_item('{{$row->rowId}}')" class="mdi mdi-close-circle cart-delete"
                                data-toggle="tooltip"
                                title="Remove"></a>
                         </td>
@@ -57,7 +57,10 @@
         </a>
     </div>
 </div>
-<script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
     function remove_item(cart_item_id) {
         $.ajax({
             type: 'get',
@@ -65,6 +68,7 @@
             data: {cart_item_id: cart_item_id},
             success: function (data) {
                 $("#cartload").html(data);
+                $('.cart_popbox').removeClass('scale0');
             },
             error: function (xhr, status, error) {
                 $('#cartload').html(xhr.responseText);

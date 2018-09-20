@@ -93,6 +93,20 @@ class FrontendController extends Controller
         }
     }
 
+    public function removeProfile(Request $request)
+    {
+        $user = UserMaster::find($_SESSION['user_master']->id);
+        if (isset($user)) {
+            $user->profile_img = 'images/Male_default.png';
+            $user->save();
+            $ret['response'] = 'Profile Pic has been removed';
+            echo json_encode($ret);
+        } else {
+            $ret['response'] = 'No record found';
+            echo json_encode($ret);
+        }
+    }
+
     public function change_password()
     {
         $curr_pass = $_SESSION['user_master']->password;
@@ -283,7 +297,10 @@ class FrontendController extends Controller
         if (count($cart) == 0) {
             return redirect('checkout')->withInput()->withErrors('Your cart is empty');
         } else {
-            $cart_total = \Gloudemans\Shoppingcart\Facades\Cart::subtotal();
+            $cart_total = 0;
+            foreach ($cart as $row) {
+                $cart_total += $row->price * $row->qty;
+            }
             $address_id = request('add_id');
             $shipping = request('udf2');
             $selected_point = request('selected_point');
@@ -377,7 +394,8 @@ class FrontendController extends Controller
     public function order_list()
     {
         if (isset($_SESSION['user_master'])) {
-            $orders = DB::select("SELECT * FROM order_description od, order_master o WHERE od.order_master_id = o.id");
+            $user_id = $_SESSION['user_master']->id;
+            $orders = DB::select("SELECT * FROM order_description od, order_master o WHERE od.order_master_id = o.id and o.user_id = $user_id");
             return view('web.order_list')->with(['orders' => $orders]);
         } else {
             return Redirect::back()->withInput()->withErrors(array('message' => 'Please login first'));

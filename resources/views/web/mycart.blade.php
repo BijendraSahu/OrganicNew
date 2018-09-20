@@ -70,6 +70,7 @@
                                             <div class="productdetails_order_row">
                                                 <div class="order_product_imgbox">
                                                     @php $item_image = \App\ItemImages::where(['item_master_id' => $row->id])->first();
+                                                    $item_price = \App\ItemPrice::find($row->options->has('item_price_id') ? $row->options->item_price_id : '1');
                                                     $item = \App\ItemMaster::find($row->id);
                                                     @endphp
                                                     @if(isset($item_image))
@@ -84,6 +85,26 @@
                                                     {{$item->name}}
                                                 </div>
                                                 <div class="option_availability">
+                                                    <div class="option_txt">Price :</div>
+                                                    <div class="product_right_txt">
+                                                        @if($item_price->price > 0)
+                                                            <span class="mdi mdi-currency-inr"></span>{{$item_price->price}}
+                                                        @else
+                                                            {{"-"}}
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="option_availability">
+                                                    <div class="option_txt">Special Price :</div>
+                                                    <div class="product_right_txt">
+                                                        @if($item_price->spl_price >0 )
+                                                            <span class="mdi mdi-currency-inr"></span> {{$item_price->spl_price}}
+                                                        @else
+                                                            {{"-"}}
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="option_availability">
                                                     <div class="option_txt">Quantity :</div>
                                                     <div class="product_right_txt">
                                                         {{$row->qty}}
@@ -92,7 +113,7 @@
                                                 <div class="desc_cart">
                                                     <div class="des_txt">Specifications :</div>
                                                     <div class="des_details">
-                                                        {!! $item->specifcation!!}
+                                                        {!! isset($item->specifcation)?$item->specifcation:'Not Mentioned'!!}
                                                     </div>
                                                 </div>
                                             </div>
@@ -102,7 +123,8 @@
                                             <div class="order_amt"><i
                                                         class="mdi mdi-currency-inr"></i> {{number_format($row->price,2)}}
                                             </div>
-                                            <form action="{{url('cart_update').'/'.$row->rowId}}" id="cartupdate"
+                                            <form action="{{url('cart_update').'/'.$row->rowId}}"
+                                                  id="cartupdate{{$row->rowId}}"
                                                   method="post">
                                                 <input type="hidden" name="_token"
                                                        value="{{csrf_token()}}">
@@ -111,18 +133,19 @@
                                                         <span class="qty_txt">Qty</span>
                                                         <input type="number" name="qty"
                                                                class="form-control text-center qty_edittxt"
-                                                               min="1" max="10" id="crtupdate" value="{{$row->qty}}">
+                                                               min="1" max="10" value="{{$row->qty}}">
 
                                                     </div>
-                                                    <a href="{{url('cart_delete').'/'.$row->rowId}}"
-                                                       class="spinner_addcardbtn btn-danger" id="{{$row->id}}"><span
+                                                    <a onclick="remove_cart_item('{{$row->rowId}}')"
+                                                       class="spinner_addcardbtn btn-danger"><span
                                                                 class="mdi mdi-close close_btn"></span> <span
                                                                 class="button-group_text">Remove</span></a>
                                                 </div>
                                                 <div class="update_qty_box">
                                                     <button type="submit"
                                                             class="btn btn-primary btn-sm">
-                                                        <i class="mdi mdi-refresh basic_icon_margin"></i> Update Qty</button>
+                                                        <i class="mdi mdi-refresh basic_icon_margin"></i> Update Qty
+                                                    </button>
                                                 </div>
                                             </form>
                                         </div>
@@ -142,11 +165,28 @@
     </section>
     @include('web.layouts.footer')
     <script>
-//         $('#crtupdate').click(function () {
-//             form = $('#cartupdate');
-// //                                form.attr('action', form.attr('action') + '.xls').trigger('submit');
-// //                                form.attr('action', action);
-//             form.submit();
-//         });
+        function remove_cart_item(cart_item_id) {
+            $.ajax({
+                type: 'get',
+                url: "{{ url('cart_delete') }}",
+                data: {cart_item_id: cart_item_id},
+                success: function (data) {
+                    $("#cartload").html(data);
+                    $(".order_list_container").load(location.href + " .order_list_container");
+                    $(".mycart_fixedamount_box").load(location.href + " .mycart_fixedamount_box");
+                },
+                error: function (xhr, status, error) {
+                    $('#cartload').html(xhr.responseText);
+                }
+            });
+            // promo_code
+
+        }
+        //         $('#crtupdate').click(function () {
+        //             form = $('#cartupdate');
+        // //                                form.attr('action', form.attr('action') + '.xls').trigger('submit');
+        // //                                form.attr('action', action);
+        //             form.submit();
+        //         });
     </script>
 @stop

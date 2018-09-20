@@ -18,7 +18,8 @@ class BlogController extends Controller
         $tee = decrypt($id);
         if ($tee == 1) {
             $data = BlogCategory::get();
-            return view('adminview.blog', ['data' => $data]);
+            $blogdata = Blogmodel::where(['is_active' => '1'])->orderBy('id', 'desc')->paginate(5);
+            return view('adminview.blog', ['data' => $data,'blogdata' => $blogdata]);
         }
     }
 
