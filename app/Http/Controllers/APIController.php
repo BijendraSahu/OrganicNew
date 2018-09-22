@@ -182,7 +182,7 @@ class APIController extends Controller
         if (isset($user)) {
             $user->otp = $otp;
             $user->save();
-            file_get_contents("http://api.msg91.com/api/sendhttp.php?sender=CONONE&route=4&mobiles=$user->contact&authkey=213418AONRGdnQ5ae96f62&country=91&message=Dear%20user,%20OTP%20to%20verify%20your%20connectingone%20account%20is%20$otp");
+            file_get_contents("http://api.msg91.com/api/sendhttp.php?sender=CONONE&route=4&mobiles=$user->contact&authkey=213418AONRGdnQ5ae96f62&country=91&message=Dear%20user,%20OTP%20to%20verify%20your%20organicdolchi%20account%20is%20$otp");
             return $this->sendResponse($user, 'Otp has been send to your number');
         } else {
             return $this->sendError('Invalid Credentials', '');
