@@ -135,7 +135,8 @@ function ScrollBottom() {
 }
 window.onload = function (e) {
     setTimeout(function () {
-        $('#page_loader').fadeOut('slow');
+       // $('#page_loader').fadeOut('slow');
+        $('#page_loader').hide();
     }, 2000);
 }
 function ShowMenuPopup(dis) {

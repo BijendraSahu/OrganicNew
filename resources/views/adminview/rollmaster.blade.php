@@ -138,9 +138,16 @@
                       </span>
 
 
-                                    <input type="text" name="username" class="form-control" placeholder="Enter User Name">
+                                    <input type="text" onkeyup="checkusername();" name="username" class="form-control" placeholder="Enter User Name">
+
+
+
+
+
+
+
                                     <input type="password" name="password1" class="form-control" placeholder="Enter User Password">
-                                    <input type="password" name="password2" class="form-control" placeholder="Enter Confirm Password">
+                                    {{--<input type="password" name="password2" class="form-control" placeholder="Enter Confirm Password">--}}
                                     <label>Select Menu :</label>
                                     <p class="clearfix"></p>
                                     <?php $munudata=\App\Menumodel::where(['is_active'=>1])->get();?>
@@ -208,6 +215,12 @@
             $("#item_part1").removeClass("hidealways");
             $("#item_part2").addClass("hidealways");
         }
+
+    </script>
+
+    <script>
+
+        functio
 
     </script>
 @stop
