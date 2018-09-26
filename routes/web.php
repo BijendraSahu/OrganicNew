@@ -227,3 +227,8 @@ Route::get('/returnpolicy','RecipeController@returnpolicy');
 Route::get('/blog','RecipeController@blog');
 Route::get('/blogdetail','RecipeController@blogdetail');
 Route::get('/contactus','RecipeController@contactus');
+
+
+
+///////////////////////////////////////////////////////////////////
+Route::get('/developers','RecipeController@developers');

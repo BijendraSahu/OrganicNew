@@ -209,4 +209,11 @@ class RecipeController extends Controller
     {
         return view('web.otherpages.contactus');
     }
+
+
+
+    public function developers()
+    {
+        return "Lode laal";
+    }
 }
