@@ -31,7 +31,7 @@
                                class="form-control text-center qty_edittxt"
                                min="0"
                                max="{{$price->qty}}"
-                               value="0" id="qty_load_{{$item->id}}">
+                               value="1" id="qty_load_{{$item->id}}">
                     </div>
                     <button class="spinner_addcardbtn btn-primary"
                             id="{{$item->id}}"

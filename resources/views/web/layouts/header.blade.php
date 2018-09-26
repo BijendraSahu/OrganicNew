@@ -6,6 +6,11 @@
         width: 10%;
         margin-top: -27%;
     }
+
+    .my_account_box {
+        color: #ffffff;
+        text-decoration: none !important;
+    }
 </style>
 <nav class="main_menu fixed_menu" id="top_header_menu">
     <div class="container">
@@ -108,6 +113,12 @@
                                     </div>
                                 </div>
 
+                            </li>
+                            <li>
+                                <a href="{{url('logout')}}" class="my_account_box glo_menuclick">
+                                    <i class="mdi mdi-logout"></i>
+                                    Logout
+                                </a>
                             </li>
                         @endif
                         <li style="border-right: none;">
