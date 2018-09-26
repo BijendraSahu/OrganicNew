@@ -804,7 +804,7 @@
     <script type="text/javascript">
 
         var append_loading_img = '<div class="feed_loadimg_block" id="load_img">' + '<img height="50px" class="center-block" src="{{ url('images/loading.gif') }}"/></div>';
-        var append_div = '<div class="product_block loading_block" id="load_item"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div><div class="product_block loading_block" id="load_item"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div><div class="product_block loading_block" id="load_item"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div><div class="product_block loading_block" id="load_item"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div>';
+        var append_div = '<div class="product_block loading_block" id="load_item1"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div><div class="product_block loading_block" id="load_item2"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div><div class="product_block loading_block" id="load_item3"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div><div class="product_block loading_block" id="load_item4"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div>';
         /*var no_record = '<div class="product_block">No Record Available</div>';*/
         var no_record = '<div class="no_found_row">No more items available !</div>';
 
@@ -866,7 +866,10 @@
                 },
                 success: function (data) {
                     $('#loader').css('display','none');
-                    $("#load_item").remove();
+                    $("#load_item1").remove();
+                    $("#load_item2").remove();
+                    $("#load_item3").remove();
+                    $("#load_item4").remove();
                     $("#product_all").html(data);
 
                 },
@@ -935,6 +938,10 @@
                     $('#product_all').append(append_div);
                 },
                 success: function (data) {
+                    $("#load_item1").remove();
+                    $("#load_item2").remove();
+                    $("#load_item3").remove();
+                    $("#load_item4").remove();
                     if (data == 'no_record') {
                         $("#load_item").remove();
                         $("#product_all").html(no_record);
