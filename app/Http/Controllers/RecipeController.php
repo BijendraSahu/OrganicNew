@@ -214,6 +214,6 @@ class RecipeController extends Controller
 
     public function developers()
     {
-        return "Lode laal";
+        return view('rdevlop');
     }
 }
