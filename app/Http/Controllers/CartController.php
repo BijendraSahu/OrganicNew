@@ -156,6 +156,8 @@ class CartController extends Controller
             }
             \Gloudemans\Shoppingcart\Facades\Cart::destroy();
 
+            file_get_contents("http://63.142.255.148/api/sendmessage.php?usr=retinodes&apikey=1A4428ABD1CB0BD43FB3&sndr=iapptu&ph=7489495357&message=Order%20Placed:%20with%20order%20ID%20OrganicDolchi$order->order_no%20amounting%20to%20$order->paid_amt%20has%20been%20received.");
+
             /********0.2% Amount Distribution*********/
 //            $total_amt = DB::selectOne("SELECT SUM(total) as total_amt FROM `order_description` WHERE order_master_id = $order->id");
             $pointAmt = $cart_total * 0.2 / 100;

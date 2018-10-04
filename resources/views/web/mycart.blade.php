@@ -3,7 +3,22 @@
 @section('title', 'Organic Food : My Cart')
 
 @section('head')
-
+<style type="text/css">
+    .btn-update{
+        position: absolute;
+        height: 27px;
+        width: 30px;
+        margin-left: 14px;
+        padding: 0px 0px 0px 0px;
+    }
+    .btn-update1{
+        position: absolute;
+        height: 27px;
+        width: 30px;
+        margin-left: 50px;
+        padding: 0px 0px 0px 0px;
+    }
+</style>
 @stop
 @section('content')
     <?php $total = 0; $itemcount = 0; $gtotal = 0; $counter = 0; ?>
@@ -61,7 +76,7 @@
                         <span class="filter_head_txt slider_headtxt">My Cart ({{$itemcount}})</span>
                     </div>
                     <div class="order_list_container">
-                        <?php $total = 0; $itemcount = 0; $gtotal = 0; $counter = 0; ?>
+                        @php $total = 0; $itemcount = 0; $gtotal = 0; $counter = 0; @endphp
                         @if(count(\Gloudemans\Shoppingcart\Facades\Cart::content())>0)
                             @foreach(\Gloudemans\Shoppingcart\Facades\Cart::content() as $row)
                                 <div class="order_row border-none">
@@ -82,7 +97,9 @@
 
                                                 </div>
                                                 <div class="product_name">
-                                                    {{$item->name}}
+                                                    <a class="cart_product_name"
+                                                       title="{{$item->name}}"
+                                                       href="{{url('view_product').'/'.(encrypt($item->id))}}">{{ $item->name }}</a>
                                                 </div>
                                                 <div class="option_availability">
                                                     <div class="option_txt">Price :</div>
@@ -136,17 +153,23 @@
                                                                min="1" max="10" value="{{$row->qty}}">
 
                                                     </div>
-                                                    <a onclick="remove_cart_item('{{$row->rowId}}')"
-                                                       class="spinner_addcardbtn btn-danger"><span
-                                                                class="mdi mdi-close close_btn"></span> <span
-                                                                class="button-group_text">Remove</span></a>
-                                                </div>
-                                                <div class="update_qty_box">
                                                     <button type="submit"
-                                                            class="btn btn-primary btn-sm">
-                                                        <i class="mdi mdi-refresh basic_icon_margin"></i> Update Qty
+                                                            class="btn btn-primary btn-update">
+                                                        <i class="mdi mdi-refresh "></i>
                                                     </button>
+                                                    <a type="submit"
+                                                            class="btn btn-primary btn-update1">
+                                                        <i class="mdi mdi-refresh "></i>
+                                                    </a>
+                                                    <a onclick="remove_cart_item('{{$row->rowId}}')"
+                                                       class="btn btn-danger btn-update1"><i class="mdi mdi-close" style="font-size: 17px;"></i></a>
                                                 </div>
+                                                {{--<div class="update_qty_box">--}}
+                                                    {{--<button type="submit"--}}
+                                                            {{--class="btn btn-primary btn-update">--}}
+                                                        {{--<i class="mdi mdi-refresh "></i>--}}
+                                                    {{--</button>--}}
+                                                {{--</div>--}}
                                             </form>
                                         </div>
                                     </div>

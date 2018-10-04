@@ -32,7 +32,7 @@
                     <tr>
                         <td class="text-left"><a class="cart_product_name"
                                                  title="{{$row->name}}"
-                                                 href="#">{{ str_limit($row->name, 15) }}</a></td>
+                                                 href="{{url('view_product').'/'.(encrypt($row->id))}}">{{ str_limit($row->name, 15) }}</a></td>
                         <td class="text-center"> x{{$row->qty}}</td>
                         <td class="text-center"><i class="fa fa-inr"></i>{{$row->price}}</td>
                         <td class="text-right">

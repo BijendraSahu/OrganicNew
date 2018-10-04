@@ -14,7 +14,7 @@ class User_loginController extends Controller
     {
         $useremail = UserMaster::where(['email' => request('email_id')])->first();
         $usermob = UserMaster::where(['contact' => request('mobile')])->first();
-        if (isset($useremail)) {
+        if (isset($useremail) && request('email_id') != null) {
             return 'email Address is Already Linked With Another Account!!!';
         } elseif (isset($usermob)) {
             return 'Mobile Number Already Linked With Another Account!!!!!!';

@@ -259,6 +259,9 @@
                             <div data-toggle="modal" id="have_a_promo" data-target="#PromoCode" class="promo_txt">
                                 Have a promo code?
                             </div>
+                            <div class="promo_txt">
+                                Delivery within 5 days
+                            </div>
                             <div class="product_btn_box">
                                 <a class="btn btn-warning btn-sm" href="{{url('product_list')}}"><i
                                             class="mdi mdi-basket basic_icon_margin"></i>Keep Shopping</a>

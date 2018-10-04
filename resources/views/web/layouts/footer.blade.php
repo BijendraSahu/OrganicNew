@@ -37,10 +37,10 @@
                         <div><a href="{{url('/')}}"><img src="{{url('images/white_logo.png')}}" alt="footer logo"></a>
                         </div>
                         <address>
-                            <div><em class="mdi mdi-map-marker-radius"></em> <span>ABC Write Town, Jablpur Madhya Pradesh </span>
+                            <div><em class="mdi mdi-map-marker-radius"></em> <span>Sam Mall, Jabalpur Madhya Pradesh </span>
                             </div>
-                            <div><em class="mdi mdi-phone-classic"></em><span> + 0800 567 345</span></div>
-                            <div><em class="mdi mdi-email-alert"></em><span>abc@example.com</span></div>
+                            <div><em class="mdi mdi-phone-classic"></em><span> 7489495357</span></div>
+                            <div><em class="mdi mdi-email-alert"></em><span> organicdolchi@gmail.com</span></div>
                         </address>
                     </div>
                 </div>
