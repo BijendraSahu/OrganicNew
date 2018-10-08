@@ -7,9 +7,9 @@
         <div class="long_product_img">
             <?php $image = \App\ItemImages::where(['item_master_id' => $item->id])->first(); ?>
             @if(isset($image->image) && file_exists("p_img/$item->id/".$image->image))
-                <img src="{{url('p_img').'/'.$item->id.'/'.$image->image}}" />
+                <img src="{{url('p_img').'/'.$item->id.'/'.$image->image}}"/>
             @else
-                <img src="{{url('images/default.png')}}" />
+                <img src="{{url('images/default.png')}}"/>
             @endif
             <div class="hover_center_block" id="{{$item->id}}"
                  onclick="getItemDetails(this);"
@@ -20,7 +20,7 @@
                 </div>
             </div>
         </div>
-        <?php $prices = \App\ItemPrice::where(['item_master_id' => $item->id])->get(); ?>
+        <?php $prices = \App\ItemPrice::where('item_master_id', '=', $item->id)->where('qty', '>', '0')->get(); ?>
         @if(count($prices)>0)
             @foreach($prices as $price)
                 <div class="long_spinner_withbtn">
