@@ -13,13 +13,13 @@ class SettingController extends Controller
 {
     public function settings()
     {
-        $data=LoginModel::find(['id' => $_SESSION['admin_master']['id']])->first();
-        return view('adminview.settings',['data'=> $data]);
+        $data = LoginModel::find($_SESSION['admin_master']['id']);
+        return view('adminview.settings', ['data' => $data]);
     }
 
     public function myadminpost()
     {
-        $directory='admin_pic/'.$_SESSION['admin_master']['id'];
+        $directory = 'admin_pic/' . $_SESSION['admin_master']['id'];
         $success = File::deleteDirectory($directory);
 
         $destinationPath = 'admin_pic/' . $_SESSION['admin_master']['id'] . '/';
@@ -36,22 +36,21 @@ class SettingController extends Controller
         return 1;
 
     }
-    public function changepass ()
+
+    public function changepass()
     {
-        $opass=request('opass');
-        $npass=request('npass');
-       $mypass=LoginModel::find(['id' => $_SESSION['admin_master']['id']])->first();
-        if($mypass['password']==$opass)
-        {
+        $opass = request('opass');
+        $npass = request('npass');
+        $mypass = LoginModel::find(['id' => $_SESSION['admin_master']['id']])->first();
+        if ($mypass['password'] == $opass) {
             $admindata = array(
                 'password' => $npass,
             );
             LoginModel::where('id', $_SESSION['admin_master']['id'])
                 ->update($admindata);
             return '1';
-        }
-        else{
-            return'You Insert Incorrect Password';
+        } else {
+            return 'You Insert Incorrect Password';
         }
 
 

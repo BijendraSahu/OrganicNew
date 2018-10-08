@@ -1,6 +1,6 @@
 @extends('web.layouts.e_master')
 
-@section('title', 'Organic Food : My Profile')
+@section('title', 'Organic Dolchi : My Profile')
 
 @section('head')
     <style type="text/css">
@@ -9,7 +9,7 @@
 @stop
 @section('content')
     <section class="product_section">
-        <div class="container res_pad0">
+        <div class="container res_pad0" id="profile_section">
             <div class="col-sm-12 col-md-3">
                 <div class="order_listbox">
                     <div class="carousal_head">
@@ -32,10 +32,22 @@
                                 Edit Profile
                             </a>
                         </div>
+                        {{--  <div class="menu_popup_settingrow">
+                              <a class="menu_setting_row" onclick="ShowAddress();">
+                                  <i class="mdi mdi-map-marker"></i>
+                                  Manage Address
+                              </a>
+                          </div>--}}
                         <div class="menu_popup_settingrow">
-                            <a class="menu_setting_row" onclick="ShowAddress();">
-                                <i class="mdi mdi-map-marker"></i>
-                                Manage Address
+                            <a href="{{url('myrecipe?type=list')}}" class="menu_setting_row">
+                                <i class="mdi mdi-view-list"></i>
+                                My Recipe List
+                            </a>
+                        </div>
+                        <div class="menu_popup_settingrow">
+                            <a href="{{url('myrecipe?type=new')}}" class="menu_setting_row">
+                                <i class="mdi mdi-tooltip-edit"></i>
+                                Add Recipe
                             </a>
                         </div>
                         <div class="menu_popup_settingrow">
@@ -76,7 +88,8 @@
                         <div class="order_list_container">
                             <div class="order_row border-none">
 
-                                <form enctype="multipart/form-data" id="userpostForm">
+                                <form enctype="multipart/form-data" id="userpostForm"
+                                      action="{{url('profile_update')}}" method="post">
                                     <div class="order_details_box">
                                         <div class="col-md-5 col-sm-12">
                                             <div class="profile_block text-center">
@@ -96,12 +109,18 @@
                                                            class="profile-upload-pic"
                                                            onchange="ChangeSetImage(this, _UserProfile);">
                                                 </div>
-                                                <div class="btn btn-default btn-sm profile-upload"
-                                                     onclick="RemoveProfileImage(_UserProfile, profile_file);">
-                                                    <span class="mdi mdi-close mdi-24px"></span>
-                                                </div>
+                                                {{--<div class="btn btn-default btn-sm profile-upload"--}}
+                                                {{--onclick="RemoveProfileImage(_UserProfile, profile_file);">--}}
+                                                {{--<span class="mdi mdi-close mdi-24px"></span>--}}
+                                                {{--</div>--}}
+                                                @if($user->profile_img != 'images/Male_default.png')
+                                                    <div class="btn btn-default btn-sm profile-upload">
+                                                        <span class="mdi mdi-close mdi-24px"
+                                                              onclick="removeProfile(_UserProfile,profile_file)"></span>
+                                                    </div>
+                                                @endif
                                                 <small class="text-muted mute_caption">
-                                                    Accepted formats are .jpg, .gif &amp; .png. Size &lt; 1MB.
+                                                    Accepted formats are .jpg, .gif &amp; .png. Size &lt; 2MB.
                                                 </small>
                                             </div>
                                         </div>
@@ -114,15 +133,15 @@
                                             <div class="deli_row">
                                                 <input type="text" name="email" value="{{$user->email}}" id="e_id"
                                                        placeholder="Email Id"
-                                                       class="form-control"/>
+                                                       class="form-control" onkeypress="return false;"/>
                                             </div>
                                             <div class="deli_row">
                                                 <input type="text" name="contact" value="{{$user->contact}}" id="p_id"
                                                        placeholder="Phone No."
-                                                       class="form-control"/>
+                                                       class="form-control" onkeypress="return false;"/>
                                             </div>
                                             <div class="deli_row">
-                                                <button type="button" class="btn btn-success confirm_order_btn"><i
+                                                <button type="submit" class="btn btn-success confirm_order_btn"><i
                                                             class="mdi mdi-account-check basic_icon_margin"></i>Save
                                                 </button>
                                             </div>
@@ -210,7 +229,45 @@
         <p id="err1"></p>
     </section>
     @include('web.layouts.footer')
+
     <script>
+
+        function removeProfile(changepicid, file_id) {
+            swal({
+                title: "Confirmation",
+                text: "Are you sure you want to remove profile pic?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((okk) => {
+                if (okk) {
+                    $.ajax({
+                        type: "get",
+                        contentType: "application/json; charset=utf-8",
+                        url: "{{ url('removeProfile') }}",
+                        success: function (data) {
+                            if (jQuery.parseJSON(data).response == 'No record found') {
+                                swal("Something went wrong", jQuery.parseJSON(data).response, "info");
+                            } else {
+                                $(changepicid).attr('src', 'images/Male_default.png');
+                                $(file_id).val('');
+                                swal("Success!", jQuery.parseJSON(data).response, "success");
+//                                setTimeout(function () {
+//                                    $("#profile_section").load(location.href + " #profile_section");
+//                                }, 1500);
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            alert(error);
+                            swal("Server Issue", "Something went wrong", "info");
+
+                        }
+                    });
+                }
+
+            });
+        }
+
         function getuseraddress() {
             var address_id = $('#existaddress :selected').val();
             if (address_id > 0) {
@@ -303,57 +360,57 @@
             });
 
 
-            $("#userpostForm").on('submit', function (e) {
-                debugger;
-                e.preventDefault();
-                var username = $('#username').val();
-                var email = $('#e_id').val();
-                var contact = $('#p_id').val();
-                var result = true;
-                if (!Boolean(Requiredtxt("#username")) || !Boolean(Requiredtxt("#e_id")) || !Boolean(Requiredtxt("#p_id"))) {
-                    result = false;
-                }
-                if (!result) {
-                    return false;
-                } else {
-                    $.ajax({
-                        type: 'POST',
-                        url: "{{ url('profile_update') }}",
-                        data: new FormData(this),
-                        contentType: false,
-                        cache: false,
-                        processData: false,
-                        beforeSend: function () {
-                            if (confirm("Are you sure?")) {
-                                $('#userpostForm').css("opacity", ".5");
-                            } else {
-                                // stop the ajax call
-                                return false;
-                            }
-                        },
-                        success: function (data) {
-                            console.log(data);
-                            if (data == 'success') {
-                                ShowSuccessPopupMsg('Profile has been updated...');
-                                $('#userpostForm').css("opacity", "");
-                                setTimeout(function () {
-                                    window.location.href = "{{url('my_profile')}}";
-                                }, 2000);
-                            } else {
-                                $('#userpostForm').css("opacity", "");
-                                ShowErrorPopupMsg(data);
-                            }
-                        },
-                        error: function (xhr, status, error) {
-                            ShowErrorPopupMsg('Error in uploading...');
-                            $('#userpostForm').css("opacity", "");
-                            // $('#err1').html(xhr.responseText);
-                            // ShowErrorPopupMsg(xhr.message);
-                        }
-                    });
-                }
-//                }
-            });
+            {{--$("#userpostForm").on('submit', function (e) {--}}
+            {{--debugger;--}}
+            {{--e.preventDefault();--}}
+            {{--var username = $('#username').val();--}}
+            {{--var email = $('#e_id').val();--}}
+            {{--var contact = $('#p_id').val();--}}
+            {{--var result = true;--}}
+            {{--if (!Boolean(Requiredtxt("#username")) || !Boolean(Requiredtxt("#e_id")) || !Boolean(Requiredtxt("#p_id"))) {--}}
+            {{--result = false;--}}
+            {{--}--}}
+            {{--if (!result) {--}}
+            {{--return false;--}}
+            {{--} else {--}}
+            {{--$.ajax({--}}
+            {{--type: 'POST',--}}
+            {{--url: "{{ url('profile_update') }}",--}}
+            {{--data: new FormData(this),--}}
+            {{--contentType: false,--}}
+            {{--cache: false,--}}
+            {{--processData: false,--}}
+            {{--beforeSend: function () {--}}
+            {{--if (confirm("Are you sure?")) {--}}
+            {{--$('#userpostForm').css("opacity", ".5");--}}
+            {{--} else {--}}
+            {{--// stop the ajax call--}}
+            {{--return false;--}}
+            {{--}--}}
+            {{--},--}}
+            {{--success: function (data) {--}}
+            {{--console.log(data);--}}
+            {{--if (data == 'success') {--}}
+            {{--ShowSuccessPopupMsg('Profile has been updated...');--}}
+            {{--$('#userpostForm').css("opacity", "");--}}
+            {{--setTimeout(function () {--}}
+            {{--window.location.href = "{{url('my_profile')}}";--}}
+            {{--}, 2000);--}}
+            {{--} else {--}}
+            {{--$('#userpostForm').css("opacity", "");--}}
+            {{--ShowErrorPopupMsg(data);--}}
+            {{--}--}}
+            {{--},--}}
+            {{--error: function (xhr, status, error) {--}}
+            {{--ShowErrorPopupMsg('Error in uploading...');--}}
+            {{--$('#userpostForm').css("opacity", "");--}}
+            {{--// $('#err1').html(xhr.responseText);--}}
+            {{--// ShowErrorPopupMsg(xhr.message);--}}
+            {{--}--}}
+            {{--});--}}
+            {{--}--}}
+            {{--//                }--}}
+            {{--});--}}
         });
     </script>
 @stop

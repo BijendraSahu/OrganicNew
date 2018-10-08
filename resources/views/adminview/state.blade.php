@@ -20,7 +20,7 @@
                                     <p class="clearfix"></p>
                                     <table class="table table-striped">
                                         <thead>
-                                        <th>S.No.</th>
+
                                         <th>State Name</th>
                                         <th>Action</th>
                                         </thead>
@@ -28,8 +28,9 @@
                                         @foreach($statedata as $object)
                                             @if($object->is_deleted=='0')
                                         <tr>
-                                            <td>1.</td>
-                                            <td id="{{$object->id}}">{{$object->state_name}}</td>
+
+                                            <td >{{$object->state_name}}</td>
+                                            <input type="hidden" name="no" id="{{$object->id}}" value="'{{$object->state_name}}'">
                                             <td>
                                                 <button type="button" onclick="updatestate({{$object->id}});" class="btn btn-success btn-xs">Update</button>
                                                 <button type="button" onclick="deletestate({{$object->id}});"  class="btn btn-info btn-xs">Delete</button></td>
@@ -43,13 +44,13 @@
                                         {
                                             var idd=id;
 
-                                            var mydata=$('#'+id).html();
+                                            var mydata=$('#'+id).val();
                                              $('#smallheader').html('');
                                             $('#smallbody').html('');
                                             $('#smallfooter').html('');
-                                            $('#smallheader').append('<div><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Add State</h4></div>');
+                                            $('#smallheader').append('<div><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Update State</h4></div>');
                                             $('#smallbody').append('<label>State</label><input type="text" name="state" id="state" class="form-control" placeholder="Enter State Name" value='+mydata+'>');
-                                            $('#smallfooter').append('<button id="add_btn" type="button" class="btn btn-default" data-dismiss="modal">Close</button><button onclick="validateupdte('+idd+');" class="btn btn-primary">Add</button>');
+                                            $('#smallfooter').append('<button id="add_btn" type="button" class="btn btn-default" data-dismiss="modal">Close</button><button onclick="validateupdte('+idd+');" class="btn btn-primary">Update</button>');
                                             $('#myModalsmall').modal();
 
 

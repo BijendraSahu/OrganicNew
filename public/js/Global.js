@@ -69,7 +69,7 @@ function empty_address() {
     $('#add_email').val('');
     $('#add_contact').val('');
     $('#add_pincode').val('');
-    $('#add_city').val(0);
+    // $('#add_city').val(0);
     $('#add_address').val('');
 }
 function RemoveProfileImage(changepicid, file_id) {
@@ -135,7 +135,8 @@ function ScrollBottom() {
 }
 window.onload = function (e) {
     setTimeout(function () {
-        $('#page_loader').fadeOut('slow');
+       // $('#page_loader').fadeOut('slow');
+        $('#page_loader').hide();
     }, 2000);
 }
 function ShowMenuPopup(dis) {

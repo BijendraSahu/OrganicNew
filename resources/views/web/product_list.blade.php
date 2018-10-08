@@ -135,7 +135,7 @@
         }
 
         .owl-carousel .animated {
-            animation-duration: 1000ms;
+            animation-duration: 2000ms;
             animation-fill-mode: both;
         }
 
@@ -184,6 +184,7 @@
     </style>
     <script type="text/javascript" src="js/owl.carousel.js"></script>
     <style type="text/css">
+
 
         /* .vertical .carousel-inner {
              height: 100%;
@@ -269,6 +270,7 @@
             box-shadow: none;
             border: solid thin #e1e1e1;
         }
+
         @media (max-width: 767px) and (min-width: 320px) {
             .animate_top {
                 top: 85px;
@@ -443,70 +445,69 @@
         }
 
         function checkOffset() {
-            if ($('#product_filter_container').offset().top + $('#product_filter_container').height()
-                >= $('#footer').offset().top - 30) {
+            if ($('#product_filter_container').offset().top + $('#product_filter_container').height() >= $('#footer').offset().top - 30) {
                 $('#product_filter_container').addClass('filter_removefixed');
             }
-           if ($(document).scrollTop() + window.innerHeight < $('#footer').offset().top) {
+            if ($(document).scrollTop() + window.innerHeight < $('#footer').offset().top) {
                 $('#product_filter_container').removeClass('filter_removefixed');
             }
-           //debugger;
+            //debugger;
 
         }
         $(window).scroll(function () {
-            if ($(window).scrollTop() + $(window).innerHeight() == $(document).height()) {
+            if ($(window).scrollTop() + window.innerHeight == $(document).height()) {
                 if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
                     getmoreItems();
                 }
             }
             /* if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-                 if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
-                     getmoreItems();
-                 }
+             if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
+             getmoreItems();
+             }
              }*/
             /* if($(window).scrollTop() + $(window).height() == $(document).height()) {
 
              }*/
-          /*  if($(document).scrollTop() == $(document).height() - $(document).height()) {
-                if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
-                    getmoreItems();
-                }
-            }*/
+            /*  if($(document).scrollTop() == $(document).height() - $(document).height()) {
+             if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
+             getmoreItems();
+             }
+             }*/
             /*if($(window).scrollTop() + $(window).height() == $(document).height()){ //scrolled to bottom of the page
-                if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
-                    getmoreItems();
-                }
-            }*/
+             if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
+             getmoreItems();
+             }
+             }*/
             /*if($(window).scrollTop() + $(window).height() == $("#product_all_container").height()){
-               /!* if(($(window).scrollTop() == $(document).height() - $(window).height())) {*!/
-                if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
-                    getmoreItems();
-                }
-            }*/
+             /!* if(($(window).scrollTop() == $(document).height() - $(window).height())) {*!/
+             if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
+             getmoreItems();
+             }
+             }*/
             /*if($(window).scrollTop() + $(window).height() >= $(document).height()){ //scrolled to bottom of the page
-                if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
-                    getmoreItems();
-                }
-            }*/
+             if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
+             getmoreItems();
+             }
+             }*/
             /*debugger;
-            var chk_footer=$('#footer').offset().top;
-            alert(chk_footer);
-            alert($(window).checkScrollbar());
-            if($(window).checkScrollbar() >= chk_footer)
-            {
-                if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
-                    getmoreItems();
-                }else {
-                    $("#product_all").html(no_record);
-                }
-            }*/
+             var chk_footer=$('#footer').offset().top;
+             alert(chk_footer);
+             alert($(window).checkScrollbar());
+             if($(window).checkScrollbar() >= chk_footer)
+             {
+             if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
+             getmoreItems();
+             }else {
+             $("#product_all").html(no_record);
+             }
+             }*/
         });
         $(document).scroll(function () {
             checkOffset();
         });
         $(document).ready(function () {
             $('.carousel').carousel({
-                interval: 3000
+                interval: 6000
             });
             var owl = $('.brics_5');
             owl.owlCarousel({
@@ -515,7 +516,7 @@
                 loop: true,
                 margin: 15,
                 autoplay: true,
-                autoplayTimeout: 3000,
+                autoplayTimeout: 6000,
                 autoplayHoverPause: true,
                 /*  slidey-up: 'bottom to top',*/
                 navigation: true
@@ -549,6 +550,7 @@
     </script>
 @stop
 @section('content')
+
     <section class="product_section">
         <div class="container-fluid">
             <div class="product_all_container" id="product_all_container">
@@ -569,10 +571,11 @@
                     </div>
                     <div class="filter_category">
                         <ul class="product_list_ul style-scroll" id="filter_data">
-                            <li class="product_list_li selected" onclick="get_category(this)">Products Category</li>
-                            <li class="product_list_li" onclick="get_items(this)" id="0">All Products</li>
+                            <li class="product_list_li" onclick="get_category(this)">Products Category</li>
+                            <li class="product_list_li selected" onclick="get_items(this)" id="0">All Products</li>
                             @foreach($categories as $category)
-                                <li class="product_list_li" onclick="get_items(this)" id="{{$category->id}}">{{$category->name}}</li>
+                                <li class="product_list_li" onclick="get_items(this)"
+                                    id="{{$category->id}}">{{$category->name}}</li>
                             @endforeach
                         </ul>
                     </div>
@@ -581,157 +584,17 @@
                 {{----}}
                 {{--</div>--}}
                 <div class="product_container" id="product_all">
-                    <div class="slider_row">
-                        @php
-                            $categories = DB::select("select * from category_master ic where ic.id in (select DISTINCT category_id from item_category where is_active = 1)");
-                        @endphp
 
-                        @foreach($categories as $category)
-                            @php
-                                $items = DB::select("SELECT im.* FROM item_master im, item_category ic where im.is_active = 1 and im.id=ic.item_master_id and ic.category_id=$category->id");
-                            @endphp
-                            <div class="col-md-4 col-lg-3 col-sm-6">
-                                <div class="product_carousal_box">
-                                    <div class="carousal_head">
-                                        <span class="filter_head_txt slider_headtxt" style="cursor: pointer" onclick="get_items(this)" id="{{$category->id}}">{{$category->name}}</span>
-                                    </div>
-
-                                    <div id="myCarousel{{$category->id}}" class="carousel slide vertical">
-                                        <div class="carousel-inner slide_up_carousel">
-                                            <?php $counter = 0; ?>
-                                            @foreach($items as $item)
-                                                @if($counter == 0)
-                                                    <div class="item active">
-                                                        <div class="product_block">
-                                                            <div class="product_name"><a class="product_details_link"
-                                                                                         href="{{url('view_product').'/'.(encrypt($item->id))}}">{{$item->name}}</a>
-                                                            </div>
-                                                            <div class="long_product_img">
-                                                                <?php $image = \App\ItemImages::where(['item_master_id' => $item->id])->first(); ?>
-                                                                @if(isset($image->image) && file_exists("p_img/$item->id/".$image->image))
-                                                                    <img src="{{url('p_img').'/'.$item->id.'/'.$image->image}}">
-                                                                @else
-                                                                    <img src="{{url('images/default.png')}}">
-                                                                @endif
-                                                                <div class="hover_center_block" id="{{$item->id}}"
-                                                                     onclick="getItemDetails(this)" data-toggle="modal"
-                                                                     data-target="#Modal_ViewProductDetails">
-                                                                    <div class="product_hover_block">
-                                                                        <div class="mdi mdi-magnify"></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            @php $prices = \App\ItemPrice::where(['item_master_id' => $item->id])->get(); @endphp
-                                                            @if(count($prices)>0)
-
-                                                                @foreach($prices as $price)
-                                                                    <div class="long_spinner_withbtn">
-                                                                        <div class="input-group long_qty_box">
-                                                            <span class="long_qty_txt" id="price_{{$item->id}}"
-                                                                  data-content="{{$price->id}}">{{$price->unit.' '.$price->weight}}
-                                                                - {{"Rs.".$price->price}}</span>
-                                                                            <input type="number"
-                                                                                   class="form-control text-center qty_edittxt"
-                                                                                   min="0"
-                                                                                   max="{{$price->qty}}"
-                                                                                   value="0" id="qty_{{$item->id}}">
-                                                                        </div>
-                                                                        <button class="spinner_addcardbtn btn-primary"
-                                                                                id="{{$item->id}}"
-                                                                                type="button"
-                                                                                data-content="{{$price->id}}"
-                                                                                onclick="AddTOcart(this);">
-                                                                            <i class="mdi mdi-basket"></i> <span
-                                                                                    class="button-group_text">Add</span>
-                                                                        </button>
-                                                                    </div>
-                                                                @endforeach
-                                                            @else
-                                                                <div class="notify_block long_notifyblock">
-                                                                    <div class="out_of_stock">Out Of Stock</div>
-                                                                    <div class="notify_me_btn" data-toggle="modal"
-                                                                         data-target="#Modal_NotifyMe">Notify Me
-                                                                    </div>
-                                                                </div>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                @else
-                                                    <div class="item">
-                                                        <div class="product_block">
-                                                            <div class="product_name"><a class="product_details_link"
-                                                                                         href="{{url('view_product').'/'.(encrypt($item->id))}}">{{$item->name}}</a>
-                                                            </div>
-                                                            <div class="long_product_img">
-                                                                <?php $image = \App\ItemImages::where(['item_master_id' => $item->id])->first(); ?>
-                                                                @if(isset($image->image) && file_exists("p_img/$item->id/".$image->image))
-                                                                    <img src="{{url('p_img').'/'.$item->id.'/'.$image->image}}">
-                                                                @else
-                                                                    <img src="{{url('images/default.png')}}">
-                                                                @endif
-                                                                <div class="hover_center_block" id="{{$item->id}}"
-                                                                     onclick="getItemDetails(this)"
-                                                                     data-toggle="modal"
-                                                                     data-target="#Modal_ViewProductDetails">
-                                                                    <div class="product_hover_block">
-                                                                        <div class="mdi mdi-magnify"></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <?php $prices = \App\ItemPrice::where(['item_master_id' => $item->id])->get(); ?>
-                                                            @if(count($prices)>0)
-                                                                @foreach($prices as $price)
-                                                                    {{--                                                                @if($price->qty > 0)--}}
-                                                                    <div class="long_spinner_withbtn">
-                                                                        <div class="input-group long_qty_box">
-                                                            <span class="long_qty_txt" id="price_{{$item->id}}"
-                                                            >{{$price->unit .' '.$price->weight}}
-                                                                - {{"Rs.".$price->price}}</span>
-                                                                            <input type="number"
-                                                                                   class="form-control text-center qty_edittxt"
-                                                                                   min="0" max="{{$price->qty}}"
-                                                                                   value="0" id="qty_{{$item->id}}">
-                                                                        </div>
-                                                                        <button class="spinner_addcardbtn btn-primary"
-                                                                                id="{{$item->id}}"
-                                                                                type="button"
-                                                                                data-content="{{$price->id}}"
-                                                                                onclick="AddTOcart(this);">
-                                                                            <i class="mdi mdi-basket"></i> <span
-                                                                                    class="button-group_text">Add</span>
-                                                                        </button>
-                                                                    </div>
-
-                                                                @endforeach
-                                                            @else
-                                                                <div class="notify_block long_notifyblock">
-                                                                    <div class="out_of_stock">Out Of Stock</div>
-                                                                    <div class="notify_me_btn" data-toggle="modal"
-                                                                         data-target="#Modal_NotifyMe">Notify Me
-                                                                    </div>
-                                                                </div>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                                <?php $counter++; ?>
-                                            @endforeach
-                                        </div>
-                                        <div class="slider_nav ">
-                                            <a class="left glo_sliderarrow_btn" href="#myCarousel{{$category->id}}"
-                                               data-slide="prev">‹</a>
-                                            <a class="right glo_sliderarrow_btn" href="#myCarousel{{$category->id}}"
-                                               data-slide="next">›</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
                 </div>
             </div>
         </div>
     </section>
+    <div class="loader" id="loader">
+        <div class="internal_bg">
+            {{--            <img src="{{url('assets/images/logo_loader.png')}}" class="top_loader" />--}}
+        </div>
+        <img class="loader_main" src="{{url('assets/images/1L.gif')}}"/>
+    </div>
     <div class="filter_overlay" id="overlay_div" onclick="hide_filter()"></div>
     <input type="hidden" id="see_id" value="1"/>
     <input type="hidden" id="category_id" value="">
@@ -762,24 +625,30 @@
                     <h4 class="modal-title">Notify Me for Product</h4>
                 </div>
                 <div class="modal-body">
+
                     <div class="all_data_view">
                         <div class="model_row">
-                            <input type="text" class="form-control" placeholder="Email Id"/>
+                            <input type="hidden" class="form-control" id="item_master_id"/>
+
+                            <input type="email" class="form-control email" id="n_email"
+                                   value="{{isset($_SESSION['user_master']) ? $_SESSION['user_master']->email : '' }}"
+                                   placeholder="Email Id"/>
                         </div>
                         <div class="model_row">
-                            <input type="text" class="form-control" placeholder="Mobile No."/>
+                            <input type="text" class="form-control numberOnly" maxlength="10" id="n_contact"
+                                   value="{{isset($_SESSION['user_master']) ? $_SESSION['user_master']->contact : '' }}"
+                                   placeholder="Mobile No."/>
                         </div>
                         <div class="model_row">
-                            <input type="text" class="form-control" placeholder="city"/>
-                        </div>
-                        <div class="model_row">
-                            <textarea class="form-control glo_txtarea" placeholder="Massage for product"></textarea>
+                            <textarea class="form-control glo_txtarea" id="n_message"
+                                      placeholder="Massage for product"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                    <button type="button" class="btn btn-primary" onclick="getNotify()">Submit
+                    </button>
                 </div>
             </div>
         </div>
@@ -787,11 +656,51 @@
     <script type="text/javascript">
 
         var append_loading_img = '<div class="feed_loadimg_block" id="load_img">' + '<img height="50px" class="center-block" src="{{ url('images/loading.gif') }}"/></div>';
-        var append_div = '<div class="product_block loading_block" id="load_item"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div>';
+        var append_div = '<div class="product_block loading_block" id="load_item1"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div><div class="product_block loading_block" id="load_item2"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div><div class="product_block loading_block" id="load_item3"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div><div class="product_block loading_block" id="load_item4"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div>';
         /*var no_record = '<div class="product_block">No Record Available</div>';*/
         var no_record = '<div class="no_found_row">No more items available !</div>';
-
+        function getItemid(dis) {
+            $('#item_master_id').val(dis);
+        }
+        function getNotify() {
+            var n_email = $('#n_email').val();
+            var n_contact = $('#n_contact').val();
+            var n_message = $('#n_message').val();
+            var item_master_id = $('#item_master_id').val();
+            if (n_email == '') {
+                swal("Required", "Please enter email", "info");
+            } else if (n_contact == '') {
+                swal("Required", "Please enter contact no", "info");
+            } else if (n_message == '') {
+                swal("Required", "Please enter message", "info");
+            } else {
+                $.ajax({
+                    type: "get",
+                    url: "{{url('notify')}}",
+//                    data: "ask_number= " + ask_number,
+                    data: {email: n_email, contact: n_contact, message: n_message, item_master_id: item_master_id},
+                    success: function (data) {
+                        if (data == 'success') {
+                            $('#Modal_NotifyMe').modal('hide');
+                            $('#n_email').val('');
+                            $('#n_contact').val('');
+                            $('#n_message').val('');
+                            $('#item_master_id').val('');
+                            swal("Thank you", "We will get back to you soon", "success");
+                        } else {
+                            swal("Oops", "Something went wrong", "info");
+                        }
+                    },
+                    error: function (data) {
+                        HidePopoupMsg();
+                        swal("Oops", "Something went wrong", "info");
+//                        ShowErrorPopupMsg('oops Something Went Wrong...');
+                    }
+                });
+            }
+        }
         function get_category(dis) {
+            $('#loader').css('display', 'block');
             var category_id = $(dis).attr('id');
             var limit = Number($('#see_id').val());
 //            alert(category_id);
@@ -806,8 +715,13 @@
                     $('#product_all').html(append_div);
                 },
                 success: function (data) {
-                    $("#load_item").remove();
+                    $('#loader').css('display', 'none');
+                    $("#load_item1").remove();
+                    $("#load_item2").remove();
+                    $("#load_item3").remove();
+                    $("#load_item4").remove();
                     $("#product_all").html(data);
+
                 },
                 error: function (xhr, status, error) {
                     $('#product_all').html(xhr.responseText);
@@ -817,8 +731,9 @@
             hide_filter();
         }
         function get_items(dis) {
+            $('#loader').css('display', 'block');
             var category_id = $(dis).attr('id');
-           // $('#see_id').val('');
+            // $('#see_id').val('');
             var limit = 1;
             $('#see_id').val(1);
 //            alert(category_id);
@@ -832,12 +747,13 @@
                     $('#product_all').html(append_div);
                 },
                 success: function (data) {
+                    $('#loader').css('display', 'none');
                     if (data.no_record == 'no_record') {
                         $("#load_item").remove();
                         $("#product_all").html(no_record);
                     } else {
                         $("#load_item").remove();
-                       $('#product_all').html('');
+                        $('#product_all').html('');
                         $("#product_all").html(data);
                     }
                 },
@@ -848,15 +764,44 @@
             });
             hide_filter();
         }
-        //        $(document).ready(function () {
-        //            $(window).scroll(function (event) {
-        //                if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-        //                    if (parseFloat($('#see_id').val()) < parseFloat($('#products_count').val())) {
-        //                        getmoreItems();
-        //                    }
-        //                }
-        //            });
-        //        });
+        function first_get_items() {
+//            $('#loader').css('display', 'block');
+            var category_id = 0;
+            // $('#see_id').val('');
+            var limit = 1;
+            $('#see_id').val(1);
+//            alert(category_id);
+            $('#category_id').val(category_id);
+            $.ajax({
+                type: "get",
+                contentType: "application/json; charset=utf-8",
+                url: "{{ url('getmoreproducts') }}",
+                data: {currentpage: limit, category_id: category_id},
+                beforeSend: function () {
+                    $('#product_all').html(append_div);
+                },
+                success: function (data) {
+//                    $('#loader').css('display', 'none');
+                    if (data.no_record == 'no_record') {
+                        $("#load_item").remove();
+                        $("#product_all").html(no_record);
+                    } else {
+                        $("#load_item").remove();
+                        $('#product_all').html('');
+                        $("#product_all").html(data);
+                    }
+                    $('#page_loader').hide();
+                },
+                error: function (xhr, status, error) {
+                    $('#product_all').html(xhr.responseText);
+//                    ShowErrorPopupMsg('Error in uploading...');
+                }
+            });
+            hide_filter();
+        }
+        $(document).ready(function () {
+            first_get_items();
+        });
 
         function getmoreItems() {
             cp = 1;
@@ -872,6 +817,10 @@
                     $('#product_all').append(append_div);
                 },
                 success: function (data) {
+                    $("#load_item1").remove();
+                    $("#load_item2").remove();
+                    $("#load_item3").remove();
+                    $("#load_item4").remove();
                     if (data == 'no_record') {
                         $("#load_item").remove();
                         $("#product_all").html(no_record);

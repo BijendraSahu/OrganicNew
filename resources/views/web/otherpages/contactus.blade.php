@@ -5,24 +5,25 @@
           href="https://fonts.googleapis.com/css?family=Raleway%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%2C100italic%2C200italic%2C300italic%2C400italic%2C500italic%2C600italic%2C700italic%2C800italic%2C900italic%7CPlayfair+Display%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%2C100italic%2C200italic%2C300italic%2C400italic%2C500italic%2C600italic%2C700italic%2C800italic%2C900italic%7CRaleway%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%2C100italic%2C200italic%2C300italic%2C400italic%2C500italic%2C600italic%2C700italic%2C800italic%2C900italic%7CPlayfair+Display%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%2C100italic%2C200italic%2C300italic%2C400italic%2C500italic%2C600italic%2C700italic%2C800italic%2C900italic%7CRaleway%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%2C100italic%2C200italic%2C300italic%2C400italic%2C500italic%2C600italic%2C700italic%2C800italic%2C900italic&amp;subset=latin%2Clatin-ext&amp;ver=1.0.0"
           type="text/css" media="all" data-viewport-units-buggyfill="ignore"/>
     <style type="text/css">
-        .image_main_div{
-            margin-top:52px;
-            width:100%;
+        .image_main_div {
+            margin-top: 52px;
+            width: 100%;
             overflow: hidden;
         }
 
-        .contant_list{
+        .contant_list {
             text-align: center;
         }
 
-        .contact_main_div{
+        .contact_main_div {
             padding-top: 14px;
             text-align: center;
         }
-        .contact_us_follow{
+
+        .contact_us_follow {
             margin-left: 29px;
         }
-        }
+
         .btn-follow {
             -webkit-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .18), 0 4px 15px 0 rgba(0, 0, 0, .15);
             box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .18), 0 4px 15px 0 rgba(0, 0, 0, .15);
@@ -39,9 +40,11 @@
             cursor: pointer;
             margin-right: 12px;
         }
-        .contact_us_list{
+
+        .contact_us_list {
             font-size: 17px;
         }
+
         .gmail {
 
             background-color: #D44638;
@@ -51,56 +54,89 @@
 
         }
 
-        .linkedin{
+        .linkedin {
             background-color: #1dcaff;
             font-size: 18px;
             color: white;
             text-align: center;
 
         }
-        .twitter{
-            background-color:#00aced;
+
+        .twitter {
+            background-color: #00aced;
             font-size: 18px;
             color: white;
             text-align: center;
         }
-        .heading_border{
+
+        .heading_border {
             border-bottom: 1px solid #86bc43
         }
-        .main_div{
-            margin-top:10px;
-            margin-bottom:20px;
+
+        .main_div {
+            margin-top: 10px;
+            margin-bottom: 20px;
         }
-        .icon{
-            padding-right:20px;
-            color:#86bc43;
+
+        .icon {
+            padding-right: 20px;
+            color: #86bc43;
         }
-        .contact_inputtype_container{
+
+        .contact_inputtype_container {
             margin-top: 30px;
         }
-        .input-type{
-            height:39px;
+
+        .input-type {
+            height: 39px;
         }
-        .text-area{
+
+        .text-area {
             height: 91px !important;
         }
-        .send_btn{
+
+        .send_btn {
             font-size: 18px;
-            height:39px;
+            height: 39px;
 
         }
-        .heading_section{
+
+        .heading_section {
             padding-bottom: 50px;
+        }
+        .mapouter {
+            text-align: right;
+            height: 60vh;
+            width: 100%;
+        }
+
+        .gmap_canvas {
+            overflow: hidden;
+            background: none !important;
+            height:100%;
+            width: 100%;
+        }
+        .contact_main_div
+        {
+            width: 100%;
+            display: inline-block;
+            padding-top: 50px;
         }
     </style>
 @stop
 
 @section('content')
-    <section class="faq_main_div" onclick="RedirectProduct();">
-        <section>
-            <div class="image_main_div">
-
-                <div class="mapouter"><div class="gmap_canvas"><iframe width="1360" height="335" id="gmap_canvas" src="https://maps.google.com/maps?q=university%20of%20san%20francisco&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.pureblack.de"></a></div><style>.mapouter{text-align:right;height:335px;width:1360px;}.gmap_canvas {overflow:hidden;background:none!important;height:335px;width:1360px;}</style></div>
+    <section class="contact_main_div">
+            <div class="container-fluid">
+                <div class="row">
+                <div class="mapouter">
+                    <div class="gmap_canvas">
+                        <iframe width="100%" height="100%" id="gmap_canvas"
+                                src="https://maps.google.com/maps?q=university%20of%20san%20francisco&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                                frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                        <a href="https://www.pureblack.de"></a></div>
+                </div>
+                </div>
             </div>
             <div class="contact_inputtype_container">
                 <div class="container">
@@ -120,36 +156,35 @@
                     <div class="col-sm-6">
 
                         <div class="form-group">
-                            <input type="text" name=""  class="form-control input-type" id="name" placeholder="Your Name"/>
+                            <input type="text" class="form-control input-type" id="name" placeholder="Your Name"/>
                         </div>
 
 
-
-
                         <div class="form-group">
-                            <input type="email" name="" class="form-control input-type"  id="contact_email" placeholder="Email"/>
+                            <input type="email" name="" class="form-control input-type" id="contact_email"
+                                   placeholder="Email"/>
                         </div>
 
 
-
                         <div class="form-group">
-                            <input type="text" id="phone" name="whatever1"  class="form-control input-type" placeholder="Phone"/>
+                            <input type="text" id="phone" name="whatever1" class="form-control input-type"
+                                   placeholder="Phone"/>
                         </div>
 
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <textarea  class="form-control text-area" id="message" placeholder="Message"></textarea>
+                            <textarea class="form-control text-area" id="message" placeholder="Message"></textarea>
 
 
                         </div>
-                        <div class="form-group"><a type="button" class="btn btn-success form-control send_btn">Send Message</a>
+                        <div class="form-group"><a type="button" class="btn btn-success form-control send_btn">Send
+                                Message</a>
                         </div>
                     </div>
                 </div>
 
             </div>
-
             <div class="container">
                 <div class="main_div">
 
@@ -206,7 +241,6 @@
                     </div>
                 </div>
             </div>
-        </section>
     </section>
     @include('web.layouts.footer')
 @stop

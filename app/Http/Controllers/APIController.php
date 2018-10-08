@@ -11,6 +11,7 @@ use App\OrderMaster;
 use App\Review;
 use App\UserAddress;
 use App\UserMaster;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Validator;
@@ -181,7 +182,7 @@ class APIController extends Controller
         if (isset($user)) {
             $user->otp = $otp;
             $user->save();
-            file_get_contents("http://api.msg91.com/api/sendhttp.php?sender=CONONE&route=4&mobiles=$user->contact&authkey=213418AONRGdnQ5ae96f62&country=91&message=Dear%20user,%20OTP%20to%20verify%20your%20connectingone%20account%20is%20$otp");
+            file_get_contents("http://api.msg91.com/api/sendhttp.php?sender=CONONE&route=4&mobiles=$user->contact&authkey=213418AONRGdnQ5ae96f62&country=91&message=Dear%20user,%20OTP%20to%20verify%20your%20organicdolchi%20account%20is%20$otp");
             return $this->sendResponse($user, 'Otp has been send to your number');
         } else {
             return $this->sendError('Invalid Credentials', '');
@@ -271,6 +272,7 @@ class APIController extends Controller
             $data->email = request('email');
             $data->contact = request('mobile');
             $data->password = md5(request('password'));
+            $data->created_at = Carbon::now('Asia/Kolkata');
             $data->save();
             if (request('ref_code') != '') {
                 $this->CreateRelation(request('ref_code'), $data->id); //ref_code = user contact no

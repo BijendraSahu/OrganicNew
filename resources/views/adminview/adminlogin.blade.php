@@ -192,7 +192,7 @@
         $.get('{{url('logincheck')}}', {username: username, password: password}, function (data) {
             if(data=='success')
             {
-                window.location.href = '{{url('/admin')}}';
+                window.location.href = '{{url('organic').'/'.encrypt(1).'/admin'}}';
             }
             else {
                 $('#errorsec').addClass("alert alert-danger").html('Username or Password Invalid');

@@ -6,11 +6,16 @@ use App\Blogmodel;
 use App\ItemImages;
 use App\ItemMaster;
 use App\ItemPrice;
+use App\Notify;
 use App\OrderDescription;
 use App\OrderMaster;
+use App\RecipeIngredient;
+use App\RecipeMaster;
 use App\Review;
+use App\Subscribe;
 use App\UserAddress;
 use App\UserMaster;
+use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -84,7 +89,21 @@ class FrontendController extends Controller
                 $user->profile_img = $filename;
             }
             $user->save();
-            return 'success';
+            return redirect('my_profile')->with('message', 'Profile has been updated');
+        }
+    }
+
+    public function removeProfile(Request $request)
+    {
+        $user = UserMaster::find($_SESSION['user_master']->id);
+        if (isset($user)) {
+            $user->profile_img = 'images/Male_default.png';
+            $user->save();
+            $ret['response'] = 'Profile Pic has been removed';
+            echo json_encode($ret);
+        } else {
+            $ret['response'] = 'No record found';
+            echo json_encode($ret);
         }
     }
 
@@ -111,8 +130,8 @@ class FrontendController extends Controller
         $item_images = ItemImages::where(['item_master_id' => $item->id])->get();
         $item_prices = ItemPrice::where(['item_master_id' => $item->id])->get();
         $reviews = Review::where(['item_master_id' => $item->id, 'is_approved' => 1])->get();
-
-        return view('web.product_details')->with(['item' => $item, 'item_images' => $item_images, 'item_prices' => $item_prices, 'reviews' => $reviews]);
+        $recipes = DB::select("SELECT * from recipe_master where id in (SELECT rec_id FROM `recipe_ingredients` WHERE product_id = $item->id) and is_active = 1");
+        return view('web.product_details')->with(['item' => $item, 'item_images' => $item_images, 'item_prices' => $item_prices, 'reviews' => $reviews, 'recipes' => $recipes]);
     }
 
     /**********Product Feedback*********/
@@ -154,7 +173,6 @@ class FrontendController extends Controller
     }
 
     /**********Product Feedback*********/
-
     public function product_list()
     {
         $categories = DB::table('category_master')->where('is_active', '1')->get();
@@ -206,12 +224,11 @@ class FrontendController extends Controller
         $items = DB::select($s);
         if ($numrows > 0) {
             return view('web.product_load')->with(['items' => $items, 'items_count' => $numrows]);
-        }else{
+        } else {
             return response()->json(array('no_record' => 'no_record'));
         }
     }
     /**************************Items************************************/
-
 
     /**************************Address************************************/
     public function getexistaddress()
@@ -231,6 +248,7 @@ class FrontendController extends Controller
             $address->address = request('add_address');
             $address->zip = request('add_pincode');
             $address->city_id = request('add_city');
+            $address->created_time = Carbon::now('Asia/Kolkata');
             $address->save();
             return 'success';
         } else {
@@ -263,7 +281,7 @@ class FrontendController extends Controller
         if (isset($_SESSION['user_master'])) {
             $user_ses = $_SESSION['user_master'];
             $user = UserMaster::find($user_ses->id);
-            $states = DB::select("select * from cities order by state ASC");
+//            $states = DB::select("select * from cities order by state ASC");
             $cities = DB::select("select * from cities where city IS NOT NULL order by city ASC");
             return view('web.checkout')->with(['user' => $user, 'cities' => $cities]);
         } else {
@@ -278,8 +296,11 @@ class FrontendController extends Controller
         if (count($cart) == 0) {
             return redirect('checkout')->withInput()->withErrors('Your cart is empty');
         } else {
-            $cart_total = \Gloudemans\Shoppingcart\Facades\Cart::subtotal();
-            $address_id = request('address_id');
+            $cart_total = 0;
+            foreach ($cart as $row) {
+                $cart_total += $row->price * $row->qty;
+            }
+            $address_id = request('add_id');
             $shipping = request('udf2');
             $selected_point = request('selected_point');
             $selected_promo = request('selected_promo');
@@ -299,6 +320,7 @@ class FrontendController extends Controller
             $order->point_pay = $selected_point == '' ? 0 : $selected_point;
             $order->promo_pay = $selected_promo == '' ? 0 : $selected_promo;
             $order->paid_amt = request('amount');
+            $order->order_date = Carbon::now('Asia/Kolkata');
             $order->save();
             foreach ($cart as $row) {
                 $order_des = new OrderDescription();
@@ -310,6 +332,7 @@ class FrontendController extends Controller
                 $order_des->save();
             }
             \Gloudemans\Shoppingcart\Facades\Cart::destroy();
+            file_get_contents("http://63.142.255.148/api/sendmessage.php?usr=retinodes&apikey=1A4428ABD1CB0BD43FB3&sndr=iapptu&ph=7489495357&message=Order%20Placed:%20with%20order%20ID%20OrganicDolchi$order->order_no%20amounting%20to%20$order->paid_amt%20has%20been%20received.");
 
             /********0.2% Amount Distribution*********/
 //            $total_amt = DB::selectOne("SELECT SUM(total) as total_amt FROM `order_description` WHERE order_master_id = $order->id");
@@ -371,7 +394,8 @@ class FrontendController extends Controller
     public function order_list()
     {
         if (isset($_SESSION['user_master'])) {
-            $orders = DB::select("SELECT * FROM order_description od, order_master o WHERE od.order_master_id = o.id");
+            $user_id = $_SESSION['user_master']->id;
+            $orders = DB::select("SELECT * FROM order_description od, order_master o WHERE od.order_master_id = o.id and o.user_id = $user_id");
             return view('web.order_list')->with(['orders' => $orders]);
         } else {
             return Redirect::back()->withInput()->withErrors(array('message' => 'Please login first'));
@@ -406,6 +430,29 @@ class FrontendController extends Controller
         $blog = Blogmodel::find($id);
         return view('web.view_blog')->with(['blog' => $blog]);
     }
+
     /**************************Blog************************************/
 
+    public function notify()
+    {
+        $data = new Notify();
+        $data->item_master_id = request('item_master_id');
+        $data->email = request('email');
+        $data->contact = request('contact');
+        $data->message = request('message');
+        $data->save();
+        echo 'success';
+    }
+
+    /**************************Subscribe************************************/
+    public function subscribe(Request $request)
+    {
+        $email = request('email');
+        Subscribe::where(['email' => $email])->delete();
+        $subscribe = new Subscribe();
+        $subscribe->email = $email;
+        $subscribe->save();
+        return 'Success';
+    }
+    /**************************Subscribe************************************/
 }

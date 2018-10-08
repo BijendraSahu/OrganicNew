@@ -1,5 +1,5 @@
 @extends('web.layouts.e_master')
-@section('title', 'Organic Food : Home')
+@section('title', 'Organic Food : terms')
 @section('head')
     <link rel="stylesheet" id="boldthemes_fonts-css"
           href="https://fonts.googleapis.com/css?family=Raleway%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%2C100italic%2C200italic%2C300italic%2C400italic%2C500italic%2C600italic%2C700italic%2C800italic%2C900italic%7CPlayfair+Display%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%2C100italic%2C200italic%2C300italic%2C400italic%2C500italic%2C600italic%2C700italic%2C800italic%2C900italic%7CRaleway%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%2C100italic%2C200italic%2C300italic%2C400italic%2C500italic%2C600italic%2C700italic%2C800italic%2C900italic%7CPlayfair+Display%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%2C100italic%2C200italic%2C300italic%2C400italic%2C500italic%2C600italic%2C700italic%2C800italic%2C900italic%7CRaleway%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%2C100italic%2C200italic%2C300italic%2C400italic%2C500italic%2C600italic%2C700italic%2C800italic%2C900italic&amp;subset=latin%2Clatin-ext&amp;ver=1.0.0"
@@ -10,13 +10,11 @@
             padding-bottom:50px;
             background-color: #cccccc2e;
         }
-        p{
-            font-size: 14px;
-        }
         .card {
             -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
             box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
             border: 0;
+            margin-top: 50px;
             background-color: #ffffff;
         }
         .card-body {
@@ -36,6 +34,7 @@
             border-bottom: 2px solid #86bc43;
             padding-bottom: 9px;
         }
+
     </style>
 
 @stop

@@ -7,9 +7,9 @@
         <div class="long_product_img">
             <?php $image = \App\ItemImages::where(['item_master_id' => $item->id])->first(); ?>
             @if(isset($image->image) && file_exists("p_img/$item->id/".$image->image))
-                <img src="{{url('p_img').'/'.$item->id.'/'.$image->image}}">
+                <img src="{{url('p_img').'/'.$item->id.'/'.$image->image}}"/>
             @else
-                <img src="{{url('images/default.png')}}">
+                <img src="{{url('images/default.png')}}"/>
             @endif
             <div class="hover_center_block" id="{{$item->id}}"
                  onclick="getItemDetails(this);"
@@ -20,7 +20,7 @@
                 </div>
             </div>
         </div>
-        <?php $prices = \App\ItemPrice::where(['item_master_id' => $item->id])->get(); ?>
+        <?php $prices = \App\ItemPrice::where('item_master_id', '=', $item->id)->where('qty', '>', '0')->get(); ?>
         @if(count($prices)>0)
             @foreach($prices as $price)
                 <div class="long_spinner_withbtn">
@@ -29,9 +29,9 @@
                             - {{$price->price}}</span>
                         <input type="number"
                                class="form-control text-center qty_edittxt"
-                               min="0"
+                               min="1"
                                max="{{$price->qty}}"
-                               value="0" id="qty_load_{{$item->id}}">
+                               value="1" id="qty_load_{{$item->id}}">
                     </div>
                     <button class="spinner_addcardbtn btn-primary"
                             id="{{$item->id}}"
@@ -45,7 +45,7 @@
         @else
             <div class="notify_block long_notifyblock">
                 <div class="out_of_stock">Out Of Stock</div>
-                <div class="notify_me_btn" data-toggle="modal"
+                <div class="notify_me_btn" data-toggle="modal" onclick="getItemid({{$item->id}})"
                      data-target="#Modal_NotifyMe">Notify Me
                 </div>
             </div>

@@ -49,6 +49,10 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
+        cartload();
+    });
+
+    function cartload() {
         var editurl = "{{url('cart_load')}}";
         $.ajax({
             type: "GET",
@@ -60,10 +64,9 @@
             },
             error: function (xhr, status, error) {
                 $('#cartload').html(xhr.responseText);
-//                    alert('Error');
             }
         });
-    });
+    }
 </script>
 @if(session()->has('message'))
     <script type="text/javascript">
@@ -78,7 +81,7 @@
             ShowLoginSignup('signin');
         } else {
             setTimeout(function () {
-                swal("Success", "{{$errors->first()}}", "success");
+                swal("Error", "{{$errors->first()}}", "error");
             }, 500);
         }
 

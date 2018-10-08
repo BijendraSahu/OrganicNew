@@ -8,10 +8,13 @@ session_start();
 
 class ReviewController extends Controller
 {
-public function review()
+public function review($id)
 {
-    $review_data=ReviewModel::get();
-    return view('adminview.review',['review_data'=>$review_data]);
+    $tee = decrypt($id);
+    if ($tee == 1) {
+        $review_data = ReviewModel::get();
+        return view('adminview.review', ['review_data' => $review_data]);
+    }
 }
 public function activate_review()
 {

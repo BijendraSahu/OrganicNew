@@ -23,6 +23,6 @@ class VerifyCsrfToken extends Middleware
         'myadminpost',
         'blogpic',
         'login', 'getregister', 'edit_profile', 'insert_user_address', 'update_user_address', 'insert_review', 'profile_update', 'address_update', 'change_p', 'confirm_order', 'submit_feedback','confirm_checkout','myadminpost',
-        'blogpic','failed','success'
+        'blogpic','failed','success','recipe_store'
     ];
 }
