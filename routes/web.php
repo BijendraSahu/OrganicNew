@@ -36,6 +36,7 @@ Route::get('mycart', 'FrontendController@mycart');
 Route::get('checkout', 'FrontendController@checkout');
 Route::get('pd', 'FrontendController@product_details');
 Route::get('view_product/{slug}', 'FrontendController@product_details');
+Route::get('/wishlist','FrontendController@wishlist');
 
 //Route::post('login', 'FrontendController@login');
 Route::get('register_user', 'User_loginController@register');
@@ -60,6 +61,7 @@ Route::get('web_check_promo','FrontendController@web_check_promo');
 
 
 Route::get('cart_load', 'CartController@cartload');
+Route::get('wishlist_load', 'CartController@wishlist_load');
 Route::post('cart_update/{id}', 'CartController@cart_update');
 Route::get('addtocart', 'CartController@addtocart');
 Route::get('cart_delete', 'CartController@delete');

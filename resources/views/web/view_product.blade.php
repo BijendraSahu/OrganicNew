@@ -62,7 +62,7 @@
         </div>
     </div>
 </div>
-<script>
+<script type="text/javascript">
     function AddTOcartView(dis) {
         var itemid = $(dis).attr('id');
         var rateid = $('#price :selected').val();

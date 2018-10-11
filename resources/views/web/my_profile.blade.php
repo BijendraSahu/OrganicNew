@@ -11,7 +11,7 @@
     <section class="product_section">
         <div class="container res_pad0" id="profile_section">
             <div class="col-sm-12 col-md-3">
-                <div class="order_listbox">
+                <div class="order_listbox wishlist_profile" id="profile_container">
                     <div class="carousal_head">
                         <span class="filter_head_txt slider_headtxt">My Profile</span>
                     </div>
@@ -83,6 +83,11 @@
                 <div class="order_listbox">
                     <div id="profile_box">
                         <div class="carousal_head">
+                            <div class="responsive_show pull-right" onclick="ShowMenu();"><i class="mdi mdi-menu"></i>
+                            </div>
+                            <div class="responsive_show pull-right" onclick="ShowMenu();">
+                                <div class="viewtype_txt">Menu</div>
+                            </div>
                             <span class="filter_head_txt slider_headtxt">Edit Profile Details</span>
                         </div>
                         <div class="order_list_container">
@@ -228,10 +233,18 @@
         </div>
         <p id="err1"></p>
     </section>
+    <div class="filter_overlay" id="overlay_div" onclick="HideMenu()"></div>
     @include('web.layouts.footer')
 
-    <script>
-
+    <script type="text/javascript">
+        function ShowMenu() {
+            $('#overlay_div').show();
+            $('#profile_container').addClass('wishlist_profile_show');
+        }
+        function HideMenu() {
+            $('#overlay_div').hide();
+            $('#profile_container').removeClass('wishlist_profile_show');
+        }
         function removeProfile(changepicid, file_id) {
             swal({
                 title: "Confirmation",
@@ -267,7 +280,6 @@
 
             });
         }
-
         function getuseraddress() {
             var address_id = $('#existaddress :selected').val();
             if (address_id > 0) {
@@ -295,7 +307,6 @@
                 $('#add_address').val('');
             }
         }
-
         function Requiredtxt(me) {
             var text = $.trim($(me).val());
             if (text == '') {
@@ -306,7 +317,6 @@
                 return true;
             }
         }
-
         $(document).ready(function () {
             $("#userAddress").on('submit', function (e) {
                 e.preventDefault();

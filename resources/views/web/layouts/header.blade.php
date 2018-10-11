@@ -1,17 +1,3 @@
-<style>
-    .center {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 10%;
-        margin-top: -27%;
-    }
-
-    .my_account_box {
-        color: #ffffff;
-        text-decoration: none !important;
-    }
-</style>
 <nav class="main_menu fixed_menu" id="top_header_menu">
     <div class="container">
         <div class="row top_menubox">
@@ -112,15 +98,22 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </li>
-                            <li>
+                            <li class="res_none">
                                 <a href="{{url('logout')}}" class="my_account_box glo_menuclick">
                                     <i class="mdi mdi-logout"></i>
                                     Logout
                                 </a>
                             </li>
+
                         @endif
+                        <li style="border-right: none;">
+                            <div class="baskit_containner glo_menuclick" id="wishlist_load">
+                                {{--<span class="baskit_counter" id="wishlist_counter">5</span>--}}
+                                {{--<i class="mdi mdi-heart wish_icon" id="baskit_block"></i>--}}
+                            </div>
+                        </li>
+
                         <li style="border-right: none;">
                             <div class="baskit_containner glo_menuclick" id="cartload">
 

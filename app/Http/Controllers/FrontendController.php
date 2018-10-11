@@ -272,6 +272,17 @@ class FrontendController extends Controller
     {
         return view('web.mycart');
     }
+
+    public function wishlist()
+    {
+        if (isset($_SESSION['user_master'])) {
+            $user_ses = $_SESSION['user_master'];
+            $user = UserMaster::find($user_ses->id);
+            return view('web.wishlist')->with(['user' => $user]);
+        } else {
+            return Redirect::back()->withInput()->withErrors(array('message' => 'Please login first'));
+        }
+    }
     /** ************************Cart************************************/
 
 

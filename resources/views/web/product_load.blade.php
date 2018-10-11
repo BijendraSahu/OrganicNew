@@ -4,6 +4,9 @@
         <div class="product_name"><a class="product_details_link"
                                      href="{{url('view_product').'/'.(encrypt($item->id))}}">{{$item->name}}</a>
         </div>
+        <div class="product_wish" onclick="AddtoWishlist(this);" data-toggle="tooltip" title="Wishlist">
+            <i class="mdi mdi-heart"></i>
+        </div>
         <div class="long_product_img">
             <?php $image = \App\ItemImages::where(['item_master_id' => $item->id])->first(); ?>
             @if(isset($image->image) && file_exists("p_img/$item->id/".$image->image))
@@ -20,7 +23,10 @@
                 </div>
             </div>
         </div>
-        <?php $prices = \App\ItemPrice::where('item_master_id', '=', $item->id)->where('qty', '>', '0')->get(); ?>
+        <?php
+        $prices = \App\ItemPrice::where('item_master_id', '=', $item->id)->where('qty', '>', '0')->get();
+
+        ?>
         @if(count($prices)>0)
             @foreach($prices as $price)
                 <div class="long_spinner_withbtn">
@@ -41,13 +47,31 @@
                                 class="button-group_text">Add</span>
                     </button>
                 </div>
+
             @endforeach
+            @if(count($prices)!=4)
+                <div class="basic_description @if(count($prices) == 1) {{"line_4"}}@elseif(count($prices)==2) {{"line_3"}}@elseif(count($prices)==3) {{"line_1"}} @endif">
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                    the
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
+                    type
+                    and scrambled it to make a type specimen book.
+                </div>
+            @endif
         @else
+
             <div class="notify_block long_notifyblock">
                 <div class="out_of_stock">Out Of Stock</div>
                 <div class="notify_me_btn" data-toggle="modal" onclick="getItemid({{$item->id}})"
                      data-target="#Modal_NotifyMe">Notify Me
                 </div>
+            </div>
+            <div class="basic_description line_2">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                the
+                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
+                type
+                and scrambled it to make a type specimen book.
             </div>
         @endif
 

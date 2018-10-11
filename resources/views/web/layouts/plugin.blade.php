@@ -1,4 +1,4 @@
-<link rel="shortcut icon" type="images/png" href="{{url('images/favicon-prihul.png')}}"/>
+<link rel="shortcut icon" type="images/png" href="{{url('images/favicon-organic.png')}}"/>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="{{url('css/bootstrap.css')}}"/>
 <link rel="stylesheet" href="{{url('css/bootstrap.min.css')}}"/>

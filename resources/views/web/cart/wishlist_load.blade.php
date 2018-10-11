@@ -10,17 +10,13 @@
     @endforeach
 @endif
 
-<span class="baskit_counter" id="baskit_counter">{{$counter}}</span>
-<i class="mdi mdi-basket wish_icon" id="baskit_block"></i>
+<span class="baskit_counter" id="wishlist_counter">{{$counter}}</span>
+<i class="mdi mdi-heart wish_icon" id="wishlist_block"></i>
 <div class="menu_basic_popup cart_popbox scale0">
     <div class="header_popup">
         <div class="total_item_count">
             <span class="basic_icon mdi mdi-basket-fill"></span>
             {{$itemcount}} Item
-        </div>
-        <div class="total_item_amt pull-right">
-            <span class="basic_icon mdi mdi-currency-inr"></span>
-            {{$total}}
         </div>
     </div>
     <div class="menu_popup_containner style-scroll">
@@ -32,9 +28,9 @@
                     <tr>
                         <td class="text-left"><a class="cart_product_name"
                                                  title="{{$row->name}}"
-                                                 href="{{url('view_product').'/'.(encrypt($row->id))}}">{{ str_limit($row->name, 15) }}</a></td>
-                        <td class="text-center"> x{{$row->qty}}</td>
-                        <td class="text-center"><i class="fa fa-inr"></i>{{$row->price}}</td>
+                                                 href="{{url('view_product').'/'.(encrypt($row->id))}}">{{ str_limit($row->name, 30) }}</a></td>
+                        {{--<td class="text-center"> x{{$row->qty}}</td>--}}
+                        {{--<td class="text-center"><i class="fa fa-inr"></i>{{$row->price}}</td>--}}
                         <td class="text-right">
                             <a onclick="remove_item('{{$row->rowId}}')" class="mdi mdi-close-circle cart-delete"
                                data-toggle="tooltip"
@@ -49,11 +45,11 @@
         </table>
     </div>
     <div class="cart_btn_box">
-        <a class="btn btn-warning btn-sm" href="{{url('mycart')}}">
-            <span class="mdi mdi-basket basic_icon_margin"></span>View Cart
-        </a>
-        <a class="btn btn-success btn-sm pull-right" href="{{url('checkout')}}">
-            <span class="mdi mdi-cart basic_icon_margin"></span>Checkout
+        {{--<a class="btn btn-warning btn-sm" href="{{url('mycart')}}">--}}
+            {{--<span class="mdi mdi-basket basic_icon_margin"></span>View Cart--}}
+        {{--</a>--}}
+        <a class="btn btn-success btn-sm pull-right" href="{{url('wishlist')}}">
+            <span class="mdi mdi-heart basic_icon_margin"></span>View wishlist
         </a>
     </div>
 </div>

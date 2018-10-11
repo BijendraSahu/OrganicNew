@@ -184,12 +184,9 @@
     </style>
     <script type="text/javascript" src="js/owl.carousel.js"></script>
     <style type="text/css">
-
-
         /* .vertical .carousel-inner {
              height: 100%;
-         }
- */
+         } */
         .carousel.vertical .item {
             -webkit-transition: 0.6s ease-in-out top;
             -moz-transition: 0.6s ease-in-out top;
@@ -550,21 +547,20 @@
     </script>
 @stop
 @section('content')
-
     <section class="product_section">
-        <div class="container-fluid">
+        <div class="container-fluid product_maincontainer">
             <div class="product_all_container" id="product_all_container">
-                <div class="filter_res" onclick="ShowFilter();">
-                    <span class="res_filter_caption">Product Filter</span>
-                    <i class="mdi mdi-chevron-right"></i>
-                </div>
+                {{--<div class="filter_res" onclick="ShowFilter();">--}}
+                {{--<span class="res_filter_caption">Product Filter</span>--}}
+                {{--<i class="mdi mdi-chevron-right"></i>--}}
+                {{--</div>--}}
                 <div class="product_filter_container" id="product_filter_container">
                     <div class="product_filter_head">
                         Product Filter
                     </div>
                     <div class="search_filter">
                         <input type="text" class="main_filter_search" id="Search" onkeyup="getBuyItem()"
-                               placeholder="Search"/>
+                               placeholder="Search by category"/>
                         <div class="filter_search_icon">
                             <i class="mdi mdi-magnify"></i>
                         </div>
@@ -583,6 +579,102 @@
                 {{--<div class="product_container" id="product_category">--}}
                 {{----}}
                 {{--</div>--}}
+                <div class="view_headbox">
+                    {{--<span class="view_headtxt">Product List</span>--}}
+                    <div class="responsive_show" onclick="Showres_search();"><i class="mdi mdi-magnify"></i>
+                    </div>
+                    <div class="responsive_show" onclick="ShowFilter();"><i class="mdi mdi-menu"></i>
+                    </div>
+                    <div class="product_searchbox" id="product_wise_search">
+                        {{--<div class="search_filter">--}}
+                        {{--<input type="text" class="main_filter_search" id="Search_by_product"--}}
+                        {{--placeholder="Search by product">--}}
+                        {{--<div class="filter_search_icon">--}}
+                        {{--<i class="mdi mdi-magnify"></i>--}}
+                        {{--</div>--}}
+                        {{--</div>--}}
+                        <div class="back_search_btn" onclick="Hideres_search();"><i class="mdi mdi-arrow-left"></i>
+                        </div>
+                        <div class="product_search_box">
+                            <input type="text" class="header_search" autocomplete="off" onautocomplete="false"
+                                   placeholder="Search by product" onkeyup="HeaderSearchFilter(this);">
+                            <input type="hidden" name="search" id="search_user_id">
+                            <i class="product_search_icon mdi mdi-magnify"></i>
+                            <div class="search_filter_box scale0">
+                                <div class="no_record_found hidden" id="no_record">
+                                    &lt; No Friend Found &gt;
+                                </div>
+                                <ul class="filter_search_ul style-scroll" id="filter_friend_ul">
+                                    <li class="header_filter_row">
+                                        <a>
+                                            <img src="http://localhost:8000/p_img/269/1535028253_chyawanprash.jpg"
+                                                 class="head_filter_img">
+                                            <div class="name_filter">Chyawanprash</div>
+                                        </a>
+                                    </li>
+                                    <li class="header_filter_row">
+                                        <a>
+                                            <img src="http://localhost:8000/p_img/181/1535026492_91nXnlS3HQL._AC_UL320_SR256,320_.jpg"
+                                                 class="head_filter_img">
+                                            <div class="name_filter">Risa dhosa mix</div>
+                                        </a>
+                                    </li>
+                                    <li class="header_filter_row">
+                                        <a>
+                                            <img src="http://localhost:8000/p_img/183/1535026181_rava idli mix.jpg"
+                                                 class="head_filter_img">
+                                            <div class="name_filter">Rava idli mix</div>
+                                        </a>
+                                    </li>
+                                    <li class="header_filter_row">
+                                        <a>
+                                            <img src="http://localhost:8000/p_img/184/1535027762_coffee powder smooth.jpg"
+                                                 class="head_filter_img">
+                                            <div class="name_filter">Coffee powder smooth</div>
+                                        </a>
+                                    </li>
+                                    <li class="header_filter_row">
+                                        <a>
+                                            <img src="http://localhost:8000/p_img/242/1535027510_sunab soft black hair color.jpg"
+                                                 class="head_filter_img">
+                                            <div class="name_filter">sunab soft black hair color</div>
+                                        </a>
+                                    </li>
+                                    <li class="header_filter_row">
+                                        <a>
+                                            <img src="http://localhost:8000/p_img/243/1535027128_sunab-natural-dark-brown-500x500.jpg"
+                                                 class="head_filter_img">
+                                            <div class="name_filter">Sunab Natural Dark brown</div>
+                                        </a>
+                                    </li>
+                                    <li class="header_filter_row">
+                                        <a>
+                                            <img src="http://localhost:8000/p_img/252/1535026878_organic henna powder.jpg"
+                                                 class="head_filter_img">
+                                            <div class="name_filter">organic henna powder</div>
+                                        </a>
+                                    </li>
+                                    <li class="header_filter_row">
+                                        <a>
+                                            <img src="http://localhost:8000/images/default.png"
+                                                 class="head_filter_img">
+                                            <div class="name_filter">Indego Lief Powder</div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="viewtype_block pull-right">
+                        <div class="viewtype_txt">View</div>
+                        <div class="type_brics brics_selected" onclick="show_view(this , 'grid');" data-toggle="tooltip"
+                             data-placement="top" title="Grid View"><i
+                                    class="mdi mdi-view-grid"></i></div>
+                        <div class="type_brics" onclick="show_view(this, 'list');" data-toggle="tooltip"
+                             data-placement="top" title="List View"><i class="mdi mdi-view-list"></i>
+                        </div>
+                    </div>
+                </div>
                 <div class="product_container" id="product_all">
 
                 </div>
@@ -654,7 +746,30 @@
         </div>
     </div>
     <script type="text/javascript">
-
+        function show_view(dis, view_type) {
+            $('.type_brics').removeClass('brics_selected');
+            if (view_type == 'list') {
+                $('#product_all').addClass('view_by_list');
+                $(dis).addClass('brics_selected');
+            } else {
+                $('#product_all').removeClass('view_by_list');
+                $(dis).addClass('brics_selected');
+            }
+        }
+        function AddtoWishlist(dis) {
+            var chkclass = $(dis).attr('class');
+            if (chkclass == "product_wish add_wish") {
+                $(dis).removeClass('add_wish');
+            } else {
+                $(dis).addClass('add_wish');
+            }
+        }
+        function Showres_search() {
+            $('#product_wise_search').addClass('product_searchbox_resshow');
+        }
+        function Hideres_search() {
+            $('#product_wise_search').removeClass('product_searchbox_resshow');
+        }
         var append_loading_img = '<div class="feed_loadimg_block" id="load_img">' + '<img height="50px" class="center-block" src="{{ url('images/loading.gif') }}"/></div>';
         var append_div = '<div class="product_block loading_block" id="load_item1"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div><div class="product_block loading_block" id="load_item2"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div><div class="product_block loading_block" id="load_item3"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div><div class="product_block loading_block" id="load_item4"><div class="single_line"><div class="load_waves"></div></div><div class="img_load"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div><div class="single_line"><div class="load_waves"></div></div></div>';
         /*var no_record = '<div class="product_block">No Record Available</div>';*/
@@ -801,8 +916,82 @@
         }
         $(document).ready(function () {
             first_get_items();
+            $('[data-toggle="tooltip"]').tooltip();
+            $('.header_search').keydown(function (e) {
+                if ($(this).parent().find('.header_filter_row').length > 0) {
+                    var po = $(this).parent().find('#filter_friend_ul').scrollTop();
+                    var key = Number(e.keyCode);
+                    //var count = 0;
+                    var lenPress = Number($(this).parent().find('.P_pressed').length);
+                    var lenCoun = Number($(this).parent().find('.header_filter_row:visible').length);
+                    switch (key) {
+                        case 13:
+                            $('.search_filter_box').addClass('scale0');
+                            $('#onpage_loader').show();
+                            window.location = $(this).parent().find('.P_pressed a').attr('href');
+                            return false;
+                            break;
+                        case 38:
+                            if (lenPress == 0) {
+                                $(this).parent().find('.header_filter_row:visible').last().attr('class', 'P_pressed');
+                                $(this).parent().find('#filter_friend_ul').scrollTop($(this).parent().find('#filter_friend_ul').prop('scrollHeight'));
+                            } else {
+                                var PrevNum = Number($(this).parent().find('.P_pressed').prev('.header_filter_row:visible').length);
+                                if (PrevNum == 0) {
+                                    $(this).parent().find('.header_filter_row:visible').last().attr('class', 'P_pressed');
+                                    $(this).parent().find('.P_pressed').first().attr('class', 'header_filter_row');
+                                    $(this).parent().find('#filter_friend_ul').scrollTop($(this).parent().find('#filter_friend_ul').prop('scrollHeight'));
+                                } else {
+                                    $(this).parent().find('.P_pressed').prev().attr('class', 'P_pressed');
+                                    $(this).parent().find('.P_pressed').last().attr('class', 'header_filter_row');
+                                    $(this).parent().find('#filter_friend_ul').scrollTop(po - 40);
+                                }
+                            }
+                            var v38 = $(this).parent().find('.P_pressed').text();
+                            //$(this).val(v38);
+                            break;
+                        case 40:
+                            var len40 = Number($(this).parent().find('.P_pressed').length);
+                            if (len40 == 0) {
+                                $(this).parent().find('.header_filter_row:visible').first().attr('class', 'P_pressed');
+                            } else {
+                                var inLen40 = Number($(this).parent().find('.P_pressed').first().next().length);
+                                if (inLen40 == 0) {
+                                    var coulen40 = Number($(this).parent().find('.header_filter_row:visible').length);
+                                    if (coulen40 != 0) {
+                                        $(this).parent().find('.P_pressed').attr('class', 'header_filter_row');
+                                        $(this).parent().find('.header_filter_row:visible').first().attr('class', 'P_pressed');
+                                        $(this).parent().find('#filter_friend_ul').scrollTop(0);
+                                    }
+                                } else {
+                                    var outLen40 = Number($(this).parent().find('.P_pressed').first().next('.header_filter_row:visible').length);
+                                    if (outLen40 == 0) {
+                                        $(this).parent().find('.P_pressed').attr('class', 'header_filter_row');
+                                        $(this).parent().find('.header_filter_row:visible').first().attr('class', 'P_pressed');
+                                        $(this).parent().find('#filter_friend_ul').scrollTop(0);
+                                    } else {
+                                        $(this).parent().find('.P_pressed').first().next().attr('class', 'P_pressed');
+                                        $(this).parent().find('.P_pressed').first().attr('class', 'header_filter_row');
+                                        $(this).parent().find('#filter_friend_ul').scrollTop(po + 40);
+                                    }
+                                }
+                            }
+                            var v40 = $(this).parent().find('.P_pressed').text();
+                            //$(this).val(v40);
+                            break;
+                    }
+                }
+            });
         });
-
+        function HeaderSearchFilter(dis) {
+            var ser_val = $(dis).val().length;
+            var text = $(dis).val();
+            if (ser_val > 0) {
+                $(dis).parent().find('.search_filter_box').removeClass('scale0');
+            } else {
+                $(dis).parent().find('.search_filter_box').addClass('scale0');
+            }
+        }
         function getmoreItems() {
             cp = 1;
             cp += parseFloat($('#see_id').val());

@@ -23,11 +23,13 @@
         }
 
         function Initialize_ProductDetails() {
+            debugger;
             var native_width = 0;
             var native_height = 0;
             $(".large").css("background", "url('" + $(".small").attr("src") + "') no-repeat");
             //Now the mousemove function
             $(".magnify").mousemove(function (e) {
+                debugger;
                 if (!native_width && !native_height) {
                     var image_object = new Image();
                     image_object.src = $(".small").attr("src");
@@ -56,30 +58,31 @@
             });
         }
 
-        var fixed_leftposition;
+        //var fixed_leftposition;
 
-        function checkOffFixed() {
-            if ($('#product_details_containner').offset().top + $('#product_details_containner').height()
-                >= $('#footer').offset().top - 30) {
-                $('#product_details_containner').removeClass('position_fixed_removed');
-                $('#product_details_containner').css('left', 0);
-            }
-            if ($(document).scrollTop() + window.innerHeight < $('#footer').offset().top) {
-                $('#product_details_containner').addClass('position_fixed_removed');
-                $('#product_details_containner').css('left', fixed_leftposition);
-            }
-        }
+
+//        function checkOffFixed() {
+//            if ($('#product_details_containner').offset().top + $('#product_details_containner').height()
+//                >= $('#footer').offset().top - 30) {
+//                $('#product_details_containner').removeClass('position_fixed_removed');
+//                $('#product_details_containner').css('left', 0);
+//            }
+//            if ($(document).scrollTop() + window.innerHeight < $('#footer').offset().top) {
+//                $('#product_details_containner').addClass('position_fixed_removed');
+//                $('#product_details_containner').css('left', fixed_leftposition);
+//            }
+//        }
 
         $(document).ready(function () {
             Initialize_ProductDetails();
-            fixed_leftposition = $('#product_details_containner').offset().left;
-            if ($(document).scrollTop() < 100) {
-                // $('#product_details_containner').css('left', fixed_leftposition);
-                $('#product_details_containner').addClass('position_fixed_removed');
-            }
+//            fixed_leftposition = $('#product_details_containner').offset().left;
+//            if ($(document).scrollTop() < 100) {
+//                // $('#product_details_containner').css('left', fixed_leftposition);
+//                $('#product_details_containner').addClass('position_fixed_removed');
+//            }
         });
         $(document).scroll(function () {
-            checkOffFixed();
+            //checkOffFixed();
         });
 
         function Rating_slide() {
@@ -95,10 +98,10 @@
 @stop
 @section('content')
     <section class="product_viewblock">
-        <div class="container res_pad0">
+        <div class="container-fluid res_pad0">
             <div class="all_data_view">
-                <div class="col-sm-12">
-                    <div class="product_details_containner">
+                <div class="row">
+                    <div class="col-sm-5 product_view_imgbox">
                         <div class="product_magnifyimages_box" id="product_details_containner">
                             <div class="magnify">
                                 <div class="large" id="view_large_bg"></div>
@@ -180,6 +183,8 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-sm-7">
                         <div class="more_productother_details">
                             <div class="more_product_head">
                                 {{$item->name}}

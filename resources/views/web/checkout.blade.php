@@ -568,12 +568,12 @@
                                         class="mdi mdi-basket basic_icon_margin"></i>Edit Cart</a>
                         </div>
                         <div class="order_list_container">
+                            <div class="order_row border-none">
                             @php $total = 0; $itemcount = 0; $gtotal = 0; $counter = 0; @endphp
                             @if(count(\Gloudemans\Shoppingcart\Facades\Cart::content())>0)
                                 @foreach(\Gloudemans\Shoppingcart\Facades\Cart::content() as $row)
-                                    <div class="order_row border-none">
                                         <div class="order_details_box">
-                                            <div class="col-sm-9">
+                                            <div class="col-sm-9 res_pad0">
                                                 <div class="productdetails_order_row">
                                                     <div class="order_product_imgbox">
                                                         @php $item_image = \App\ItemImages::where(['item_master_id' => $row->id])->first();
@@ -646,20 +646,19 @@
                                                     {{--</div>--}}
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-3 res_pad0">
+                                                <div class="wish_rightcontainer">
                                                 <div class="order_amt margin_top15"><i
                                                             class="mdi mdi-currency-inr"></i> {{number_format($row->price*$row->qty,2)}}
                                                 </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                 @endforeach
                             @else
-                                <div class="order_row border-none">
                                     <span class="no_record">< No Record Available ></span>
-                                </div>
                             @endif
-
+                            </div>
                         </div>
                     </div>
                 </form>

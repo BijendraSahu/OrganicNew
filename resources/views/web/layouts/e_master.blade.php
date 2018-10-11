@@ -50,6 +50,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         cartload();
+        wishlistload();
     });
 
     function cartload() {
@@ -64,6 +65,22 @@
             },
             error: function (xhr, status, error) {
                 $('#cartload').html(xhr.responseText);
+            }
+        });
+    }
+
+    function wishlistload() {
+        var editurl = "{{url('wishlist_load')}}";
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: editurl,
+            data: '{"data":"' + "cart" + '"}',
+            success: function (data) {
+                $("#wishlist_load").html(data);
+            },
+            error: function (xhr, status, error) {
+                $('#wishlist_load').html(xhr.responseText);
             }
         });
     }

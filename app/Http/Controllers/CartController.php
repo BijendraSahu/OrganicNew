@@ -15,6 +15,12 @@ session_start();
 
 class CartController extends Controller
 {
+    public function wishlist_load()
+    {
+        $cart = Cart::content();
+        return view('web.cart.wishlist_load')->with(['cart' => $cart]);
+    }
+
     public function cartload()
     {
         $cart = Cart::content();

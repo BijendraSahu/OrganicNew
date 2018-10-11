@@ -3,22 +3,23 @@
 @section('title', 'Organic Food : My Cart')
 
 @section('head')
-<style type="text/css">
-    .btn-update{
-        position: absolute;
-        height: 27px;
-        width: 30px;
-        margin-left: 14px;
-        padding: 0px 0px 0px 0px;
-    }
-    .btn-update1{
-        position: absolute;
-        height: 27px;
-        width: 30px;
-        margin-left: 50px;
-        padding: 0px 0px 0px 0px;
-    }
-</style>
+    <style type="text/css">
+        .btn-update {
+            height: 30px;
+            width: 30px;
+            margin-right: 5px;
+            text-align: center;
+            padding: 0px;
+            line-height: 28px;
+            font-size: 18px;
+        }
+
+        .card_btn_collection {
+            position: absolute;
+            right: 0px;
+            top: 0px;
+        }
+    </style>
 @stop
 @section('content')
     <?php $total = 0; $itemcount = 0; $gtotal = 0; $counter = 0; ?>
@@ -76,12 +77,12 @@
                         <span class="filter_head_txt slider_headtxt">My Cart ({{$itemcount}})</span>
                     </div>
                     <div class="order_list_container">
-                        @php $total = 0; $itemcount = 0; $gtotal = 0; $counter = 0; @endphp
-                        @if(count(\Gloudemans\Shoppingcart\Facades\Cart::content())>0)
-                            @foreach(\Gloudemans\Shoppingcart\Facades\Cart::content() as $row)
-                                <div class="order_row border-none">
+                        <div class="order_row border-none">
+                            @php $total = 0; $itemcount = 0; $gtotal = 0; $counter = 0; @endphp
+                            @if(count(\Gloudemans\Shoppingcart\Facades\Cart::content())>0)
+                                @foreach(\Gloudemans\Shoppingcart\Facades\Cart::content() as $row)
                                     <div class="order_details_box">
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-8 res_pad0">
                                             <div class="productdetails_order_row">
                                                 <div class="order_product_imgbox">
                                                     @php $item_image = \App\ItemImages::where(['item_master_id' => $row->id])->first();
@@ -135,52 +136,54 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-4 res_pad0">
                                             {{--<div class="track_del_address">Free delivery by 15-May-2018</div>--}}
-                                            <div class="order_amt"><i
-                                                        class="mdi mdi-currency-inr"></i> {{number_format($row->price,2)}}
-                                            </div>
-                                            <form action="{{url('cart_update').'/'.$row->rowId}}"
-                                                  id="cartupdate{{$row->rowId}}"
-                                                  method="post">
-                                                <input type="hidden" name="_token"
-                                                       value="{{csrf_token()}}">
-                                                <div class="spinner_withbtn my_cartbtnbox">
-                                                    <div class="input-group qty_box">
-                                                        <span class="qty_txt">Qty</span>
-                                                        <input type="number" name="qty"
-                                                               class="form-control text-center qty_edittxt"
-                                                               min="1" max="10" value="{{$row->qty}}">
-
-                                                    </div>
-                                                    <button type="submit"
-                                                            class="btn btn-primary btn-update">
-                                                        <i class="mdi mdi-refresh "></i>
-                                                    </button>
-                                                    <a type="submit"
-                                                            class="btn btn-primary btn-update1">
-                                                        <i class="mdi mdi-refresh "></i>
-                                                    </a>
-                                                    <a onclick="remove_cart_item('{{$row->rowId}}')"
-                                                       class="btn btn-danger btn-update1"><i class="mdi mdi-close" style="font-size: 17px;"></i></a>
+                                            <div class="wish_rightcontainer">
+                                                <div class="order_amt"><i
+                                                            class="mdi mdi-currency-inr"></i> {{number_format($row->price,2)}}
                                                 </div>
-                                                {{--<div class="update_qty_box">--}}
+                                                <form action="{{url('cart_update').'/'.$row->rowId}}"
+                                                      id="cartupdate{{$row->rowId}}"
+                                                      method="post">
+                                                    <input type="hidden" name="_token"
+                                                           value="{{csrf_token()}}">
+                                                    <div class="spinner_withbtn my_cartbtnbox">
+                                                        <div class="input-group qty_box">
+                                                            <span class="qty_txt">Qty</span>
+                                                            <input type="number" name="qty"
+                                                                   class="form-control text-center qty_edittxt"
+                                                                   min="1" max="10" value="{{$row->qty}}">
+
+                                                        </div>
+                                                        <div class="card_btn_collection">
+                                                            <button type="submit"
+                                                                    class="btn btn-primary btn-update">
+                                                                <i class="mdi mdi-refresh "></i>
+                                                            </button>
+                                                            {{--<a type="submit"--}}
+                                                            {{--class="btn btn-primary btn-update1">--}}
+                                                            {{--<i class="mdi mdi-refresh "></i>--}}
+                                                            {{--</a>--}}
+                                                            <a onclick="remove_cart_item('{{$row->rowId}}')"
+                                                               class="btn btn-danger btn-update"><i
+                                                                        class="mdi mdi-close"></i></a>
+                                                        </div>
+                                                    </div>
+                                                    {{--<div class="update_qty_box">--}}
                                                     {{--<button type="submit"--}}
-                                                            {{--class="btn btn-primary btn-update">--}}
-                                                        {{--<i class="mdi mdi-refresh "></i>--}}
+                                                    {{--class="btn btn-primary btn-update">--}}
+                                                    {{--<i class="mdi mdi-refresh "></i>--}}
                                                     {{--</button>--}}
-                                                {{--</div>--}}
-                                            </form>
+                                                    {{--</div>--}}
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
-                        @else
-                            <div class="order_row border-none">
+                                @endforeach
+                            @else
                                 <span class="no_record">< No Record Available ></span>
-                            </div>
-                        @endif
-
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
