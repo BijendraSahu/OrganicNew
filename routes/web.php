@@ -36,6 +36,7 @@ Route::get('mycart', 'FrontendController@mycart');
 Route::get('checkout', 'FrontendController@checkout');
 Route::get('pd', 'FrontendController@product_details');
 Route::get('view_product/{slug}', 'FrontendController@product_details');
+Route::get('view_product_search/{id}', 'FrontendController@view_product_search');
 Route::get('/wishlist','FrontendController@wishlist');
 
 //Route::post('login', 'FrontendController@login');
@@ -58,13 +59,18 @@ Route::post('confirm_order', 'FrontendController@confirm_order');
 
 Route::get('web_check_promo','FrontendController@web_check_promo');
 
+Route::get('search_product','FrontendController@search_product');
+
 
 
 Route::get('cart_load', 'CartController@cartload');
 Route::get('wishlist_load', 'CartController@wishlist_load');
 Route::post('cart_update/{id}', 'CartController@cart_update');
 Route::get('addtocart', 'CartController@addtocart');
+Route::get('addtowishlist', 'CartController@addtowishlist');
 Route::get('cart_delete', 'CartController@delete');
+Route::get('wishlist_delete', 'CartController@wishlist_delete');
+Route::get('wishlist_item_delete', 'CartController@wishlist_item_delete');
 
 
 Route::get('view_item', 'FrontendController@view_item');

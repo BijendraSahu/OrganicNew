@@ -653,7 +653,7 @@ body {
     overflow: hidden;
     text-align: center;
     margin-bottom: 10px;
-    background: #f5f5f5;
+    background: #ffffff;
 }
 
 .long_product_img img {
@@ -3437,9 +3437,9 @@ ol.progtrckr li.progtrckr-todo:before {
     }
 }
 
-.product_wish:hover {
-    color: #ff2f2f;
-}
+/*.product_wish:hover {*/
+    /*color: #ff2f2f;*/
+/*}*/
 
 .baskit_containner {
     display: inline-block;
@@ -3516,7 +3516,10 @@ ol.progtrckr li.progtrckr-todo:before {
 .no_record_found {
     display: inline-block;
     width: 100%;
-    padding: 20px 0px;
+    padding: 10px 0px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
 }
 
 .filter_search_ul {

@@ -6,6 +6,7 @@ use App\OrderDescription;
 use App\OrderMaster;
 use App\UserAddress;
 use App\UserMaster;
+use App\Wishlist;
 use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
@@ -17,8 +18,12 @@ class CartController extends Controller
 {
     public function wishlist_load()
     {
-        $cart = Cart::content();
-        return view('web.cart.wishlist_load')->with(['cart' => $cart]);
+        if (isset($_SESSION['user_master'])) {
+            $wishlist = Wishlist::where(['user_id' => $_SESSION['user_master']->id])->get();
+            return view('web.cart.wishlist_load')->with(['wishlist' => $wishlist]);
+        } else {
+            return view('web.cart.wishlist_load')->with(['wishlist' => []]);
+        }
     }
 
     public function cartload()
@@ -57,6 +62,7 @@ class CartController extends Controller
         return view('web.cart.cart_load')->with(['cart' => $cart]);
     }
 
+
     public function cart_update($id)
     {
         $rowId = $id;
@@ -66,6 +72,7 @@ class CartController extends Controller
         return redirect()->back();
     }
 
+
     public function delete()
     {
         $rowId = request('cart_item_id');
@@ -74,6 +81,48 @@ class CartController extends Controller
         return view('web.cart.cart_load')->with(['cart' => $cart]);
     }
 
+    public function addtowishlist()
+    {
+        if (isset($_SESSION['user_master'])) {
+            $item_id = request('itemid');
+            $already_item = Wishlist::where(['user_id' => $_SESSION['user_master']->id, 'item_id' => $item_id])->first();
+            if (isset($already_item)) {
+                $already_item->delete();
+                $wishlist = Wishlist::where(['user_id' => $_SESSION['user_master']->id])->get();
+                return view('web.cart.wishlist_load')->with(['wishlist' => $wishlist]);
+            } else {
+                $wishlist = new Wishlist();
+                $wishlist->user_id = $_SESSION['user_master']->id;
+                $wishlist->item_id = $item_id;
+                $wishlist->save();
+                $wishlist = Wishlist::where(['user_id' => $_SESSION['user_master']->id])->get();
+                return view('web.cart.wishlist_load')->with(['wishlist' => $wishlist]);
+            }
+        } else {
+            return 'login_first';
+        }
+    }
+
+    public function wishlist_delete()
+    {
+        if (isset($_SESSION['user_master'])) {
+            $rowId = request('cart_item_id');
+            Wishlist::where(['user_id' => $_SESSION['user_master']->id, 'item_id' => $rowId])->delete();
+            $wishlist = Wishlist::where(['user_id' => $_SESSION['user_master']->id])->get();
+            return view('web.cart.wishlist_load')->with(['wishlist' => $wishlist]);
+        }
+    }
+
+    public function wishlist_item_delete()
+    {
+        if (isset($_SESSION['user_master'])) {
+            $rowId = request('cart_item_id');
+            Wishlist::where(['user_id' => $_SESSION['user_master']->id, 'item_id' => $rowId])->delete();
+            $wishlist = Wishlist::where(['user_id' => $_SESSION['user_master']->id])->get();
+            return 'removed';
+//            return view('web.cart.wishlist_load')->with(['wishlist' => $wishlist]);
+        }
+    }
 
     public function payment(Request $request)   //////////////////Final
     {

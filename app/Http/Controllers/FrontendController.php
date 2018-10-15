@@ -15,6 +15,7 @@ use App\Review;
 use App\Subscribe;
 use App\UserAddress;
 use App\UserMaster;
+use App\Wishlist;
 use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Cart;
 use Illuminate\Http\Request;
@@ -127,6 +128,18 @@ class FrontendController extends Controller
     {
         $id = decrypt($eid);
         $item = ItemMaster::find($id);
+        $item_images = ItemImages::where(['item_master_id' => $item->id])->get();
+        $item_prices = ItemPrice::where(['item_master_id' => $item->id])->get();
+        $reviews = Review::where(['item_master_id' => $item->id, 'is_approved' => 1])->get();
+        $recipes = DB::select("SELECT * from recipe_master where id in (SELECT rec_id FROM `recipe_ingredients` WHERE product_id = $item->id) and is_active = 1");
+        return view('web.product_details')->with(['item' => $item, 'item_images' => $item_images, 'item_prices' => $item_prices, 'reviews' => $reviews, 'recipes' => $recipes]);
+    }
+
+    public function view_product_search($id)
+    {
+        $eid = encrypt($id);
+        $item_id = decrypt($eid);
+        $item = ItemMaster::find($item_id);
         $item_images = ItemImages::where(['item_master_id' => $item->id])->get();
         $item_prices = ItemPrice::where(['item_master_id' => $item->id])->get();
         $reviews = Review::where(['item_master_id' => $item->id, 'is_approved' => 1])->get();
@@ -278,7 +291,8 @@ class FrontendController extends Controller
         if (isset($_SESSION['user_master'])) {
             $user_ses = $_SESSION['user_master'];
             $user = UserMaster::find($user_ses->id);
-            return view('web.wishlist')->with(['user' => $user]);
+            $wishlist = Wishlist::where(['user_id' => $_SESSION['user_master']->id])->get();
+            return view('web.wishlist')->with(['user' => $user, 'wishlist' => $wishlist]);
         } else {
             return Redirect::back()->withInput()->withErrors(array('message' => 'Please login first'));
         }
@@ -465,5 +479,13 @@ class FrontendController extends Controller
         $subscribe->save();
         return 'Success';
     }
+
     /**************************Subscribe************************************/
+
+    public function search_product()
+    {
+        $s = request('search_name');
+        $user = DB::select("SELECT i.id, i.name, (select image from item_images im where im.item_master_id = i.id LIMIT 1) as item_image FROM item_master i WHERE i.name LIKE '$s%' and i.is_active = 1");
+        return json_encode($user);
+    }
 }

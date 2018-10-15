@@ -1,10 +1,19 @@
 <input type="hidden" id="products_count" value="{{$items_count}}"/>
 @foreach ($items as $item)
-    <div class="product_block">
+
+
+    @if (isset($_SESSION['user_master']))
+        @php
+            $wishlist_item =  \App\Wishlist::where(['user_id' => $_SESSION['user_master']->id, 'item_id' => $item->id])->first();
+        @endphp
+    @endif
+    <div class="product_block" id="product_block">
         <div class="product_name"><a class="product_details_link"
                                      href="{{url('view_product').'/'.(encrypt($item->id))}}">{{$item->name}}</a>
         </div>
-        <div class="product_wish" onclick="AddtoWishlist(this);" data-toggle="tooltip" title="Wishlist">
+        <div class="product_wish {{isset($wishlist_item)?'add_wish':''}}" id="{{$item->id}}"
+             onclick="AddtoWishlist(this);" data-toggle="tooltip"
+             title="Wishlist">
             <i class="mdi mdi-heart"></i>
         </div>
         <div class="long_product_img">
@@ -49,13 +58,9 @@
                 </div>
 
             @endforeach
-            @if(count($prices)!=4)
+            @if(count($prices)!=4 && isset($item->specifcation))
                 <div class="basic_description @if(count($prices) == 1) {{"line_4"}}@elseif(count($prices)==2) {{"line_3"}}@elseif(count($prices)==3) {{"line_1"}} @endif">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                    the
-                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
-                    type
-                    and scrambled it to make a type specimen book.
+                    {{$item->specifcation}}
                 </div>
             @endif
         @else
@@ -66,13 +71,11 @@
                      data-target="#Modal_NotifyMe">Notify Me
                 </div>
             </div>
-            <div class="basic_description line_2">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                the
-                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
-                type
-                and scrambled it to make a type specimen book.
-            </div>
+            @if(isset($item->specifcation))
+                <div class="basic_description line_2">
+                    {{$item->specifcation}}
+                </div>
+            @endif
         @endif
 
     </div>
