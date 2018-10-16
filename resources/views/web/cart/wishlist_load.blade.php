@@ -1,5 +1,5 @@
 <span class="baskit_counter" id="wishlist_counter">{{count($wishlist)}}</span>
-<i class="mdi mdi-heart wish_icon" id="wishlist_block"></i>
+<i class="mdi mdi-heart wish_icon" data-toggle="tooltip" title="Wishlist" data-placement="left" id="wishlist_block"></i>
 <div class="menu_basic_popup wishlist_popbox scale0">
     <div class="header_popup">
         <div class="total_item_count">

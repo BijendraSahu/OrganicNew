@@ -86,8 +86,8 @@ class User_loginController extends Controller
             $user_master = UserMaster::find($user->id);
             $user_master->otp = $otp;
             $user_master->save();
-//            file_get_contents("http://63.142.255.148/api/sendmessage.php?usr=connectingone&apikey=A0F25813739CF5A748C8&sndr=CONONE&ph=$user->contact&message=Dear%20user,%20OTP%20to%20login%20into%20connectingone%20is%20$otp");
-            file_get_contents("http://api.msg91.com/api/sendhttp.php?sender=CONONE&route=4&mobiles=$user_master->contact&authkey=213418AONRGdnQ5ae96f62&country=91&message=Dear%20user,%20OTP%20to%20login%20into%20connectingone%20is%20$otp");
+//            file_get_contents("http://63.142.255.148/api/sendmessage.php?usr=OrganicDolchi&apikey=A0F25813739CF5A748C8&sndr=CONONE&ph=$user->contact&message=Dear%20user,%20OTP%20to%20login%20into%20OrganicDolchi%20is%20$otp");
+            file_get_contents("http://api.msg91.com/api/sendhttp.php?sender=CONONE&route=4&mobiles=$user_master->contact&authkey=213418AONRGdnQ5ae96f62&country=91&message=Dear%20user,%20OTP%20to%20login%20into%20OrganicDolchi%20is%20$otp");
             $_SESSION['user_master'] = $user;
             echo 'ok';
         } else {
@@ -105,8 +105,8 @@ class User_loginController extends Controller
             $user_master = UserMaster::find($user->id);
             $user_master->password = md5($otp);
             $user_master->save();
-//            file_get_contents("http://63.142.255.148/api/sendmessage.php?usr=connectingone&apikey=A0F25813739CF5A748C8&sndr=CONONE&ph=$user->contact&message=Dear%20user,%20Password%20to%20login%20into%20connectingone%20is%20$otp");
-            file_get_contents("http://api.msg91.com/api/sendhttp.php?sender=CONONE&route=4&mobiles=$user_master->contact&authkey=213418AONRGdnQ5ae96f62&country=91&message=Dear%20user,%20Password%20to%20login%20into%20connectingone%20is%20$otp");
+//            file_get_contents("http://63.142.255.148/api/sendmessage.php?usr=OrganicDolchi&apikey=A0F25813739CF5A748C8&sndr=CONONE&ph=$user->contact&message=Dear%20user,%20Password%20to%20login%20into%20OrganicDolchi%20is%20$otp");
+            file_get_contents("http://api.msg91.com/api/sendhttp.php?sender=CONONE&route=4&mobiles=$user_master->contact&authkey=213418AONRGdnQ5ae96f62&country=91&message=Dear%20user,%20Password%20to%20login%20into%20OrganicDolchi%20is%20$otp");
 
             $_SESSION['user_master'] = $user_master;
             echo 'ok';
