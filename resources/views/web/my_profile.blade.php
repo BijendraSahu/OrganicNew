@@ -141,9 +141,16 @@
                                                        class="form-control" onkeypress="return false;"/>
                                             </div>
                                             <div class="deli_row">
-                                                <input type="text" name="contact" value="{{$user->contact}}" id="p_id"
+                                                <input type="text" disabled name="contact" value="{{$user->contact}}" id="p_id"
                                                        placeholder="Phone No."
                                                        class="form-control" onkeypress="return false;"/>
+                                            </div>
+                                            <div class="deli_row">
+                                                <strong>My Rewards : </strong>
+                                                <strong>{{$user->gain_amount}}</strong>
+                                                {{--<input type="text" disabled name="contact" value="{{$user->contact}}" id="p_id"--}}
+                                                       {{--placeholder="Phone No."--}}
+                                                       {{--class="form-control" onkeypress="return false;"/>--}}
                                             </div>
                                             <div class="deli_row">
                                                 <button type="submit" class="btn btn-success confirm_order_btn"><i

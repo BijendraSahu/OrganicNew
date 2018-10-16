@@ -49,7 +49,7 @@
                                  @else
                                      <img class="testominial_img" src="{{url('images/Male_default.png')}}">
                                  @endif--}}
-                                <div class="my_account_box glo_menuclick">My Account
+                                <div class="my_account_box glo_menuclick">Hi, {{strtok($_SESSION['user_master']->name,' ')}}
                                     <div class="menu_basic_popup menu_popup_account scale0">
                                         <div class="menu_popup_account">
                                             <div class="menu_popup_settingrow">
@@ -99,12 +99,12 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="res_none">
-                                <a href="{{url('logout')}}" class="my_account_box glo_menuclick">
-                                    <i class="mdi mdi-logout"></i>
-                                    Logout
-                                </a>
-                            </li>
+                            {{--<li class="res_none">--}}
+                                {{--<a href="{{url('logout')}}" class="my_account_box glo_menuclick">--}}
+                                    {{--<i class="mdi mdi-logout"></i>--}}
+                                    {{--Logout--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
 
                         @endif
                         <li style="border-right: none;">

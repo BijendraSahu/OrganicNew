@@ -10,8 +10,8 @@
     @endforeach
 @endif
 
-<span class="baskit_counter" id="baskit_counter">{{$counter}}</span>
-<i class="mdi mdi-basket wish_icon" id="baskit_block"></i>
+<span class="baskit_counter"  id="baskit_counter">{{$counter}}</span>
+<i class="mdi mdi-basket wish_icon" data-toggle="tooltip" title="Shopping Cart" data-placement="right" id="baskit_block"></i>
 <div class="menu_basic_popup cart_popbox scale0">
     <div class="header_popup">
         <div class="total_item_count">

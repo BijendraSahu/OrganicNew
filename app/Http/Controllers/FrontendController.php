@@ -216,7 +216,7 @@ class FrontendController extends Controller
         $a = ($category_id == 0) ? $all : $by_id;
         $products_c = DB::select($a);
         $numrows = count($products_c);
-        $rowsperpage = 8;
+        $rowsperpage = 12;
         $totalpages = ceil($numrows / $rowsperpage);
         $limit = request('limit');
         if (request('currentpage') != '' && is_numeric(request('currentpage'))) {
