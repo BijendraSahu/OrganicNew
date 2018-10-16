@@ -389,7 +389,7 @@
     }
 
     .product_block {
-        width: 48%;
+        width: 49%;
     }
     .view_by_list .product_block
     {
@@ -409,7 +409,7 @@
     }
     .product_searchbox
     {
-        max-width: 325px;
+        max-width: 240px;
     }
     .wishlist_container .product_block {
         width: 49%;
@@ -809,7 +809,7 @@
     }
 
     .product_block {
-        width: 31.3%;
+        width: 32.3%;
     }
     .top_menubox
     {

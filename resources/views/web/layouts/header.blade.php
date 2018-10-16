@@ -125,6 +125,11 @@
         </div>
     </div>
 </nav>
+<div class="page_loader" id="page_loader2" style="background: rgb(251, 251, 251, 0.7);display:none;">
+    <div class="loaders">
+        <img src="images/page-loader.gif" alt="pageloader" />
+    </div>
+</div>
 <div class="page_loader" id="page_loader">
     <div class="loaders">
         <div class="dot dot-1"></div>
