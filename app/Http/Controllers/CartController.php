@@ -43,7 +43,7 @@ class CartController extends Controller
         $quantity = request('quantity');
         $product_name = $products->name;
 //        if ($price->price <= $price->special_price || $price->special_price == 0)
-        $product_price = $price->price;
+        $product_price = $price->spl_price > 0 ? $price->spl_price : $price->price;
 //        else
 //            $product_price = $price->special_price;
 

@@ -619,6 +619,14 @@
                         </div>
                     </div>
                     <div class="viewtype_block pull-right" id="view_thumb">
+                        <div class="viewtype_txt">Sort</div>
+                        <div class="type_brics" id="popularity" data-toggle="tooltip" onclick="Short_filer_items(this);"
+                             data-placement="top" title="Popularity"><i
+                                    class="mdi mdi-basket-fill"></i></div>
+                        <div class="type_brics" id="alphabetical" data-toggle="tooltip"
+                             onclick="Short_filer_items(this);"
+                             data-placement="top" title="A-Z, Z-A"><i class="mdi mdi-filter-variant"></i>
+                        </div>
                         <div class="viewtype_txt">View</div>
                         <div class="type_brics brics_selected" onclick="show_view(this , 'grid');" data-toggle="tooltip"
                              data-placement="top" title="Grid View"><i
@@ -700,15 +708,18 @@
     </div>
     <script type="text/javascript">
         function show_view(dis, view_type) {
-            $('.type_brics').removeClass('brics_selected');
+            //$('.type_brics').removeClass('brics_selected');
             if (view_type == 'list') {
                 $('#product_all').addClass('view_by_list');
+                $(dis).prev().removeClass('brics_selected');
                 $(dis).addClass('brics_selected');
             } else {
                 $('#product_all').removeClass('view_by_list');
+                $(dis).next().removeClass('brics_selected');
                 $(dis).addClass('brics_selected');
             }
         }
+
         function AddtoWishlist(dis) {
             var chkclass = $(dis).attr('class');
 
@@ -796,11 +807,12 @@
             var limit = Number($('#see_id').val());
 //            alert(category_id);
             $('#category_id').val(category_id);
+            var popularity = $('#popularity').attr('class') == 'type_brics brics_selected' ? 1 : 0;
             $.ajax({
                 type: "get",
                 contentType: "application/json; charset=utf-8",
                 url: "{{ url('getallproducts') }}",
-                data: {currentpage: limit, category_id: category_id},
+                data: {currentpage: limit, category_id: category_id, popularity: popularity},
                 beforeSend: function () {
                     $('#product_all').html('');
                     $('#product_all').html(append_div);
@@ -868,11 +880,12 @@
             $('#see_id').val(1);
 //            alert(category_id);
             $('#category_id').val(category_id);
+//            var popularity = $('#popularity').attr('class') == 'type_brics brics_selected' ? 1 : 0;
             $.ajax({
                 type: "get",
                 contentType: "application/json; charset=utf-8",
                 url: "{{ url('getmoreproducts') }}",
-                data: {currentpage: limit, category_id: category_id},
+                data: {currentpage: limit, category_id: category_id, popularity: 1},
                 beforeSend: function () {
                     $('#product_all').html(append_div);
                 },
@@ -899,6 +912,63 @@
             });
             hide_filter();
         }
+
+        function Short_filer_items(dis) {
+            if ($(dis).attr('id') == 'popularity') {
+                $('#alphabetical').removeClass('brics_selected');
+            } else {
+                $('#popularity').removeClass('brics_selected');
+            }
+            if ($(dis).attr('class') == 'type_brics brics_selected') {
+                $(dis).removeClass('brics_selected');
+            } else {
+                $(dis).addClass('brics_selected');
+            }
+            var popularity = $('#popularity').attr('class') == 'type_brics brics_selected' ? 1 : 0;
+            var alphabetical = $('#alphabetical').attr('class') == 'type_brics brics_selected' ? 1 : 0;
+            $('#loader').css('display', 'block');
+            var category_id = $('#filter_data').find('.selected').attr('id');
+            var limit = 1;
+            $('#see_id').val(1);
+            $('#category_id').val(category_id);
+            $.ajax({
+                type: "get",
+                contentType: "application/json; charset=utf-8",
+                url: "{{ url('getShortproducts') }}",
+                data: {
+                    currentpage: limit,
+                    category_id: category_id,
+                    popularity: popularity,
+                    alphabetical: alphabetical
+                },
+                beforeSend: function () {
+                    $('#product_all').html(append_div);
+                },
+                success: function (data) {
+
+                    $('#loader').css('display', 'none');
+                    $("#load_item1").remove();
+                    $("#load_item2").remove();
+                    $("#load_item3").remove();
+                    $("#load_item4").remove();
+                    if (data.no_record == 'no_record') {
+                        $("#load_item").remove();
+                        $("#product_all").html(no_record);
+                    } else {
+                        $("#load_item").remove();
+                        $('#product_all').html('');
+                        $("#product_all").html(data);
+                    }
+                    $('#page_loader').hide();
+                },
+                error: function (xhr, status, error) {
+                    $('#product_all').html(xhr.responseText);
+//                    ShowErrorPopupMsg('Error in uploading...');
+                }
+            });
+            hide_filter();
+        }
+
         $(document).ready(function () {
             first_get_items();
             $('[data-toggle="tooltip"]').tooltip();
@@ -1021,11 +1091,12 @@
             cp += parseFloat($('#see_id').val());
             $('#see_id').val(cp);
             var category_id = $('#category_id').val();
+            var popularity = $('#popularity').attr('class') == 'type_brics brics_selected' ? 1 : 0;
             $.ajax({
                 type: "get",
                 contentType: "application/json; charset=utf-8",
                 url: "{{ url('getmoreproducts') }}",
-                data: {currentpage: cp, category_id: category_id},
+                data: {currentpage: cp, category_id: category_id, popularity: popularity},
                 beforeSend: function () {
                     $('#product_all').append(append_div);
                 },

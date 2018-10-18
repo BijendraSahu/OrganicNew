@@ -75,6 +75,7 @@ Route::get('wishlist_item_delete', 'CartController@wishlist_item_delete');
 
 Route::get('view_item', 'FrontendController@view_item');
 Route::get('getmoreproducts', 'FrontendController@getmoreproducts');
+Route::get('getShortproducts', 'FrontendController@getShortproducts');
 Route::get('getallproducts', 'FrontendController@getallproducts');
 
 Route::get('/payment', 'CartController@payment');

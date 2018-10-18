@@ -211,6 +211,8 @@ class FrontendController extends Controller
     {
         $category_id = request('category_id');
         $qry = '';
+        $short_by = request('popularity') == 1 ? 'i.popularity' : 'i.name';
+        $asc_desc = $short_by == 'i.popularity' ? 'desc' : 'asc';
         $all = "SELECT i.* FROM item_master i, item_category ic where ic.item_master_id = i.id and i.is_active = 1";
         $by_id = "SELECT i.* FROM item_master i, item_category ic where ic.item_master_id = i.id and ic.category_id = $category_id and i.is_active = 1";
         $a = ($category_id == 0) ? $all : $by_id;
@@ -230,8 +232,47 @@ class FrontendController extends Controller
         }
 
         $offset = ($currentpage - 1) * $rowsperpage;
-        $all = "SELECT i.* FROM item_master i, item_category ic where ic.item_master_id = i.id and i.is_active = 1 ORDER BY i.id DESC LIMIT $offset,$rowsperpage";
-        $by_id = "SELECT i.* FROM item_master i, item_category ic where ic.item_master_id = i.id and i.is_active = 1 and ic.category_id = $category_id ORDER BY i.id DESC LIMIT $offset,$rowsperpage";
+        $all = "SELECT i.* FROM item_master i, item_category ic where ic.item_master_id = i.id and i.is_active = 1 ORDER BY $short_by $asc_desc LIMIT $offset,$rowsperpage";
+        $by_id = "SELECT i.* FROM item_master i, item_category ic where ic.item_master_id = i.id and i.is_active = 1 and ic.category_id = $category_id ORDER BY $short_by $asc_desc LIMIT $offset,$rowsperpage";
+        $s = ($category_id == 0) ? $all : $by_id;
+//        $s = "SELECT i.* FROM item_master i, item_category ic where ic.item_master_id = i.id and ic.category_id = $category_id ORDER BY i.id DESC LIMIT $offset,$rowsperpage";
+        $items = DB::select($s);
+        if ($numrows > 0) {
+            return view('web.product_load')->with(['items' => $items, 'items_count' => $numrows]);
+        } else {
+            return response()->json(array('no_record' => 'no_record'));
+        }
+    }
+
+    public function getShortproducts()
+    {
+        //$popularity = request('popularity');
+        //$alphabetical = request('alphabetical');
+        $category_id = request('category_id');
+        $short_by = request('popularity') == 1 ? 'i.popularity' : 'i.name';
+        $asc_desc = $short_by == 'i.popularity' ? 'desc' : 'asc';
+        $qry = '';
+        $all = "SELECT i.* FROM item_master i, item_category ic where ic.item_master_id = i.id and i.is_active = 1";
+        $by_id = "SELECT i.* FROM item_master i, item_category ic where ic.item_master_id = i.id and ic.category_id = $category_id and i.is_active = 1";
+        $a = ($category_id == 0) ? $all : $by_id;
+        $products_c = DB::select($a);
+        $numrows = count($products_c);
+        $rowsperpage = 12;
+        $totalpages = ceil($numrows / $rowsperpage);
+        $limit = request('limit');
+        if (request('currentpage') != '' && is_numeric(request('currentpage'))) {
+            $currentpage = (int)request('currentpage');
+        } else {
+            $currentpage = 1;  // default page number
+        }
+
+        if ($currentpage < 1) {
+            $currentpage = 1;
+        }
+
+        $offset = ($currentpage - 1) * $rowsperpage;
+        $all = "SELECT i.* FROM item_master i, item_category ic where ic.item_master_id = i.id and i.is_active = 1 ORDER BY $short_by $asc_desc LIMIT $offset,$rowsperpage";
+        $by_id = "SELECT i.* FROM item_master i, item_category ic where ic.item_master_id = i.id and i.is_active = 1 and ic.category_id = $category_id ORDER BY $short_by $asc_desc LIMIT $offset,$rowsperpage";
         $s = ($category_id == 0) ? $all : $by_id;
 //        $s = "SELECT i.* FROM item_master i, item_category ic where ic.item_master_id = i.id and ic.category_id = $category_id ORDER BY i.id DESC LIMIT $offset,$rowsperpage";
         $items = DB::select($s);
@@ -307,7 +348,7 @@ class FrontendController extends Controller
             $user_ses = $_SESSION['user_master'];
             $user = UserMaster::find($user_ses->id);
 //            $states = DB::select("select * from cities order by state ASC");
-            $cities = DB::select("select * from cities where city IS NOT NULL order by city ASC");
+            $cities = DB::select("select * from cities where is_deleted = 0 and city IS NOT NULL order by city ASC");
             return view('web.checkout')->with(['user' => $user, 'cities' => $cities]);
         } else {
             return Redirect::back()->withInput()->withErrors(array('message' => 'Please login first'));
@@ -361,24 +402,24 @@ class FrontendController extends Controller
 
             /********0.2% Amount Distribution*********/
 //            $total_amt = DB::selectOne("SELECT SUM(total) as total_amt FROM `order_description` WHERE order_master_id = $order->id");
-            $pointAmt = $cart_total * 0.2 / 100;
-
-            $queryResult = DB::select("call getParentId($user->id)");
-            if (count($queryResult) > 0) {
-                if (count($queryResult) >= 4) {
-                    for ($i = 0; $i < 4; $i++) {
-                        $puser = UserMaster::find($queryResult[$i]->parent_id);
-                        $puser->gain_amount += $pointAmt;
-                        $puser->save();
-                    }
-                } else {
-                    foreach ($queryResult as $parent_id) {
-                        $puser = UserMaster::find($parent_id->parent_id);
-                        $puser->gain_amount += $pointAmt;
-                        $puser->save();
-                    }
-                }
-            }
+//            $pointAmt = $cart_total * 0.2 / 100;
+//
+//            $queryResult = DB::select("call getParentId($user->id)");
+//            if (count($queryResult) > 0) {
+//                if (count($queryResult) >= 4) {
+//                    for ($i = 0; $i < 4; $i++) {
+//                        $puser = UserMaster::find($queryResult[$i]->parent_id);
+//                        $puser->gain_amount += $pointAmt;
+//                        $puser->save();
+//                    }
+//                } else {
+//                    foreach ($queryResult as $parent_id) {
+//                        $puser = UserMaster::find($parent_id->parent_id);
+//                        $puser->gain_amount += $pointAmt;
+//                        $puser->save();
+//                    }
+//                }
+//            }
 
             $address = UserAddress::find($address_id);
             $name = str_replace(' ', '', $address->name);
