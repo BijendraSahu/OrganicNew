@@ -24,6 +24,10 @@ class OrderMaster extends Model
     {
         $pointAmt = $total_amt * 0.2 / 100;
 
+        $user = UserMaster::find($user_id);
+        $user->gain_amount += $pointAmt;
+        $user->save();
+
         $queryResult = DB::select("call getParentId($user_id)");
         if (count($queryResult) > 0) {
             if (count($queryResult) >= 4) {
