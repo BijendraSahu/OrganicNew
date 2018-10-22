@@ -44,7 +44,7 @@
                 type: 'get',
                 url: "{{ url('web_check_promo') }}",
                 data: {
-                    promo_code: promo_code,
+                    promo_code: promo_code
                 },
                 success: function (data) {
                     if (data != 'Invalid') {
@@ -57,7 +57,7 @@
                         $('#net_amount').text(gAmount);
                         $('#net_amt').val(gAmount);
                         $('#PromoCode').modal('hide');
-                        $('#have_a_promo').hide()
+                        $('#have_a_promo').hide();
                         swal("Success", "Promo Code has been applied...", "success");
                     } else {
                         swal("Oops", "Please enter a valid promo code...", "info");
@@ -100,7 +100,7 @@
 
         function Paybypoint(dis) {
             gAmount = 0;
-            var pointamt = parseFloat($(dis).val());
+            var pointamt = parseInt($(dis).val());
             var net_amount = parseFloat($('#net_amount').html());
             if ($(dis).is(":checked")) {
                 $('#applyamt').removeClass('apply');
@@ -166,7 +166,7 @@
         }
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();
-            $('#add_pincode_update').tooltip({'trigger':'focus', 'title': 'Pincode must have 6 digit'});
+            $('#add_pincode_update').tooltip({'trigger': 'focus', 'title': 'Pincode must have 6 digit'});
         });
 
     </script>
@@ -212,7 +212,7 @@
                                         <div class="point_paybox apply" id="applyamt">
                                             <div class="checkbox">
                                                 <input type="checkbox" name="pay_by_point" id="pay_by_point"
-                                                       value="{{isset($user->gain_amount)?$user->gain_amount:'0'}}"
+                                                       value="{{isset($user->gain_amount)?round($user->gain_amount,2):'0'}}"
                                                        onchange="Paybypoint(this);"/>
                                                 <input type="hidden" name="selected_point" id="selected_point"/>
                                                 <input type="hidden" name="selected_promo" id="selected_promo"/>
@@ -389,11 +389,14 @@
                                     <div class="deli_row">
                                         <div class="col-sm-6">
                                             <input type="text" placeholder="Name*" name="name" id="add_name_update"
-                                                   class="form-control textWithSpace required" value="{{$_SESSION['user_master']->name}}">
+                                                   class="form-control textWithSpace required"
+                                                   value="{{$_SESSION['user_master']->name}}">
                                         </div>
                                         <div class="col-sm-6">
                                             <input type="text" placeholder="Phone No.*" name="contact"
-                                                   id="add_contact_update" minlength="10" maxlength="10" class="numberOnly form-control required"  value="{{$_SESSION['user_master']->contact}}">
+                                                   id="add_contact_update" minlength="10" maxlength="10"
+                                                   class="numberOnly form-control required"
+                                                   value="{{$_SESSION['user_master']->contact}}">
                                         </div>
                                     </div>
                                     <div class="deli_row">
@@ -569,9 +572,9 @@
                         </div>
                         <div class="order_list_container">
                             <div class="order_row border-none">
-                            @php $total = 0; $itemcount = 0; $gtotal = 0; $counter = 0; @endphp
-                            @if(count(\Gloudemans\Shoppingcart\Facades\Cart::content())>0)
-                                @foreach(\Gloudemans\Shoppingcart\Facades\Cart::content() as $row)
+                                @php $total = 0; $itemcount = 0; $gtotal = 0; $counter = 0; @endphp
+                                @if(count(\Gloudemans\Shoppingcart\Facades\Cart::content())>0)
+                                    @foreach(\Gloudemans\Shoppingcart\Facades\Cart::content() as $row)
                                         <div class="order_details_box">
                                             <div class="col-sm-9 res_pad0">
                                                 <div class="productdetails_order_row">
@@ -648,16 +651,16 @@
                                             </div>
                                             <div class="col-sm-3 res_pad0">
                                                 <div class="wish_rightcontainer">
-                                                <div class="order_amt margin_top15"><i
-                                                            class="mdi mdi-currency-inr"></i> {{number_format($row->price*$row->qty,2)}}
-                                                </div>
+                                                    <div class="order_amt margin_top15"><i
+                                                                class="mdi mdi-currency-inr"></i> {{number_format($row->price*$row->qty,2)}}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                @endforeach
-                            @else
+                                    @endforeach
+                                @else
                                     <span class="no_record">< No Record Available ></span>
-                            @endif
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -769,7 +772,7 @@
                 swal("Fields Required", "Pincode must have 6 digits", "error");
 //                $('#add_pincode').focus();
                 return false;
-            }else if (add_pincode == '') {
+            } else if (add_pincode == '') {
                 swal("Fields Required", "Please enter pincode", "error");
 //                $('#add_pincode').focus();
                 return false;
@@ -828,11 +831,13 @@
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
-                }).then((willSubmit) => {
+                }).then((willSubmit) = > {
                     if (willSubmit) {
                         document.getElementById("confirm_order").submit();
                     }
-                });
+                }
+            )
+                ;
             }
         }
 

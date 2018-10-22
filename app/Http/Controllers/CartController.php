@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ItemPrice;
 use App\OrderDescription;
 use App\OrderMaster;
 use App\UserAddress;
@@ -184,7 +185,7 @@ class CartController extends Controller
 
             if ($selected_point > 0) {
                 $user_master = UserMaster::find($user->id);
-                $user_master->gain_amount = 0;
+                $user_master->gain_amount -= $selected_point;
                 $user_master->save();
             }
 
@@ -208,6 +209,10 @@ class CartController extends Controller
                 $order_des->unit_price = $row->price;
                 $order_des->total = $row->price * $row->qty;
                 $order_des->save();
+
+                $item_price = ItemPrice::find($row->options->has('item_price_id') ? $row->options->item_price_id : '1');
+                $item_price->qty -= $row->qty;
+                $item_price->save();
             }
             \Gloudemans\Shoppingcart\Facades\Cart::destroy();
 
@@ -215,29 +220,29 @@ class CartController extends Controller
 
             /********0.2% Amount Distribution*********/
 //            $total_amt = DB::selectOne("SELECT SUM(total) as total_amt FROM `order_description` WHERE order_master_id = $order->id");
-            $pointAmt = $cart_total * 0.2 / 100;
-
-            $queryResult = DB::select("call getParentId($user->id)");
-            if (count($queryResult) > 0) {
-                if (count($queryResult) >= 4) {
-                    for ($i = 0; $i < 4; $i++) {
-                        $puser = UserMaster::find($queryResult[$i]->parent_id);
-                        $puser->gain_amount += $pointAmt;
-                        $puser->save();
-                    }
-                } else {
-                    foreach ($queryResult as $parent_id) {
-                        $puser = UserMaster::find($parent_id->parent_id);
-                        $puser->gain_amount += $pointAmt;
-                        $puser->save();
-                    }
-                }
-            }
+//            $pointAmt = $cart_total * 0.2 / 100;
+//
+//            $queryResult = DB::select("call getParentId($user->id)");
+//            if (count($queryResult) > 0) {
+//                if (count($queryResult) >= 4) {
+//                    for ($i = 0; $i < 4; $i++) {
+//                        $puser = UserMaster::find($queryResult[$i]->parent_id);
+//                        $puser->gain_amount += $pointAmt;
+//                        $puser->save();
+//                    }
+//                } else {
+//                    foreach ($queryResult as $parent_id) {
+//                        $puser = UserMaster::find($parent_id->parent_id);
+//                        $puser->gain_amount += $pointAmt;
+//                        $puser->save();
+//                    }
+//                }
+//            }
 
             $address = UserAddress::find($address_id);
             $name = str_replace(' ', '', $address->name);
 
-            file_get_contents("http://api.msg91.com/api/sendhttp.php?sender=CONONE&route=4&mobiles=$address->contact&authkey=213418AONRGdnQ5ae96f62&country=91&message=Dear%20$name,%20Your%20order has%20been%20placed%20your%20order%20no%20is%20OrganicDolchi$order->order_no");
+            file_get_contents("http://63.142.255.148/api/sendmessage.php?usr=retinodes&apikey=1A4428ABD1CB0BD43FB3&sndr=iapptu&ph=$address->contact&message=Dear%20$name,%20Your%20order%20has%20been%20placed%20your%20order%20no%20is%20OrganicDolchi$order->order_no");
 
             /********0.2% Amount Distribution*********/
 
