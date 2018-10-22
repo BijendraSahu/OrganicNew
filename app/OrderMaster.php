@@ -30,11 +30,12 @@ class OrderMaster extends Model
 
         $queryResult = DB::select("call getParentId($user_id)");
         if (count($queryResult) > 0) {
-            if (count($queryResult) >= 3) {
-                for ($i = 0; $i < 3; $i++) {
+            if (count($queryResult) >= 4) {
+                for ($i = 0; $i < 4; $i++) {
                     $puser = UserMaster::find($queryResult[$i]->parent_id);
                     $puser->gain_amount += $pointAmt;
                     $puser->save();
+                    //gffytffyuff
                 }
             } else {
                 foreach ($queryResult as $parent_id) {
