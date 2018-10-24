@@ -791,7 +791,7 @@
                         add_city: add_city,
                         add_pincode: add_pincode,
                         add_address: add_address,
-                        existaddress: existaddress,
+                        existaddress: existaddress
                     },
                     // data: value,
                     success: function (data) {
@@ -831,13 +831,12 @@
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
-                }).then((willSubmit) = > {
+                }).then((willSubmit) => {
                     if (willSubmit) {
                         document.getElementById("confirm_order").submit();
                     }
                 }
-            )
-                ;
+            );
             }
         }
 

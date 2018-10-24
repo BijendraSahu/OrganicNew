@@ -428,7 +428,7 @@ class FrontendController extends Controller
             $address = UserAddress::find($address_id);
             $name = str_replace(' ', '', $address->name);
 
-            file_get_contents("http://63.142.255.148/api/sendmessage.php?usr=retinodes&apikey=1A4428ABD1CB0BD43FB3&sndr=iapptu&ph=$address->contact&message=Dear%20$name,%20Your%20order%20has%20been%20placed%20your%20order%20no%20is%20OrganicDolchi$order->order_no");
+           file_get_contents("http://63.142.255.148/api/sendmessage.php?usr=retinodes&apikey=1A4428ABD1CB0BD43FB3&sndr=iapptu&ph=$address->contact&message=Dear%20$name,%20Your%20order%20has%20been%20placed%20your%20order%20no%20is%20OrganicDolchi$order->order_no");
 
 
             /********0.2% Amount Distribution*********/
