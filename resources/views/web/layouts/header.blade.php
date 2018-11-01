@@ -127,7 +127,7 @@
 </nav>
 <div class="page_loader" id="page_loader2" style="background: rgb(251, 251, 251, 0.7);display:none;">
     <div class="loaders">
-        <img src="images/page-loader.gif" alt="pageloader" />
+        <img src="{{url('images/page-loader.gif')}}" alt="pageloader" />
     </div>
 </div>
 <div class="page_loader" id="page_loader">
