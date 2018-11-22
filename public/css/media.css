@@ -366,6 +366,10 @@
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
+    .check_mainbox
+    {
+        margin-bottom: 15px;
+    }
     .top_menubox {
         padding-left: 175px;
     }
