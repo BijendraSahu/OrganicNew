@@ -218,7 +218,7 @@
                                                 <input type="hidden" name="selected_promo" id="selected_promo"/>
                                             </div>
                                             <i class="mdi mdi-currency-inr"
-                                               id="point">{{isset($user->gain_amount)?$user->gain_amount:'0'}}</i>
+                                               id="point">{{isset($user->gain_amount)?intval($user->gain_amount):'0'}}</i>
                                         </div>
                                     </div>
                                 </div>

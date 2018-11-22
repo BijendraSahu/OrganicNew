@@ -73,15 +73,13 @@ class FrontendController extends Controller
         $email = request('email');
         $mobile = request('contact');
         $useremail = DB::selectone("SELECT * FROM `users` WHERE id != $user->id and email = '$email'");
-        $usermob = DB::selectone("SELECT * FROM `users` WHERE id != $user->id and contact = '$mobile'");
+//        $usermob = DB::selectone("SELECT * FROM `users` WHERE id != $user->id and contact = '$mobile'");
         if (isset($useremail)) {
             return 'Email is already exist';
-        } elseif (isset($usermob)) {
-            return 'Contact is already exist';
         } else {
             $user->name = request('name');
             $user->email = request('email');
-            $user->contact = request('contact');
+//            $user->contact = request('contact');
             $file = $request->file('profile_img');
             if ($request->file('profile_img') != null) {
                 $destination_path = 'u_img/' . $user->id . '/';

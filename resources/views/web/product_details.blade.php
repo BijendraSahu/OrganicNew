@@ -23,7 +23,6 @@
         }
 
         function Initialize_ProductDetails() {
-            debugger;
             var native_width = 0;
             var native_height = 0;
             $(".large").css("background", "url('" + $(".small").attr("src") + "') no-repeat");
