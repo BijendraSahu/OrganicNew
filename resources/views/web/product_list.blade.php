@@ -14,7 +14,7 @@
             margin: 5px 0px 15px 0px;
         }
         .animate_top {
-            top: 60px;
+            top: 100px;
         }
         .owl-dots {
             display: none;

@@ -2242,6 +2242,7 @@ ol.progtrckr li.progtrckr-todo:before {
     display: inline-block;
     width: 100%;
     margin-bottom: 15px;
+    position: relative;
 }
 
 .percent_show {
@@ -2251,7 +2252,16 @@ ol.progtrckr li.progtrckr-todo:before {
     margin-top: 15px;
     background: #fbfbfb;
 }
-
+.var_email_icon {
+    position: absolute;
+    right: 5px;
+    top: 6px;
+    width: 25px;
+    height: 22px;
+    text-align: center;
+    font-size: 22px;
+    line-height: 22px;
+}
 /*--------------------------End Checkout----------------------------*/
 /*--------------------------Popup Css----------------------------*/
 .popup_bgcolor {

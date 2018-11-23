@@ -138,10 +138,18 @@
                                             <div class="deli_row">
                                                 <input type="text" name="email" value="{{$user->email}}" id="e_id"
                                                        placeholder="Email Id"
-                                                       class="form-control" onkeypress="return false;"/>
+                                                       class="form-control" onkeypress="return false;"
+                                                       style="padding-right: 30px;"/>
+                                                <div class="var_email_icon">
+                                                    <i class="mdi mdi-check-circle" data-toggle="tooltip"
+                                                       title="Verified" style="color: #86bc43;"></i>
+                                                    <i class="mdi mdi-information" data-toggle="tooltip"
+                                                       title="Not Verified" style="color: #ff2f2f; display: none;"></i>
+                                                </div>
                                             </div>
                                             <div class="deli_row">
-                                                <input type="text" disabled name="contact" value="{{$user->contact}}" id="p_id"
+                                                <input type="text" disabled name="contact" value="{{$user->contact}}"
+                                                       id="p_id"
                                                        placeholder="Phone No."
                                                        class="form-control" onkeypress="return false;"/>
                                             </div>
@@ -149,8 +157,8 @@
                                                 <strong>My Rewards : </strong>
                                                 <strong>{{$user->gain_amount}}</strong>
                                                 {{--<input type="text" disabled name="contact" value="{{$user->contact}}" id="p_id"--}}
-                                                       {{--placeholder="Phone No."--}}
-                                                       {{--class="form-control" onkeypress="return false;"/>--}}
+                                                {{--placeholder="Phone No."--}}
+                                                {{--class="form-control" onkeypress="return false;"/>--}}
                                             </div>
                                             <div class="deli_row">
                                                 <button type="submit" class="btn btn-success confirm_order_btn"><i
