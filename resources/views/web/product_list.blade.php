@@ -13,7 +13,9 @@
             z-index: 1;
             margin: 5px 0px 15px 0px;
         }
-
+        .animate_top {
+            top: 60px;
+        }
         .owl-dots {
             display: none;
         }
