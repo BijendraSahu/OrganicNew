@@ -22,7 +22,7 @@
 
                                 <div id="snackbar">New Categories added Successfully</div>
                                 <p class="clearfix"></p>
-                                <input id='myInput' class="form-control" placeholder="search" onkeyup='searchTable()' type='text'>
+                            {{--    <input id='myInput' class="form-control" placeholder="search" onkeyup='searchTable()' type='text'>--}}
 <br>
 <section id="user_table">
                                 <table class="table table-striped" id='myTable'>
@@ -34,7 +34,9 @@
                                         <th>Gender</th>
                                         <th>Contact</th>
                                         <th>Status</th>
+                                        <th>Rewards</th>
                                         <th>Action</th>
+                                       {{-- <th>Action</th>--}}
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -56,7 +58,10 @@
                                                 <a href="#" onclick="deactivate({{$userobject->id}});"><div class="status pending">Active</div></a>@else
                                                 <a href="#" onclick="activate({{$userobject->id}});"><div class="status approved">Inactive</div></a>@endif
                                         </td>
-                                        <td>       <div class="btn-group">
+                                        <td>{{$userobject->gain_amount}}</td>
+                                        <td><button class="btn btn-primary btn-sm" onclick="activatecod({{$userobject->id}});">Cod Allow</button>
+                                       <button class="btn btn-info btn-sm" onclick="deactivatecod({{$userobject->id}});">Cod Dis-Allow</button></td>
+                                       {{-- <td>       <div class="btn-group">
                                                 <button type="button" class="btn btn-primary btn-sm action-btn"
                                                         data-toggle="dropdown" aria-haspopup="true"
                                                         aria-expanded="false">Options
@@ -66,13 +71,19 @@
                                                         aria-expanded="true"><span class="caret"></span><span
                                                             class="sr-only">Toggle Dropdown</span></button>
                                                 <ul class="dropdown-menu dropdown-menu-right grid-dropdown">
-                                                 {{--   <li><a href="#" onclick="" data-toggle="modal"
+                                                 --}}{{--   <li><a href="#" onclick="" data-toggle="modal"
                                                            data-target="#"><i
                                                                     class="mdi mdi-lead-pencil optiondrop_icon"></i>Edit</a>
                                                     </li>
                                                     <li><a href="#" onclick=""><i
                                                                     class="mdi mdi-delete optiondrop_icon"></i>Delete</a>
-                                                    </li>--}}
+                                                    </li>--}}{{--
+                                                    <li><a href="#"
+                                                           onclick="inactiveuser({{$userobject->id}});"
+                                                           class="border_none" data-toggle="modal"
+                                                           data-target=""><i
+                                                                    class="mdi mdi-star optiondrop_icon"></i>Inactive User</a>
+                                                    </li>
                                                     <li><a href="#"
                                                            onclick="show_full({{$userobject->id}});"
                                                            class="border_none" data-toggle="modal"
@@ -82,7 +93,7 @@
                                                 </ul>
                                             </div>
 
-                                        </td>
+                                        </td>--}}
                                     </tr>
 
                                         @endforeach
@@ -103,6 +114,9 @@
         </div>
     </section>
     <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
         function searchTable() {
             var input, filter, found, table, tr, td, i, j;
             input = document.getElementById("myInput");
@@ -126,6 +140,8 @@
         }
     </script>
     <script>
+
+
         function activate(id)
         {
             var IDD=id;
@@ -146,6 +162,28 @@
             });
 
         }
+
+        function activatecod(id)
+        {
+            var IDD=id;
+            $.ajax({
+                type: "get",
+                url: "{{url('/activate_user_cod')}}",
+                data: "IDD= " + IDD ,
+                success: function (data) {
+                    myFunction();
+                    $('#snackbar').html('');
+                    $('#snackbar').addClass('show');
+                    $('#snackbar').html('User Cod Is Active');
+                    $("#user_table").load(location.href + " #user_table");
+                },
+                error: function (data) {
+
+                }
+            });
+
+        }
+
         function deactivate(id)
         {
             var IDD=id;
@@ -158,6 +196,25 @@
                     $('#snackbar').html('');
                     $('#snackbar').addClass('show');
                     $('#snackbar').html('User Is Inactive');
+                    $("#user_table").load(location.href + " #user_table");
+                },
+                error: function (data) {
+
+                }
+            });
+        }
+        function deactivatecod(id)
+        {
+            var IDD=id;
+            $.ajax({
+                type: "get",
+                url: "{{url('/deactivate_user_cod')}}",
+                data: "IDD= " + IDD ,
+                success: function (data) {
+                    myFunction();
+                    $('#snackbar').html('');
+                    $('#snackbar').addClass('show');
+                    $('#snackbar').html('User Cod Is Inactive');
                     $("#user_table").load(location.href + " #user_table");
                 },
                 error: function (data) {

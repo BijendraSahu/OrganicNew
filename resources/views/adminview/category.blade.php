@@ -25,6 +25,14 @@
         {
             background: #1e81cd52 !important;
         }
+        .errorcls
+        {
+           border: red solid 2px;
+        }
+        .editclas
+        {
+            border: blue 3px solid;
+        }
 
     </style>
 
@@ -111,17 +119,16 @@
 
     {{--////////////////////////////////////////////////*****Start Menu 2******//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--}}
     <script>
+
+
         function validate() {
             var cat_name = $('#cat_name').val();
             var cat_description = $('#cat_description').val();
-            if (cat_name == "") {
-                $('#cat_name').addClass("w3-border-red");
-                return false;
-            }
-            else if (cat_description == "") {
-                $('#cat_description').addClass("w3-border-red");
-                return false;
 
+
+            if (cat_name == "") {
+                $('#cat_name').addClass("errorcls");
+                return false;
             }
             else {
                 sendcat();
@@ -162,7 +169,7 @@
                 $('#mybody').html('');
                 $('#myfooter').html('');
                 $('#myheader').append('<div><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Add Categories</h4></div>');
-                $('#mybody').append('<div class="panel-body dash_table_containner"><input type="text" class="form-control vRequiredTex" name="cat_name" placeholder="Enter Your Category Name " id="cat_name"><p class="clearfix"></p><textarea name="cat_description" id="cat_description" class="form-control vRequiredTex" rows="4" cols="50" placeholder="Enter Your Description "></textarea></p></div>');
+                $('#mybody').append('<div class="panel-body dash_table_containner"><input type="text" class="form-control vRequiredTex" name="cat_name" placeholder="Enter Your Category Name " maxlength="25" id="cat_name"><p class="clearfix"></p><textarea name="cat_description" id="cat_description" class="form-control vRequiredTex" rows="4" cols="50" maxlength="25" placeholder="Enter Your Description "></textarea></p></div>');
                 $('#myfooter').append('<button id="add_btn" type="button" class="btn btn-default" data-dismiss="modal">Close</button><button onclick="validate();" class="btn btn-primary">Add</button>');
                 $('#myModal').modal();
             });
@@ -181,12 +188,14 @@
 
         function abcd($id) {
             $('.edittable' + $id).attr('contenteditable', 'true');
+            $('.edittable' + $id).addClass("editclas");
             $('.edit' + $id).hide();
             $('.update' + $id).show();
 
         }
         function abcdd($id) {
             $('.edittable' + $id).attr('contenteditable', 'false');
+            $('.edittable' + $id).removeClass("editclas");
             $('.edit' + $id).show();
             $('.update' + $id).hide();
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Brand;
 use App\Categorymaster;
 use App\ItemCategory;
 use App\ItemCategorymaster;
@@ -27,9 +28,10 @@ class ItemmasterController extends Controller
             if ($_SESSION['admin_master'] != null) {
                 $alldata = Categorymaster::where(['is_active' => 1])->paginate(10);
                 $allcat = Categorymaster::where(['is_active' => 1])->get();
+                $brands = Brand::where(['is_active' => 1])->get();
                 $alldata1 = Categorymaster::where(['is_active' => 1])->get();
                 $all_items = ItemMaster::orderBy('id', 'DESC')->paginate(10);
-                return view('adminview.item_new', ['alldata' => $alldata, 'alldata1' => $alldata1, 'allcat' => $allcat, 'all_items' => $all_items])->with('no', 1);
+                return view('adminview.item_new', ['alldata' => $alldata, 'alldata1' => $alldata1, 'allcat' => $allcat, 'all_items' => $all_items, 'brands' => $brands])->with('no', 1);
             } else {
                 return redirect('/adminlogin');
             }

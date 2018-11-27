@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{url('assets/css/Dashboard.css')}}"/>
     <link rel="stylesheet" href="{{url('assets/css/Autocomplete.css')}}"/>
     <link rel="stylesheet" href="{{url('assets/css/media.css')}}"/>
-    <link rel="stylesheet" href="{{url('assets/css/w3.css')}}"/>
+    {{--<link rel="stylesheet" href="{{url('assets/css/w3.css')}}"/>--}}
     <link rel="stylesheet" href="{{url('assets/css/form-wizard-green.css')}}">
     <link rel="stylesheet" href="{{url('assets/css/text_editor.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
@@ -1097,6 +1097,18 @@
                     <a href="{{url('organic').'/'.encrypt(1).'/rollmastermenu'}}">
                         <i class="dash_arrow mdi mdi mdi-account-settings-variant global_color"></i>
                         <span class="aside_menu_txt">Role Master</span>
+                    </a>
+                </li>
+            @endif
+        @endforeach
+
+            @foreach($mymenuroll as $mymenurollone)
+            @if($mymenurollone->menu_id==16)
+                <li class="right_menu_li">
+                    {{--<a href="{{url('/rollmastermenu')}}">--}}
+                    <a href="{{url('organic').'/'.encrypt(1).'/brand'}}">
+                        <i class="dash_arrow mdi mdi mdi-account-settings-variant global_color"></i>
+                        <span class="aside_menu_txt">Brand</span>
                     </a>
                 </li>
             @endif

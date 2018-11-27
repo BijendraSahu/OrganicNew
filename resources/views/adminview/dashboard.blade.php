@@ -40,7 +40,7 @@
 
                         @foreach($mymenuroll as $mymenurollone)
                             @if($mymenurollone->menu_id==2)
-                                <?php $cdata = \App\ItemCategory::where(['is_active' => 1])->count();?>
+                                <?php $cdata = \App\Categorymaster::where(['is_active' => 1])->count();?>
                                 <a href="{{url('organic').'/'.encrypt(1).'/category'}}">
                                     <div class="col-sm-3">
                                         <div class="white_brics">
@@ -186,7 +186,7 @@
 
                         @foreach($mymenuroll as $mymenurollone)
                             @if($mymenurollone->menu_id==9)
-                                <?php $cidata = \App\Cities::count();?>
+                                <?php $cidata = \App\Cities::where(['is_deleted'=>0])->count();?>
                                 <a href="{{url('organic').'/'.encrypt(1).'/citylist'}}">
                                     <div class="col-sm-3">
                                         <div class="white_brics">
@@ -234,7 +234,7 @@
                             @if($mymenurollone->menu_id==13)
 
                                 <a href="{{url('organic').'/'.encrypt(1).'/blog'}}">
-                                    <?php $blogdata = \App\Blogmodel::count();?>
+                                    <?php $blogdata = \App\Blogmodel::where(['is_active'=>1])->count();?>
                                     <div class="col-sm-3">
                                         <div class="white_brics">
                                             <div class="white_icon_withtxt">
@@ -255,7 +255,7 @@
 
                                 <a href="{{url('organic').'/'.encrypt(1).'/testimonials'}}">
 
-                                    <?php $rdata = \App\Review::where(['is_active' => 1])->count();?>
+                                    <?php $rdata = \App\Testimonials::where(['is_active' => 1])->count();?>
                                     <div class="col-sm-3">
                                         <div class="white_brics">
                                             <div class="white_icon_withtxt">
@@ -443,7 +443,7 @@
                     <div class="home_brics_row">
                         @foreach($mymenuroll as $mymenurollone)
                             @if($mymenurollone->menu_id==14)
-                                <?php $ddata = \App\DeliveryModel::where(['is_active' => 1])->count();?>
+                                <?php $ddata = \App\Subscribe::count();?>
                                 <a href="{{url('organic').'/'.encrypt(1).'/subscribe'}}">
                                     <div class="col-sm-3">
                                         <div class="white_brics">
@@ -471,7 +471,7 @@
                                                 <div class="white_icons_blk white_brics_clr3"><i
                                                             class="mdi mdi-forum"></i></div>
                                                 <div class="white_brics_txt">Role Master</div>
-                                                <div class="white_brics_count">{{$rdata}}</div>
+                                                <div class="white_brics_count">No</div>
                                             </div>
                                             <div class="brics_progress white_brics_border_clr3"></div>
                                         </div>

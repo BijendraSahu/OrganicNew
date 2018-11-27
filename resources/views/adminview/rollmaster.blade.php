@@ -98,7 +98,11 @@
                                         @foreach($myrdata as $obj)
 
                                             <tr>
+                                                @if($obj->image==''||$obj->image==null)
+                                                    <td><img style="height: 90px;" src="{{url('du.png')}}"></td>
+                                                @else
                                                 <td><img style="height: 90px;" src="{{url('/admin_pic').'/'.$obj->id.'/'.$obj->image}}"></td>
+                                                @endif
                                                 <td>{{$obj->username}}</td>
                                                 <td>{{$obj->rm->roll}}</td>
                                                 <td>

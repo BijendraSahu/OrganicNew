@@ -195,6 +195,12 @@ Route::get('/add_delivery','DeliveryController@add_delivery');
 Route::get('/update_delivery','DeliveryController@update_delivery');
 Route::get('/delete_del','DeliveryController@delete_del');
 
+
+Route::get('organic/{id}/brand','BrandController@brands');
+Route::get('/add_brand','BrandController@add_brand');
+Route::get('/update_brand','BrandController@update_brand');
+Route::get('/delete_brand','BrandController@delete_brand');
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Route::get('organic/{id}/ask','AskController@ask');
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
