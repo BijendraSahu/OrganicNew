@@ -37,7 +37,7 @@ Route::get('checkout', 'FrontendController@checkout');
 Route::get('pd', 'FrontendController@product_details');
 Route::get('view_product/{slug}', 'FrontendController@product_details');
 Route::get('view_product_search/{id}', 'FrontendController@view_product_search');
-Route::get('/wishlist','FrontendController@wishlist');
+Route::get('/wishlist', 'FrontendController@wishlist');
 
 //Route::post('login', 'FrontendController@login');
 Route::get('register_user', 'User_loginController@register');
@@ -49,7 +49,6 @@ Route::get('verify_otp', 'User_loginController@verify_otp');
 Route::get('forgot_password', 'User_loginController@forgot_password');
 
 
-
 Route::post('profile_update', 'FrontendController@profile_update');
 Route::get('removeProfile', 'FrontendController@removeProfile'); //Profile
 Route::get('getexistaddress', 'FrontendController@getexistaddress');
@@ -57,10 +56,9 @@ Route::get('address_update', 'FrontendController@address_update');
 Route::post('change_p', 'FrontendController@change_password');
 Route::post('confirm_order', 'FrontendController@confirm_order');
 
-Route::get('web_check_promo','FrontendController@web_check_promo');
+Route::get('web_check_promo', 'FrontendController@web_check_promo');
 
-Route::get('search_product','FrontendController@search_product');
-
+Route::get('search_product', 'FrontendController@search_product');
 
 
 Route::get('cart_load', 'CartController@cartload');
@@ -84,47 +82,44 @@ Route::post('failed', 'CartController@payment_failed');
 Route::get('blogs', 'FrontendController@blog_list');
 Route::get('view_blog/{slug}', 'FrontendController@view_blog');
 
-Route::get('/blog','BlogController@blog');
-Route::get('/addblogcat','BlogController@addblogcat');
-Route::get('/blogpost','BlogController@blogpost');
-Route::post('/blogpic','BlogController@blogpic');
-Route::get('myrecipe','RecipeController@my_recipe_list');
-Route::post('recipe_store','RecipeController@recipe_store');
-Route::get('recipe_delete','RecipeController@recipe_delete');
-Route::get('/recipelist','RecipeController@recipe_list');
+Route::get('/blog', 'BlogController@blog');
+Route::get('/addblogcat', 'BlogController@addblogcat');
+Route::get('/blogpost', 'BlogController@blogpost');
+Route::post('/blogpic', 'BlogController@blogpic');
+Route::get('myrecipe', 'RecipeController@my_recipe_list');
+Route::post('recipe_store', 'RecipeController@recipe_store');
+Route::get('recipe_delete', 'RecipeController@recipe_delete');
+Route::get('/recipelist', 'RecipeController@recipe_list');
 Route::get('notify', 'FrontendController@notify');
 Route::get('subscribe', 'FrontendController@subscribe');
-Route::get('view_recipe/{id}','RecipeController@view_recipe');
-
-
-
+Route::get('view_recipe/{id}', 'RecipeController@view_recipe');
 
 
 /*************API******************/
-Route::get('getCategory','APIController@getCategory');
-Route::get('getItem_bycid','APIController@get_item_by_cid');
-Route::get('getItem','APIController@get_item_by_id');
-Route::get('getAllItem','APIController@get_All_item');
-Route::get('getlogin','APIController@getlogin');
-Route::get('verifyotp','APIController@verify_otp');
+Route::get('getCategory', 'APIController@getCategory');
+Route::get('getItem_bycid', 'APIController@get_item_by_cid');
+Route::get('getItem', 'APIController@get_item_by_id');
+Route::get('getAllItem', 'APIController@get_All_item');
+Route::get('getlogin', 'APIController@getlogin');
+Route::get('verifyotp', 'APIController@verify_otp');
 Route::get('forgotpassword', 'APIController@forgot_password');
-Route::get('resend_otp','APIController@resend_otp');
-Route::get('searchCategory','APIController@searchCategory');
-Route::post('getregister','APIController@getregister');
-Route::get('change_password','APIController@change_password');
-Route::post('edit_profile','APIController@edit_profile');
-Route::post('insert_user_address','APIController@insert_user_address');
-Route::post('update_user_address','APIController@update_user_address');
-Route::get('getaddress','APIController@getaddress');
-Route::get('getaddressbyid','APIController@getaddressbyid');
+Route::get('resend_otp', 'APIController@resend_otp');
+Route::get('searchCategory', 'APIController@searchCategory');
+Route::post('getregister', 'APIController@getregister');
+Route::get('change_password', 'APIController@change_password');
+Route::post('edit_profile', 'APIController@edit_profile');
+Route::post('insert_user_address', 'APIController@insert_user_address');
+Route::post('update_user_address', 'APIController@update_user_address');
+Route::get('getaddress', 'APIController@getaddress');
+Route::get('getaddressbyid', 'APIController@getaddressbyid');
 
-Route::post('insert_review','APIController@insert_review');
-Route::get('getreview','APIController@getreview');
-Route::get('delivery_charge','APIController@delivery_charge');
-Route::get('searchitem','APIController@searchitem');
-Route::get('check_promo','APIController@check_promo');
-Route::post('confirm_checkout','APIController@confirm_checkout');
-Route::get('getOrders','APIController@getOrders');
+Route::post('insert_review', 'APIController@insert_review');
+Route::get('getreview', 'APIController@getreview');
+Route::get('delivery_charge', 'APIController@delivery_charge');
+Route::get('searchitem', 'APIController@searchitem');
+Route::get('check_promo', 'APIController@check_promo');
+Route::post('confirm_checkout', 'APIController@confirm_checkout');
+Route::get('getOrders', 'APIController@getOrders');
 /*************API******************/
 /////////////////////////////////******Aditya***********/////////////////////////////////////////////////////////////////////////
 
@@ -190,60 +185,70 @@ Route::get('/changepass', 'SettingController@changepass');
 Route::post('myadminpost', 'SettingController@myadminpost');
 //////////////////////////////////////*********delivery*************////////////////////////////////////////////////////////////////////////////////////////
 
-Route::get('organic/{id}/delivery','DeliveryController@delivery');
-Route::get('/add_delivery','DeliveryController@add_delivery');
-Route::get('/update_delivery','DeliveryController@update_delivery');
-Route::get('/delete_del','DeliveryController@delete_del');
+Route::get('organic/{id}/delivery', 'DeliveryController@delivery');
+Route::get('/add_delivery', 'DeliveryController@add_delivery');
+Route::get('/update_delivery', 'DeliveryController@update_delivery');
+Route::get('/delete_del', 'DeliveryController@delete_del');
 
+/***************************Bijendra*******************************/
+/******Brands******/
+Route::get('organic/{id}/brand', 'BrandController@brands');
+Route::get('/add_brand', 'BrandController@add_brand');
+Route::get('/update_brand', 'BrandController@update_brand');
+Route::get('/delete_brand', 'BrandController@delete_brand');
+/******Brands******/
 
-Route::get('organic/{id}/brand','BrandController@brands');
-Route::get('/add_brand','BrandController@add_brand');
-Route::get('/update_brand','BrandController@update_brand');
-Route::get('/delete_brand','BrandController@delete_brand');
+/******ShopPoints******/
+Route::get('organic/{id}/shop_points', 'ShopPointsController@shop_points');
+Route::get('/add_shop_points', 'ShopPointsController@add_shop_points');
+Route::get('/update_shop_points', 'ShopPointsController@update_shop_points');
+Route::get('/delete_shop_points', 'ShopPointsController@delete_shop_points');
+/******ShopPoints******/
+/***************************Bijendra*******************************/
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Route::get('organic/{id}/ask','AskController@ask');
+Route::get('organic/{id}/ask', 'AskController@ask');
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Route::get('organic/{id}/blog','BlogController@blog');
-Route::get('/addblogcat','BlogController@addblogcat');
-Route::get('/blogpost','BlogController@blogpost');
-Route::get('/upblogpost','BlogController@upblogpost');
-Route::post('/blogpic','BlogController@blogpic');
+Route::get('organic/{id}/blog', 'BlogController@blog');
+Route::get('/addblogcat', 'BlogController@addblogcat');
+Route::get('/blogpost', 'BlogController@blogpost');
+Route::get('/upblogpost', 'BlogController@upblogpost');
+Route::post('/blogpic', 'BlogController@blogpic');
 //////////////////////////////////////////////////////////////////////////////////////
-Route::get('/myrecipe','RecipeController@my_recipe_list');
-Route::get('/recipelist','RecipeController@recipe_list');
-Route::get('/updateblog/{id}','BlogController@updateblog');
-Route::get('/approvereciepe','RecipeController@approvereciepe');
-Route::get('/rejectRecip','RecipeController@rejectRecip');
-Route::get('/deleteRecip','RecipeController@deleteRecip');
+Route::get('/myrecipe', 'RecipeController@my_recipe_list');
+Route::get('/recipelist', 'RecipeController@recipe_list');
+Route::get('/updateblog/{id}', 'BlogController@updateblog');
+Route::get('/approvereciepe', 'RecipeController@approvereciepe');
+Route::get('/rejectRecip', 'RecipeController@rejectRecip');
+Route::get('/deleteRecip', 'RecipeController@deleteRecip');
 
-Route::get('organic/{id}/allreciepe','RecipeController@allreciepe');
+Route::get('organic/{id}/allreciepe', 'RecipeController@allreciepe');
 //////////////////////////////////////////////////////////////////////////////////////////////
-Route::get('organic/{id}/testimonials','TestimonialsController@list');
-Route::get('/addtstimonials','TestimonialsController@addtstimonials');
-Route::get('/inactivetest','TestimonialsController@inactivetest');
-Route::get('/activetest','TestimonialsController@activetest');
-Route::get('/deletetest','TestimonialsController@deletetest');
-Route::get('organic/{id}/subscribe','SubscribeController@view');
+Route::get('organic/{id}/testimonials', 'TestimonialsController@list');
+Route::get('/addtstimonials', 'TestimonialsController@addtstimonials');
+Route::get('/inactivetest', 'TestimonialsController@inactivetest');
+Route::get('/activetest', 'TestimonialsController@activetest');
+Route::get('/deletetest', 'TestimonialsController@deletetest');
+Route::get('organic/{id}/subscribe', 'SubscribeController@view');
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-Route::get('organic/{id}/rollmastermenu','RollmasterController@view');
-Route::get('/postrollmaster','RollmasterController@postrollmaster');
-Route::get('/postrollmasterupdate','RollmasterController@postrollmasterupdate');
-Route::get('/getfullrole/{id}','RollmasterController@getfullrole');
+Route::get('organic/{id}/rollmastermenu', 'RollmasterController@view');
+Route::get('/postrollmaster', 'RollmasterController@postrollmaster');
+Route::get('/postrollmasterupdate', 'RollmasterController@postrollmasterupdate');
+Route::get('/getfullrole/{id}', 'RollmasterController@getfullrole');
 
 
 /////////////////////////////////////////////Outer rought/////////////////////////////////////////////////
-Route::get('/aboutus','RecipeController@aboutus');
-Route::get('/faq','RecipeController@faq');
-Route::get('/terms','RecipeController@terms');
-Route::get('/payments','RecipeController@payments');
-Route::get('/returnpolicy','RecipeController@returnpolicy');
-Route::get('/blog','RecipeController@blog');
-Route::get('/blogdetail','RecipeController@blogdetail');
-Route::get('/contactus','RecipeController@contactus');
-
+Route::get('/aboutus', 'RecipeController@aboutus');
+Route::get('/faq', 'RecipeController@faq');
+Route::get('/terms', 'RecipeController@terms');
+Route::get('/payments', 'RecipeController@payments');
+Route::get('/returnpolicy', 'RecipeController@returnpolicy');
+Route::get('/blog', 'RecipeController@blog');
+Route::get('/blogdetail', 'RecipeController@blogdetail');
+Route::get('/contactus', 'RecipeController@contactus');
 
 
 ///////////////////////////////////////////////////////////////////
-Route::get('/developers','RecipeController@developers');
+Route::get('/developers', 'RecipeController@developers');

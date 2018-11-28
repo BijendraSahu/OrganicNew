@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Brand;
 use App\Categorymaster;
+use App\ItemBrand;
 use App\ItemCategory;
 use App\ItemCategorymaster;
 use App\ItemImages;
@@ -137,6 +138,16 @@ class ItemmasterController extends Controller
             }
         }
 
+        $finalbrand = request('brand');
+        if (request('brand') != null) {
+            for ($i = 0; $i < sizeof($finalbrand); $i++) {
+                $item_category = new ItemBrand();
+                $item_category->brand_id = $finalbrand[$i];
+                $item_category->item_master_id = $item->id;
+                $item_category->save();
+            }
+        }
+
         $count = count(request('unit')) / 7;
         $item_unit = request('unit');
         $u = 0;
@@ -157,7 +168,7 @@ class ItemmasterController extends Controller
             $price->qty = $item_unit[$q];
             $price->product_id = $item_unit[$pr];
             $price->save();
-            $u = $pr+ 1;
+            $u = $pr + 1;
             $k = $pr + 2;
             $cp = $pr + 3;
             $p = $pr + 4;
@@ -182,8 +193,9 @@ class ItemmasterController extends Controller
         $all_items = ItemMaster::find($id);
         $all_items_price = ItemPrice::where(['item_master_id' => $findthis])->get();
         $all_items_cat = ItemCategorymaster::where(['item_master_id' => $findthis])->get();
+        $all_items_brands = ItemBrand::where(['item_master_id' => $findthis])->get();
         $all_items_image = ItemImages::where(['item_master_id' => $findthis])->get();
-        return view('adminview.view_item', ['all_items' => $all_items, 'all_items_price' => $all_items_price, 'all_items_cat' => $all_items_cat, 'all_items_image' => $all_items_image]);
+        return view('adminview.view_item', ['all_items' => $all_items, 'all_items_price' => $all_items_price, 'all_items_cat' => $all_items_cat, 'all_items_image' => $all_items_image, 'all_items_brands' => $all_items_brands]);
 
     }
 
@@ -191,12 +203,14 @@ class ItemmasterController extends Controller
     {
         $findthis = $id;
         $allcat = Categorymaster::where(['is_active' => 1])->get();
+        $allbrands = Brand::where(['is_active' => 1])->get();
         $all_items = ItemMaster::find($id);
         $all_items_price = ItemPrice::where(['item_master_id' => $findthis])->get();
         $all_items_cat = ItemCategorymaster::where(['item_master_id' => $findthis])->get();
+        $all_items_brands = ItemBrand::where(['item_master_id' => $findthis])->get();
         $all_items_image = ItemImages::where(['item_master_id' => $findthis])->get();
         $all_items_meta = itemMetamodel::where(['item_master_id' => $findthis])->get();
-        return view('adminview.edit_item', ['all_items' => $all_items, 'all_items_price' => $all_items_price, 'all_items_cat' => $all_items_cat, 'all_items_image' => $all_items_image, 'allcat' => $allcat, 'all_items_meta' => $all_items_meta,'findthis'=>$findthis]);
+        return view('adminview.edit_item', ['all_items' => $all_items, 'all_items_price' => $all_items_price, 'all_items_cat' => $all_items_cat, 'all_items_image' => $all_items_image, 'allcat' => $allcat, 'all_items_meta' => $all_items_meta, 'findthis' => $findthis, 'all_items_brands' => $all_items_brands, 'allbrands' => $allbrands]);
 
     }
 
@@ -211,6 +225,7 @@ class ItemmasterController extends Controller
         return 1;
 
     }
+
     public function activatemy_item()
     {
         /*  $reqidd=request('IDD');*/
@@ -227,7 +242,7 @@ class ItemmasterController extends Controller
     {
 
 
-        $update_this= request('i_id');
+        $update_this = request('i_id');
 
         $data = array(
             'name' => request('item_name'),
@@ -257,15 +272,24 @@ class ItemmasterController extends Controller
         }
 
 
-
-        ItemCategory::where('item_master_id', $update_this)
-            ->delete();
+        //ItemCategory::where('item_master_id', $update_this)->delete();
 
         $finalcat = request('category');
         if (request('category') != null) {
             for ($i = 0; $i < sizeof($finalcat); $i++) {
+                ItemCategorymaster::where(['item_master_id' => $update_this])->delete();
                 $item_category = new ItemCategorymaster();
                 $item_category->category_id = $finalcat[$i];
+                $item_category->item_master_id = $update_this;
+                $item_category->save();
+            }
+        }
+        $finalbrand = request('brand');
+        if (request('brand') != null) {
+            ItemBrand::where(['item_master_id' => $update_this])->delete();
+            for ($i = 0; $i < sizeof($finalbrand); $i++) {
+                $item_category = new ItemBrand();
+                $item_category->brand_id = $finalcat[$i];
                 $item_category->item_master_id = $update_this;
                 $item_category->save();
             }
@@ -283,26 +307,25 @@ class ItemmasterController extends Controller
         $q = 5;
         $pr = 6;
         for ($i = 0; $i < $count; $i++) {
-            if ($item_unit[$u] != "")
-            {
+            if ($item_unit[$u] != "") {
                 $price = new ItemPrice();
-            $price->item_master_id = $update_this;
-            $price->unit = $item_unit[$u];
-            $price->weight = $item_unit[$k];
-            $price->cost_price = $item_unit[$cp];
-            $price->price = $item_unit[$p];
-            $price->spl_price = $item_unit[$s];
-            $price->qty = $item_unit[$q];
-            $price->product_id = $item_unit[$pr];
-            $price->save();
-                $u = $pr+ 1;
+                $price->item_master_id = $update_this;
+                $price->unit = $item_unit[$u];
+                $price->weight = $item_unit[$k];
+                $price->cost_price = $item_unit[$cp];
+                $price->price = $item_unit[$p];
+                $price->spl_price = $item_unit[$s];
+                $price->qty = $item_unit[$q];
+                $price->product_id = $item_unit[$pr];
+                $price->save();
+                $u = $pr + 1;
                 $k = $pr + 2;
                 $cp = $pr + 3;
                 $p = $pr + 4;
                 $s = $pr + 5;
                 $q = $pr + 6;
                 $pr = $pr + 7;
-        }
+            }
         }
 
         return redirect('items')->with('message', 'Product has been Updated');
@@ -311,7 +334,7 @@ class ItemmasterController extends Controller
 
     public function delete_item_pic()
     {
-        try{
+        try {
             $imagename = request('i_name');
             $m_id = request('m_id');
             $item_id = request('item_id');
@@ -323,8 +346,7 @@ class ItemmasterController extends Controller
                 File::delete($image_path);
                 return '1';
             }
-        }catch(\Exception $ex)
-        {
+        } catch (\Exception $ex) {
             return $ex->getMessage();
         }
 
@@ -333,29 +355,23 @@ class ItemmasterController extends Controller
     public function searchtable(Request $request)
     {
 //        return $request->input('catid');
-        try{
-            if(request('nameis')!="" && request('catid')=="")
-            {
-                $allrow=ItemMaster::where('name','like','%'.request('nameis').'%')->get();
+        try {
+            if (request('nameis') != "" && request('catid') == "") {
+                $allrow = ItemMaster::where('name', 'like', '%' . request('nameis') . '%')->get();
                 return $allrow;
-            }
-            else if(request('nameis')=="" && request('catid')!="")
-            {
-                $cid=request('catid');
-                $allrow=DB::select("select im.* from item_category ic,item_master im where im.id=ic.item_master_id and ic.category_id=$cid");
+            } else if (request('nameis') == "" && request('catid') != "") {
+                $cid = request('catid');
+                $allrow = DB::select("select im.* from item_category ic,item_master im where im.id=ic.item_master_id and ic.category_id=$cid");
                 return $allrow;
-            }
-            else if(request('nameis')!="" && request('catid')!="")
-            {
-                $cid=request('catid');
-                $search=request('nameis');
-                $allrow=DB::select("select im.* from item_category ic,item_master im where im.id=ic.item_master_id and ic.category_id=$cid and im.name like '%$search%'");
+            } else if (request('nameis') != "" && request('catid') != "") {
+                $cid = request('catid');
+                $search = request('nameis');
+                $allrow = DB::select("select im.* from item_category ic,item_master im where im.id=ic.item_master_id and ic.category_id=$cid and im.name like '%$search%'");
                 return $allrow;
 
             }
 
-        }catch(\Exception $ex)
-        {
+        } catch (\Exception $ex) {
             return $ex->getMessage();
         }
 

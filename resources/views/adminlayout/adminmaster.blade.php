@@ -1102,13 +1102,24 @@
             @endif
         @endforeach
 
-            @foreach($mymenuroll as $mymenurollone)
+        @foreach($mymenuroll as $mymenurollone)
             @if($mymenurollone->menu_id==16)
                 <li class="right_menu_li">
                     {{--<a href="{{url('/rollmastermenu')}}">--}}
                     <a href="{{url('organic').'/'.encrypt(1).'/brand'}}">
                         <i class="dash_arrow mdi mdi mdi-account-settings-variant global_color"></i>
                         <span class="aside_menu_txt">Brand</span>
+                    </a>
+                </li>
+            @endif
+        @endforeach
+        @foreach($mymenuroll as $mymenurollone)
+            @if($mymenurollone->menu_id==17)
+                <li class="right_menu_li">
+                    {{--<a href="{{url('/rollmastermenu')}}">--}}
+                    <a href="{{url('organic').'/'.encrypt(1).'/shop_points'}}">
+                        <i class="dash_arrow mdi mdi mdi-account-settings-variant global_color"></i>
+                        <span class="aside_menu_txt">Shop Points</span>
                     </a>
                 </li>
             @endif

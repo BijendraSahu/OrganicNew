@@ -236,6 +236,15 @@
             display: none;
         }
 
+        .brand {
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+
+        .brand::-webkit-scrollbar {
+            display: none;
+        }
+
         .mybtnh {
             position: absolute;
             top: 0;
@@ -265,6 +274,14 @@
 
             $('.item_chk').each(function () {
                 @foreach($all_items_cat as $myobj)
+                if ($(this).val() == '{{$myobj->category_id}}') {
+                    $(this).attr('checked', 'checked');
+                }
+                @endforeach
+            });
+
+            $('.item_brand_chk').each(function () {
+                @foreach($all_items_brands as $myobj)
                 if ($(this).val() == '{{$myobj->category_id}}') {
                     $(this).attr('checked', 'checked');
                 }
@@ -346,6 +363,8 @@
                                                     </div>
                                                 @endforeach
                                             </div>
+
+
                                         </div>
                                         <br>
 
@@ -407,7 +426,7 @@
                                                 <div class="col-sm-2 form-group">
                                                     <input type="text" class="form-control" name="unit[]"
                                                            value="{{$priceobj->cost_price}}"
-                                                                   placeholder="Cost price" required/>
+                                                           placeholder="Cost price" required/>
                                                 </div>
                                                 <div class="col-sm-2 form-group">
                                                     <input type="text" class="form-control" name="unit[]"
@@ -482,7 +501,22 @@
 
                                         </div>
 
+                                        <div class="col-sm-6 brand" style="">
+                                            <label>Select Brands</label>
+                                            <br>
 
+                                            @foreach($allbrands as $object)
+                                                <div class="col-sm-3">
+                                                    <label class="container">{{$object->brand}}
+                                                        <input type="checkbox" name="brand[]" class="item_brand_chk"
+                                                               value="{{$object->id}}" id="CheckboxHead">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+
+                                        <p class="clearfix"></p>
                                         <p class="clearfix"></p>
 
                                         <label>Upload Image</label> <input type="file" onchange="PreviewImage();"
@@ -909,22 +943,25 @@
                 buttons: true,
                 dangerMode: true,
             })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        $.get('{{url('delete_item_pic')}}', {
-                            i_name: i_name,
-                            m_id: m_id,
-                            item_id: item_id
-                        }, function (data) {
-                            $(".divhye").load(location.href + " .divhye");
-                        });
-                        swal(" Your image file has been deleted!", {
-                            icon: "success",
-                        });
-                    } else {
-                        swal("Your image file is safe!");
-                    }
-                });
+                .then((willDelete) = > {
+                if (willDelete) {
+                    $.get('{{url('delete_item_pic')}}', {
+                        i_name: i_name,
+                        m_id: m_id,
+                        item_id: item_id
+                    }, function (data) {
+                        $(".divhye").load(location.href + " .divhye");
+                    });
+                    swal(" Your image file has been deleted!", {
+                        icon: "success",
+                    });
+                } else {
+                    swal("Your image file is safe!"
+        )
+            ;
+        }
+        })
+            ;
 
 
         }

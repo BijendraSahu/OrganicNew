@@ -40,14 +40,14 @@
 
                         @foreach($mymenuroll as $mymenurollone)
                             @if($mymenurollone->menu_id==2)
-                                <?php $cdata = \App\Categorymaster::where(['is_active' => 1])->count();?>
+                                <?php $cdata = \App\Categorymaster::where(['is_active' => 1])->get();?>
                                 <a href="{{url('organic').'/'.encrypt(1).'/category'}}">
                                     <div class="col-sm-3">
                                         <div class="white_brics">
                                             <div class="white_icon_withtxt">
                                                 <div class="white_icons_blk"><i class="mdi mdi-tag"></i></div>
                                                 <div class="white_brics_txt">Category</div>
-                                                <div class="white_brics_count">{{$cdata}}</div>
+                                                <div class="white_brics_count">{{count($cdata)}}</div>
                                             </div>
                                             <div class="brics_progress white_brics_border_clr1"></div>
                                         </div>
