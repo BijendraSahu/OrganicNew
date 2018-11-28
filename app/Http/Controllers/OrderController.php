@@ -73,10 +73,6 @@ class OrderController extends Controller
         );
         OrderMaster::where('id', request('IDD'))
             ->update($data);
-
-        $order_master = OrderMaster::find(request('IDD'));
-        OrderMaster::distibute_points($order_master->bill_amount, $order_master->user_id);
-
         return 1;
     }
 

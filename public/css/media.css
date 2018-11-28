@@ -366,6 +366,10 @@
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
+    .check_mainbox
+    {
+        margin-bottom: 15px;
+    }
     .top_menubox {
         padding-left: 175px;
     }
@@ -389,7 +393,7 @@
     }
 
     .product_block {
-        width: 48%;
+        width: 49%;
     }
     .view_by_list .product_block
     {
@@ -409,7 +413,7 @@
     }
     .product_searchbox
     {
-        max-width: 325px;
+        max-width: 240px;
     }
     .wishlist_container .product_block {
         width: 49%;
@@ -809,7 +813,7 @@
     }
 
     .product_block {
-        width: 31.3%;
+        width: 32.3%;
     }
     .top_menubox
     {

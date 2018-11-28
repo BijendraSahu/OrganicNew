@@ -1289,7 +1289,7 @@ footer .footer-column ul li a i {
     min-height: 20px;
     background-color: #f5f5f5;
     margin-bottom: 10px;
-    position: relative;;
+    position: relative;
 }
 
 .load_waves {
@@ -1491,6 +1491,7 @@ footer .footer-column ul li a i {
     width: 100%;
     padding-top: 70px;
     background: #f5f5f5;
+    padding-bottom: 10px;
 }
 
 .search_filter {
@@ -2148,7 +2149,7 @@ ol.progtrckr li.progtrckr-todo:before {
     border: solid thin #e1e1e1;
     content: "";
     height: 100%;
-    z-index: -1;
+    z-index: 100;
     width: calc(100% - 100px);
     left: 100px;
 }
@@ -2241,6 +2242,7 @@ ol.progtrckr li.progtrckr-todo:before {
     display: inline-block;
     width: 100%;
     margin-bottom: 15px;
+    position: relative;
 }
 
 .percent_show {
@@ -2250,7 +2252,16 @@ ol.progtrckr li.progtrckr-todo:before {
     margin-top: 15px;
     background: #fbfbfb;
 }
-
+.var_email_icon {
+    position: absolute;
+    right: 5px;
+    top: 6px;
+    width: 25px;
+    height: 22px;
+    text-align: center;
+    font-size: 22px;
+    line-height: 22px;
+}
 /*--------------------------End Checkout----------------------------*/
 /*--------------------------Popup Css----------------------------*/
 .popup_bgcolor {
@@ -2625,7 +2636,7 @@ ol.progtrckr li.progtrckr-todo:before {
 }
 
 .animate_top {
-    top: 70px;
+    top: 60px;
 }
 
 .animate_bottom {
@@ -2885,6 +2896,10 @@ ol.progtrckr li.progtrckr-todo:before {
 
 .exis_container {
     width: 100%;
+    max-height: 410px;
+    display: inline-block;
+    overflow: auto;
+    padding: 0px 10px 5px 5px;
 }
 
 .deli_btnbox {
@@ -3244,7 +3259,7 @@ ol.progtrckr li.progtrckr-todo:before {
 }
 
 .loader_main {
-    width: 150px;;
+    width: 150px;
     position: absolute;
     top: 50%;
     margin-left: -150px;
@@ -3259,6 +3274,11 @@ ol.progtrckr li.progtrckr-todo:before {
     padding: 5px 5px 5px 10px;
     margin-bottom: 15px;
     box-shadow: rgba(0, 0, 0, 0.08) 5px 8px 20px, rgba(72, 67, 67, 0.23) 0px 2px 5px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 53px;
+    bottom: 0;
+    z-index: 95;
 }
 
 .view_headtxt {
@@ -3657,4 +3677,32 @@ ol.progtrckr li.progtrckr-todo:before {
     position: sticky;
     top: 70px;
     bottom: 0;
+}
+.shop_delivery_block
+{
+    min-height: 150px;
+}
+.shop_delivery_block .exis_addbox
+{
+    min-height: 90px;
+}
+.shop_city_row
+{
+    position: relative;
+    width: 100%;
+    padding-left: 100px;
+    max-width: 360px;
+    margin: 0px auto;
+    margin-top: 15px;
+}
+.city_content
+{
+    font-weight: bold;
+    position: absolute;
+    left: 0px;
+    top: 5px;
+}
+.margin0
+{
+    margin: 0px !important;
 }

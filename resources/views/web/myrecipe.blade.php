@@ -94,13 +94,6 @@
                                 <img src="{{url('images/Male_default.png')}}" id="_UserProfile" alt="UserProfile">
                             @endif
                             <div class="my_profile_name">{{$user->name}}</div>
-                                <div class="deli_row">
-                                    <strong>My Rewards : </strong>
-                                    <strong>{{$user->gain_amount}}</strong>
-                                    {{--<input type="text" disabled name="contact" value="{{$user->contact}}" id="p_id"--}}
-                                    {{--placeholder="Phone No."--}}
-                                    {{--class="form-control" onkeypress="return false;"/>--}}
-                                </div>
                         </div>
                         <hr>
                         <div class="menu_popup_settingrow">

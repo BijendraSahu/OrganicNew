@@ -29,14 +29,10 @@
             <?php $total = 0; $gst = 0; $gtotal = 0; $sp = 0; ?>
             @if(count($cart)>0)
                 @foreach($cart as $row)
-                    @php
-                        $item_price = \App\ItemPrice::find($row->options->has('item_price_id') ? $row->options->item_price_id : '1');
-                    @endphp
                     <tr>
                         <td class="text-left"><a class="cart_product_name"
                                                  title="{{$row->name}}"
-                                                 href="{{url('view_product').'/'.(encrypt($row->id))}}">{{ str_limit($row->name, 10) }}</a></td>
-                        <td class="text-center"> {{$item_price->unit."-".$item_price->weight}}</td>
+                                                 href="{{url('view_product').'/'.(encrypt($row->id))}}">{{ str_limit($row->name, 15) }}</a></td>
                         <td class="text-center"> x{{$row->qty}}</td>
                         <td class="text-center"><i class="fa fa-inr"></i>{{$row->price}}</td>
                         <td class="text-right">
