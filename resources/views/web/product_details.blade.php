@@ -60,17 +60,17 @@
         //var fixed_leftposition;
 
 
-//        function checkOffFixed() {
-//            if ($('#product_details_containner').offset().top + $('#product_details_containner').height()
-//                >= $('#footer').offset().top - 30) {
-//                $('#product_details_containner').removeClass('position_fixed_removed');
-//                $('#product_details_containner').css('left', 0);
-//            }
-//            if ($(document).scrollTop() + window.innerHeight < $('#footer').offset().top) {
-//                $('#product_details_containner').addClass('position_fixed_removed');
-//                $('#product_details_containner').css('left', fixed_leftposition);
-//            }
-//        }
+        //        function checkOffFixed() {
+        //            if ($('#product_details_containner').offset().top + $('#product_details_containner').height()
+        //                >= $('#footer').offset().top - 30) {
+        //                $('#product_details_containner').removeClass('position_fixed_removed');
+        //                $('#product_details_containner').css('left', 0);
+        //            }
+        //            if ($(document).scrollTop() + window.innerHeight < $('#footer').offset().top) {
+        //                $('#product_details_containner').addClass('position_fixed_removed');
+        //                $('#product_details_containner').css('left', fixed_leftposition);
+        //            }
+        //        }
 
         $(document).ready(function () {
             Initialize_ProductDetails();
@@ -157,15 +157,15 @@
                                         <div class="long_qty_box">
                                             <span class="long_qty_txt" id="price_{{$item->id}}"
                                                   data-content="{{$price->id}}">{{$price->unit}}
-                                                - {{$price->price}}</span>
+                                                - {{"Rs.".$price->price}}</span>
                                             <input type="number" class="form-control text-center qty_edittxt" min="0"
                                                    value="1" max="{{$price->qty}}" id="qty_{{$item->id}}"/>
                                         </div>
                                         <button class="spinner_addcardbtn btn-primary" data-content="{{$price->id}}"
-                                                type="button" id="{{$item->id}}" onclick="AddTOcart(this);"><i
+                                                type="button" id="{{$item->id}}" onclick="AddTOcart_load(this);"><i
                                                     class="mdi mdi-basket"></i> <span id="{{$item->id}}"
                                                                                       data-content="{{$price->id}}"
-                                                                                      onclick="AddTOcart(this);"
+                                                                                      onclick="AddTOcart_load(this);"
                                                                                       class="button-group_text">Add</span>
                                         </button>
                                     </div>
@@ -535,52 +535,50 @@
     </section>
     @include('web.layouts.footer')
     <script type="text/javascript">
-        function AddTOcart(dis) {
+        function AddTOcart_load(dis) {
             var cart = $('#baskit_block');
 //            var cart_counter = $('#baskit_counter');
 //            var cart_value = Number($(cart_counter).text());
 //            cart_value++;
-            // var imgtodrag = $(dis).parent().parent().find("img").eq(0);
-            var imgtodrag = $('#view_images').eq(0);
-            if (imgtodrag) {
-                var imgclone = imgtodrag.clone()
-                    .offset({
-                        top: imgtodrag.offset().top,
-                        left: imgtodrag.offset().left
-                    })
-                    .css({
-                        'opacity': '0.5',
-                        'position': 'absolute',
-                        'height': '150px',
-                        'width': '150px',
-                        'z-index': '200'
-                    })
-                    .appendTo($('body'))
-                    .animate({
-                        'top': cart.offset().top + 10,
-                        'left': cart.offset().left + 10,
-                        'width': 50,
-                        'height': 50
-                    }, 1000, 'easeInOutExpo');
-
-                setTimeout(function () {
-                    cart.effect("shake", {
-                        times: 1
-                    }, 100);
-//                    cart_counter.text(cart_value);
-                }, 1500);
-
-                imgclone.animate({
-                    'width': 0,
-                    'height': 0
-                }, function () {
-                    $(this).detach()
-                });
-            }
-
+//            var imgtodrag = $(dis).parent().parent().find("img").eq(0);
+//            if (imgtodrag) {
+//                var imgclone = imgtodrag.clone()
+//                    .offset({
+//                        top: imgtodrag.offset().top,
+//                        left: imgtodrag.offset().left
+//                    })
+//                    .css({
+//                        'opacity': '0.5',
+//                        'position': 'absolute',
+//                        'height': '150px',
+//                        'width': '150px',
+//                        'z-index': '200'
+//                    })
+//                    .appendTo($('body'))
+//                    .animate({
+//                        'top': cart.offset().top + 10,
+//                        'left': cart.offset().left + 10,
+//                        'width': 50,
+//                        'height': 50
+//                    }, 1000, 'easeInOutExpo');
+//
+//                setTimeout(function () {
+//                    cart.effect("shake", {
+//                        times: 1
+//                    }, 100);
+////                    cart_counter.text(cart_value);
+//                }, 1500);
+//
+//                imgclone.animate({
+//                    'width': 0,
+//                    'height': 0
+//                }, function () {
+//                    $(this).detach()
+//                });
+//            }
             var itemid = $(dis).attr('id');
             var rateid = $(dis).attr('data-content');
-            var qty = $('#qty_' + itemid).val();
+            var qty = $('#qty_load_' + itemid).val();
             var carturl = "{{url('addtocart')}}";
             $.ajax({
                 type: "get",
@@ -596,6 +594,7 @@
 //                    alert('Technical Error Occured!');
                 }
             });
+
         }
     </script>
 @stop

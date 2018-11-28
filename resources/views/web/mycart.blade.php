@@ -102,21 +102,38 @@
                                                        title="{{$item->name}}"
                                                        href="{{url('view_product').'/'.(encrypt($item->id))}}">{{ $item->name }}</a>
                                                 </div>
-                                                <div class="option_availability">
-                                                    <div class="option_txt">Price :</div>
-                                                    <div class="product_right_txt">
-                                                        @if($item_price->price > 0)
-                                                            <span class="mdi mdi-currency-inr"></span>{{$item_price->price}}
-                                                        @else
-                                                            {{"-"}}
-                                                        @endif
+                                                @if($item_price->spl_price >0 )
+                                                    <div class="option_availability">
+                                                        <div class="option_txt">Price :</div>
+                                                        <div class="product_right_txt">
+                                                            @if($item_price->price > 0)
+                                                                <strike> <span
+                                                                            class="mdi mdi-currency-inr">{{$item_price->price}}</span>
+                                                                </strike> <span
+                                                                        class="mdi mdi-currency-inr"></span> {{$item_price->spl_price}}
+                                                            @else
+                                                                {{"-"}}
+                                                            @endif
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                @else
+                                                    <div class="option_availability">
+                                                        <div class="option_txt">Price :</div>
+                                                        <div class="product_right_txt">
+                                                            @if($item_price->price > 0)
+                                                                <span class="mdi mdi-currency-inr"></span>
+                                                                {{$item_price->price}}
+                                                            @else
+                                                                {{"-"}}
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                @endif
                                                 <div class="option_availability">
-                                                    <div class="option_txt">Special Price :</div>
+                                                    <div class="option_txt">Unit :</div>
                                                     <div class="product_right_txt">
-                                                        @if($item_price->spl_price >0 )
-                                                            <span class="mdi mdi-currency-inr"></span> {{$item_price->spl_price}}
+                                                        @if(isset($item_price->unit))
+                                                            <span class="mdi mdi-currency-inr"></span>  {{$item_price->unit."-".$item_price->weight}}
                                                         @else
                                                             {{"-"}}
                                                         @endif
@@ -128,19 +145,24 @@
                                                         {{$row->qty}}
                                                     </div>
                                                 </div>
-                                                <div class="desc_cart">
-                                                    <div class="des_txt">Specifications :</div>
-                                                    <div class="des_details">
-                                                        {!! isset($item->specifcation)?$item->specifcation:'Not Mentioned'!!}
-                                                    </div>
-                                                </div>
+                                                {{--<div class="desc_cart">--}}
+                                                {{--<div class="des_txt">Specifications :</div>--}}
+                                                {{--<div class="des_details">--}}
+                                                {{--{!! isset($item->specifcation)?$item->specifcation:'Not Mentioned'!!}--}}
+                                                {{--</div>--}}
+                                                {{--</div>--}}
                                             </div>
                                         </div>
                                         <div class="col-sm-4 res_pad0">
                                             {{--<div class="track_del_address">Free delivery by 15-May-2018</div>--}}
                                             <div class="wish_rightcontainer">
                                                 <div class="order_amt"><i
-                                                            class="mdi mdi-currency-inr"></i> {{number_format($row->price,2)}}
+                                                            class="mdi mdi-currency-inr"></i>
+                                                    @if($item_price->spl_price >0 )
+                                                        {{number_format($item_price->spl_price,2)}}
+                                                    @else
+                                                        {{number_format($item_price->price,2)}}
+                                                    @endif
                                                 </div>
                                                 <form action="{{url('cart_update').'/'.$row->rowId}}"
                                                       id="cartupdate{{$row->rowId}}"
@@ -151,8 +173,12 @@
                                                         <div class="input-group qty_box">
                                                             <span class="qty_txt">Qty</span>
                                                             <input type="number" name="qty"
-                                                                   class="form-control text-center qty_edittxt"
-                                                                   min="1" max="10" value="{{$row->qty}}">
+                                                                   @if($item_price->qty < 10) data-toggle="tooltip"
+                                                                   title="Only {{$item_price->qty}} Quantity Left In Stock"
+                                                                   data-placement="right"
+                                                                   @endif class="form-control text-center qty_edittxt"
+                                                                   min="1" max="{{$item_price->qty}}"
+                                                                   value="{{$row->qty}}">
 
                                                         </div>
                                                         <div class="card_btn_collection">
@@ -191,6 +217,9 @@
     </section>
     @include('web.layouts.footer')
     <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
         function remove_cart_item(cart_item_id) {
             $.ajax({
                 type: 'get',

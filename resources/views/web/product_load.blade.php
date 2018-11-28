@@ -44,8 +44,9 @@
                             - {{"Rs.".$price->price}}</span>
                         <input type="number"
                                class="form-control text-center qty_edittxt"
-                               min="1"
-                               max="{{$price->qty}}"
+                               min="1" @if($price->qty < 10) data-toggle="tooltip"
+                               title="Only {{$price->qty}} Quantity Left In Stock" data-placement="right" @endif
+                               max="{{$price->qty}}" onkeypress="return false" onkeydown="return false"
                                value="1" id="qty_load_{{$item->id}}">
                     </div>
                     <button class="spinner_addcardbtn btn-primary"

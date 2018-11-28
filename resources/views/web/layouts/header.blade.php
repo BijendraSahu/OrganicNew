@@ -61,7 +61,7 @@
                                             <div class="menu_popup_settingrow">
                                                 <a href="{{url('my_profile')}}" class="menu_setting_row">
                                                     <i class="mdi mdi-account-edit"></i>
-                                                    Edit Profile
+                                                    My Profile
                                                 </a>
                                             </div>
                                             <div class="menu_popup_settingrow">
@@ -100,10 +100,10 @@
                                 </div>
                             </li>
                             {{--<li class="res_none">--}}
-                                {{--<a href="{{url('logout')}}" class="my_account_box glo_menuclick">--}}
-                                    {{--<i class="mdi mdi-logout"></i>--}}
-                                    {{--Logout--}}
-                                {{--</a>--}}
+                            {{--<a href="{{url('logout')}}" class="my_account_box glo_menuclick">--}}
+                            {{--<i class="mdi mdi-logout"></i>--}}
+                            {{--Logout--}}
+                            {{--</a>--}}
                             {{--</li>--}}
 
                         @endif
@@ -349,7 +349,7 @@
             <div class="right_block registration">
                 <div class="deli_row">
                     <input type="text" name="referal_code" autocomplete="off" class="form-control numberOnly login_txt"
-                           placeholder="Referral Code" id="ref_code" maxlength="10">
+                           placeholder="Referral Mobile No" id="ref_code" maxlength="10">
                 </div>
                 <div class="deli_row">
                     <input type="text" name="reg_name" autocomplete="off" class="form-control login_txt"
