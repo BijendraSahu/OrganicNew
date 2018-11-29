@@ -89,5 +89,6 @@ http://localhost:8000/insert_review?item_master_id=1&name=abc&email=a@gmail.com&
 27-11-2018
 ALTER TABLE `menumaster` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `menu_role` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `order_master` ADD `shop_address_id` INT NULL DEFAULT NULL AFTER `address_id`;
 
 +2 table - brand, shop_point

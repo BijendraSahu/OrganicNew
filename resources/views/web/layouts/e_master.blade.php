@@ -25,7 +25,7 @@
 @yield('content')
 
 <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg" id="modal_size">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
@@ -35,7 +35,7 @@
             <div id="modal_body" class="modal-body">
                 <p>One fine body&hellip;</p>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" id="modal_footer">
                 <div class=" pull-right">
                     <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
                     &nbsp;
@@ -47,10 +47,34 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
+<div class="modal fade" tabindex="-1" role="dialog" id="checkout_payment">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                <h4 id="modal_title" class="modal-title">Title</h4>
+            </div>
+            <div id="modal_body" class="modal-body">
+                <p>One fine body&hellip;</p>
+            </div>
+            {{--<div class="modal-footer">--}}
+                {{--<div class=" pull-right">--}}
+                    {{--<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>--}}
+                    {{--&nbsp;--}}
+                {{--</div>--}}
+                {{--&nbsp;--}}
+                {{--<div id="modalBtn" class="pull-right">&nbsp;</div>--}}
+                {{--<button id="extraBtn1" type="button" class="btn btn-primary" style="display:none">Save changes</button>--}}
+            {{--</div>--}}
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
 <script type="text/javascript">
     $(document).ready(function () {
         cartload();
         wishlistload();
+        $('#page_loader').hide();
     });
 
     function cartload() {

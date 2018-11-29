@@ -133,12 +133,12 @@ function ScrollBottom() {
     //$('#top_scroll_btn').css('top', '40px');
     $('#top_scroll_btn').removeClass('animate_top');
 }
-window.onload = function (e) {
-    setTimeout(function () {
-       // $('#page_loader').fadeOut('slow');
-        $('#page_loader').hide();
-    }, 2000);
-}
+// window.onload = function (e) {
+//     setTimeout(function () {
+//        // $('#page_loader').fadeOut('slow');
+//         $('#page_loader').hide();
+//     }, 2000);
+// }
 function ShowMenuPopup(dis) {
     $('.menu_basic_popup').addClass('scale0');
     $(dis).find('.menu_basic_popup').removeClass('scale0');

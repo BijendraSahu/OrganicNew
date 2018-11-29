@@ -39,6 +39,9 @@ Route::get('view_product/{slug}', 'FrontendController@product_details');
 Route::get('view_product_search/{id}', 'FrontendController@view_product_search');
 Route::get('/wishlist', 'FrontendController@wishlist');
 
+Route::get('get_shop_points', 'FrontendController@get_shop_points');
+
+
 //Route::post('login', 'FrontendController@login');
 Route::get('register_user', 'User_loginController@register');
 Route::get('login_user', 'User_loginController@login');
@@ -78,7 +81,7 @@ Route::get('getallproducts', 'FrontendController@getallproducts');
 
 Route::get('/payment', 'CartController@payment');
 Route::post('success', 'CartController@payment_success');
-Route::post('failed', 'CartController@payment_failed');
+Route::post('failed', 'CartController@payment_success');
 Route::get('blogs', 'FrontendController@blog_list');
 Route::get('view_blog/{slug}', 'FrontendController@view_blog');
 

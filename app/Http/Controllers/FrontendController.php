@@ -12,6 +12,7 @@ use App\OrderMaster;
 use App\RecipeIngredient;
 use App\RecipeMaster;
 use App\Review;
+use App\ShopPoints;
 use App\Subscribe;
 use App\UserAddress;
 use App\UserMaster;
@@ -336,6 +337,18 @@ class FrontendController extends Controller
             return Redirect::back()->withInput()->withErrors(array('message' => 'Please login first'));
         }
     }
+
+    public function get_shop_points()
+    {
+//        if (isset($_SESSION['user_master'])) {
+//            $user_ses = $_SESSION['user_master'];
+//            $user = UserMaster::find($user_ses->id);
+        $ShopPoints = ShopPoints::where(['is_active' => '1', 'city_id' => request('city_id')])->orderBy('created_time', 'desc')->get();
+        return view('web.shop_address_list')->with(['ShopPoints' => $ShopPoints]);
+//        } else {
+//            return Redirect::back()->withInput()->withErrors(array('message' => 'Please login first'));
+//        }
+    }
     /** ************************Cart************************************/
 
 
@@ -365,6 +378,7 @@ class FrontendController extends Controller
                 $cart_total += $row->price * $row->qty;
             }
             $address_id = request('add_id');
+            $shop_pick_id = request('shop_point_id');
             $shipping = request('udf2');
             $selected_point = request('selected_point');
             $selected_promo = request('selected_promo');
@@ -377,7 +391,8 @@ class FrontendController extends Controller
             $order = new OrderMaster();
             $order->order_no = rand(100000, 999999);
             $order->user_id = $user->id;
-            $order->address_id = $address_id;
+            $order->address_id = $address_id != '' ? $address_id : null ;
+            $order->shop_address_id = $shop_pick_id != '' ? $shop_pick_id : null ;
             $order->status = 'Ordered';
             $order->delivery_charge = request('delivery_charge');
             $order->bill_amount = $cart_total;
