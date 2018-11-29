@@ -262,7 +262,7 @@ class CartController extends Controller
             }
             \Gloudemans\Shoppingcart\Facades\Cart::destroy();
 
-            //file_get_contents("http://63.142.255.148/api/sendmessage.php?usr=retinodes&apikey=1A4428ABD1CB0BD43FB3&sndr=iapptu&ph=7489495357&message=Order%20Placed:%20with%20order%20ID%20OrganicDolchi$order->order_no%20amounting%20to%20$order->paid_amt%20has%20been%20received.");
+            file_get_contents("http://63.142.255.148/api/sendmessage.php?usr=retinodes&apikey=1A4428ABD1CB0BD43FB3&sndr=iapptu&ph=7489495357&message=Order%20Placed:%20with%20order%20ID%20OrganicDolchi$order->order_no%20amounting%20to%20$order->paid_amt%20has%20been%20received.");
 
             /********0.2% Amount Distribution*********/
 //            $total_amt = DB::selectOne("SELECT SUM(total) as total_amt FROM `order_description` WHERE order_master_id = $order->id");
@@ -288,7 +288,7 @@ class CartController extends Controller
             $address = $address_id > 0 ? UserAddress::find($address_id) : $user;
             $name = str_replace(' ', '', $address->name);
 
-            //file_get_contents("http://63.142.255.148/api/sendmessage.php?usr=retinodes&apikey=1A4428ABD1CB0BD43FB3&sndr=iapptu&ph=$address->contact&message=Dear%20$name,%20Your%20order%20has%20been%20placed%20your%20order%20no%20is%20OrganicDolchi$order->order_no");
+            file_get_contents("http://63.142.255.148/api/sendmessage.php?usr=retinodes&apikey=1A4428ABD1CB0BD43FB3&sndr=iapptu&ph=$address->contact&message=Dear%20$name,%20Your%20order%20has%20been%20placed%20your%20order%20no%20is%20OrganicDolchi$order->order_no");
 
             /********0.2% Amount Distribution*********/
 
