@@ -366,6 +366,11 @@
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
+    .product_magnifyimages_box:before
+    {
+        left: 0px;
+        width: 100%;
+    }
     .check_mainbox
     {
         margin-bottom: 15px;
@@ -424,7 +429,17 @@
     .more_other_details {
         margin-top: 20px;
     }
-
+    .product_view_imgbox
+    {
+        position: relative;
+        top: 0px;
+        margin-bottom: 20px;
+    }
+    .product_magnifyimages_box:before
+    {
+        left: 0px;
+        width: 100%;
+    }
     .brics_images {
         height: auto;
         width: 17%;
@@ -710,7 +725,9 @@
         left: 0px;
         z-index: 100;
         top: 40px;
+        bottom: initial;
     }
+
     .product_searchbox_resshow {
         right: -5px !important;
     }

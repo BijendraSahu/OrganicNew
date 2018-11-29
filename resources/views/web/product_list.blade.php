@@ -17,7 +17,9 @@
         .owl-dots {
             display: none;
         }
-
+        .animate_top {
+            top: 90px;
+        }
         .owl-carousel .product_block {
             width: 100%;
             text-align: left;
@@ -621,18 +623,18 @@
                     <div class="viewtype_block pull-right" id="view_thumb">
                         <div class="viewtype_txt">Sort</div>
                         <div class="type_brics" id="popularity" data-toggle="tooltip" onclick="Short_filer_items(this);"
-                             data-placement="top" title="Popularity"><i
+                             data-placement="bottom" title="Popularity"><i
                                     class="mdi mdi-basket-fill"></i></div>
                         <div class="type_brics" id="alphabetical" data-toggle="tooltip"
                              onclick="Short_filer_items(this);"
-                             data-placement="top" title="A-Z, Z-A"><i class="mdi mdi-filter-variant"></i>
+                             data-placement="bottom" title="A-Z, Z-A"><i class="mdi mdi-filter-variant"></i>
                         </div>
                         <div class="viewtype_txt">View</div>
                         <div class="type_brics brics_selected" onclick="show_view(this , 'grid');" data-toggle="tooltip"
-                             data-placement="top" title="Grid View"><i
+                             data-placement="bottom" title="Grid View"><i
                                     class="mdi mdi-view-grid"></i></div>
                         <div class="type_brics" onclick="show_view(this, 'list');" data-toggle="tooltip"
-                             data-placement="top" title="List View"><i class="mdi mdi-view-list"></i>
+                             data-placement="bottom" title="List View"><i class="mdi mdi-view-list"></i>
                         </div>
                     </div>
                 </div>

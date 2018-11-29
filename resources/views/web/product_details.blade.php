@@ -97,7 +97,7 @@
 @stop
 @section('content')
     <section class="product_viewblock">
-        <div class="container-fluid res_pad0">
+        <div class="container-fluid">
             <div class="all_data_view">
                 <div class="row">
                     <div class="col-sm-5 product_view_imgbox">
