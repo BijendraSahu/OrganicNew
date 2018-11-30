@@ -41,7 +41,16 @@ Route::get('/wishlist', 'FrontendController@wishlist');
 
 Route::get('get_shop_points', 'FrontendController@get_shop_points');
 
-
+Route::get('clear-cache', function () {
+    try {
+        $exitCode = Artisan::call('config:clear');
+        $exitCode = Artisan::call('cache:clear');
+        $exitCode = Artisan::call('config:cache');
+        return ['success' => true, 'data' => [], 'message' => 'Cache Has Been Clear'];
+    }catch (Exception $ex){
+        return ['success' => false, 'data' => [], 'message' => $ex->getMessage()];
+    }
+});
 //Route::post('login', 'FrontendController@login');
 Route::get('register_user', 'User_loginController@register');
 Route::get('login_user', 'User_loginController@login');
@@ -81,7 +90,7 @@ Route::get('getallproducts', 'FrontendController@getallproducts');
 
 Route::get('/payment', 'CartController@payment');
 Route::post('success', 'CartController@payment_success');
-Route::post('failed', 'CartController@payment_success');
+Route::post('failed', 'CartController@payment_failed');
 Route::get('blogs', 'FrontendController@blog_list');
 Route::get('view_blog/{slug}', 'FrontendController@view_blog');
 
@@ -207,11 +216,14 @@ Route::get('/add_shop_points', 'ShopPointsController@add_shop_points');
 Route::get('/update_shop_points', 'ShopPointsController@update_shop_points');
 Route::get('/delete_shop_points', 'ShopPointsController@delete_shop_points');
 /******ShopPoints******/
+
+Route::get('/ask_number','AskController@ask_number');
 /***************************Bijendra*******************************/
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Route::get('organic/{id}/ask', 'AskController@ask');
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Route::get('organic/{id}/blog', 'BlogController@blog');
 Route::get('/addblogcat', 'BlogController@addblogcat');

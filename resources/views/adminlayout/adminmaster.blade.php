@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{url('assets/css/media.css')}}"/>
     {{--<link rel="stylesheet" href="{{url('assets/css/w3.css')}}"/>--}}
     <link rel="stylesheet" href="{{url('assets/css/form-wizard-green.css')}}">
+    <link rel="stylesheet" href="{{url('assets/css/dataTables.bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{url('assets/css/text_editor.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
     <script src="{{url('assets/js/jquery-3.2.1.min.js')}}"></script>
@@ -24,6 +25,8 @@
     <script src="{{url('js/my_validation.js')}}"></script>
     <script src="{{url('assets/js/text_editor.js')}}"></script>
     <script src="{{url('assets/js/Autocomplete.js')}}"></script>
+    <script src="{{url('assets/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{url('assets/js/dataTables.bootstrap.min.js')}}"></script>
 
 
     <script type="text/javascript">

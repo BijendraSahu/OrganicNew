@@ -16,4 +16,12 @@ class AskController extends Controller
           return view('adminview.ask', ['data' => $data]);
       }
   }
+
+    public function ask_number()
+    {
+        $data = new AskModel();
+        $data->mobile = request('ask_number');
+        $data->save();
+        echo 'success';
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Categorymaster;
 use App\LoginModel;
+use App\UserMaster;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -13,8 +14,10 @@ class AdminController extends Controller
 {
     public function admin($id)
     {
+
         $tee = decrypt($id);
         if ($tee == 1) {
+//            UserMaster::reset_cache();
             if ($_SESSION['admin_master'] != null) {
                 $alldata = Categorymaster::where(['is_active' => 1])->paginate(10);
                 $allcat = Categorymaster::where(['is_active' => 1])->get();
