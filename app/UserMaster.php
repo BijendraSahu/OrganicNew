@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Artisan;
+use League\Flysystem\Exception;
 
 class UserMaster extends Model
 {
@@ -12,6 +14,18 @@ class UserMaster extends Model
     public function city_name()
     {
         return $this->belongsTo('App\CityModel', 'city_id');
+    }
+
+    public static function reset_cache()
+    {
+        try {
+            $exitCode = Artisan::call('config:clear');
+            $exitCode = Artisan::call('cache:clear');
+            $exitCode = Artisan::call('config:cache');
+            return ['success' => true, 'data' => [], 'message' => 'Cache Has Been Clear'];
+        }catch (Exception $ex){
+            return ['success' => false, 'data' => [], 'message' => $ex->getMessage()];
+        }
     }
 
 //    public static function checkrc($rc)

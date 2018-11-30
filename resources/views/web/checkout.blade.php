@@ -12,7 +12,7 @@
             }
         }
         function change_delivery_amt(txt) {
-           $('#delivery_amt_label').text(txt);
+            $('#delivery_amt_label').text(txt);
         }
         var fixed_leftposition;
 
@@ -46,7 +46,7 @@
                 type: 'get',
                 url: "{{ url('web_check_promo') }}",
                 data: {
-                    promo_code: promo_code,
+                    promo_code: promo_code
                 },
                 success: function (data) {
                     if (data != 'Invalid') {
@@ -121,19 +121,23 @@
 
         function proceed_to_pay() {
             var existaddress = $('#add_id').val();
+            var shop_point_id = $('#shop_point_id').val();
             var net_amt = $('#net_amt').val();
             if (net_amt < 1) {
                 swal("Cart Empty", "Your cart is empty", "info");
                 return false;
-            } else if (existaddress.trim() != '0') {
-                submitPayUmoney();
-            } else {
+            } else if (existaddress == '0' && shop_point_id == '') {
                 swal("Required", "Please select address", "info");
+            } else {
+                submitPayUmoney();
             }
         }
 
         function submitPayUmoney() {
             $('#myModal').modal('show');
+            $('#modal_size').removeClass('modal-lg');
+            $('#modal_size').addClass('modal-md');
+            $('#modal_footer').addClass('hidden');
             var is_cod = $('#payment').val();
             // var is_express = $('#express').val();
             // var shipping = $('#shipping').text();
@@ -143,6 +147,7 @@
             var selected_point = $('#selected_point').val();
             var selected_promo = $('#selected_promo').val();
             var existaddress = $('#add_id').val();
+            var shop_point_id = $('#shop_point_id').val();
             var delivery_charge = $('#delivery_charge').text();
             var amt = $('#net_amt').val();
             var payment_url = '{{ url('/') }}' + "/payment/";
@@ -156,7 +161,8 @@
                     cod: is_cod,
                     amt: amt,
                     existaddress: existaddress,
-                    delivery_charge: delivery_charge.trim(),
+                    shop_point_id: shop_point_id,
+                    delivery_charge: delivery_charge.trim()
                 },
                 success: function (data) {
                     $('#modal_body').html(data);
@@ -291,8 +297,11 @@
                         </div>
 
                         <ul class="nav nav-tabs">
-                            <li class="active" onclick="change_delivery_amt('Cash On Delivery');"><a data-toggle="tab" href="#home">Home Delivery</a></li>
-                            <li onclick="change_delivery_amt('On Hand Delivery')"><a data-toggle="tab" href="#menu1">Shop Pickup</a></li>
+                            <li class="active" onclick="change_delivery_amt('Cash On Delivery');"><a data-toggle="tab"
+                                                                                                     href="#home">Home
+                                    Delivery</a></li>
+                            <li onclick="change_delivery_amt('On Hand Delivery')"><a data-toggle="tab" href="#menu1">Shop
+                                    Pickup</a></li>
                         </ul>
                         <div class="tab-content">
                             <div id="home" class="tab-pane fade in active">
@@ -340,7 +349,7 @@
                                                             Here
                                                         </button>
 
-                                                        <button onclick="AddUpdate_Address('edit',{{$address->id}});"
+                                                        <button onclick="AddUpdate_Address('edit','{{$address->id}}');"
                                                                 type="button"
                                                                 class="btn btn-warning pull-right btn-sm"><i
                                                                     class="mdi mdi-map-marker-radius basic_icon_margin"></i>Edit
@@ -349,39 +358,6 @@
                                                     </div>
 
                                                 </div>
-                                                {{--<div class="exis_addbox">
-                                                    <div class="first_row">
-                                                        <div class="radio_box">
-                                                            <div class="radio">
-                                                                <input id="deli_radio_2" value="2" class="deliever"
-                                                                       name="add_delivery"
-                                                                       type="radio"/>
-                                                                <label for="deli_radio_2" class="radio-label"></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="add_name_box">Bijendra Sahu</div>
-                                                        <div class="contact_box">6525352642</div>
-                                                    </div>
-                                                    <div class="delivery_add">
-                                                        It Park bargi hills, Jabalpur, Jabalpur, Madhya Pradesh - 482002
-                                                    </div>
-
-                                                    <div class="deli_btnbox">
-                                                        <button onclick="ChooseAddress('deli_radio_2');" type="button"
-                                                                class="btn btn-success btn-sm"><i
-                                                                    class="mdi mdi-home-map-marker basic_icon_margin"></i>Deliver
-                                                            Here
-                                                        </button>
-
-                                                        <button onclick="AddUpdate_Address('edit','1');" type="button"
-                                                                class="btn btn-warning pull-right btn-sm"><i
-                                                                    onclick="getuseraddress();"
-                                                                    class="mdi mdi-map-marker-radius basic_icon_margin"></i>Edit
-                                                            Address
-                                                        </button>
-                                                    </div>
-
-                                                </div>--}}
                                                 @php $count++ @endphp
                                             @endforeach
                                         @else
@@ -567,49 +543,54 @@
                                             {{--<option value="3">Riwa</option>--}}
                                             {{--</select>--}}
 
-                                            <select class="form-control" id="shop_city" name="shop_city">
+                                            <select class="form-control" id="shop_city" onchange="getShopAddress();"
+                                                    name="shop_city">
                                                 @foreach($cities as $city)
-                                                    <option {{$city->id == 1 ? "selected":''}} value="{{$city->id}}">{{$city->city}}</option>
+                                                    <option value="{{$city->id}}">{{$city->city}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="exis_container style-scroll">
-                                        <div class="exis_addbox">
-                                            <div class="first_row">
-                                                <div class="radio_box">
-                                                    <div class="radio">
-                                                        <input id="shop_radio_1" value="2" class="deliever"
-                                                               name="add_delivery"
-                                                               type="radio"/>
-                                                        <label for="shop_radio_1" class="radio-label"></label>
-                                                    </div>
-                                                </div>
-                                                <div class="add_name_box">Organic Dolchi, Sam</div>
-                                                <div class="contact_box">07489495357</div>
-                                            </div>
-                                            <div class="delivery_add">
-                                                1st Floor, South Avenue Mall, Bhim Nagar, Polipather, Jabalpur, Madhya
-                                                Pradesh
-                                            </div>
-                                        </div>
-                                        <div class="exis_addbox">
-                                            <div class="first_row">
-                                                <div class="radio_box">
-                                                    <div class="radio">
-                                                        <input id="shop_radio_2" value="2" class="deliever"
-                                                               name="add_delivery"
-                                                               type="radio"/>
-                                                        <label for="shop_radio_2" class="radio-label"></label>
-                                                    </div>
-                                                </div>
-                                                <div class="add_name_box">Organic Dolchi, Kachnar</div>
-                                                <div class="contact_box">6525352642</div>
-                                            </div>
-                                            <div class="delivery_add">
-                                                Kachnar Plaza, Kachnar City Gate; Jabalpur, Madhya Pradesh.
-                                            </div>
-                                        </div>
+                                    <div class="exis_container style-scroll" id="shop_points_list">
+                                        {{--@php--}}
+                                        {{--$addresses = \App\UserAddress::where(['is_active' => '1', 'user_id' => isset($user->id)?$user->id:'0'])->orderBy('created_time','desc')->get();--}}
+                                        {{--$count=1;--}}
+                                        {{--@endphp--}}
+                                        {{--<div class="exis_addbox">--}}
+                                        {{--<div class="first_row">--}}
+                                        {{--<div class="radio_box">--}}
+                                        {{--<div class="radio">--}}
+                                        {{--<input id="shop_radio_1" value="2" class="deliever"--}}
+                                        {{--name="add_delivery"--}}
+                                        {{--type="radio"/>--}}
+                                        {{--<label for="shop_radio_1" class="radio-label"></label>--}}
+                                        {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="add_name_box">Organic Dolchi, Sam</div>--}}
+                                        {{--<div class="contact_box">07489495357</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="delivery_add">--}}
+                                        {{--1st Floor, South Avenue Mall, Bhim Nagar, Polipather, Jabalpur, Madhya--}}
+                                        {{--Pradesh--}}
+                                        {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="exis_addbox">--}}
+                                        {{--<div class="first_row">--}}
+                                        {{--<div class="radio_box">--}}
+                                        {{--<div class="radio">--}}
+                                        {{--<input id="shop_radio_2" value="2" class="deliever"--}}
+                                        {{--name="add_delivery"--}}
+                                        {{--type="radio"/>--}}
+                                        {{--<label for="shop_radio_2" class="radio-label"></label>--}}
+                                        {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="add_name_box">Organic Dolchi, Kachnar</div>--}}
+                                        {{--<div class="contact_box">6525352642</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="delivery_add">--}}
+                                        {{--Kachnar Plaza, Kachnar City Gate; Jabalpur, Madhya Pradesh.--}}
+                                        {{--</div>--}}
+                                        {{--</div>--}}
                                     </div>
                                 </div>
                             </div>
@@ -625,7 +606,8 @@
                                         <input id="radio-2" value="1" class="gender" name="payment_type"
                                                type="radio" onclick="getcod(this);"
                                                checked="" onchange="paymentOption('cash');">
-                                        <label for="radio-2" class="radio-label" id="delivery_amt_label">Cash On Delivery</label>
+                                        <label for="radio-2" class="radio-label" id="delivery_amt_label">Cash On
+                                            Delivery</label>
                                     </div>
                                     <div class="radio">
                                         <input id="radio-1" value="0" onclick="getcod(this);" class="gender"
@@ -772,6 +754,31 @@
         </div>
     </div>
     <script type="text/javascript">
+
+        $(document).ready(function () {
+            getShopAddress();
+        });
+        function getShopAddress() {
+            var city_id = $('#shop_city').val();
+
+            $.ajax({
+                type: 'get',
+                url: "{{ url('get_shop_points') }}",
+                data: {
+                    city_id: city_id
+                },
+                beforeSend: function () {
+                    $('#shop_points_list').html('<img height="50px" class="center-block" src="{{url('images/loading.gif')}}"/>');
+                },
+                success: function (data) {
+                    $('#shop_point_id').val('');
+                    $('#shop_points_list').html(data);
+                },
+                error: function (xhr, status, error) {
+                    swal("Oops", "Some went wrong...", "error");
+                }
+            });
+        }
         function AddUpdate_Address(curr_action, get_id) {
             $('.deliever').prop("checked", false);
             if (curr_action == "new") {
@@ -805,6 +812,12 @@
         }
         function selected_address(cheched_address_id) {
             $('#add_id').val(cheched_address_id);
+            $('#shop_point_id').val('');
+        }
+
+        function selected_shop_address(cheched_address_id) {
+            $('#shop_point_id').val(cheched_address_id);
+            $('#add_id').val('');
         }
         function disable_remove() {
             $('#add_name').removeAttr('disabled', 'disabled');
@@ -871,7 +884,7 @@
                         add_city: add_city,
                         add_pincode: add_pincode,
                         add_address: add_address,
-                        existaddress: existaddress,
+                        existaddress: existaddress
                     },
                     // data: value,
                     success: function (data) {
@@ -896,12 +909,13 @@
 
         function confirm_order() {
             var existaddress = $('#add_id').val();
+            var shop_address = $('#shop_point_id').val();
             var net_amt = $('#net_amt').val();
             if (net_amt < 1) {
                 swal("Cart Empty", "Your cart is empty", "info");
                 return false;
-            } else if (existaddress == '0') {
-                swal("Address Required", "Please select delivery address", "warning");
+            } else if (existaddress == '0' && shop_address == '') {
+                swal("Address Required", "Please select delivery address or shop pickup", "warning");
 //                $('#existaddress').focus();
                 return false;
             } else {
@@ -915,7 +929,9 @@
                     if (willSubmit) {
                         document.getElementById("confirm_order").submit();
                     }
-                });
+                }
+            )
+                ;
             }
         }
 

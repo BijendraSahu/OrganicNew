@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ItemPrice;
 use App\OrderDescription;
 use App\OrderMaster;
+use App\ShopPoints;
 use App\UserAddress;
 use App\UserMaster;
 use App\Wishlist;
@@ -125,7 +126,49 @@ class CartController extends Controller
         }
     }
 
+
     public function payment(Request $request)   //////////////////Final
+    {
+//        session_start();
+        $cart = Cart::content();
+        $user = $_SESSION['user_master'];
+        $exist = UserAddress::find(request('existaddress'));
+        $shop = ShopPoints::find(request('shop_point_id'));
+        $addressdel1 = request('existaddress') != null ? $exist->name . ', ' . $exist->contact . ', ' . $exist->address : $shop->shop_name . ', ' . $shop->contact . ', ' . $shop->shop_address;
+
+        $address_id = request('existaddress') != null ? request('existaddress') : 0;
+        $shop_address_id = request('shop_point_id') != null ? request('shop_point_id') : 0;
+        $selected_point = (request('selected_point') > 0) ? request('selected_point') : 0;
+        $selected_promo = (request('selected_promo') > 0) ? request('selected_promo') : 0;
+        define('SUCCESS_URL', 'http://localhost:1000/success');  //have complete url
+        define('FAIL_URL', 'http://localhost:1000/failed');    //add complete url
+        $MERCHANT_KEY = "uuost9YW";
+        $SALT = "STCIocBzJD";
+//        $MERCHANT_KEY = "mqqqWtY9";
+//        $SALT = "x2fGRxrwL7";
+        $txnid = substr(hash('sha256', mt_rand() . microtime()), 0, 20);
+//        $email = isset($exist) ? $exist->email : $user->email;
+//        $firstName = str_replace(' ', '', isset($exist) ? $exist->name : $user->name);
+        $email = (request('existaddress') != null) ? $exist->email : $user->email;
+        $firstName = (request('existaddress') != null) ? str_replace(' ', '', $exist->name) : str_replace(' ', '', $user->name);
+        $amt = request('amt');
+//        $amt_pum = request('amt') * 3 / 100;
+        $totalCost = $amt;
+        $mobile = (request('existaddress') != null) ? $exist->contact : $user->contact;
+        $shipping = (request('delivery_charge') > 0) ? request('delivery_charge') : 0;
+        $hash = '';
+        $hash_string = $MERCHANT_KEY . "|" . $txnid . "|" . $totalCost . "|" . "product|" . $firstName . "|" . $email . "|" . $shop_address_id . "|" . $shipping . "|" . $selected_point . "|" . $selected_promo . "|" . $address_id . "||||||" . $SALT;
+//        sha512 (key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5||||||<SALT>)
+        $hash = strtolower(hash('sha512', $hash_string));
+        $_SESSION['total_amt'] = $totalCost;
+//        echo ($hash_string)."<br>";
+//        echo ($hash);
+//        dd($_REQUEST);
+        return view('web.pay_umoney_form')->with(['hash1' => $hash, 'amt' => $amt, 'txnid' => $txnid, 'totalCost' => $totalCost, 'firstName' => $firstName, 'MERCHANT_KEY' => $MERCHANT_KEY, 'SALT' => $SALT, 'addressdel1' => $addressdel1, 'email' => $email, 'mobile' => $mobile, 'address_id' => $address_id, 'shop_address_id' => $shop_address_id, 'hash_string' => $hash_string, 'shipping' => $shipping, 'selected_promo' => $selected_promo, 'selected_point' => $selected_point]);
+
+    }
+
+    public function payment_o(Request $request)   //////////////////Final
     {
 //        session_start();
         $cart = Cart::content();
@@ -154,7 +197,8 @@ class CartController extends Controller
         $hash_string = $MERCHANT_KEY . "|" . $txnid . "|" . $totalCost . "|" . "product|" . $firstName . "|" . $email . "|1|" . $shipping . "|" . $selected_point . "|" . $selected_promo . "|" . $address_id . "||||||" . $SALT;
         $hash = strtolower(hash('sha512', $hash_string));
         $_SESSION['total_amt'] = $totalCost;
-        return view('web.pay_umoney_form')->with(['hash1' => $hash, 'amt' => $amt, 'txnid' => $txnid, 'totalCost' => $totalCost, 'firstName' => $firstName, 'MERCHANT_KEY' => $MERCHANT_KEY, 'SALT' => $SALT, 'addressdel1' => $addressdel1, 'email' => $email, 'mobile' => $mobile, 'address_id' => $address_id, 'hash_string' => $hash_string, 'shipping' => $shipping, 'selected_promo' => $selected_promo, 'selected_point' => $selected_point]);
+//        dd($_REQUEST);
+        return view('web.pay_umoney_new')->with(['hash1' => $hash, 'amt' => $amt, 'txnid' => $txnid, 'totalCost' => $totalCost, 'firstName' => $firstName, 'MERCHANT_KEY' => $MERCHANT_KEY, 'SALT' => $SALT, 'addressdel1' => $addressdel1, 'email' => $email, 'mobile' => $mobile, 'address_id' => $address_id, 'hash_string' => $hash_string, 'shipping' => $shipping, 'selected_promo' => $selected_promo, 'selected_point' => $selected_point]);
 
     }
 
@@ -182,6 +226,7 @@ class CartController extends Controller
             $selected_point = request('udf3');
             $selected_promo = request('udf4');
             $address_id = request('udf5');
+            $shop_pick_id = request('udf1');
 
             if ($selected_point > 0) {
                 $user_master = UserMaster::find($user->id);
@@ -192,7 +237,8 @@ class CartController extends Controller
             $order = new OrderMaster();
             $order->order_no = rand(100000, 999999);
             $order->user_id = $user->id;
-            $order->address_id = $address_id;
+            $order->address_id = $address_id > '0' ? $address_id : null;
+            $order->shop_address_id = $shop_pick_id > '0' ? $shop_pick_id : null;
             $order->status = 'Ordered';
             $order->delivery_charge = $shipping == 0 ? '0' : $shipping;
             $order->bill_amount = $cart_total;
@@ -239,7 +285,7 @@ class CartController extends Controller
 //                }
 //            }
 
-            $address = UserAddress::find($address_id);
+            $address = $address_id > 0 ? UserAddress::find($address_id) : $user;
             $name = str_replace(' ', '', $address->name);
 
             file_get_contents("http://63.142.255.148/api/sendmessage.php?usr=retinodes&apikey=1A4428ABD1CB0BD43FB3&sndr=iapptu&ph=$address->contact&message=Dear%20$name,%20Your%20order%20has%20been%20placed%20your%20order%20no%20is%20OrganicDolchi$order->order_no");

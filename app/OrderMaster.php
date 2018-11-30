@@ -20,6 +20,11 @@ class OrderMaster extends Model
         return $this->belongsTo('App\UserAddress', 'address_id');
     }
 
+    public function shop_point()
+    {
+        return $this->belongsTo('App\ShopPoints', 'shop_address_id');
+    }
+
     public static function distibute_points($total_amt, $user_id)
     {
         $pointAmt = $total_amt * 0.2 / 100;

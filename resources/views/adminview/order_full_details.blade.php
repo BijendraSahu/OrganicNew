@@ -35,7 +35,11 @@
             </div>
             <div class="col-md-4 col-sm-12">
                 <div class="track_del_address">
-                    {{$order_data->user_address->name.", ".$order_data->user_address->contact.", ".$order_data->user_address->address}}
+                    @if(isset($order_data->address_id))
+                        {{$order_data->user_address->name.", ".$order_data->user_address->contact.", ".$order_data->user_address->address}}
+                    @else
+                        {{"Shop Pickup:"}}  {{$order_data->shop_point->shop_name.", ".$order_data->shop_point->contact.", ".$order_data->shop_point->shop_address}}
+                    @endif
                 </div>
                 <div class="track_status">
                     <p><b>{{$order_data->status}}
@@ -103,7 +107,6 @@
                 </ol>
             </div>
         @endif
-
 
 
     </div>

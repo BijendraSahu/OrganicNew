@@ -5,7 +5,7 @@ $new_str = str_replace(' ', '', $firstName);
 ?>
 <html>
 <head>
-    <script>
+    <script type="text/javascript">
         var hash = '<?php echo $hash1 ?>';
 
         function submitPayuForm() {
@@ -50,77 +50,68 @@ $new_str = str_replace(' ', '', $firstName);
 <?php //} ?>
 
 
-<!--<form method="post" name="payumoney" action="{{url('Atompay/sample.php')}}" id="payumoney_form_btnblock">-->
-<form method="post" name="payumoney" target="_blank" action="https://secure.payu.in/_payment" id="payumoney_form_btnblock">
-<!--<form method="post" name="payumoney" action="{{url('PaytmKit/TxnTest.php')}}" id="payumoney_form_btnblock">-->
 
-    <div class="container">
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="inputType" class="col-md-2 control-label">Amount<span class="mandatory">*</span><span
-                            style="font-size: 10px; font-weight: 600"></span></label>
-                <div class="col-sm-3"><label for=""><b>Rs. {{$totalCost}}</b></label>
-                    <input type="hidden" readonly="readonly" class="form-control" name="amount"
-                           value="{{$totalCost}}" id="inputType" placeholder="Enter Amount">
+
+<form method="post" name="payumoney" action="https://secure.payu.in/_payment" target="_blank" id="payumoney_form_btnblock1" style="margin-bottom: 0px">
+    <div class="modal-body">
+        <div class="basic_lb_row">
+            <div class="col-sm-3 col-xs-12 text-right">
+                <b class="">Amount :</b>
+            </div>
+            <div class="col-sm-7 col-xs-12">
+                Rs. {{$totalCost}}
+                <input type="hidden" class="form-control" name="amount" value="{{$totalCost}}" id="amt"/>
+            </div>
+        </div>
+        <div class="basic_lb_row">
+            <div class="col-sm-3 col-xs-12 text-right">
+                <b>Name :</b>
+            </div>
+            <div class="col-sm-7 col-xs-12">
+                <?php echo $new_str ?>
+                <input type="hidden" value="<?php echo $new_str ?>"
+                       name="firstname" class="form-control" id="fname"/>
+{{--                <input type="hidden" name="page_id" id="page_id" value="{{$totalCost}}"/>--}}
+            </div>
+        </div>
+        <div class="basic_lb_row">
+            <div class="col-sm-3 col-xs-12 text-right">
+                <b>Email :</b>
+            </div>
+            <div class="col-sm-7 col-xs-12">
+                {{$email}}
+                <input type="hidden" name="email" value="{{$email}}" class="form-control" id="inputType"/>
+            </div>
+        </div>
+        <div class="basic_lb_row">
+            <div class="col-sm-3 col-xs-12 text-right">
+                <b>Phone :</b>
+            </div>
+            <div class="col-sm-7 col-xs-12">
+                {{$mobile}}
+                <input type="hidden" name="phone" value="{{$mobile}}" class="form-control" id="inputType"/>
+            </div>
+        </div>
+        <div class="basic_lb_row">
+            <div class="col-sm-3 col-xs-12 text-right">
+                <b>Address :</b>
+            </div>
+            <div class="col-sm-7 col-xs-12">
+                {{$addressdel1}}
+                <input type="hidden" name="addressdel" class="form-control" value="{{$addressdel1}}"/>
+            </div>
+        </div>
+        @if($shipping > 0)
+            <div class="basic_lb_row">
+                <div class="col-sm-3 col-xs-12 text-right">
+                    <b>Shipping :</b>
                 </div>
-                <label for="inputType" class="col-md-1 control-label">Name<span class="mandatory">*</span></label>
-                <div class="col-sm-3"><label for=""><b><?php echo $new_str ?></b></label>
-                    <input type="hidden" readonly="readonly" value="<?php echo $new_str ?>"
-                           name="firstname" class="form-control" id="inputType"
-                           placeholder="Enter Name"></div>
-                <input type="hidden" name="page_id" id="page_id" value="{{$totalCost}}"/>
+                <div class="col-sm-7 col-xs-12">
+                    Rs. {{$shipping}}
+                    <input type="hidden" name="shipping" class="form-control" value="{{$shipping}}"/>
+                </div>
             </div>
-        </div>
-        <p class="clearfix"></p>
-
-
-        <div class="col-md-12">
-            <div class="form-group">
-                {{--<label for="inputType" class="col-md-2 control-label">Email<span class="mandatory">*</span></label>--}}
-                {{--<div class="col-sm-3"><label for=""><b>{{$email}}</b></label>--}}
-                    {{--<input type="hidden" readonly="readonly" name="email"--}}
-                           {{--value="{{$email}}" class="form-control" id="inputType"--}}
-                           {{--placeholder="Enter Email">--}}
-                {{--</div>--}}
-                <label for="inputType" class="col-md-2 control-label">Phone<span class="mandatory">*</span></label>
-                <div class="col-sm-3"><label for=""><b>{{$mobile}}</b></label>
-                    <input type="hidden" readonly="readonly" name="phone"
-                           value="{{$mobile}}" class="form-control" id="inputType"
-                           placeholder="Enter Phone"></div>
-
-                <label for="inputType" class="col-md-1 control-label">Address:<span class="mandatory">*</span></label>
-                <div class="col-sm-3"><label for=""><b>{{$addressdel1}}</b></label>
-                    <input type="hidden" readonly="readonly" name="addressdel" class="form-control"
-                           value="{{$addressdel1}}"
-                           placeholder=" Enter Address"></div>
-
-            </div>
-        </div>
-        {{--<p class="clearfix"></p>--}}
-        {{--<div class="col-md-12">--}}
-            {{--<div class="form-group">--}}
-                {{--<label for="inputType" class="col-md-2 control-label">Address:<span class="mandatory">*</span></label>--}}
-                {{--<div class="col-md-7"><label for=""><b>{{$addressdel1}}</b></label>--}}
-                    {{--<input type="hidden" readonly="readonly" name="addressdel" class="form-control"--}}
-                           {{--value="{{$addressdel1}}"--}}
-                           {{--placeholder=" Enter Address"></div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-
-        {{--@if($shipping > 0)--}}
-            {{--<p class="clearfix"></p>--}}
-            {{--<div class="col-md-12">--}}
-                {{--<div class="form-group">--}}
-                    {{--<label for="inputType" class="col-md-2 control-label">Shipping:<span--}}
-                                {{--class="mandatory">*</span></label>--}}
-                    {{--<div class="col-md-7"><label for=""><b>Rs. {{$shipping}}</b></label>--}}
-                        {{--<input type="hidden" readonly="readonly" name="shipping" class="form-control"--}}
-                               {{--value="{{$shipping}}"--}}
-                               {{--placeholder=" Enter Shipping">--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--@endif--}}
+        @endif
 
         <div class="col-md-12 hidden">
             <div class="form-group">
@@ -167,7 +158,7 @@ $new_str = str_replace(' ', '', $firstName);
                        value="<?php echo (empty($posted['country'])) ? '' : $posted['country']; ?>"/>
                 <input type="text" name="zipcode"
                        value="<?php echo (empty($posted['zipcode'])) ? '' : $posted['zipcode']; ?>"/>
-                <input type="text" name="udf1" value="<?php echo (empty($posted['udf1'])) ? '1' : $posted['udf1']; ?>"/>
+                <input type="text" name="udf1" value="{{$shop_address_id}}"/>
                 <input type="text" name="udf2" value="{{$shipping}}"/>
                 <input type="text" name="udf3" value="{{$selected_point}}"/>
                 <input type="text" name="udf4" value="{{$selected_promo}}"/>
@@ -176,20 +167,11 @@ $new_str = str_replace(' ', '', $firstName);
                 {{--------------------------------------------------optional--------------------------------------------------}}
             </div>
         </div>
-        <p class="clearfix"></p>
-        <div class="col-md-12 hidden">
-            <div class="form-group">
-                <label for="inputType" class="col-md-2 control-label hidden">Failure URL:<span
-                            class="mandatory">*</span></label>
-                <button type="submit" class="btn btn-info btn-color">Submit</button>
-            </div>
-        </div>
-        <div class="col-md-3 col-md-offset-2">
-            <button type="submit" class="btn btn-info btn-color">Submit</button>
-        </div>
     </div>
-
-
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+    </div>
 </form>
 </body>
 </html>

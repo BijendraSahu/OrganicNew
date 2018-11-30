@@ -40,7 +40,7 @@
 
                         @foreach($mymenuroll as $mymenurollone)
                             @if($mymenurollone->menu_id==2)
-                                <?php $cdata = \App\Categorymaster::where(['is_active' => 1])->get();?>
+                                <?php $cdata = \Illuminate\Support\Facades\DB::select("SELECT * FROM `category_master` where is_active = 1");?>
                                 <a href="{{url('organic').'/'.encrypt(1).'/category'}}">
                                     <div class="col-sm-3">
                                         <div class="white_brics">
