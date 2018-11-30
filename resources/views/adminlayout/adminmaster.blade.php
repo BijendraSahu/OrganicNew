@@ -681,7 +681,7 @@
                     </div>--}}
                     <div class="menu_popup_settingrow effect">
                         <a href="{{url('lgt')}}" class="menu_setting_row">
-                            <i class="mdi mdi-logout global_color"></i>
+                            <i class="mdi mdi-logout" style="color: #ff5a55;"> </i>
                             Logout
                         </a>
                     </div>
@@ -911,7 +911,7 @@
              class="dash_profile_img"/>
         <div class="dash_emp_basic">
             <span class="dash_name">{{ucfirst($_SESSION['admin_master']['username'])}}</span>
-            <span class="dash_designation">Admin</span>
+            {{--<span class="dash_designation">Admin</span>--}}
         </div>
     </div>
     <ul class="list-group dash_menu_ul">
