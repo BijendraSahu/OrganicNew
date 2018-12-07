@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         .card {
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -67,8 +66,8 @@
 <div>
     <div class="usr_back_img">
         <div class="usr_img">
-            {{--<img src="u_img\{{$user_data->id}}\{{$user_data->profile_img}}" alt="no image found"> --}}
-            <img src="images\Admin_pic.jpg" alt="no image found">
+            <img src="u_img\{{$user_data->id}}\{{$user_data->profile_img}}" alt="no image found">
+            {{--<img src="images\Admin_pic.jpg" alt="no image found">--}}
         </div>
     </div>
     <h3>{{$user_data->name}}</h3>

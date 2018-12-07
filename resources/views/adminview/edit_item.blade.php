@@ -317,7 +317,7 @@
                                 <div class="upper_basic_heading heightset"><span class="white_dash_head_txt">
                          Edit Items
                                         <button onclick="openlist();" class="btn btn-default pull-right"><i
-                                                    class="mdi mdi-back"></i>List</button>
+                                                    class="mdi mdi-content-duplicate"></i>List</button>
                       </span>
 
                                     <form action="{{url('/itemeditpost')}}" method="post" id="userpostForm"
@@ -641,9 +641,10 @@
         }
 
         function openlist() {
-            $('#item_form').hide();
-            $('#item_part1').show();
-
+            debugger;
+//            $('#item_form').hide();
+//            $('#item_part1').show();
+            window.history.go(-1);
         }
 
         function openMymo(id) {
@@ -943,7 +944,7 @@
                 buttons: true,
                 dangerMode: true,
             })
-                .then((willDelete) = > {
+                .then((willDelete) => {
                 if (willDelete) {
                     $.get('{{url('delete_item_pic')}}', {
                         i_name: i_name,

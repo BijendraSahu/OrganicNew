@@ -3,8 +3,6 @@
 @section('title','Organic Dolchi | Delivery')
 
 @section('content')
-
-
     <section class="box_containner" id="fullid">
         <div class="container-fluid">
             <div class="row">
@@ -17,11 +15,18 @@
                          <button onclick="opendeliform();" class="btn btn-default pull-right"><i
                                      class="mdi mdi-plus"></i>Add</button>
                       </span>
-                                    <p class="clearfix"></p>
-                                    <table class="table table-striped">
+                                    <div class="row">
+                                        <div class="col-md-3 pull-right">
+                                            <input id='myInput' class="form-control search_icon" placeholder="search"
+                                                   onkeyup='GlobalsearchTable("delivery_body")' type='text'/>
+                                        </div>
+                                    </div>
+                                    <table class="table table-striped table-bordered" id="DeliveryTable">
                                         <thead>
                                         <tr>
-                                            <th>City</th>
+                                            <th class="sorting"
+                                            onclick="w3.sortHTML('#DeliveryTable','.item', 'td:nth-child(1)')">City
+                                            <i class="fa fa-sort"></i></th>
                                             <th>Area</th>
                                             <th>Pin</th>
                                             <th>Amount</th>
@@ -29,10 +34,10 @@
                                             <th>Action</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="delivery_body">
                                         @foreach($deliverydata as $object)
                                             @if($object->is_active=='1')
-                                                <tr>
+                                                <tr class="item">
                                                     <td>{{$object->cityname->city}}</td>
                                                     <input type="hidden" value="{{$object->cityname->city}}"
                                                            id="cityname{{$object->id}}">
@@ -75,10 +80,7 @@
             </div>
         </div>
     </section>
-
     <script type="text/javascript">
-
-
         function opendeliform() {
             $('#smallheader').html('');
             $('#smallbody').html('');
@@ -89,7 +91,6 @@
             $('#myModalsmall').modal();
         }
         function addarea() {
-
             var cityid = $('#city_name').val();
             var area = $('#area').val();
             var pin = $('#pin').val();
@@ -125,8 +126,6 @@
                 });
             }
         }
-
-
         function editdelivery(id) {
             var cityname = $('#cityname' + id).val();
             var area = $('#cityarea' + id).val();
@@ -143,8 +142,6 @@
             $('#myModalsmall').modal();
 
         }
-
-
         function updateaddarea(id) {
             var idd = id;
             var cityid = $('#city_name_one').val();
@@ -183,8 +180,6 @@
             }
 
         }
-
-
         function deletedeli(id) {
             swal({
                 title: "Are you sure?",
@@ -192,7 +187,7 @@
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
-            }).then((willDelete) = > {
+            }).then((willDelete) => {
                 if (willDelete) {
                     $.get('{{url('delete_del')}}', {idd: id}, function (data) {
                         $('#myModalsmall').modal('hide');

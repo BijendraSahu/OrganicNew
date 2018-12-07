@@ -209,9 +209,11 @@ class RecipeController extends Controller
     {
         return view('web.otherpages.contactus');
     }
-
-
-
+    public function viewmore_recipe(){
+        $get_recipe_master =RecipeMaster::where(['is_active'=>'1','id'=>request('id')])->first();
+//        echo $get_recipe_master;
+        return view('adminview.view_recipe_detail')->with(['data'=>$get_recipe_master]);
+    }
     public function developers()
     {
         return view('rdevlop');

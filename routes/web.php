@@ -162,8 +162,11 @@ Route::get('searchtable', 'ItemmasterController@searchtable');
 ///////////////////////////////////////////////////////////////////////////////////////////
 Route::get('organic/{id}/userlist', 'User_loginController@userlist');
 Route::get('/deactivate_user', 'User_loginController@deactivate_user');
+Route::get('/activate_user_cod', 'User_loginController@activate_user_cod');
+Route::get('/deactivate_user_cod', 'User_loginController@deactivate_user_cod');
 Route::get('/activate_user', 'User_loginController@activate_user');
 Route::get('/usershow/{id}', 'User_loginController@usershow');
+Route::get('/user_details/{id}', 'User_loginController@user_details');
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 Route::get('organic/{id}/review', 'ReviewController@review');
 Route::get('/activate_review', 'ReviewController@activate_review');
@@ -177,6 +180,7 @@ Route::get('/shipped', 'OrderController@shipped');
 Route::get('/delivered', 'OrderController@delivered');
 Route::get('/active_order', 'OrderController@active_order');
 Route::get('/inactive_order', 'OrderController@inactive_order');
+Route::get('/cancle_order', 'OrderController@update_cancelled');
 Route::get('/more_order/{id}', 'OrderController@more_order');
 Route::get('/bill_order/{id}', 'OrderController@bill_order');
 Route::get('delete_item_pic', 'ItemmasterController@delete_item_pic');
@@ -237,7 +241,7 @@ Route::get('/updateblog/{id}', 'BlogController@updateblog');
 Route::get('/approvereciepe', 'RecipeController@approvereciepe');
 Route::get('/rejectRecip', 'RecipeController@rejectRecip');
 Route::get('/deleteRecip', 'RecipeController@deleteRecip');
-
+Route::get('viewmore_recipe', 'RecipeController@viewmore_recipe');
 Route::get('organic/{id}/allreciepe', 'RecipeController@allreciepe');
 //////////////////////////////////////////////////////////////////////////////////////////////
 Route::get('organic/{id}/testimonials', 'TestimonialsController@list');

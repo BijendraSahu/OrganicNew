@@ -1,6 +1,6 @@
 @extends('adminlayout.adminmaster')
 
-@section('title','Dashboard')
+@section('title','Organic Dolchi / Testomonials')
 
 @section('content')
 
@@ -9,60 +9,10 @@
         .hidealways {
             display: none;
         }
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
-        }
-
-        .switch input {display:none;}
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            -webkit-transition: .4s;
-            transition: .4s;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            -webkit-transition: .4s;
-            transition: .4s;
-        }
-
-        input:checked + .slider {
-            background-color: #2196F3;
-        }
-
-        input:focus + .slider {
-            box-shadow: 0 0 1px #2196F3;
-        }
-
-        input:checked + .slider:before {
-            -webkit-transform: translateX(26px);
-            -ms-transform: translateX(26px);
-            transform: translateX(26px);
-        }
-
-        /* Rounded sliders */
-        .slider.round {
-            border-radius: 34px;
-        }
-
-        .slider.round:before {
-            border-radius: 50%;
+        .status
+        {
+            min-width: 100px;
+            border-radius: 3px;
         }
 
     </style>
@@ -79,40 +29,57 @@
                          <button onclick="openmyform();" class="btn btn-default pull-right"><i
                                      class="mdi mdi-plus"></i>Add</button>
                       </span>
-                                    <?php $mydata=\App\Testimonial::orderBy('id','desc')->get();?>
-                                    <p class="clearfix"></p>
-                                    <table class="table table-striped">
+                                    <?php $mydata = \App\Testimonial::orderBy('id', 'desc')->get();?>
+                                    <div class="row">
+                                        <div class="col-md-3 pull-right">
+                                            <input id="myInput" class="form-control search_icon" placeholder="Search"
+                                                   onkeyup="GlobalsearchTable('testomonial_tablebody')" type="text">
+                                        </div>
+                                    </div>
+                                    <table class="table table-striped table-bordered" id="TestomonialTable">
                                         <thead>
                                         <tr>
-                                            <th>User Name</th>
-                                            {{--     <th width="50%"></th>--}}
+                                            <th class="sorting"
+                                                onclick="w3.sortHTML('#TestomonialTable','.item', 'td:nth-child(1)')">
+                                                User Name
+                                                <i class="fa fa-sort"></i>
+                                            </th>
                                             <th>review</th>
-                                            <th>Status</th>
-                                            <th>option</th>
-
+                                            <th class="sorting"
+                                                onclick="w3.sortHTML('#TestomonialTable','.item', 'td:nth-child(3)')">
+                                                Status
+                                                <i class="fa fa-sort"></i>
+                                            </th>
+                                            <th>Action</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="testomonial_tablebody">
                                         @foreach($mydata as $obj)
-
-                                            <tr>
-                                                <td>{{$obj->user->name}}</td>
-                                                <input type="hidden" name="myuid" id="myuid{{$obj->user_id}}">
-                                                <td>{{$obj->review}}</td>
+                                            <tr class="item">
+                                                <td>{{isset($obj->user->name)?$obj->user->name:'-'}}
+                                                    <input type="hidden" name="myuid" id="myuid{{$obj->user_id}}">
+                                                </td>
+                                                <td>{{isset($obj->review)?$obj->review:'-'}}</td>
                                                 <td>
                                                     @if($obj->is_active == 1)
-                                                        <span class="badge badge-primary">Showing</span>
+                                                        <span class="status approved">Showing</span>
                                                     @else
-                                                        <span class="badge badge-primary">Not Showing</span>
+                                                        <span class="status rejected">Not Showing</span>
                                                     @endif
                                                 </td>
                                                 <td>
                                                     {{-- <button onclick="edittest({{$obj->id}});" class="btn btn-primary btn-sm">Update</button>--}}
-                                                    <button onclick="deletetest({{$obj->id}});" class="btn btn-danger btn-sm">Delete</button>
+                                                    <button onclick="deletetest({{$obj->id}});"
+                                                            class="btn btn-danger btn-xs">Delete
+                                                    </button>
                                                     @if($obj->is_active == 1)
-                                                        <button onclick="inactiveTest({{$obj->id}});" class="btn btn-default btn-sm">inactive</button>
+                                                        <button onclick="inactiveTest({{$obj->id}});"
+                                                                class="btn btn-default btn-xs">inactive
+                                                        </button>
                                                     @else
-                                                        <button onclick="activeTest({{$obj->id}});" class="btn btn-warning btn-sm">Active</button>
+                                                        <button onclick="activeTest({{$obj->id}});"
+                                                                class="btn btn-warning btn-xs">Active
+                                                        </button>
                                                     @endif
 
                                                 </td>
@@ -138,19 +105,29 @@
                             <div class="dash_boxcontainner white_boxlist">
                                 <div class="upper_basic_heading"><span class="white_dash_head_txt">
                        Add Testimonials
-                                        {{--<button onclick="openAddform();" class="btn btn-default pull-right"><i
-                                                    class="mdi mdi-plus"></i>Add</button>--}}
+                                        <button onclick="openlist();" class="btn btn-default pull-right">
+                                            <i class="mdi mdi-content-duplicate"></i>List</button>
                       </span>
-                                    <?php $userdata= \App\UserMaster::get();?>
-                                    <select class="form-control" name="userid" id="userid">
-                                        <option value="0">--select--</option>
-                                        @foreach($userdata as $userobj)
-                                            <option value="{{$userobj->id}}">{{$userobj->name}}</option>
-                                        @endforeach
-                                    </select>
+                                    <?php $userdata = \App\UserMaster::get();?>
+                                    <div class="main_form_testomonial">
+                                        <select class="form-control" name="userid" id="userid">
+                                            <option value="0">Select User</option>
+                                            @foreach($userdata as $userobj)
+                                                <option value="{{$userobj->id}}">{{$userobj->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <textarea class="form-control" placeholder="Enter Review" name="review"
+                                                  id="review"
+                                                  cols="30" rows="10"></textarea>
 
-                                    <textarea class="form-control" placeholder="Enter Review" name="review" id="review" cols="30" rows="10"></textarea>
-                                    <input type="button" onclick="mytesti();" class="btn btn-primary btn-block" value="Add">
+                                        <div class="col-sm-12 text-center form-group">
+                                            <button type="button" class="btn btn-success" onclick="mytesti();"><i
+                                                        class="mdi mdi-send submit_icon_margin"></i>Add Testimonial
+                                            </button>
+                                        </div>
+                                        {{--<input type="button" onclick="mytesti();" class="btn btn-primary btn-block"--}}
+                                        {{--value="Add">--}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -160,9 +137,7 @@
         </div>
     </section>
 
-    <script>
-
-
+    <script type="text/javascript">
         function inactiveTest(id) {
             var myid = id;
             $.get('{{url('inactivetest')}}', {myid: myid}, function (data) {
@@ -194,24 +169,31 @@
             });
         }
 
-        function mytesti()
-        {
-            var user =$('#userid').val();
-            var review =$('#review').val();
-            $.get('{{url('addtstimonials')}}', {user: user,review:review}, function (data) {
-                /* alert(data);*/
-
-                location.reload();
-            });
+        function mytesti() {
+            var user = $('#userid').val();
+            var review = $('#review').val();
+            $('#userid').removeClass("valmy");
+            $('#review').removeClass("valmy");
+            if (user == "0") {
+                $('#userid').addClass("valmy");
+                return false;
+            }
+            else if (review == "") {
+                $('#review').addClass("valmy");
+                return false;
+            }
+            else {
+                $.get('{{url('addtstimonials')}}', {user: user, review: review}, function (data) {
+                    location.reload();
+                });
+            }
         }
 
-        function openmyform()
-        {
+        function openmyform() {
             $("#item_part1").addClass("hidealways");
             $("#item_part2").removeClass("hidealways");
         }
-        function openlist()
-        {
+        function openlist() {
             $("#item_part1").removeClass("hidealways");
             $("#item_part2").addClass("hidealways");
         }

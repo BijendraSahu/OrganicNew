@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{{url('assets/css/media.css')}}"/>
     {{--<link rel="stylesheet" href="{{url('assets/css/w3.css')}}"/>--}}
     <link rel="stylesheet" href="{{url('assets/css/form-wizard-green.css')}}">
-    <link rel="stylesheet" href="{{url('assets/css/dataTables.bootstrap.min.css')}}"/>
+    {{--<link rel="stylesheet" href="{{url('assets/css/dataTables.bootstrap.min.css')}}"/>--}}
     <link rel="stylesheet" href="{{url('assets/css/text_editor.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
     <script src="{{url('assets/js/jquery-3.2.1.min.js')}}"></script>
@@ -25,8 +25,9 @@
     <script src="{{url('js/my_validation.js')}}"></script>
     <script src="{{url('assets/js/text_editor.js')}}"></script>
     <script src="{{url('assets/js/Autocomplete.js')}}"></script>
-    <script src="{{url('assets/js/jquery.dataTables.min.js')}}"></script>
-    <script src="{{url('assets/js/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{url('js/Sorting.js')}}"></script>
+    {{--<script src="{{url('assets/js/jquery.dataTables.min.js')}}"></script>--}}
+    {{--<script src="{{url('assets/js/dataTables.bootstrap.min.js')}}"></script>--}}
 
 
     <script type="text/javascript">
@@ -330,10 +331,6 @@
             display: none;
         }
 
-        .hidealways {
-            display: none;
-        }
-
         .label_checkbox {
             display: inline-block;
         }
@@ -364,16 +361,8 @@
             display: none;
         }
 
-        .ali {
-            margin-left: 685px;
-        }
-
         .hidealways {
             display: none;
-        }
-
-        .container {
-            margin-top: 20px;
         }
 
         .image-preview-input {
@@ -399,97 +388,6 @@
 
         .image-preview-input-title {
             margin-left: 2px;
-        }
-
-        p {
-            font-size: 15px;
-        }
-
-        h3 {
-            font-weight: bolder;
-            font-size: 25px;
-
-        }
-
-        .blog_detail_box {
-            font-size: 15px;
-            font-weight: 300;
-            letter-spacing: .3px;
-            text-shadow: 1px 1px #e8e8e8;
-            text-align: justify;
-            line-height: 1.5;
-
-        }
-
-        .one {
-
-            margin: 18px 60px 0px 0px;
-            border-radius: 5px;
-            text-align: center;
-        }
-
-        .shadow {
-            margin-left: 26px;
-            border-radius: 7px;
-            display: inline-block;
-            overflow: hidden;
-            -webkit-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19);
-            box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19);
-        }
-
-        .two {
-            margin-top: 20px;
-        }
-
-        .line {
-            padding-bottom: 20px;
-            border-bottom: solid thin #ccc;
-        }
-
-        .button {
-            border-radius: 4px;
-            background-color: #4285f4;
-            border: none;
-            color: #FFFFFF;
-            text-align: center;
-            font-size: 15px;
-            height: 37px;
-            color: white;
-            width: 130px;
-            transition: all 0.5s;
-            margin: 0px;
-
-        }
-
-        .first {
-            height: 240px;
-            border-radius: 5px;
-            width: 320px;
-        }
-
-        .button span {
-            cursor: pointer;
-            display: inline-block;
-            position: relative;
-            transition: 0.5s;
-        }
-
-        .button span:after {
-            content: '\00bb';
-            position: absolute;
-            opacity: 0;
-            top: 0;
-            right: -20px;
-            transition: 0.5s;
-        }
-
-        .button:hover span {
-            padding-right: 25px;
-        }
-
-        .button:hover span:after {
-            opacity: 1;
-            right: 0;
         }
     </style>
     <script>
@@ -554,10 +452,8 @@
             $('#myheader').html('');
             $('#mybody').html('');
             $('#myfooter').html('');
-            $('#myheader').html('Product view  <button type="button" class="close" onclick="aaoneeche();"  data-dismiss="modal">&times;</button>');
+            $('#myheader').html('<b>Update Profile</b> <button type="button" class="close" onclick="aaoneeche();"  data-dismiss="modal">&times;</button>');
             $('#myfooter').html('<button type="button" onclick="aaoneeche();" class="btn btn-default" data-dismiss="modal">Close</button>');
-
-
             var editurl = '{{ url('settings') }}' + '/' + id;
             $.ajax({
                 type: "GET",
@@ -991,7 +887,7 @@
                 <li class="right_menu_li">
                     {{--<a href="{{url('/delivery')}}">--}}
                     <a href="{{url('organic').'/'.encrypt(1).'/delivery'}}">
-                        <i class="dash_arrow mdi mdi-gift global_color"></i>
+                        <i class="dash_arrow mdi mdi-truck-delivery global_color"></i>
                         <span class="aside_menu_txt">Delivery</span>
                     </a>
                 </li>
@@ -1047,30 +943,6 @@
                 </li>
             @endif
         @endforeach
-
-        @foreach($mymenuroll as $mymenurollone)
-            @if($mymenurollone->menu_id==11)
-                <li class="right_menu_li">
-                    {{--<a href="{{url('/testimonials')}}">--}}
-                    <a href="{{url('organic').'/'.encrypt(1).'/testimonials'}}">
-                        <i class="dash_arrow mdi mdi-format-size global_color"></i>
-                        <span class="aside_menu_txt">Testimonials</span>
-                    </a>
-                </li>
-            @endif
-        @endforeach
-
-        @foreach($mymenuroll as $mymenurollone)
-            @if($mymenurollone->menu_id==12)
-                <li class="right_menu_li">
-                    {{--<a href="{{url('/allreciepe')}}">--}}
-                    <a href="{{url('organic').'/'.encrypt(1).'/allreciepe'}}">
-                        <i class="dash_arrow mdi mdi-radiator global_color"></i>
-                        <span class="aside_menu_txt">All Recipe</span>
-                    </a>
-                </li>
-            @endif
-        @endforeach
         @foreach($mymenuroll as $mymenurollone)
             @if($mymenurollone->menu_id==13)
                 <li class="right_menu_li">
@@ -1083,11 +955,35 @@
             @endif
         @endforeach
         @foreach($mymenuroll as $mymenurollone)
+            @if($mymenurollone->menu_id==11)
+                <li class="right_menu_li">
+                    {{--<a href="{{url('/testimonials')}}">--}}
+                    <a href="{{url('organic').'/'.encrypt(1).'/testimonials'}}">
+                        <i class="dash_arrow mdi mdi-account-star global_color"></i>
+                        <span class="aside_menu_txt">Testimonials</span>
+                    </a>
+                </li>
+            @endif
+        @endforeach
+
+        @foreach($mymenuroll as $mymenurollone)
+            @if($mymenurollone->menu_id==12)
+                <li class="right_menu_li">
+                    {{--<a href="{{url('/allreciepe')}}">--}}
+                    <a href="{{url('organic').'/'.encrypt(1).'/allreciepe'}}">
+                        <i class="dash_arrow mdi mdi-food-fork-drink global_color"></i>
+                        <span class="aside_menu_txt">All Recipe</span>
+                    </a>
+                </li>
+            @endif
+        @endforeach
+
+        @foreach($mymenuroll as $mymenurollone)
             @if($mymenurollone->menu_id==14)
                 <li class="right_menu_li">
                     {{--<a href="{{url('/subscribe')}}">--}}
                     <a href="{{url('organic').'/'.encrypt(1).'/subscribe'}}">
-                        <i class="dash_arrow mdi mdi-flag-checkered global_color"></i>
+                        <i class="dash_arrow mdi mdi-account-alert global_color"></i>
                         <span class="aside_menu_txt">Subscribe</span>
                     </a>
                 </li>
@@ -1098,7 +994,7 @@
                 <li class="right_menu_li">
                     {{--<a href="{{url('/rollmastermenu')}}">--}}
                     <a href="{{url('organic').'/'.encrypt(1).'/rollmastermenu'}}">
-                        <i class="dash_arrow mdi mdi mdi-account-settings-variant global_color"></i>
+                        <i class="dash_arrow mdi mdi mdi-account-card-details global_color"></i>
                         <span class="aside_menu_txt">Role Master</span>
                     </a>
                 </li>
@@ -1110,7 +1006,7 @@
                 <li class="right_menu_li">
                     {{--<a href="{{url('/rollmastermenu')}}">--}}
                     <a href="{{url('organic').'/'.encrypt(1).'/brand'}}">
-                        <i class="dash_arrow mdi mdi mdi-account-settings-variant global_color"></i>
+                        <i class="dash_arrow mdi mdi mdi-briefcase-check global_color"></i>
                         <span class="aside_menu_txt">Brand</span>
                     </a>
                 </li>
@@ -1121,7 +1017,7 @@
                 <li class="right_menu_li">
                     {{--<a href="{{url('/rollmastermenu')}}">--}}
                     <a href="{{url('organic').'/'.encrypt(1).'/shop_points'}}">
-                        <i class="dash_arrow mdi mdi mdi-account-settings-variant global_color"></i>
+                        <i class="dash_arrow mdi mdi mdi-crosshairs-gps global_color"></i>
                         <span class="aside_menu_txt">Shop Points</span>
                     </a>
                 </li>
@@ -1196,7 +1092,7 @@
 
 <div class="overlay_res" onclick="HideTranparent();"></div>
 <div id="snackbar">New Categories added Successfully</div>
-<script>
+<script type="text/javascript">
 
     $(document).ready(function () {
         $('#myloaderid').hide();
@@ -1208,6 +1104,31 @@
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })
+    function GlobalsearchTable(table_bodyid) {
+        var input, filter, found, table, tr, td, i, j;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById(table_bodyid);
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td");
+            for (j = 0; j < td.length; j++) {
+                if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    found = true;
+                }
+            }
+            if (found) {
+                tr[i].style.display = "";
+                found = false;
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+    function GlobalHideShow(show_this, hide_this) {
+        $('#' + hide_this).hide();
+        $('#' + show_this).show();
+    }
 </script>
 
 @if(session()->has('message'))
@@ -1217,6 +1138,27 @@
             swal("Success!", "{{ session()->get('message') }}", "success");
 
         }, 500);
+        function GlobalsearchTable(table_bodyid) {
+            var input, filter, found, table, tr, td, i, j;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById(table_bodyid);
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td");
+                for (j = 0; j < td.length; j++) {
+                    if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        found = true;
+                    }
+                }
+                if (found) {
+                    tr[i].style.display = "";
+                    found = false;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
     </script>
 @endif
 

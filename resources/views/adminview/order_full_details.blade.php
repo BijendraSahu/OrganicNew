@@ -1,4 +1,6 @@
-@include('web.layouts.plugin')
+{{--@include('web.layouts.plugin')--}}
+<link rel="stylesheet" href="{{url('css/frount.css')}}"/>
+<link rel="stylesheet" href="{{url('css/media.css')}}"/>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet"/>
 @foreach($order_details as $desobj)
     <div class="order_row">
@@ -107,7 +109,5 @@
                 </ol>
             </div>
         @endif
-
-
     </div>
 @endforeach

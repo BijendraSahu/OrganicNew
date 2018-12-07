@@ -2149,7 +2149,6 @@ ol.progtrckr li.progtrckr-todo:before {
     border: solid thin #e1e1e1;
     content: "";
     height: 100%;
-    z-index: 100;
     width: calc(100% - 100px);
     left: 100px;
 }

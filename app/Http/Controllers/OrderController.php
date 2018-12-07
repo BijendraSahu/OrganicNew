@@ -102,6 +102,27 @@ class OrderController extends Controller
         return 1;
     }
 
+    public function update_cancelled()
+    {
+        try {
+            $idd = request('IDD');
+            $reason = request('reson');
+            $can_by = request('can_by');
+            $data = array(
+                'is_cancelled' => '1',
+                'cancelletion_reason' => $reason,
+                'cencalled_by'=>$can_by
+
+            );
+            OrderMaster::where('id', request('IDD'))
+                ->update($data);
+            return ['success' => true, 'data' => [], 'message' => 'orderd Cenceled'];
+        } catch (\Exception $ex) {
+            return ['success' => false, 'data' => [], 'message' => $ex->getMessage()];
+
+        }
+    }
+
 
     public function more_order($id)
     {

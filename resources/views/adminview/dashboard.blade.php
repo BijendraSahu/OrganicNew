@@ -1,43 +1,12 @@
 @extends('adminlayout.adminmaster')
-
 @section('title','Dashboard')
-
 @section('content')
-    <style>
-        .btn_center {
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        .update_btn {
-            display: none;
-        }
-
-        .hidealways {
-            display: none;
-        }
-
-        .label_checkbox {
-            display: inline-block;
-        }
-
-        .label_checkbox .cr {
-            margin: 0px 5px;
-        }
-
-        .newrow {
-            background: #1e81cd52 !important;
-        }
-
-    </style>
     <?php $mymenuroll = \App\Menurolemodel::where(['user_id' => $_SESSION['admin_master']->id])->get();?>
     <section class="box_containner">
         <div class="container-fluid">
             <div class="row">
                 <section id="menu1">
                     <div class="home_brics_row">
-
-
                         @foreach($mymenuroll as $mymenurollone)
                             @if($mymenurollone->menu_id==2)
                                 <?php $cdata = \Illuminate\Support\Facades\DB::select("SELECT * FROM `category_master` where is_active = 1");?>
@@ -55,8 +24,6 @@
                                 </a>
                             @endif
                         @endforeach
-
-
                         @foreach($mymenuroll as $mymenurollone)
                             @if($mymenurollone->menu_id==3)
                                 <?php $idata = \App\ItemMaster::where(['is_active' => 1])->count();?>
@@ -76,8 +43,6 @@
                                 </a>
                             @endif
                         @endforeach
-
-
                         @foreach($mymenuroll as $mymenurollone)
                             @if($mymenurollone->menu_id==4)
                                 <?php $udata = \App\UserMaster::where(['is_active' => 1])->count();?>
@@ -98,8 +63,6 @@
                                 </a>
                             @endif
                         @endforeach
-
-
                         @foreach($mymenuroll as $mymenurollone)
                             @if($mymenurollone->menu_id==5)
                                 <?php $odata = \App\OrderMaster::where(['is_active' => 1])->count();?>
@@ -118,7 +81,6 @@
                                 </a>
                             @endif
                         @endforeach
-
                     </div>
                 </section>
             </div>
@@ -133,7 +95,7 @@
                                         <div class="white_brics">
                                             <div class="white_icon_withtxt">
                                                 <div class="white_icons_blk white_brics_clr4"><i
-                                                            class="mdi mdi-gift"></i></div>
+                                                            class="mdi mdi-truck-delivery"></i></div>
                                                 <div class="white_brics_txt">Delivery</div>
                                                 <div class="white_brics_count">{{$dddata}}</div>
                                             </div>
@@ -260,7 +222,7 @@
                                         <div class="white_brics">
                                             <div class="white_icon_withtxt">
                                                 <div class="white_icons_blk white_brics_clr3"><i
-                                                            class="mdi mdi-forum"></i></div>
+                                                            class="mdi mdi-account-star"></i></div>
                                                 <div class="white_brics_txt">Testimonials</div>
                                                 <div class="white_brics_count">{{$rdata}}</div>
                                             </div>
@@ -279,7 +241,7 @@
                                         <div class="white_brics">
                                             <div class="white_icon_withtxt">
                                                 <div class="white_icons_blk white_brics_clr4"><i
-                                                            class="mdi mdi-gift"></i></div>
+                                                            class="mdi mdi-food-fork-drink"></i></div>
                                                 <div class="white_brics_txt">All Reciepe</div>
                                                 <div class="white_brics_count">{{$RRdata}}</div>
                                             </div>
@@ -449,7 +411,7 @@
                                         <div class="white_brics">
                                             <div class="white_icon_withtxt">
                                                 <div class="white_icons_blk white_brics_clr4"><i
-                                                            class="mdi mdi-gift"></i></div>
+                                                            class="mdi mdi-account-alert"></i></div>
                                                 <div class="white_brics_txt">Subscribe</div>
                                                 <div class="white_brics_count">{{$ddata}}</div>
                                             </div>
@@ -459,19 +421,17 @@
                                 </a>
                             @endif
                         @endforeach
-
                         @foreach($mymenuroll as $mymenurollone)
                             @if($mymenurollone->menu_id==15)
-
                                 <a href="{{url('organic').'/'.encrypt(1).'/rollmastermenu'}}">
                                     <?php $rdata = \App\Review::where(['is_active' => 1])->count();?>
                                     <div class="col-sm-3">
                                         <div class="white_brics">
                                             <div class="white_icon_withtxt">
                                                 <div class="white_icons_blk white_brics_clr3"><i
-                                                            class="mdi mdi-forum"></i></div>
+                                                            class="mdi mdi-account-card-details"></i></div>
                                                 <div class="white_brics_txt">Role Master</div>
-                                                <div class="white_brics_count">No</div>
+                                                <div class="white_brics_count">{{$rdata}}</div>
                                             </div>
                                             <div class="brics_progress white_brics_border_clr3"></div>
                                         </div>
@@ -479,7 +439,43 @@
                                 </a>
                             @endif
                         @endforeach
+                            @foreach($mymenuroll as $mymenurollone)
+                                @if($mymenurollone->menu_id==16)
+                                    <?php $branddata = \App\Brand::count();?>
+                                    <a href="{{url('organic').'/'.encrypt(1).'/brand'}}">
+                                        <div class="col-sm-3">
+                                            <div class="white_brics">
+                                                <div class="white_icon_withtxt">
+                                                    <div class="white_icons_blk white_brics_clr4"><i
+                                                                class="mdi mdi-briefcase-check"></i></div>
+                                                    <div class="white_brics_txt">Brand</div>
+                                                    <div class="white_brics_count">{{$branddata}}</div>
+                                                </div>
+                                                <div class="brics_progress white_brics_border_clr4"></div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @endif
+                            @endforeach
 
+                            @foreach($mymenuroll as $mymenurollone)
+                                @if($mymenurollone->menu_id==17)
+                                    <a href="{{url('organic').'/'.encrypt(1).'/shop_points'}}">
+                                        <?php $shopdata = \App\ShopPoints::where(['is_active' => 1])->count();?>
+                                        <div class="col-sm-3">
+                                            <div class="white_brics">
+                                                <div class="white_icon_withtxt">
+                                                    <div class="white_icons_blk white_brics_clr3"><i
+                                                                class="mdi mdi-crosshairs-gps"></i></div>
+                                                    <div class="white_brics_txt">Shop Point</div>
+                                                    <div class="white_brics_count">{{$shopdata}}</div>
+                                                </div>
+                                                <div class="brics_progress white_brics_border_clr3"></div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @endif
+                            @endforeach
 
                     </div>
                 </section>

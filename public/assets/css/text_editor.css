@@ -58,7 +58,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 .Editor-editor{
-    height:200px;
+    height:150px;
     padding:1%;
     border:1px solid #EEE;
     border-radius:0;

@@ -214,6 +214,25 @@ class User_loginController extends Controller
             ->update($data);
         return 1;
     }
+    public function activate_user_cod()
+    {
+        $data = array(
+            'is_cod_allow' => '1'
+        );
+        UserMaster::where('id', request('IDD'))
+            ->update($data);
+        return 1;
+    }
+    public function deactivate_user_cod()
+    {
+        $data = array(
+            'is_cod_allow' => '0'
+        );
+        UserMaster::where('id', request('IDD'))
+            ->update($data);
+        return 1;
+    }
+
 
 
     public function activate_user()
@@ -231,5 +250,9 @@ class User_loginController extends Controller
         $user_data = UserMaster::find($id);
         return view('adminview.show_user_full', ['user_data' => $user_data]);
     }
-
+    public function user_details($id)
+    {
+        $user_data = UserMaster::find($id);
+        return view('adminview.show_user_details', ['user_data' => $user_data]);
+    }
 }

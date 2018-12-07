@@ -47,6 +47,7 @@
     .set_bill
     {
         width:400px;
+        margin: 20px auto;
     }
     .backgroud_my
     {

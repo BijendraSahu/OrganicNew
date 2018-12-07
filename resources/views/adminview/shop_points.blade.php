@@ -17,18 +17,22 @@
                          <button onclick="opendeliform();" class="btn btn-default pull-right"><i
                                      class="mdi mdi-plus"></i>Add</button>
                       </span>
-                                    <p class="clearfix"></p>
-                                    <table class="table table-striped">
+                                    <div class="col-md-3 pull-right">
+                                        <input id="myInput" class="form-control search_icon" placeholder="Search" onkeyup="GlobalsearchTable('shoppoint_tablebody')" type="text">
+                                    </div>
+                                    <table class="table table-striped table-bordered" id="myTable">
                                         <thead>
                                         <tr>
-                                            <th>City</th>
+                                            <th class="sorting" onclick="w3.sortHTML('#myTable','.item', 'td:nth-child(1)')">City
+                                                <i class="fa fa-sort"></i>
+                                                </th>
                                             <th>Shop Address</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="shoppoint_tablebody">
                                         @foreach($shop_points as $object)
-                                            <tr>
+                                            <tr class="item">
                                                 <td>{{$object->cityname->city}}</td>
                                                 <input type="hidden" value="{{$object->cityname->city}}"
                                                        id="cityname{{$object->id}}">

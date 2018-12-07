@@ -1,6 +1,6 @@
 @extends('adminlayout.adminmaster')
 
-@section('title','Dashboard')
+@section('title','All Items')
 
 @section('content')
 
@@ -151,22 +151,28 @@
             border: none !important;
         }
 
-        .container {
-            font-size: 16px !important;
+        .checkbox_box {
+            font-size: 12px;
             display: block;
             position: relative;
-            padding-left: 35px;
+            padding-left: 28px;
             margin-bottom: 12px;
             cursor: pointer;
-            font-size: 22px;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
         }
 
+        .category_chkblk {
+            display: inline-block;
+            width: 33%;
+            float: left;
+            margin-right: .3%;
+        }
+
         /* Hide the browser's default checkbox */
-        .container input {
+        .checkbox_box input {
             position: absolute;
             opacity: 0;
             cursor: pointer;
@@ -177,18 +183,18 @@
             position: absolute;
             top: 0;
             left: 0;
-            height: 25px;
-            width: 25px;
+            height: 18px;
+            width: 18px;
             background-color: #eee;
         }
 
         /* On mouse-over, add a grey background color */
-        .container:hover input ~ .checkmark {
+        .checkbox_box:hover input ~ .checkmark {
             background-color: #ccc;
         }
 
         /* When the checkbox is checked, add a blue background */
-        .container input:checked ~ .checkmark {
+        .checkbox_box input:checked ~ .checkmark {
             background-color: #2196F3;
         }
 
@@ -200,14 +206,14 @@
         }
 
         /* Show the checkmark when checked */
-        .container input:checked ~ .checkmark:after {
+        .checkbox_box input:checked ~ .checkmark:after {
             display: block;
         }
 
         /* Style the checkmark/indicator */
-        .container .checkmark:after {
-            left: 9px;
-            top: 5px;
+        .checkbox_box .checkmark:after {
+            left: 6px;
+            top: 3px;
             width: 5px;
             height: 10px;
             border: solid white;
@@ -216,6 +222,8 @@
             -ms-transform: rotate(45deg);
             transform: rotate(45deg);
         }
+
+
 
         .horiz {
             border: 1px solid #1b1a1a30;
@@ -248,6 +256,43 @@
             display: none;
         }
 
+        .category_container {
+            max-height: 150px;
+            overflow: auto;
+            width: 100%;
+            display: inline-block;
+        }
+
+        .title_box {
+            margin: 5px 0px;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .item_price_row {
+            position: relative;
+            padding-right: 35px;
+            width: 100%;
+            float: left;
+        }
+
+        .add_btn {
+            position: absolute;
+            width: 30px;
+            right: 0px;
+            top: 5px;
+        }
+
+        .small_padd {
+            padding: 0px 3px;
+        }
+
+        .upload_file {
+            border: solid thin #e6e6e6;
+            padding: 5px;
+            background: #f5f5f5;
+        }
+
     </style>
 
     <script type="text/javascript">
@@ -274,10 +319,7 @@
                 return true;
             }
         }
-
-
     </script>
-
     <section class="box_containner" id="fullid">
         <div class="container-fluid">
             <div class="row">
@@ -290,30 +332,28 @@
                          <button onclick="openAddform();" class="btn btn-default pull-right"><i
                                      class="mdi mdi-plus"></i>Add</button>
                       </span>
-                                    <p class="clearfix"></p>
-                                    <div class="col-md-6">
-                                        <select name="cat" onchange="mysearch();" id="Mycat" class="form-control">
-                                            <?php $catdata = \App\Categorymaster::where(['is_active' => '1'])->get();?>
-                                            <option value="">All</option>
-                                            @foreach($catdata as $mydata)
-                                                <option value="{{$mydata->id}}">{{$mydata->name}}</option>
-                                            @endforeach
-                                        </select>
+                                    <div class="row">
+                                        <div class="col-md-3 pull-right">
+                                            <input id='myInput' class="form-control search_icon" placeholder="Search"
+                                                   onkeyup='mysearch()' type='text'>
+                                        </div>
+                                        <div class="col-md-3 pull-right">
+                                            <select name="cat" onchange="mysearch();" id="Mycat" class="form-control">
+                                                <?php $catdata = \App\Categorymaster::where(['is_active' => '1'])->get();?>
+                                                <option value="">All</option>
+                                                @foreach($catdata as $mydata)
+                                                    <option value="{{$mydata->id}}">{{$mydata->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <input id='myInput' class="form-control" placeholder="search"
-                                               onkeyup='mysearch()' type='text'>
-                                    </div>
-
-
                                     <table id="myTable" class="table table-striped table-bordered" style="width:100%">
                                         <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-
+                                            <th class="name">Name</th>
+                                            <th>Description</th>
+                                            <th class="status_td">Status</th>
+                                            <th class="action_2btn">Action</th>
                                         </tr>
                                         </thead>
 
@@ -322,13 +362,13 @@
 
                                             <tr>
                                                 <input type="hidden" value="{{$itemobj->id}}">
-                                                <td>{{$itemobj->name}}</td>
+                                                <td class="name">{{$itemobj->name}}</td>
                                                 @if($itemobj->description=="")
-                                                    <td width="30%">Not Given</td>
+                                                    <td>Not Given</td>
                                                 @else
-                                                    <td width="30%">{!!$itemobj->description!!}</td>
+                                                    <td>{!!$itemobj->description!!}</td>
                                                 @endif
-                                                <td>@if($itemobj->is_active =='1')
+                                                <td class="status_td">@if($itemobj->is_active =='1')
                                                         <div class="status pending">Active</div>
                                                     @else
 
@@ -336,7 +376,7 @@
                                                     @endif
                                                 </td>
 
-                                                <td>
+                                                <td class="action_2btn">
                                                     <div class="btn-group">
                                                         <button type="button" class="btn btn-primary btn-sm action-btn"
                                                                 data-toggle="dropdown" aria-haspopup="true"
@@ -356,11 +396,11 @@
                                                             @if($itemobj->is_active =='1')
                                                                 <li><a href="#"
                                                                        onclick="deactivate_item({{$itemobj->id}});"><i
-                                                                                class="mdi mdi-delete optiondrop_icon"></i>Inactive</a>
+                                                                                class="mdi mdi-eye-off optiondrop_icon"></i>Inactive</a>
                                                             @else
                                                                 <li><a href="#"
                                                                        onclick="activatemy_item({{$itemobj->id}});"><i
-                                                                                class="mdi mdi-star optiondrop_icon"></i>Active</a>
+                                                                                class="mdi mdi-eye optiondrop_icon"></i>Active</a>
                                                                     @endif
                                                                 </li>
                                                                 <li><a href="#"
@@ -398,88 +438,109 @@
                                 <div class="upper_basic_heading heightset"><span class="white_dash_head_txt">
                          Add Items
                                         <button onclick="openlist();" class="btn btn-default pull-right"><i
-                                                    class="mdi mdi-back"></i>List</button>
+                                                    class="mdi mdi-content-duplicate"></i>List</button>
                       </span>
 
                                     <form action="{{url('/mypost')}}" method="post" id="userpostForm"
                                           enctype="multipart/form-data">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <input type="text" id="namemy" name="item_name" class="form-control"
-                                                       placeholder="Enter Item Name">
+                                        <div class="row main_form_container">
+                                            <div class="col-sm-6">
+                                                <div class="form_row">
+                                                    <input type="text" id="namemy"
+                                                           name="item_name" class="form-control"
+                                                           placeholder="Enter Item Name"/>
+                                                </div>
+                                                <div class="form_row">
+                                                <textarea class="form-control txtarea" id="item_specification"
+                                                          name="item_specification"
+                                                          placeholder="Enter Item Specification"></textarea>
+                                                </div>
+                                                <div class="form_row">
+                                                <textarea class="form-control txtarea" id="item_ingredients"
+                                                          name="item_ingredients"
+                                                          class="form-control txtarea"
+                                                          placeholder="Enter Item Ingredients"></textarea>
+                                                </div>
+                                                <div class="form_row">
+                                                <textarea id="item_nutrients" name="item_nutrients"
+                                                          class="form-control txtarea"
+                                                          placeholder="Enter Item Available Nutrients"></textarea>
+                                                </div>
+                                                <div class="form_row">
+                                                <textarea id="item_usage" name="item_usage"
+                                                          class="form-control txtarea"
+                                                          placeholder="Enter Item Usage"></textarea>
+                                                </div>
+                                                <div class="form_row">
+                                                <textarea name="item_delivery" placeholder="Enter Delivery Information"
+                                                          class="form-control txtarea"></textarea>
+                                                </div>
+                                                <div class="form_row">
+                                                    <input type="text" name="item_metatag" class="form-control"
+                                                           placeholder="Enter Meta Tag"/>
+                                                </div>
+                                                <div class="form_row">
+                                                    <input type="text" name="item_metakeyword" class="form-control"
+                                                           placeholder="Enter Meta Keyword"/>
+                                                </div>
+                                                <div class="form_row">
+                                                <textarea name="item_metadescription" class="form-control txtarea"
+                                                          placeholder="Enter Meta Description"></textarea>
+                                                </div>
+
                                             </div>
-                                        </div>
-                                        <div class="col-sm-12 form-group">
-
-                                            <div class="col-sm-6" onmouseleave="myfunctionis()">
-                                                <label>Description</label>
-                                                <div class="text_editor" id="txtEditor_myy"></div>
-                                                <input type="hidden" name="temp" id="temp" class="form-control">
-                                                <script>
-
-
-                                                    function myfunctionis() {
-                                                        var htm = $("#txtEditor_myy").Editor("getText");
-
-                                                        $('#temp').val(htm);
-                                                    }
-
-
-                                                </script>
-                                            </div>
-
-                                            <div class="col-sm-6 hh" style="">
-                                                <label>Select Categories</label>
-                                                <br>
-                                                @foreach($allcat as $object)
-                                                    <div class="col-sm-3">
-                                                        <label class="container">{{$object->name}}
-                                                            <input type="checkbox" name="category[]"
-                                                                   value="{{$object->id}}" id="CheckboxHead">
-                                                            <span class="checkmark"></span>
-                                                        </label>
+                                            <div class="col-sm-6">
+                                                <div class="form_row" onmouseleave="myfunctionis()">
+                                                    <div class="title_box">
+                                                        <label>Description</label>
                                                     </div>
-                                                @endforeach
+                                                    <div class="text_editor" id="txtEditor_myy"></div>
+                                                    <input type="hidden" name="temp" id="temp" class="form-control"/>
+                                                </div>
+                                                <div class="form_row">
+                                                    <div class="title_box">
+                                                        <label>Select Categories</label>
+                                                    </div>
+                                                    <div class="category_container style-scroll">
+                                                        @foreach($allcat as $object)
+                                                            <div class="category_chkblk">
+                                                                <label class="checkbox_box">{{$object->name}}
+                                                                    <input type="checkbox" name="category[]"
+                                                                           value="{{$object->id}}" id="CheckboxHead">
+                                                                    <span class="checkmark"></span>
+                                                                </label>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="title_box">
+                                                        <label>Select Brands</label>
+                                                    </div>
+                                                    @foreach($brands as $brand)
+                                                        <div class="category_chkblk">
+                                                            <label class="checkbox_box">{{$brand->brand}}
+                                                                <input type="checkbox" name="brand[]"
+                                                                       value="{{$brand->id}}" id="CheckboxHead">
+                                                                <span class="checkmark"></span>
+                                                            </label>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
                                             </div>
                                         </div>
-                                        <br>
-
-                                        <div class="col-sm-6 form-group">
-                                            <input type="text" id="item_specification" name="item_specification"
-                                                   class="form-control"
-                                                   placeholder="Enter Item Specification">
-                                        </div>
-                                        <div class="col-sm-6 form-group">
-                                            <input type="text" id="item_ingredients" name="item_ingredients"
-                                                   class="form-control"
-                                                   placeholder="Enter Item Ingredients">
-                                        </div>
-                                        <div class="col-sm-6 form-group">
-                                            <input type="text" id="item_nutrients" name="item_nutrients"
-                                                   class="form-control"
-                                                   placeholder="Enter Item Available Nutrients">
-                                        </div>
-
-                                        <div class="col-sm-6 form-group">
-
-                                            <input type="text" id="item_usage" name="item_usage"
-                                                   class="form-control"
-                                                   placeholder="Enter Item Usage">
-                                        </div>
-
-
-                                        <div>
-                                            <div class="form-group field_wrapper">
-                                                <label class="form-label">Enter Price Details<span
+                                        <div class="form-group field_wrapper">
+                                            <div class="title_box">
+                                                <label>Enter Price Details<span
                                                             style="color: red;">*</span></label>
-                                                <br>
-                                                <div class="col-sm-1 form-group">
-
+                                            </div>
+                                            <div class="item_price_row">
+                                                <div class="col-sm-1 small_padd">
                                                     <input type="text" class="form-control" id="unitismine"
                                                            name="unit[]" value=""
                                                            placeholder="Unit" required/>
                                                 </div>
-                                                <div class="col-sm-1 form-group">
+                                                <div class="col-sm-2 small_padd">
                                                     <select class="form-control" name="unit[]" id="weight">
                                                         <option value="Kg">Kg</option>
                                                         <option value="Gms">Gms</option>
@@ -487,84 +548,60 @@
                                                         <option value="ml">ml</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-sm-2 form-group">
+                                                <div class="col-sm-2 small_padd">
                                                     <input type="text" class="form-control" name="unit[]" value=""
                                                            placeholder="Cost price"/>
                                                 </div>
-                                                <div class="col-sm-2 form-group">
+                                                <div class="col-sm-2 small_padd">
                                                     <input type="text" class="form-control" name="unit[]" value=""
                                                            placeholder="Price" required/>
                                                 </div>
-                                                <div class="col-sm-2 form-group">
+                                                <div class="col-sm-2 small_padd">
                                                     <input type="text" class="form-control" name="unit[]" value=""
                                                            placeholder="Special Price"/>
                                                 </div>
-                                                <div class="col-sm-1 form-group">
+                                                <div class="col-sm-1 small_padd">
                                                     <input type="text" class="form-control" name="unit[]" value=""
                                                            placeholder="Qty" required/>
                                                 </div>
-                                                <div class="col-sm-2 form-group">
+                                                <div class="col-sm-2 small_padd">
                                                     <input type="text" class="form-control" name="unit[]" value=""
                                                            placeholder="Product Id" required/>
                                                 </div>
-                                                <div class="col-sm-1 form-group">
+                                                <div class="add_btn">
                                                     <a href="javascript:void(0);" class="addbtn add_button"
-                                                       name="price[]"
-                                                       title="Add field"><img src="{{url('assets/add-icon.png')}}"/></a>
+                                                       name="price[]" title="Add field">
+                                                        <img src="{{url('assets/add-icon.png')}}"/></a>
                                                 </div>
-                                                <p class="clearfix"></p>
+                                            </div>
+                                            <div class="append_div" id="append_div"></div>
+                                            {{--<div class="col-sm-1 form-group">--}}
+                                            {{--<a href="javascript:void(0);" class="addbtn add_button"--}}
+                                            {{--name="price[]"--}}
+                                            {{--title="Add field"><img src="{{url('assets/add-icon.png')}}"/></a>--}}
+                                            {{--</div>--}}
+
+                                        </div>
+
+                                        <div class="form-group field_wrapper">
+                                            <div class="title_box">
+                                                <label>Upload Image</label>
+                                            </div>
+                                            <input type="file" onchange="PreviewImage();" class="upload_file"
+                                                   multiple id="upload_file_image" name="file[]">
+                                            <div style="display: inline-block; width: 100%;" id="image_preview">
+
+                                            </div>
+                                            <div style="display: block;" id="files_block">
 
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 brand" style="">
-                                            <label>Select Brands</label>
-                                            <br>
-                                            @foreach($brands as $brand)
-                                                <div class="col-sm-3">
-                                                    <label class="container">{{$brand->brand}}
-                                                        <input type="checkbox" name="brand[]"
-                                                               value="{{$brand->id}}" id="CheckboxHead">
-                                                        <span class="checkmark"></span>
-                                                    </label>
-                                                </div>
-                                            @endforeach
-                                        </div>
-
-                                        <p class="clearfix"></p>
-                                        <p class="clearfix"></p>
-
-                                        <label>Upload Image</label> <input type="file" onchange="PreviewImage();"
-                                                                           multiple
-                                                                           id="upload_file_image" name="file[]">
-                                        <p class="clearfix"></p>
-                                        <div style="display: inline-block; width: 100%;" id="image_preview">
-
-                                        </div>
-                                        <div style="display: block;" id="files_block">
-
-                                        </div>
-
-
-                                        <div class="col-sm-6 form-group">
-
-                                            <input type="text" name="item_delivery" class="form-control"
-                                                   placeholder="Enter Delivery Information">
-                                        </div>
-                                        <div class="col-sm-6 form-group">
-                                            <input type="text" name="item_metatag" class="form-control"
-                                                   placeholder="Enter Meta Tag">
-                                        </div>
-                                        <div class="col-sm-6 form-group">
-                                            <input type="text" name="item_metakeyword" class="form-control"
-                                                   placeholder="Enter Meta Keyword">
-                                        </div>
-                                        <div class="col-sm-6 form-group">
-                                            <input type="text" name="item_metadescription" class="form-control"
-                                                   placeholder="Enter Meta Description">
-                                        </div>
-                                        <div class="col-sm-6 form-group">
-                                            <input type="submit" value="Add"
-                                                   class="btn btn-success">
+                                        <div class="col-sm-12 text-center form-group">
+                                            {{--<input type="submit" value="Add"--}}
+                                            {{--class="btn btn-success" />--}}
+                                            <button type="submit" class="btn btn-success"><i
+                                                        class="mdi mdi-send submit_icon_margin"></i>Add Items
+                                            </button>
                                         </div>
 
                                     </form>
@@ -576,55 +613,57 @@
                     </section>
 
                 </section>
-
-
             </div>
         </div>
     </section>
-
-
-
     {{--////////////////////////////////////////////////*****Start Menu 3******//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--}}
-
-
-    <script>
-
-
+    <script type="text/javascript">
+        var maxField = 4; //Input fields increment limitation
+        var addButton = $('.add_button'); //Add button selector
+        var wrapper = $('.append_div');
+        var x = 1;
+        var limit = 1;
         $(document).ready(function () {
-            $('#myTable').DataTable();
-            debugger;
-            var maxField = 4; //Input fields increment limitation
-            var addButton = $('.add_button'); //Add button selector
-            var wrapper = $('.field_wrapper'); //Input field wrapper
-            var fieldHTML = '<div class="append_div"><div class="col-sm-1 form-group"><input type="text" class="form-control" id="unitismine" name="unit[]" value=""placeholder="Unit" required/></div><div class="col-sm-1 form-group"><select class="form-control" name="unit[]" id="weight"><option value="Kg">Kg</option><option value="Gms">Gms</option><option value="Lt">Lt</option><option value="ml">ml</option></select></div><div class="col-sm-2 form-group"><input type="text" class="form-control" name="unit[]" value=""placeholder="Cost price" /></div><div class="col-sm-2 form-group"><input type="text" class="form-control" name="unit[]" value="" placeholder="Price"required/></div><div class="col-sm-2 form-group"><input type="text" class="form-control" name="unit[]" value=""placeholder="Special Price" /></div><div class="col-sm-1 form-group"><input type="text" class="form-control"name="unit[]" value="" placeholder="Qty"required/></div><div class="col-sm-2 form-group"><input type="text" class="form-control" name="unit[]" value=""placeholder="Product Id" required/></div><a href="javascript:void(0);" class="remove_button" title="Remove field"><img src="{{url('assets/remove-icon.png')}}"/></a><p class="clearfix"></p></div>'; //New input field html
-            var x = 1; //Initial field counter is 1
-            $(addButton).click(function () { //Once add button is clicked
-                if (x < maxField) { //Check maximum number of input fields
-                    x++; //Increment field counter
-                    $(wrapper).append(fieldHTML); // Add field html
+            var fieldHTML = '<div class="item_price_row"><div class="col-sm-1 small_padd"><input type="text" class="form-control" id="unitismine" name="unit[]" value=""placeholder="Unit" required/></div><div class="col-sm-2 small_padd"><select class="form-control" name="unit[]" id="weight"><option value="Kg">Kg</option><option value="Gms">Gms</option><option value="Lt">Lt</option><option value="ml">ml</option></select></div><div class="col-sm-2 small_padd"><input type="text" class="form-control" name="unit[]" value=""placeholder="Cost price" /></div><div class="col-sm-2 small_padd"><input type="text" class="form-control" name="unit[]" value="" placeholder="Price"required/></div><div class="col-sm-2 small_padd"><input type="text" class="form-control" name="unit[]" value=""placeholder="Special Price" /></div><div class="col-sm-1 small_padd"><input type="text" class="form-control"name="unit[]" value="" placeholder="Qty"required/></div><div class="col-sm-2 small_padd"><input type="text" class="form-control" name="unit[]" value=""placeholder="Product Id" required/></div><div class="add_btn" onclick="RemovePriceRow(this);"><a href="javascript:void(0);" class="remove_button" title="Remove Row"><img src="{{url('assets/remove-icon.png')}}"/></a></div></div>';
+            $(addButton).click(function () {
+                if (x < maxField) {
+                    x++;
+                    $(wrapper).append(fieldHTML);
                 }
             });
-            $(wrapper).on('click', '.remove_button', function (e) { //Once remove button is clicked
-                debugger;
-                e.preventDefault();
-                $(this).parent('.append_div').remove(); //Remove field html
-                x--; //Decrement field counter
+//            $(wrapper).on('click', '.remove_button', function (e) { //Once remove button is clicked
+//                e.preventDefault();
+//                $(this).parent('.append_div').remove(); //Remove field html
+//                x--; //Decrement field counter
+//            });
+            $('#open_modal').click(function () {
+                $('#myheader').html('');
+                $('#mybody').html('');
+                $('#myfooter').html('');
+                $('#myheader').append('<div><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Add Categories</h4></div>');
+                $('#mybody').append('<div class="panel-body dash_table_containner"><input type="text" class="form-control vRequiredTex" name="cat_name" placeholder="Enter Your Category Name " id="cat_name"><p class="clearfix"></p><textarea name="cat_description" id="cat_description" class="form-control vRequiredTex" rows="4" cols="50" placeholder="Enter Your Description "></textarea></p></div>');
+                $('#myfooter').append('<button id="add_btn" type="button" class="btn btn-default" data-dismiss="modal">Close</button><button onclick="validate();" class="btn btn-primary">Add</button>');
+                $('#myModal').modal();
             });
         });
-
-
+        function myfunctionis() {
+            var htm = $("#txtEditor_myy").Editor("getText");
+            $('#temp').val(htm);
+        }
+        function RemovePriceRow(dis) {
+            $(dis).parent().remove();
+            x--;
+        }
         function openAddform() {
             $('#item_form').show();
             $('#item_part1').hide();
 
         }
-
         function openlist() {
             $('#item_form').hide();
             $('#item_part1').show();
-
+            //window.history.go(-1);
         }
-
         function openMymo(id) {
 
             $('#myheader').html('');
@@ -649,12 +688,9 @@
                 }
             });
         }
-
         function aaoneeche() {
-
             location.reload();
         }
-
         function first() {
             $('#fir').show();
             $('#sec').hide();
@@ -662,7 +698,6 @@
             $('#for').hide();
             $('#fiv').hide();
         }
-
         function second() {
             var result = true;
             if (!Boolean(Requiredtxt("#namemy"))) {
@@ -683,7 +718,6 @@
 
 
         }
-
         function third() {
             var result = true;
             if (!Boolean(Requiredtxt("#item_specification") || !Boolean(Requiredtxt("#item_ingredients")) || !Boolean(Requiredtxt("#item_nutrients")) || !Boolean(Requiredtxt("#item_usage")))) {
@@ -701,7 +735,6 @@
             }
 
         }
-
         function fourth() {
             $('#fir').hide();
             $('#for').show();
@@ -711,7 +744,6 @@
 
 
         }
-
         function fifth() {
             $('#fir').hide();
             $('#for').hide();
@@ -721,9 +753,6 @@
 
 
         }
-
-        var limit = 1;
-
         function add_more() {
             if (limit < 4) {
                 $('#more_price').append('<div class="col-sm-3"><p class="clearfix"></p><input type="text" name="item_unit" class="form-control unit_id" placeholder="Enter Unit"> </div> <div class="col-sm-3"> <p class="clearfix"></p> <input type="text" name="item_qty" class="form-control qty_id" placeholder="Enter Quantity"> </div> <div class="col-sm-3"> <p class="clearfix"></p> <input type="text" name="item_price" class="form-control price_id" placeholder="Enter price"></div><div class="col-sm-3"><p class="clearfix"></p><input type="text" name="item_spclprice" class="form-control spc_id" placeholder="Enter Spcl price"> </div>');
@@ -738,8 +767,6 @@
 
             }
         }
-
-
         function getmycheck() {
             var getcid = [];
             var getqty = [];
@@ -796,53 +823,29 @@
 
 
         }
-
-
-        $(document).ready(function () {
-
-            $('#open_modal').click(function () {
-                $('#myheader').html('');
-                $('#mybody').html('');
-                $('#myfooter').html('');
-                $('#myheader').append('<div><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Add Categories</h4></div>');
-                $('#mybody').append('<div class="panel-body dash_table_containner"><input type="text" class="form-control vRequiredTex" name="cat_name" placeholder="Enter Your Category Name " id="cat_name"><p class="clearfix"></p><textarea name="cat_description" id="cat_description" class="form-control vRequiredTex" rows="4" cols="50" placeholder="Enter Your Description "></textarea></p></div>');
-                $('#myfooter').append('<button id="add_btn" type="button" class="btn btn-default" data-dismiss="modal">Close</button><button onclick="validate();" class="btn btn-primary">Add</button>');
-                $('#myModal').modal();
-            });
-        });
-
-
         function myFunction() {
             var x = document.getElementById("snackbar");
             x.className = "show";
             setTimeout(function () {
                 x.className = x.className.replace("show", "");
             }, 3000);
-
         }
-
         function abcd($id) {
             $('.edittable' + $id).attr('contenteditable', 'true');
             $('.edit' + $id).hide();
             $('.update' + $id).show();
-
         }
-
         function abcdd($id) {
             $('.edittable' + $id).attr('contenteditable', 'false');
             $('.edit' + $id).show();
             $('.update' + $id).hide();
-
         }
-
         function abcddd($id) {
             $('.edittable' + $id).attr('contenteditable', 'false');
             $('.edit' + $id).show();
             $('.update' + $id).hide();
             $('.hiderow' + $id).hide();
-
         }
-
         function update(dis, id) {
             var ID = id;
             var name = $(dis).parent().parent("#" + id).children('.name').html();
@@ -869,7 +872,6 @@
 
 
         }
-
         function deletecat(id) {
             var ID = id;
             $.ajax({
@@ -890,9 +892,8 @@
             });
 
         }
-
     </script>
-    <script>
+    <script type="text/javascript">
         function deactivate_item(id) {
             /*alert(id);*/
             var IDD = id;
@@ -927,7 +928,7 @@
             });
         }
     </script>
-    <script>
+    <script type="text/javascript">
 
         function mysearch() {
             var nameis = $('#myInput').val();

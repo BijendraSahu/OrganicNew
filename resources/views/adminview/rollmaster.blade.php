@@ -1,69 +1,11 @@
 @extends('adminlayout.adminmaster')
 
-@section('title','Dashboard')
+@section('title','Organic Dolchi | Staff')
 
 @section('content')
 
     <script src="{{url('js/my_validation.js')}}"></script>
     <style>
-        .hidealways {
-            display: none;
-        }
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
-        }
-
-        .switch input {display:none;}
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            -webkit-transition: .4s;
-            transition: .4s;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            -webkit-transition: .4s;
-            transition: .4s;
-        }
-
-        input:checked + .slider {
-            background-color: #2196F3;
-        }
-
-        input:focus + .slider {
-            box-shadow: 0 0 1px #2196F3;
-        }
-
-        input:checked + .slider:before {
-            -webkit-transform: translateX(26px);
-            -ms-transform: translateX(26px);
-            transform: translateX(26px);
-        }
-
-        /* Rounded sliders */
-        .slider.round {
-            border-radius: 34px;
-        }
-
-        .slider.round:before {
-            border-radius: 50%;
-        }
 
     </style>
 
@@ -76,47 +18,53 @@
                             <div class="dash_boxcontainner white_boxlist">
                                 <div class="upper_basic_heading"><span class="white_dash_head_txt">
                        Staff List
-                                        <button onclick="openmyform();" class="btn btn-default btn-sm pull-right"><i
+                                        <button onclick="GlobalHideShow('item_part2','item_part1');"
+                                                class="btn btn-default btn-sm pull-right"><i
                                                     class="mdi mdi-plus"></i>Add</button>
                       </span>
-                                    <?php $myrdata=\App\LoginModel::where(['is_active'=>1])->orderBy('id','desc')->get();?>
-                                    <p class="clearfix"></p>
-                                    <table class="table table-striped">
+                                    <?php $myrdata = \App\LoginModel::where(['is_active' => 1])->orderBy('id', 'desc')->get();?>
+                                    <div class="row">
+                                        <div class="col-md-3 pull-right">
+                                            <input id="myInput" class="form-control search_icon" placeholder="Search"
+                                                   onkeyup="GlobalsearchTable('roll_tablebody')" type="text">
+                                        </div>
+                                    </div>
+                                    <table class="table table-striped table-bordered" id="myTable">
                                         <thead>
                                         <tr>
-                                            <th width="10%">Image</th>
-                                            <th width="10%">Username</th>
-                                            {{--     <th width="50%"></th>--}}
-                                            <th width="20%">Roll Master</th>
-                                            <th width="50%">Select Menu</th>
-                                            <th width="10%">Action</th>
-
-
+                                            <th class="sorting"
+                                                onclick="w3.sortHTML('#myTable','.item', 'td:nth-child(1)')">Name
+                                                <i class="fa fa-sort"></i>
+                                            </th>
+                                            <th>Select Menu</th>
+                                            <th>Action</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="roll_tablebody">
                                         @foreach($myrdata as $obj)
-
-                                            <tr>
-                                                @if($obj->image==''||$obj->image==null)
-                                                    <td><img style="height: 90px;" src="{{url('du.png')}}"></td>
-                                                @else
-                                                <td><img style="height: 90px;" src="{{url('/admin_pic').'/'.$obj->id.'/'.$obj->image}}"></td>
-                                                @endif
+                                            <tr class="item">
+                                                {{--@if($obj->image==''||$obj->image==null)--}}
+                                                {{--<td><img style="height: 90px;" src="{{url('du.png')}}"></td>--}}
+                                                {{--@else--}}
+                                                {{--<td><img style="height: 90px;" src="{{url('/admin_pic').'/'.$obj->id.'/'.$obj->image}}"></td>--}}
+                                                {{--@endif--}}
                                                 <td>{{$obj->username}}</td>
-                                                <td>{{$obj->rm->roll}}</td>
+                                                {{--<td>{{$obj->rm->roll}}</td>--}}
                                                 <td>
-                                                    <?php $myalldata=\App\Menurolemodel::where(['user_id'=>$obj->id])->get();?>
+                                                    <?php $myalldata = \App\Menurolemodel::where(['user_id' => $obj->id])->get();?>
                                                     @foreach($myalldata as $myobj)
-                                                            <div class="col-md-4"><i class="mdi mdi-equal-box"></i>{{ucwords($myobj->mnmy->menu)}}</div>
-                                                        @endforeach
+                                                        <div class="menus_box"><i
+                                                                    class="mdi mdi-account-check"></i>{{ucwords($myobj->mnmy->menu)}}
+                                                        </div>
+                                                    @endforeach
 
                                                 </td>
-                                                <td><a href="{{url('/getfullrole').'/'.$obj->id}}"><input type="button" class="btn btn-primary btn-sm" value="Update"></a></td>
+                                                <td><a href="{{url('/getfullrole').'/'.$obj->id}}"><input type="button"
+                                                                                                          class="btn btn-primary btn-xs"
+                                                                                                          value="Update"></a>
+                                                </td>
                                             </tr>
                                         @endforeach
-
-
 
 
                                         </tbody>
@@ -130,59 +78,57 @@
                         </div>
                     </section>
                 </section>
-                <form action="{{url('/postrollmaster')}}" method="get">
-                <section id="item_part2">
+
+                <section id="item_part2" class="hidealways">
                     <section id="item_list">
-                        <div class="col-sm-12 col-md-12 col-xs-12">
+                        <div class="col-sm-12">
                             <div class="dash_boxcontainner white_boxlist">
                                 <div class="upper_basic_heading"><span class="white_dash_head_txt">
                        Add Staff Member
-                                        {{--<button onclick="openAddform();" class="btn btn-default pull-right"><i
-                                                    class="mdi mdi-plus"></i>Add</button>--}}
+                                        <button onclick="GlobalHideShow('item_part1','item_part2');"
+                                                class="btn btn-default pull-right"><i
+                                                    class="mdi mdi-content-duplicate"></i>List</button>
                       </span>
+                                    <form action="{{url('/postrollmaster')}}" method="get" id="rollinsert"
+                                          enctype="multipart/form-data" onsubmit="Checkvalidation();">
+                                        <div class="main_form_insert">
+                                            <input type="text" onkeyup="checkusername();" name="username"
+                                                   class="form-control" placeholder="Enter User Name" id="username">
+                                            <input type="password" name="password1" class="form-control"
+                                                   placeholder="Enter User Password" id="password">
+                                            {{--<input type="password" name="password2" class="form-control" placeholder="Enter Confirm Password">--}}
+                                            <div class="title_box">
+                                                <label>Select Menu :</label>
+                                            </div>
+                                            <?php $munudata = \App\Menumodel::where(['is_active' => 1])->get();?>
+                                            @foreach($munudata as $munudata1)
+                                                <div class="pretty p-icon p-rotate col-sm-2">
+                                                    <input value="{{$munudata1->id}}" type="checkbox" name="menuid[]"/>
+                                                    <div class="state p-success">
+                                                        <i class="icon mdi mdi-check"></i>
+                                                        <label>{{ucwords($munudata1->menu)}}</label>
 
-
-                                    <input type="text" onkeyup="checkusername();" name="username" class="form-control" placeholder="Enter User Name">
-
-
-
-
-
-
-
-                                    <input type="password" name="password1" class="form-control" placeholder="Enter User Password">
-                                    {{--<input type="password" name="password2" class="form-control" placeholder="Enter Confirm Password">--}}
-                                    <label>Select Menu :</label>
-                                    <p class="clearfix"></p>
-                                    <?php $munudata=\App\Menumodel::where(['is_active'=>1])->get();?>
-                                    @foreach($munudata as $munudata1)
-                                    <div style="margin-bottom: 15px;" class="pretty p-icon p-rotate col-sm-2">
-                                        <input value="{{$munudata1->id}}" type="checkbox" name="menuid[]" />
-                                        <div class="state p-success">
-                                            <i class="icon mdi mdi-check"></i>
-
-                                            <label>{{ucwords($munudata1->menu)}}</label>
-
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                            <div class="row col-sm-12 text-center form-group">
+                                                <hr/>
+                                                <button type="submit" name="submit" class="btn btn-success"><i
+                                                            class="mdi mdi-send submit_icon_margin"></i>Submit
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    @endforeach
-
-
+                                    </form>
                                 </div>
-                                <input type="submit" name="submit" class="btn btn-primary btn-block">
-                                </br>
                             </div>
                         </div>
                     </section>
                 </section>
-                </form>
             </div>
         </div>
 
         <div class="modal fade" id="myModalR" role="dialog">
             <div class="modal-dialog">
-
-                <!-- Modal content-->
                 <div class="modal-content">
                     <div id="Rh" class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -198,34 +144,53 @@
 
             </div>
         </div>
-
-
-
-
-
     </section>
-
-    <script>
-
-
-
-        function openmyform()
-        {
+    <script type="text/javascript">
+        function openmyform() {
             $("#item_part1").addClass("hidealways");
             $("#item_part2").removeClass("hidealways");
         }
-        function openlist()
-        {
+        function openlist() {
             $("#item_part1").removeClass("hidealways");
             $("#item_part2").addClass("hidealways");
         }
+        function Checkvalidation() {
+            debugger;
+            var is_valid = true;
+            if ($('#username').val() == '') {
+                alert('username is requird');
+                is_valid = false;
+                return;
+            }
+            if ($('#password').val() == '') {
+                alert('username is requird');
+                is_valid = false;
+                return;
+            }
+            if (is_valid == false) {
+                return false;
+                return;
+            } else {
 
-    </script>
-
-    <script>
-
-        functio
-
+            }
+        }
+        //        $(document).ready(function () {
+        //         $('#rollinsert').submit(function () {
+        //             debugger;
+        //             var is_valid=true;
+        //             if ($('#username').val() == '') {
+        //                 alert('username is requird');
+        //                 is_valid=false
+        //             }
+        //             if ($('#password').val() == '') {
+        //                 alert('username is requird');
+        //                 is_valid=false
+        //             }
+        //             if (is_valid==false){
+        //                 return false;
+        //             }
+        //            });
+        //        });
     </script>
 @stop
 {{--$("#myroll").load(location.href + " #myroll");--}}
