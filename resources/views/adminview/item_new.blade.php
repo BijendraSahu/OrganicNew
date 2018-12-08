@@ -506,7 +506,7 @@
                                                             <div class="category_chkblk">
                                                                 <label class="checkbox_box">{{$object->name}}
                                                                     <input type="checkbox" name="category[]"
-                                                                           value="{{$object->id}}" id="CheckboxHead">
+                                                                           value="{{$object->id}}" id="category_chk{{$object->id}}">
                                                                     <span class="checkmark"></span>
                                                                 </label>
                                                             </div>
@@ -521,7 +521,7 @@
                                                         <div class="category_chkblk">
                                                             <label class="checkbox_box">{{$brand->brand}}
                                                                 <input type="checkbox" name="brand[]"
-                                                                       value="{{$brand->id}}" id="CheckboxHead">
+                                                                       value="{{$brand->id}}" id="CheckboxHead_{{$brand->id}}">
                                                                 <span class="checkmark"></span>
                                                             </label>
                                                         </div>

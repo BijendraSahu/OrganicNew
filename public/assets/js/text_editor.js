@@ -1055,27 +1055,27 @@
                 }
             }
 
-            //For contextmenu
-            $(document.body).mousedown(function(event) {
-                var target = $(event.target);
-                if (!target.parents().andSelf().is('#context-menu')) { // Clicked outside
-                    $('#context-menu').remove();
-                }
-                if (!target.parents().andSelf().is('#specialchar') && (target.closest('a').html()!='<i class="fa fa-asterisk"></i>')) { //Clicked outside
-                    if($("#specialchar").is(':visible'))
-                    {
-                        $(editor_Content).data("editor").data("splcharsBtn", null);
-                        $('#specialchar').remove();
-                    }
-                }
-                if (!target.parents().andSelf().is('#paletteCntr') && (target.closest('a').html()!='<i class="fa fa-font"></i>')) { //Clicked outside
-                    if($("#paletteCntr").is(':visible'))
-                    {
-                        $(editor_Content).data("editor").data("colorBtn", null);
-                        $('#paletteCntr').remove();
-                    }
-                }
-            });
+            //For contextmenu  Comment by pinku because error occer in all pages on click anywhere
+            // $(document.body).mousedown(function(event) {
+            //     var target = $(event.target);
+            //     if (!target.parents().andSelf().is('#context-menu')) { // Clicked outside
+            //         $('#context-menu').remove();
+            //     }
+            //     if (!target.parents().andSelf().is('#specialchar') && (target.closest('a').html()!='<i class="fa fa-asterisk"></i>')) { //Clicked outside
+            //         if($("#specialchar").is(':visible'))
+            //         {
+            //             $(editor_Content).data("editor").data("splcharsBtn", null);
+            //             $('#specialchar').remove();
+            //         }
+            //     }
+            //     if (!target.parents().andSelf().is('#paletteCntr') && (target.closest('a').html()!='<i class="fa fa-font"></i>')) { //Clicked outside
+            //         if($("#paletteCntr").is(':visible'))
+            //         {
+            //             $(editor_Content).data("editor").data("colorBtn", null);
+            //             $('#paletteCntr').remove();
+            //         }
+            //     }
+            // });
             editor.bind("contextmenu", function(e){
                 if($('#context-menu').length)
                     $('#context-menu').remove();

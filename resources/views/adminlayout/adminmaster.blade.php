@@ -14,8 +14,10 @@
     <link rel="stylesheet" href="{{url('assets/css/Dashboard.css')}}"/>
     <link rel="stylesheet" href="{{url('assets/css/Autocomplete.css')}}"/>
     <link rel="stylesheet" href="{{url('assets/css/media.css')}}"/>
+    <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet"/>
     {{--<link rel="stylesheet" href="{{url('assets/css/w3.css')}}"/>--}}
-    <link rel="stylesheet" href="{{url('assets/css/form-wizard-green.css')}}">
+  {{--  <link rel="stylesheet" href="{{url('assets/css/form-wizard-green.css')}}">--}}
     {{--<link rel="stylesheet" href="{{url('assets/css/dataTables.bootstrap.min.css')}}"/>--}}
     <link rel="stylesheet" href="{{url('assets/css/text_editor.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
@@ -28,16 +30,23 @@
     <script src="{{url('js/Sorting.js')}}"></script>
     {{--<script src="{{url('assets/js/jquery.dataTables.min.js')}}"></script>--}}
     {{--<script src="{{url('assets/js/dataTables.bootstrap.min.js')}}"></script>--}}
-
-
     <script type="text/javascript">
         function GetandSetOnEditor() {
             var htm = $("#txtEditor").Editor("getText");
-            alert(htm);
+            //alert(htm);
             /* var sethtm = $(grandPar).html();
              $("#txtEditor").Editor("setText", sethtm);*/
         }
-
+        function HideTranparent() {
+            $('.overlay_res').fadeOut();
+            $('.dash_sidemenu').removeClass('dash_sidemenu_show');
+            $('body').css('overflow', 'auto');
+        }
+        function ResponsiveMenuClick() {
+            $('.overlay_res').fadeIn();
+            $('.dash_sidemenu').addClass('dash_sidemenu_show');
+            $('body').css('overflow', 'hidden');
+        }
         $(document).ready(function () {
             $(function () {
                 $('[data-toggle="tooltip"]').tooltip()
@@ -46,46 +55,6 @@
                 $(this).Editor();
             });
             //$(".text_editor").Editor();
-        });
-    </script>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip()
-            });
-        });
-    </script>
-    <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet"/>
-    <script type="text/javascript">
-        function HideTranparent() {
-            $('.overlay_res').fadeOut();
-            $('.dash_sidemenu').removeClass('dash_sidemenu_show');
-            $('body').css('overflow', 'auto');
-        }
-
-        function ResponsiveMenuClick() {
-
-            $('.overlay_res').fadeIn();
-            $('.dash_sidemenu').addClass('dash_sidemenu_show');
-            $('body').css('overflow', 'hidden');
-        }
-
-        $(document).ready(function () {
-            /*date Picker*/
-            /* $('.glo_date').datepicker({
-             format: 'dd-M-yyyy', autoclose: true
-             }).on('changeDate', function (event) {
-             if ($('#date_of_birth').val() != "") {
-             $("#date_of_birth").removeClass('vErrorRed');
-             }
-             });
-             /!*-----Time Picker-----*!/
-             $('.glo_timepicker').timepicker();
-             /!*--------Autocomplete ------*!/
-             $('.Glo_autocomplete').select2();
-             /!*----Header Tooltip--------*!/*/
             // Tooltip jquery
             $('.Glo_autocomplete').select2();
             $('.grid_title').hover(function () {
@@ -102,7 +71,6 @@
                 $('.icon_tp').hide();
             });
         });
-
         function MenuClick(dis) {
             $('.dash_sub_menu').slideUp();
             $('.right_menu_li').find('i').removeClass('mdi-chevron-down');
@@ -118,279 +86,9 @@
                 $(dis).find('i').addClass('mdi-chevron-down');
             }
         }
-
         function GridHeaderCheck(dis) {
             $('input[type="checkbox"]').prop("checked", $(dis).prop("checked"));
         }
-    </script>
-    <style>
-        .fab {
-            cursor: pointer;
-        }
-
-        .fab-backdrop {
-            color: rgba(255, 255, 255, 0);
-        }
-
-        .fab-primary, .fab-secondary {
-            transition: all 0.35s ease-in-out;
-        }
-
-        .fab.active .fab-primary {
-            opacity: 0;
-            transform: rotate(225deg);
-        }
-
-        .fab-secondary {
-            opacity: 0;
-            transform: rotate(-225deg);
-        }
-
-        .fab.active .fab-secondary {
-            opacity: 1;
-            transform: rotate(0);
-            margin-top: -2px;
-        }
-
-        #inbox .show-on-hover:hover > ul.dropdown-menu {
-            display: block;
-
-        }
-
-        #inbox .show-on-hover {
-            position: fixed;
-            bottom: 20px;
-            right: 30px;
-            z-index: 9999;
-        }
-
-        #inbox .btn-io {
-            border-radius: 50%;
-            height: 54px;
-            width: 54px;
-            padding: 0 !important;
-            box-shadow: 0px 3px 7px 0px rgba(202, 124, 124, 0.72);
-        }
-
-        #inbox .dropup .dropdown-menu, .navbar-fixed-bottom .dropdown .dropdown-menu {
-            top: auto;
-            bottom: 100%;
-            margin-bottom: 1px;
-            margin-bottom: -5px;
-            padding-bottom: 30px;
-        }
-
-        #inbox .dropdown-menu-right {
-            right: 0 !Important;
-            left: auto !Important;
-        }
-
-        #inbox .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            z-index: 1000;
-            display: none;
-            float: left;
-            min-width: 50px;
-            padding: 5px 0;
-            margin: 2px 0 0;
-            font-size: 14px;
-            text-align: center;
-            list-style: none;
-            background-color: rgba(255, 255, 255, 0) !Important;
-            -webkit-background-clip: padding-box;
-            background-clip: padding-box;
-            border: none;
-            border-radius: 0px;
-            -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0) !Important;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0) !Important;
-        }
-
-        #inbox .fa-iox {
-            font-size: 22px;
-        }
-
-        #inbox .dropdown-menu > li > a {
-            display: block;
-            padding: 0;
-            padding-top: 4px;
-            margin-top: 20px;
-            clear: both;
-            font-weight: normal;
-            line-height: 1.42857143;
-            color: #333;
-            background: #fff;
-            white-space: nowrap;
-            width: 40px;
-            height: 40px;
-            border: solid 1px #ccc;
-            border-radius: 50px;
-            font-size: 21px;
-            box-shadow: 0px 3px 7px 0px rgba(203, 203, 203, 0.72);
-        }
-
-        #inbox .dropdown-menu > li:first-child > a {
-            background: #c67fd6 !important;
-            color: #fff !important;
-        }
-
-        #inbox .dropdown-menu > li:last-child > a {
-            background: #D3A516;
-            color: #fff;
-        }
-
-        #inbox .dropdown-menu > li:nth-child(3) > a {
-            background: #3C80F6;
-            color: #fff;
-        }
-
-        #inbox .dropdown-menu > li:nth-child(2) > a {
-            background: #2CAC26;
-            color: #fff;
-        }
-
-        #inbox .fa-iosm {
-
-            margin-top: 7px;
-        }
-
-        #snackbar {
-            visibility: hidden;
-            min-width: 250px;
-            margin-left: -125px;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            border-radius: 2px;
-            padding: 16px;
-            position: fixed;
-            z-index: 55;
-            left: 11%;
-            bottom: 22px;
-            border-radius: 14px;
-            font-size: 17px;
-        }
-
-        #snackbar.show {
-            visibility: visible;
-            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-            animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        }
-
-        @-webkit-keyframes fadein {
-            from {
-                bottom: 0;
-                opacity: 0;
-            }
-            to {
-                bottom: 22px;
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadein {
-            from {
-                bottom: 0;
-                opacity: 0;
-            }
-            to {
-                bottom: 22px;
-                opacity: 1;
-            }
-        }
-
-        @-webkit-keyframes fadeout {
-            from {
-                bottom: 22px;
-                opacity: 1;
-            }
-            to {
-                bottom: 0;
-                opacity: 0;
-            }
-        }
-
-        @keyframes fadeout {
-            from {
-                bottom: 22px;
-                opacity: 1;
-            }
-            to {
-                bottom: 0;
-                opacity: 0;
-            }
-        }
-
-        .btn_center {
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        .update_btn {
-            display: none;
-        }
-
-        .label_checkbox {
-            display: inline-block;
-        }
-
-        .label_checkbox .cr {
-            margin: 0px 5px;
-        }
-
-        .newrow {
-            background: #1e81cd52 !important;
-        }
-
-        .border_none {
-            border: none !important;
-        }
-
-        .valmy {
-            border: 2px solid red;
-            background-color: #dc464629;
-        }
-
-        .pcb {
-            overflow-y: scroll;
-            overflow-x: initial;
-        }
-
-        .pcb::-webkit-scrollbar {
-            display: none;
-        }
-
-        .hidealways {
-            display: none;
-        }
-
-        .image-preview-input {
-            position: relative;
-            overflow: hidden;
-            margin: 0px;
-            color: #333;
-            background-color: #fff;
-            border-color: #ccc;
-        }
-
-        .image-preview-input input[type=file] {
-            position: absolute;
-            top: 0;
-            right: 0;
-            margin: 0;
-            padding: 0;
-            font-size: 20px;
-            cursor: pointer;
-            opacity: 0;
-            filter: alpha(opacity=0);
-        }
-
-        .image-preview-input-title {
-            margin-left: 2px;
-        }
-    </style>
-    <script>
         function myFunction() {
             var x = document.getElementById("snackbar");
             x.className = "show";
@@ -399,8 +97,6 @@
             }, 3000);
 
         }
-    </script>
-    <script type="text/javascript">
         function toggleFullScreen(elem) {
             if ((document.fullScreenElement !== undefined && document.fullScreenElement === null) || (document.msFullscreenElement !== undefined && document.msFullscreenElement === null) || (document.mozFullScreen !== undefined && !document.mozFullScreen) || (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)) {
                 if (elem.requestFullScreen) {
@@ -430,7 +126,6 @@
                 $('#fixed_nav').removeClass('on_fullscreen_fixed');
             }
         }
-
         function MenuShift(dis) {
             var checkclass = $('#page_body').attr('class');
             if (checkclass == "body_color") {
@@ -445,15 +140,13 @@
                 $(dis).css('left', '216px');
             }
         }
-    </script>
-    <script type="text/javascript">
         function settings() {
             var id = 2;
             $('#myheader').html('');
             $('#mybody').html('');
             $('#myfooter').html('');
-            $('#myheader').html('<b>Update Profile</b> <button type="button" class="close" onclick="aaoneeche();"  data-dismiss="modal">&times;</button>');
-            $('#myfooter').html('<button type="button" onclick="aaoneeche();" class="btn btn-default" data-dismiss="modal">Close</button>');
+            $('#myheader').html('<b>Update Profile</b> <button type="button" class="close" data-dismiss="modal">&times;</button>');
+            $('#myfooter').html('<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>');
             var editurl = '{{ url('settings') }}' + '/' + id;
             $.ajax({
                 type: "GET",
@@ -472,80 +165,7 @@
             });
         }
     </script>
-    <style>
-        .abc {
-            position: fixed;
-            z-index: 1000;
-            left: 216px;
-        }
-
-        .loader {
-            height: 4px;
-            width: 100%;
-            position: relative;
-            overflow: hidden;
-            background-color: #ddd;
-        }
-
-        .loader:before {
-            display: block;
-            position: absolute;
-            content: "";
-            left: -200px;
-            width: 200px;
-            z-index: 1000;
-            height: 4px;
-            background-color: #f10748;
-            -webkit-animation: loading 2s linear infinite;
-            animation: loading 2s linear infinite;
-        }
-
-        @-webkit-keyframes loading {
-            from {
-                left: -200px;
-                width: 30%;
-            }
-            50% {
-                width: 30%;
-            }
-            70% {
-                width: 70%;
-            }
-            80% {
-                left: 50%;
-            }
-            95% {
-                left: 120%;
-            }
-            to {
-                left: 100%;
-            }
-        }
-
-        @keyframes loading {
-            from {
-                left: -200px;
-                width: 30%;
-            }
-            50% {
-                width: 30%;
-            }
-            70% {
-                width: 70%;
-            }
-            80% {
-                left: 50%;
-            }
-            95% {
-                left: 120%;
-            }
-            to {
-                left: 100%;
-            }
-        }
-    </style>
 </head>
-
 <body class="body_color" id="page_body">
 <div id="myloaderid" class="loader"></div>
 <nav class="top_navigationbar" id="fixed_nav">
@@ -565,8 +185,8 @@
                              Edit Profile
                          </a>
                      </div>--}}
-                    <div class="menu_popup_settingrow effect">
-                        <a href="#" onclick="settings()" class="menu_setting_row">
+                    <div class="menu_popup_settingrow effect" onclick="settings()">
+                        <a href="#"  class="menu_setting_row">
                             <i class="mdi mdi-account-settings-variant global_color"></i>
                             Setting
                         </a>
@@ -755,7 +375,7 @@
 </div>
 <div id="inbox">
     <div class="fab btn-group show-on-hover dropup">
-        <div data-toggle="tooltip" data-placement="left" title="Compose">
+        <div data-toggle="tooltip" data-placement="left" title="Shortcut">
             <button type="button" class="btn btn-danger btn-io dropdown-toggle" data-toggle="dropdown">
             <span class="fa-stack fa-2x">
                 <i class="fa fa-circle fa-stack-2x fab-backdrop"></i>
@@ -776,8 +396,6 @@
         </ul>
     </div>
 </div>
-
-
 <div class="modal fade" id="myModalsmall" role="dialog">
     <div class="modal-dialog modal-sm">
         <div class="modal-content" style="width:435px;">
@@ -795,7 +413,6 @@
     </div>
 </div>
 <?php $loginUser = \App\LoginModel::find($_SESSION['admin_master']['id']); ?>
-
 <aside class="dash_sidemenu pcb">
     <div class="shift_iconbox abc" onclick="MenuShift(this);">
         <i class="mdi mdi-arrow-left-bold right_show"></i>
@@ -813,13 +430,8 @@
             {{--<span class="dash_designation">Admin</span>--}}
         </div>
     </div>
-    <ul class="list-group dash_menu_ul">
-
+    <ul class="list-group dash_menu_ul style-scroll">
         <?php $mymenuroll = \App\Menurolemodel::where(['user_id' => $_SESSION['admin_master']->id])->get();?>
-
-
-
-
         @foreach($mymenuroll as $mymenurollone)
             @if($mymenurollone->menu_id==1)
                 <li class="right_menu_li">
@@ -1086,14 +698,11 @@
             </ul>
         </li>--}}
     </ul>
-
 </aside>
 @yield('content')
-
 <div class="overlay_res" onclick="HideTranparent();"></div>
 <div id="snackbar">New Categories added Successfully</div>
 <script type="text/javascript">
-
     $(document).ready(function () {
         $('#myloaderid').hide();
     });
@@ -1130,7 +739,6 @@
         $('#' + show_this).show();
     }
 </script>
-
 @if(session()->has('message'))
     <script type="text/javascript">
         setTimeout(function () {
@@ -1161,6 +769,5 @@
         }
     </script>
 @endif
-
 </body>
 </html>

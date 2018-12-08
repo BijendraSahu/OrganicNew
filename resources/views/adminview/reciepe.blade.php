@@ -293,14 +293,14 @@
             $("#item_part2").addClass("hidealways");
         }
         function viewmore(dis, id) {
-            debugger;
+            $('#view_more').html('');
+            $('#view_more').append('<div class="append_loadimg"><img class="loader_main" src="{{url('assets/images/1L.gif')}}"/></div>');
             $.get('{{url('viewmore_recipe')}}', {id: id}, function (data) {
                 console.log(data);
                 if (data == '') {
                     console.log(data)
                 }
                 else {
-
                     $('#view_more').html('');
                     $('#view_more').html(data);
                 }
